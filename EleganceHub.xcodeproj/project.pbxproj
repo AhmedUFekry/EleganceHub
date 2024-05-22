@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3BC297D75085200E575E3889 /* Pods_EleganceHub_EleganceHubUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5380FBCB266D4065C010708 /* Pods_EleganceHub_EleganceHubUITests.framework */; };
+		78E6C913A67E1D0956C26FF0 /* Pods_EleganceHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C949754F3348588708BF29C /* Pods_EleganceHub.framework */; };
+		7F359E8A2BFE9CFC00D0D733 /* TabBarCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F359E892BFE9CFC00D0D733 /* TabBarCorners.swift */; };
 		C88C205D2BFE8CAF00886365 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C205C2BFE8CAF00886365 /* AppDelegate.swift */; };
 		C88C205F2BFE8CAF00886365 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C205E2BFE8CAF00886365 /* SceneDelegate.swift */; };
 		C88C20612BFE8CAF00886365 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C20602BFE8CAF00886365 /* ViewController.swift */; };
@@ -16,6 +19,7 @@
 		C88C20742BFE8CB600886365 /* EleganceHubTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C20732BFE8CB600886365 /* EleganceHubTests.swift */; };
 		C88C207E2BFE8CB600886365 /* EleganceHubUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C207D2BFE8CB600886365 /* EleganceHubUITests.swift */; };
 		C88C20802BFE8CB600886365 /* EleganceHubUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C207F2BFE8CB600886365 /* EleganceHubUITestsLaunchTests.swift */; };
+		DC68DABB496FAAF0D90B9526 /* Pods_EleganceHubTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DC1630ABF143E093FFAB7C0 /* Pods_EleganceHubTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +40,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0DC1630ABF143E093FFAB7C0 /* Pods_EleganceHubTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EleganceHubTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1BE2F76C89CB56A6C91EF8B7 /* Pods-EleganceHubTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EleganceHubTests.debug.xcconfig"; path = "Target Support Files/Pods-EleganceHubTests/Pods-EleganceHubTests.debug.xcconfig"; sourceTree = "<group>"; };
+		3C949754F3348588708BF29C /* Pods_EleganceHub.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EleganceHub.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7F359E892BFE9CFC00D0D733 /* TabBarCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCorners.swift; sourceTree = "<group>"; };
+		8742FAA0010C6E09FF4C59DC /* Pods-EleganceHubTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EleganceHubTests.release.xcconfig"; path = "Target Support Files/Pods-EleganceHubTests/Pods-EleganceHubTests.release.xcconfig"; sourceTree = "<group>"; };
+		8964028234E4E728CF2EA612 /* Pods-EleganceHub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EleganceHub.debug.xcconfig"; path = "Target Support Files/Pods-EleganceHub/Pods-EleganceHub.debug.xcconfig"; sourceTree = "<group>"; };
+		B6B004924D3376DD4DE18E35 /* Pods-EleganceHub-EleganceHubUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EleganceHub-EleganceHubUITests.debug.xcconfig"; path = "Target Support Files/Pods-EleganceHub-EleganceHubUITests/Pods-EleganceHub-EleganceHubUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		C88C20592BFE8CAF00886365 /* EleganceHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EleganceHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C88C205C2BFE8CAF00886365 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C88C205E2BFE8CAF00886365 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +60,9 @@
 		C88C20792BFE8CB600886365 /* EleganceHubUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EleganceHubUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C88C207D2BFE8CB600886365 /* EleganceHubUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EleganceHubUITests.swift; sourceTree = "<group>"; };
 		C88C207F2BFE8CB600886365 /* EleganceHubUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EleganceHubUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		D3FA8F1ACF453A7E799A0792 /* Pods-EleganceHub.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EleganceHub.release.xcconfig"; path = "Target Support Files/Pods-EleganceHub/Pods-EleganceHub.release.xcconfig"; sourceTree = "<group>"; };
+		EB8234701D34F1C511068448 /* Pods-EleganceHub-EleganceHubUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EleganceHub-EleganceHubUITests.release.xcconfig"; path = "Target Support Files/Pods-EleganceHub-EleganceHubUITests/Pods-EleganceHub-EleganceHubUITests.release.xcconfig"; sourceTree = "<group>"; };
+		F5380FBCB266D4065C010708 /* Pods_EleganceHub_EleganceHubUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EleganceHub_EleganceHubUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				78E6C913A67E1D0956C26FF0 /* Pods_EleganceHub.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC68DABB496FAAF0D90B9526 /* Pods_EleganceHubTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,12 +86,52 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BC297D75085200E575E3889 /* Pods_EleganceHub_EleganceHubUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		243E6118410299118C4FF905 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8964028234E4E728CF2EA612 /* Pods-EleganceHub.debug.xcconfig */,
+				D3FA8F1ACF453A7E799A0792 /* Pods-EleganceHub.release.xcconfig */,
+				B6B004924D3376DD4DE18E35 /* Pods-EleganceHub-EleganceHubUITests.debug.xcconfig */,
+				EB8234701D34F1C511068448 /* Pods-EleganceHub-EleganceHubUITests.release.xcconfig */,
+				1BE2F76C89CB56A6C91EF8B7 /* Pods-EleganceHubTests.debug.xcconfig */,
+				8742FAA0010C6E09FF4C59DC /* Pods-EleganceHubTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		7F359E8D2BFEA9DA00D0D733 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				7F359E8E2BFEA9EE00D0D733 /* View */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		7F359E8E2BFEA9EE00D0D733 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7F359E892BFE9CFC00D0D733 /* TabBarCorners.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C5A3624C3FE1D3767CFF1C42 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3C949754F3348588708BF29C /* Pods_EleganceHub.framework */,
+				F5380FBCB266D4065C010708 /* Pods_EleganceHub_EleganceHubUITests.framework */,
+				0DC1630ABF143E093FFAB7C0 /* Pods_EleganceHubTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C88C20502BFE8CAF00886365 = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +139,8 @@
 				C88C20722BFE8CB600886365 /* EleganceHubTests */,
 				C88C207C2BFE8CB600886365 /* EleganceHubUITests */,
 				C88C205A2BFE8CAF00886365 /* Products */,
+				243E6118410299118C4FF905 /* Pods */,
+				C5A3624C3FE1D3767CFF1C42 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,6 +157,7 @@
 		C88C205B2BFE8CAF00886365 /* EleganceHub */ = {
 			isa = PBXGroup;
 			children = (
+				7F359E8D2BFEA9DA00D0D733 /* Home */,
 				C88C205C2BFE8CAF00886365 /* AppDelegate.swift */,
 				C88C205E2BFE8CAF00886365 /* SceneDelegate.swift */,
 				C88C20602BFE8CAF00886365 /* ViewController.swift */,
@@ -134,9 +193,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C88C20832BFE8CB600886365 /* Build configuration list for PBXNativeTarget "EleganceHub" */;
 			buildPhases = (
+				D6387059794D1B35B6E9D293 /* [CP] Check Pods Manifest.lock */,
 				C88C20552BFE8CAF00886365 /* Sources */,
 				C88C20562BFE8CAF00886365 /* Frameworks */,
 				C88C20572BFE8CAF00886365 /* Resources */,
+				CDBCBBB35D758B16A432EBD0 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -151,6 +212,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C88C20862BFE8CB600886365 /* Build configuration list for PBXNativeTarget "EleganceHubTests" */;
 			buildPhases = (
+				50F5D75F8DF2EF083F5ABFF9 /* [CP] Check Pods Manifest.lock */,
 				C88C206B2BFE8CB500886365 /* Sources */,
 				C88C206C2BFE8CB500886365 /* Frameworks */,
 				C88C206D2BFE8CB500886365 /* Resources */,
@@ -169,9 +231,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C88C20892BFE8CB600886365 /* Build configuration list for PBXNativeTarget "EleganceHubUITests" */;
 			buildPhases = (
+				88A633337D8169E5A34EDE93 /* [CP] Check Pods Manifest.lock */,
 				C88C20752BFE8CB600886365 /* Sources */,
 				C88C20762BFE8CB600886365 /* Frameworks */,
 				C88C20772BFE8CB600886365 /* Resources */,
+				77575E82D5A8B336CA5F4864 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -253,6 +317,109 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		50F5D75F8DF2EF083F5ABFF9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-EleganceHubTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		77575E82D5A8B336CA5F4864 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EleganceHub-EleganceHubUITests/Pods-EleganceHub-EleganceHubUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EleganceHub-EleganceHubUITests/Pods-EleganceHub-EleganceHubUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EleganceHub-EleganceHubUITests/Pods-EleganceHub-EleganceHubUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		88A633337D8169E5A34EDE93 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-EleganceHub-EleganceHubUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CDBCBBB35D758B16A432EBD0 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EleganceHub/Pods-EleganceHub-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EleganceHub/Pods-EleganceHub-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EleganceHub/Pods-EleganceHub-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D6387059794D1B35B6E9D293 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-EleganceHub-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		C88C20552BFE8CAF00886365 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -260,6 +427,7 @@
 			files = (
 				C88C20612BFE8CAF00886365 /* ViewController.swift in Sources */,
 				C88C205D2BFE8CAF00886365 /* AppDelegate.swift in Sources */,
+				7F359E8A2BFE9CFC00D0D733 /* TabBarCorners.swift in Sources */,
 				C88C205F2BFE8CAF00886365 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -432,6 +600,7 @@
 		};
 		C88C20842BFE8CB600886365 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8964028234E4E728CF2EA612 /* Pods-EleganceHub.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -460,6 +629,7 @@
 		};
 		C88C20852BFE8CB600886365 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D3FA8F1ACF453A7E799A0792 /* Pods-EleganceHub.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -488,6 +658,7 @@
 		};
 		C88C20872BFE8CB600886365 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1BE2F76C89CB56A6C91EF8B7 /* Pods-EleganceHubTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -508,6 +679,7 @@
 		};
 		C88C20882BFE8CB600886365 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8742FAA0010C6E09FF4C59DC /* Pods-EleganceHubTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -528,6 +700,7 @@
 		};
 		C88C208A2BFE8CB600886365 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B6B004924D3376DD4DE18E35 /* Pods-EleganceHub-EleganceHubUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -546,6 +719,7 @@
 		};
 		C88C208B2BFE8CB600886365 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EB8234701D34F1C511068448 /* Pods-EleganceHub-EleganceHubUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
