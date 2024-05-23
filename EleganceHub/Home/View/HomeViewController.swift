@@ -16,6 +16,7 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+
         let couponsNibCell = UINib(nibName: "CouponsCollectionViewCell", bundle: nil)
         couponsCollection.register(couponsNibCell, forCellWithReuseIdentifier: "couponsCell")
         
@@ -23,6 +24,7 @@ class HomeViewController: UIViewController {
         brandsCollection.register(brandsNibCell, forCellWithReuseIdentifier: "brandsCell")
         
       
+
 
         setupCollectionView()
     }
