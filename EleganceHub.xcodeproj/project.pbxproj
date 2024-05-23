@@ -22,6 +22,7 @@
 		C88C20742BFE8CB600886365 /* EleganceHubTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C20732BFE8CB600886365 /* EleganceHubTests.swift */; };
 		C88C207E2BFE8CB600886365 /* EleganceHubUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C207D2BFE8CB600886365 /* EleganceHubUITests.swift */; };
 		C88C20802BFE8CB600886365 /* EleganceHubUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C207F2BFE8CB600886365 /* EleganceHubUITestsLaunchTests.swift */; };
+		D478FC682BFF49D700BBA2BB /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D478FC672BFF49D700BBA2BB /* WelcomeViewController.swift */; };
 		DC68DABB496FAAF0D90B9526 /* Pods_EleganceHubTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DC1630ABF143E093FFAB7C0 /* Pods_EleganceHubTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -67,6 +68,7 @@
 		C88C207D2BFE8CB600886365 /* EleganceHubUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EleganceHubUITests.swift; sourceTree = "<group>"; };
 		C88C207F2BFE8CB600886365 /* EleganceHubUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EleganceHubUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		D3FA8F1ACF453A7E799A0792 /* Pods-EleganceHub.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EleganceHub.release.xcconfig"; path = "Target Support Files/Pods-EleganceHub/Pods-EleganceHub.release.xcconfig"; sourceTree = "<group>"; };
+		D478FC672BFF49D700BBA2BB /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		EB8234701D34F1C511068448 /* Pods-EleganceHub-EleganceHubUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EleganceHub-EleganceHubUITests.release.xcconfig"; path = "Target Support Files/Pods-EleganceHub-EleganceHubUITests/Pods-EleganceHub-EleganceHubUITests.release.xcconfig"; sourceTree = "<group>"; };
 		F5380FBCB266D4065C010708 /* Pods_EleganceHub_EleganceHubUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EleganceHub_EleganceHubUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -166,6 +168,7 @@
 		C88C205B2BFE8CAF00886365 /* EleganceHub */ = {
 			isa = PBXGroup;
 			children = (
+				D478FC652BFF49B500BBA2BB /* Welcome */,
 				7F359E8D2BFEA9DA00D0D733 /* Home */,
 				C88C205C2BFE8CAF00886365 /* AppDelegate.swift */,
 				C88C205E2BFE8CAF00886365 /* SceneDelegate.swift */,
@@ -193,6 +196,22 @@
 				C88C207F2BFE8CB600886365 /* EleganceHubUITestsLaunchTests.swift */,
 			);
 			path = EleganceHubUITests;
+			sourceTree = "<group>";
+		};
+		D478FC652BFF49B500BBA2BB /* Welcome */ = {
+			isa = PBXGroup;
+			children = (
+				D478FC662BFF49BC00BBA2BB /* View */,
+			);
+			path = Welcome;
+			sourceTree = "<group>";
+		};
+		D478FC662BFF49BC00BBA2BB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D478FC672BFF49D700BBA2BB /* WelcomeViewController.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -441,6 +460,7 @@
 				7F359E8A2BFE9CFC00D0D733 /* TabBarCorners.swift in Sources */,
 				C88C205F2BFE8CAF00886365 /* SceneDelegate.swift in Sources */,
 				7F359E962BFEBD7200D0D733 /* HomeViewController.swift in Sources */,
+				D478FC682BFF49D700BBA2BB /* WelcomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

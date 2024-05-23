@@ -17,7 +17,7 @@ class HomeViewController: UIViewController {
 //   let nibCell = UINib(nibName: "BrandsNib", bundle: nil)
 //        self.brandsCollection.register(nibCell, forCellWithReuseIdentifier: "brandsCell")
         
-        brandsCollection.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "brandsCell")
+//        brandsCollection.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "brandsCell")
 
     }
 
