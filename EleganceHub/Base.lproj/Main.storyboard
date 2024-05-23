@@ -23,7 +23,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-18" y="-49"/>
+            <point key="canvasLocation" x="-709" y="-23"/>
         </scene>
         <!--Category-->
         <scene sceneID="Owh-J6-mRR">
@@ -65,34 +65,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="enC-Nx-Yb3">
-                                <rect key="frame" x="16" y="155" width="361" height="389"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yEn-rn-1O8">
+                                <rect key="frame" x="16" y="395" width="361" height="374"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="cpB-jJ-XBJ">
-                                    <size key="itemSize" width="320" height="179"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="p0L-k9-e3k">
+                                    <size key="itemSize" width="166" height="166"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="dyW-74-d3j">
-                                        <rect key="frame" x="20.666666666666668" y="0.0" width="320" height="179"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="R4K-Gj-COO">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="179"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="coupon" translatesAutoresizingMaskIntoConstraints="NO" id="Ngg-B6-8OS">
-                                                    <rect key="frame" x="-5" y="-6" width="331" height="191"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
-                                            </subviews>
-                                        </collectionViewCellContentView>
-                                        <size key="customSize" width="320" height="179"/>
-                                    </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="brandsCell" id="28m-Sr-zCE" customClass="BrandsCollectionViewCell" customModule="EleganceHub" customModuleProvider="target">
-                                        <rect key="frame" x="97.666666666666671" y="189" width="166" height="166"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="166" height="166"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="WC6-pM-gGd">
                                             <rect key="frame" x="0.0" y="0.0" width="166" height="166"/>
@@ -101,28 +85,96 @@
                                         <size key="customSize" width="166" height="166"/>
                                     </collectionViewCell>
                                 </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="F0p-Yv-Hho" id="5gE-se-xao"/>
+                                    <outlet property="delegate" destination="F0p-Yv-Hho" id="dj4-iO-5QE"/>
+                                </connections>
                             </collectionView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Welcome," textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nxt-3f-TYd">
-                                <rect key="frame" x="16" y="78" width="136" height="41"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome," textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nxt-3f-TYd">
+                                <rect key="frame" x="16" y="93" width="136" height="41"/>
                                 <fontDescription key="fontDescription" name="NotoSansOriya-Bold" family="Noto Sans Oriya" pointSize="29"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Our Elegance Hub App" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qR9-02-dbH">
-                                <rect key="frame" x="16" y="114" width="263" height="33"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Our Elegance Hub App" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qR9-02-dbH">
+                                <rect key="frame" x="16" y="131" width="263" height="33"/>
                                 <fontDescription key="fontDescription" name="NotoSansKannada-Bold" family="Noto Sans Kannada" pointSize="24"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Brands " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uu2-8F-cLX">
+                                <rect key="frame" x="16" y="362" width="120" height="39.333333333333258"/>
+                                <fontDescription key="fontDescription" name="NotoSansOriya-Bold" family="Noto Sans Oriya" pointSize="28"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PaG-1F-tbd">
+                                <rect key="frame" x="0.0" y="51" width="393" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem title="Title" id="hsS-Tv-6lx">
+                                        <rightBarButtonItems>
+                                            <barButtonItem title="Item" image="heart.circle" catalog="system" id="XT9-kZ-oaf">
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </barButtonItem>
+                                            <barButtonItem title="Item" image="cart.circle" catalog="system" id="ijB-BL-cQz">
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </barButtonItem>
+                                        </rightBarButtonItems>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="enC-Nx-Yb3">
+                                <rect key="frame" x="16" y="157" width="361" height="210"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="cpB-jJ-XBJ">
+                                    <size key="itemSize" width="320" height="179"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="CouponsCollectionViewCell" reuseIdentifier="couponsCell" id="dyW-74-d3j" customClass="CouponsCollectionViewCell" customModule="EleganceHub" customModuleProvider="target">
+                                        <rect key="frame" x="20.666666666666668" y="0.0" width="320" height="180"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="R4K-Gj-COO">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                        <size key="customSize" width="320" height="180"/>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="F0p-Yv-Hho" id="Rad-Do-BN2"/>
+                                    <outlet property="delegate" destination="F0p-Yv-Hho" id="ZWT-lJ-WeH"/>
+                                </connections>
+                            </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="GHb-AW-C8z"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="qR9-02-dbH" firstAttribute="top" secondItem="nxt-3f-TYd" secondAttribute="bottom" constant="-3" id="3Zd-kr-CJs"/>
+                            <constraint firstItem="GHb-AW-C8z" firstAttribute="trailing" secondItem="nxt-3f-TYd" secondAttribute="trailing" constant="241" id="52r-kO-bvN"/>
+                            <constraint firstItem="enC-Nx-Yb3" firstAttribute="top" secondItem="GHb-AW-C8z" secondAttribute="top" constant="98" id="5sL-ou-wQn"/>
+                            <constraint firstItem="GHb-AW-C8z" firstAttribute="trailing" secondItem="uu2-8F-cLX" secondAttribute="trailing" constant="257" id="8xv-C2-Yr0"/>
+                            <constraint firstItem="qR9-02-dbH" firstAttribute="leading" secondItem="nxt-3f-TYd" secondAttribute="leading" id="Di5-Wt-JGS"/>
+                            <constraint firstItem="uu2-8F-cLX" firstAttribute="top" secondItem="enC-Nx-Yb3" secondAttribute="bottom" constant="-5" id="E4N-SB-de4"/>
+                            <constraint firstItem="yEn-rn-1O8" firstAttribute="top" secondItem="GHb-AW-C8z" secondAttribute="top" constant="336" id="HXx-8a-Bxv"/>
+                            <constraint firstItem="yEn-rn-1O8" firstAttribute="top" secondItem="enC-Nx-Yb3" secondAttribute="bottom" constant="28" id="Hj9-me-vOX"/>
+                            <constraint firstItem="enC-Nx-Yb3" firstAttribute="leading" secondItem="GHb-AW-C8z" secondAttribute="leading" constant="16" id="TPa-Pz-tL5"/>
+                            <constraint firstItem="GHb-AW-C8z" firstAttribute="trailing" secondItem="yEn-rn-1O8" secondAttribute="trailing" constant="16" id="VYG-A7-GRX"/>
+                            <constraint firstItem="yEn-rn-1O8" firstAttribute="leading" secondItem="enC-Nx-Yb3" secondAttribute="leading" id="ZOa-HI-VOg"/>
+                            <constraint firstItem="uu2-8F-cLX" firstAttribute="leading" secondItem="GHb-AW-C8z" secondAttribute="leading" constant="16" id="fQj-Dg-G0x"/>
+                            <constraint firstItem="nxt-3f-TYd" firstAttribute="top" secondItem="GHb-AW-C8z" secondAttribute="top" constant="34" id="hkU-Xy-jTK"/>
+                            <constraint firstItem="GHb-AW-C8z" firstAttribute="trailing" secondItem="enC-Nx-Yb3" secondAttribute="trailing" constant="16" id="u23-Xn-MtR"/>
+                            <constraint firstItem="nxt-3f-TYd" firstAttribute="leading" secondItem="GHb-AW-C8z" secondAttribute="leading" constant="16" id="vn7-Le-bNB"/>
+                            <constraint firstItem="GHb-AW-C8z" firstAttribute="bottom" secondItem="yEn-rn-1O8" secondAttribute="bottom" id="xEe-cH-tL6"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Home" image="house" catalog="system" selectedImage="house.fill" id="qMK-yb-ao0"/>
                     <connections>
-                        <outlet property="CouponsCollection" destination="enC-Nx-Yb3" id="Wc9-hn-lwm"/>
+                        <outlet property="brandsCollection" destination="yEn-rn-1O8" id="v2h-Pk-Q0w"/>
+                        <outlet property="couponsCollection" destination="enC-Nx-Yb3" id="ECk-vs-vq7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Agh-nA-ZxI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -147,11 +199,12 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MLc-CG-Zse" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="888" y="-23"/>
+            <point key="canvasLocation" x="888" y="-70"/>
         </scene>
     </scenes>
     <resources>
-        <image name="coupon" width="675" height="371"/>
+        <image name="cart.circle" catalog="system" width="128" height="123"/>
+        <image name="heart.circle" catalog="system" width="128" height="123"/>
         <image name="home" width="128" height="128"/>
         <image name="house" catalog="system" width="128" height="104"/>
         <image name="house.fill" catalog="system" width="128" height="104"/>
