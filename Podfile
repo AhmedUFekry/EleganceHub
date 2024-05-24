@@ -15,6 +15,11 @@ target 'EleganceHub' do
   pod 'SplashScreen'
   pod 'lottie-ios'
   pod 'ReachabilitySwift'
+  pod 'FirebaseUI'
+  pod 'FirebaseCore'
+  pod 'FirebaseUI/Auth'
+  pod 'FirebaseFirestore'
+  pod 'FirebaseStorage'
 
   target 'EleganceHubTests' do
     inherit! :search_paths

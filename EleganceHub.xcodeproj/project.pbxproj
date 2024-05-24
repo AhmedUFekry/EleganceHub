@@ -22,7 +22,13 @@
 		C88C20742BFE8CB600886365 /* EleganceHubTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C20732BFE8CB600886365 /* EleganceHubTests.swift */; };
 		C88C207E2BFE8CB600886365 /* EleganceHubUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C207D2BFE8CB600886365 /* EleganceHubUITests.swift */; };
 		C88C20802BFE8CB600886365 /* EleganceHubUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C207F2BFE8CB600886365 /* EleganceHubUITestsLaunchTests.swift */; };
+		D403E2722C00AA4C00AE9C68 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D403E2712C00AA4C00AE9C68 /* GoogleService-Info.plist */; };
+		D403E2742C00B3BA00AE9C68 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D403E2732C00B3BA00AE9C68 /* AuthService.swift */; };
+		D403E2762C00BD2400AE9C68 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D403E2752C00BD2400AE9C68 /* UserModel.swift */; };
+		D403E27A2C00F47700AE9C68 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D403E2792C00F47700AE9C68 /* LoginViewController.swift */; };
+		D403E27D2C01419600AE9C68 /* SignViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D403E27C2C01419600AE9C68 /* SignViewModel.swift */; };
 		D478FC682BFF49D700BBA2BB /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D478FC672BFF49D700BBA2BB /* WelcomeViewController.swift */; };
+		D478FC6C2BFF9AC000BBA2BB /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D478FC6B2BFF9AC000BBA2BB /* SignUpViewController.swift */; };
 		DC68DABB496FAAF0D90B9526 /* Pods_EleganceHubTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DC1630ABF143E093FFAB7C0 /* Pods_EleganceHubTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -68,7 +74,13 @@
 		C88C207D2BFE8CB600886365 /* EleganceHubUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EleganceHubUITests.swift; sourceTree = "<group>"; };
 		C88C207F2BFE8CB600886365 /* EleganceHubUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EleganceHubUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		D3FA8F1ACF453A7E799A0792 /* Pods-EleganceHub.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EleganceHub.release.xcconfig"; path = "Target Support Files/Pods-EleganceHub/Pods-EleganceHub.release.xcconfig"; sourceTree = "<group>"; };
+		D403E2712C00AA4C00AE9C68 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D403E2732C00B3BA00AE9C68 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		D403E2752C00BD2400AE9C68 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		D403E2792C00F47700AE9C68 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		D403E27C2C01419600AE9C68 /* SignViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignViewModel.swift; sourceTree = "<group>"; };
 		D478FC672BFF49D700BBA2BB /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		D478FC6B2BFF9AC000BBA2BB /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		EB8234701D34F1C511068448 /* Pods-EleganceHub-EleganceHubUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EleganceHub-EleganceHubUITests.release.xcconfig"; path = "Target Support Files/Pods-EleganceHub-EleganceHubUITests/Pods-EleganceHub-EleganceHubUITests.release.xcconfig"; sourceTree = "<group>"; };
 		F5380FBCB266D4065C010708 /* Pods_EleganceHub_EleganceHubUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EleganceHub_EleganceHubUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -168,6 +180,8 @@
 		C88C205B2BFE8CAF00886365 /* EleganceHub */ = {
 			isa = PBXGroup;
 			children = (
+				D403E2772C00F45300AE9C68 /* Login */,
+				D478FC692BFF9A9E00BBA2BB /* SignUp */,
 				D478FC652BFF49B500BBA2BB /* Welcome */,
 				7F359E8D2BFEA9DA00D0D733 /* Home */,
 				C88C205C2BFE8CAF00886365 /* AppDelegate.swift */,
@@ -177,6 +191,9 @@
 				C88C20652BFE8CB400886365 /* Assets.xcassets */,
 				C88C20672BFE8CB400886365 /* LaunchScreen.storyboard */,
 				C88C206A2BFE8CB400886365 /* Info.plist */,
+				D403E2712C00AA4C00AE9C68 /* GoogleService-Info.plist */,
+				D403E2732C00B3BA00AE9C68 /* AuthService.swift */,
+				D403E2752C00BD2400AE9C68 /* UserModel.swift */,
 			);
 			path = EleganceHub;
 			sourceTree = "<group>";
@@ -198,6 +215,30 @@
 			path = EleganceHubUITests;
 			sourceTree = "<group>";
 		};
+		D403E2772C00F45300AE9C68 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				D403E2782C00F45C00AE9C68 /* View */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		D403E2782C00F45C00AE9C68 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D403E2792C00F47700AE9C68 /* LoginViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D403E27B2C01417C00AE9C68 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D403E27C2C01419600AE9C68 /* SignViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		D478FC652BFF49B500BBA2BB /* Welcome */ = {
 			isa = PBXGroup;
 			children = (
@@ -210,6 +251,23 @@
 			isa = PBXGroup;
 			children = (
 				D478FC672BFF49D700BBA2BB /* WelcomeViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D478FC692BFF9A9E00BBA2BB /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				D403E27B2C01417C00AE9C68 /* ViewModel */,
+				D478FC6A2BFF9AAC00BBA2BB /* View */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
+		D478FC6A2BFF9AAC00BBA2BB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D478FC6B2BFF9AC000BBA2BB /* SignUpViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -325,6 +383,7 @@
 			files = (
 				7F359E942BFEB9B700D0D733 /* BrandsCollectionViewCell.xib in Resources */,
 				C88C20692BFE8CB400886365 /* LaunchScreen.storyboard in Resources */,
+				D403E2722C00AA4C00AE9C68 /* GoogleService-Info.plist in Resources */,
 				C88C20662BFE8CB400886365 /* Assets.xcassets in Resources */,
 				C88C20642BFE8CAF00886365 /* Main.storyboard in Resources */,
 			);
@@ -456,11 +515,16 @@
 			files = (
 				C88C20612BFE8CAF00886365 /* ViewController.swift in Sources */,
 				C88C205D2BFE8CAF00886365 /* AppDelegate.swift in Sources */,
+				D478FC6C2BFF9AC000BBA2BB /* SignUpViewController.swift in Sources */,
+				D403E27D2C01419600AE9C68 /* SignViewModel.swift in Sources */,
+				D403E2742C00B3BA00AE9C68 /* AuthService.swift in Sources */,
 				7F359E932BFEB9B700D0D733 /* BrandsCollectionViewCell.swift in Sources */,
 				7F359E8A2BFE9CFC00D0D733 /* TabBarCorners.swift in Sources */,
 				C88C205F2BFE8CAF00886365 /* SceneDelegate.swift in Sources */,
 				7F359E962BFEBD7200D0D733 /* HomeViewController.swift in Sources */,
+				D403E2762C00BD2400AE9C68 /* UserModel.swift in Sources */,
 				D478FC682BFF49D700BBA2BB /* WelcomeViewController.swift in Sources */,
+				D403E27A2C00F47700AE9C68 /* LoginViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
