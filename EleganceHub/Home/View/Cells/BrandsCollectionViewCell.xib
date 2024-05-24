@@ -24,8 +24,8 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Brand Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fpi-Qq-3we">
-                        <rect key="frame" x="18" y="135" width="95" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <rect key="frame" x="16" y="135" width="99" height="20"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -33,10 +33,10 @@
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
-                <constraint firstItem="ZTg-uK-7eu" firstAttribute="trailing" secondItem="fpi-Qq-3we" secondAttribute="trailing" constant="17" id="0tP-Vh-hmH"/>
+                <constraint firstItem="ZTg-uK-7eu" firstAttribute="trailing" secondItem="fpi-Qq-3we" secondAttribute="trailing" constant="15" id="0tP-Vh-hmH"/>
                 <constraint firstItem="fpi-Qq-3we" firstAttribute="top" secondItem="3He-86-U6T" secondAttribute="bottom" constant="5" id="5ej-gy-dYd"/>
                 <constraint firstItem="3He-86-U6T" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="FbX-ox-VxY"/>
-                <constraint firstItem="fpi-Qq-3we" firstAttribute="leading" secondItem="ZTg-uK-7eu" secondAttribute="leading" constant="18" id="H28-Yo-VSt"/>
+                <constraint firstItem="fpi-Qq-3we" firstAttribute="leading" secondItem="ZTg-uK-7eu" secondAttribute="leading" constant="16" id="H28-Yo-VSt"/>
                 <constraint firstItem="3He-86-U6T" firstAttribute="leading" secondItem="ZTg-uK-7eu" secondAttribute="leading" id="SGh-9r-PoN"/>
                 <constraint firstItem="3He-86-U6T" firstAttribute="width" secondItem="gTV-IL-0wX" secondAttribute="width" id="XPQ-Rv-let"/>
                 <constraint firstItem="ZTg-uK-7eu" firstAttribute="trailing" secondItem="3He-86-U6T" secondAttribute="trailing" id="eV0-xt-v7p"/>
