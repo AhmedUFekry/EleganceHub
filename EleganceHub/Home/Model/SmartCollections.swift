@@ -25,7 +25,7 @@ struct SmartCollection: Codable {
     let disjunctive: Bool
     let rules: [Rule]
     let publishedScope, adminGraphqlAPIID: String
-    let image: productImage
+    let image: Image
     
     enum CodingKeys: String, CodingKey {
         case id, handle, title

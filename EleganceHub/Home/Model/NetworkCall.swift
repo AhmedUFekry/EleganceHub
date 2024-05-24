@@ -10,7 +10,7 @@ import Foundation
 class NetworkCall{
     static func getBrands(complationhandler: @escaping (SmartCollections?,Error?) -> Void) {
         
-        let url = URL(string: "\(Constants.storeUrl)smart_collections.json?since_id=482865238&\(Constants.accessToken)")
+        let url = URL(string: "\(Constants.storeUrl)smart_collections.json?since_id=482865238&access_token=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")
         print(url)
         guard let newUrl = url else {return}
         
