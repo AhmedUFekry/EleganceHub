@@ -15,6 +15,7 @@
 		03B68E062C019DAE0054DA74 /* PaymentMethodTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03B68E042C019DAE0054DA74 /* PaymentMethodTableViewCell.xib */; };
 		03B68E082C01A1950054DA74 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B68E072C01A1950054DA74 /* PaymentViewController.swift */; };
 		03B68E0A2C01A3160054DA74 /* PaymentMethodModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B68E092C01A3160054DA74 /* PaymentMethodModel.swift */; };
+		03E40B6A2C01E2AB00345DE2 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E40B692C01E2AB00345DE2 /* SettingsViewController.swift */; };
 		3BC297D75085200E575E3889 /* Pods_EleganceHub_EleganceHubUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5380FBCB266D4065C010708 /* Pods_EleganceHub_EleganceHubUITests.framework */; };
 		78E6C913A67E1D0956C26FF0 /* Pods_EleganceHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C949754F3348588708BF29C /* Pods_EleganceHub.framework */; };
 		7F359E8A2BFE9CFC00D0D733 /* TabBarCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F359E892BFE9CFC00D0D733 /* TabBarCorners.swift */; };
@@ -62,6 +63,7 @@
 		03B68E042C019DAE0054DA74 /* PaymentMethodTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentMethodTableViewCell.xib; sourceTree = "<group>"; };
 		03B68E072C01A1950054DA74 /* PaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
 		03B68E092C01A3160054DA74 /* PaymentMethodModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodModel.swift; sourceTree = "<group>"; };
+		03E40B692C01E2AB00345DE2 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		0DC1630ABF143E093FFAB7C0 /* Pods_EleganceHubTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EleganceHubTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BE2F76C89CB56A6C91EF8B7 /* Pods-EleganceHubTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EleganceHubTests.debug.xcconfig"; path = "Target Support Files/Pods-EleganceHubTests/Pods-EleganceHubTests.debug.xcconfig"; sourceTree = "<group>"; };
 		3C949754F3348588708BF29C /* Pods_EleganceHub.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EleganceHub.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -176,6 +178,38 @@
 			path = PaymentView;
 			sourceTree = "<group>";
 		};
+		03E40B652C01E23B00345DE2 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				03E40B682C01E28F00345DE2 /* Model */,
+				03E40B672C01E24C00345DE2 /* ViewModel */,
+				03E40B662C01E24500345DE2 /* View */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		03E40B662C01E24500345DE2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				03E40B692C01E2AB00345DE2 /* SettingsViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		03E40B672C01E24C00345DE2 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		03E40B682C01E28F00345DE2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		243E6118410299118C4FF905 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -253,6 +287,7 @@
 		C88C205B2BFE8CAF00886365 /* EleganceHub */ = {
 			isa = PBXGroup;
 			children = (
+				03E40B652C01E23B00345DE2 /* Settings */,
 				03A7F54D2C01440A00F68AC7 /* Cart */,
 				D478FC652BFF49B500BBA2BB /* Welcome */,
 				7F359E8D2BFEA9DA00D0D733 /* Home */,
@@ -551,6 +586,7 @@
 				C88C205F2BFE8CAF00886365 /* SceneDelegate.swift in Sources */,
 				7F359E962BFEBD7200D0D733 /* HomeViewController.swift in Sources */,
 				03B68E052C019DAE0054DA74 /* PaymentMethodTableViewCell.swift in Sources */,
+				03E40B6A2C01E2AB00345DE2 /* SettingsViewController.swift in Sources */,
 				7F359E982BFF4DC500D0D733 /* CouponsCollectionViewCell.swift in Sources */,
 				03A7F5552C0164E500F68AC7 /* CartTableViewCell.swift in Sources */,
 				03A7F5522C01484000F68AC7 /* CartViewController.swift in Sources */,
