@@ -8,6 +8,7 @@
 import UIKit
 
 class HomeViewController: UIViewController {
+
     
     @IBOutlet weak var brandsCollection: UICollectionView!
     
@@ -16,20 +17,13 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
         let couponsNibCell = UINib(nibName: "CouponsCollectionViewCell", bundle: nil)
         couponsCollection.register(couponsNibCell, forCellWithReuseIdentifier: "couponsCell")
         
         let brandsNibCell = UINib(nibName: "BrandsCollectionViewCell", bundle: nil)
         brandsCollection.register(brandsNibCell, forCellWithReuseIdentifier: "brandsCell")
-        
-      
-
-
         setupCollectionView()
     }
-    
-    
     
     private func setupCollectionView() {
         
@@ -43,6 +37,16 @@ class HomeViewController: UIViewController {
         let itemWidth = (view.frame.width / 2) - 15
         brandsLayout.itemSize = CGSize(width: itemWidth, height: itemWidth)
         brandsCollection.collectionViewLayout = brandsLayout
+    }
+    
+    @IBAction func cartBtn(_ sender: UIBarButtonItem) {
+        print("cartBtn")
+        if let viewController = self.storyboard?.instantiateViewController(withIdentifier: "CartViewController") as? CartViewController {
+            print("cartBtn CartViewController")
+                self.navigationController?.pushViewController(viewController, animated: true)
+            } else {
+                print("Failed to instantiate CartViewController")
+            }
     }
 }
 extension HomeViewController: UICollectionViewDataSource,UICollectionViewDelegate {
@@ -64,5 +68,11 @@ extension HomeViewController: UICollectionViewDataSource,UICollectionViewDelegat
             let couponsCell = collectionView.dequeueReusableCell(withReuseIdentifier: "couponsCell", for: indexPath) as! CouponsCollectionViewCell
             return couponsCell
         }
+    }
+   
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("cartBtn")
+        let viewController =  self.storyboard?.instantiateViewController(withIdentifier: "CartViewController") as? CartViewController
+        self.navigationController?.pushViewController(viewController!, animated: true)
     }
 }

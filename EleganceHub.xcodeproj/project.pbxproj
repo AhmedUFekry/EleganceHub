@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03A7F5522C01484000F68AC7 /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A7F5512C01484000F68AC7 /* CartViewController.swift */; };
+		03A7F5552C0164E500F68AC7 /* CartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A7F5532C0164E500F68AC7 /* CartTableViewCell.swift */; };
+		03A7F5562C0164E500F68AC7 /* CartTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03A7F5542C0164E500F68AC7 /* CartTableViewCell.xib */; };
 		3BC297D75085200E575E3889 /* Pods_EleganceHub_EleganceHubUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5380FBCB266D4065C010708 /* Pods_EleganceHub_EleganceHubUITests.framework */; };
 		78E6C913A67E1D0956C26FF0 /* Pods_EleganceHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C949754F3348588708BF29C /* Pods_EleganceHub.framework */; };
 		7F359E8A2BFE9CFC00D0D733 /* TabBarCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F359E892BFE9CFC00D0D733 /* TabBarCorners.swift */; };
@@ -46,6 +49,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		03A7F5512C01484000F68AC7 /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
+		03A7F5532C0164E500F68AC7 /* CartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartTableViewCell.swift; sourceTree = "<group>"; };
+		03A7F5542C0164E500F68AC7 /* CartTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CartTableViewCell.xib; sourceTree = "<group>"; };
 		0DC1630ABF143E093FFAB7C0 /* Pods_EleganceHubTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EleganceHubTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BE2F76C89CB56A6C91EF8B7 /* Pods-EleganceHubTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EleganceHubTests.debug.xcconfig"; path = "Target Support Files/Pods-EleganceHubTests/Pods-EleganceHubTests.debug.xcconfig"; sourceTree = "<group>"; };
 		3C949754F3348588708BF29C /* Pods_EleganceHub.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EleganceHub.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -105,6 +111,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		03A7F54D2C01440A00F68AC7 /* Cart */ = {
+			isa = PBXGroup;
+			children = (
+				03A7F5502C01481300F68AC7 /* ViewModel */,
+				03A7F54F2C0147FC00F68AC7 /* Model */,
+				03A7F54E2C0147F500F68AC7 /* View */,
+			);
+			path = Cart;
+			sourceTree = "<group>";
+		};
+		03A7F54E2C0147F500F68AC7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				03A7F5512C01484000F68AC7 /* CartViewController.swift */,
+				03A7F5532C0164E500F68AC7 /* CartTableViewCell.swift */,
+				03A7F5542C0164E500F68AC7 /* CartTableViewCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		03A7F54F2C0147FC00F68AC7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		03A7F5502C01481300F68AC7 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		243E6118410299118C4FF905 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -182,6 +222,7 @@
 		C88C205B2BFE8CAF00886365 /* EleganceHub */ = {
 			isa = PBXGroup;
 			children = (
+				03A7F54D2C01440A00F68AC7 /* Cart */,
 				D478FC652BFF49B500BBA2BB /* Welcome */,
 				7F359E8D2BFEA9DA00D0D733 /* Home */,
 				C88C205C2BFE8CAF00886365 /* AppDelegate.swift */,
@@ -340,6 +381,7 @@
 				7F359E942BFEB9B700D0D733 /* BrandsCollectionViewCell.xib in Resources */,
 				7F359E9B2BFF63D400D0D733 /* CouponsCollectionViewCell.xib in Resources */,
 				C88C20692BFE8CB400886365 /* LaunchScreen.storyboard in Resources */,
+				03A7F5562C0164E500F68AC7 /* CartTableViewCell.xib in Resources */,
 				C88C20662BFE8CB400886365 /* Assets.xcassets in Resources */,
 				C88C20642BFE8CAF00886365 /* Main.storyboard in Resources */,
 			);
@@ -475,11 +517,10 @@
 				7F359E8A2BFE9CFC00D0D733 /* TabBarCorners.swift in Sources */,
 				C88C205F2BFE8CAF00886365 /* SceneDelegate.swift in Sources */,
 				7F359E962BFEBD7200D0D733 /* HomeViewController.swift in Sources */,
-
 				7F359E982BFF4DC500D0D733 /* CouponsCollectionViewCell.swift in Sources */,
-
+				03A7F5552C0164E500F68AC7 /* CartTableViewCell.swift in Sources */,
+				03A7F5522C01484000F68AC7 /* CartViewController.swift in Sources */,
 				D478FC682BFF49D700BBA2BB /* WelcomeViewController.swift in Sources */,
-
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
