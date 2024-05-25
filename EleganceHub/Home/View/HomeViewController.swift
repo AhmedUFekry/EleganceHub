@@ -70,7 +70,9 @@ extension HomeViewController: UICollectionViewDataSource,UICollectionViewDelegat
         if collectionView == brandsCollection {
             let brandsCell = collectionView.dequeueReusableCell(withReuseIdentifier: "brandsCell", for: indexPath) as! BrandsCollectionViewCell
             let brand = smartCollections?.smartCollections[indexPath.row]
+            
             brandsCell.brandName?.text = brand?.title
+            print(brand?.title, brand?.id)
             KF.url(URL(string: brand?.image.src ?? "https://cdn.shopify.com/s/files/1/0880/0426/4211/collections/a340ce89e0298e52c438ae79591e3284.jpg?v=1716276581"))
                 .set(to: brandsCell.brandImage)
             
@@ -80,4 +82,12 @@ extension HomeViewController: UICollectionViewDataSource,UICollectionViewDelegat
             return couponsCell
         }
     }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == brandsCollection {
+            performSegue(withIdentifier: "goToProducts", sender: nil)
+        }
+    }
+
 }

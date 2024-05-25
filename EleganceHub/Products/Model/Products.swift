@@ -55,7 +55,9 @@ struct Variant: Codable {
     let compareAtPrice: String?
     let fulfillmentService: String
     let inventoryManagement: String
-    let option1, option2, option3: String?
+    let option1: String?
+    let option2: String?
+    let option3: String?
     let createdAt, updatedAt: String
     let taxable: Bool
     let barcode: String?
@@ -69,13 +71,12 @@ struct Variant: Codable {
 
     private enum CodingKeys: String, CodingKey {
         case id, title, price, sku, position
+        case productId = "product_id"
         case inventoryPolicy = "inventory_policy"
         case compareAtPrice = "compare_at_price"
         case fulfillmentService = "fulfillment_service"
         case inventoryManagement = "inventory_management"
-        case option1 = "option1"
-        case option2 = "option2"
-        case option3 = "option3"
+        case option1, option2, option3
         case createdAt = "created_at"
         case updatedAt = "updated_at"
         case taxable, barcode, grams, weight
@@ -87,7 +88,38 @@ struct Variant: Codable {
         case adminGraphqlApiId = "admin_graphql_api_id"
         case imageId = "image_id"
     }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decode(Int.self, forKey: .id)
+        self.productId = try container.decode(Int.self, forKey: .productId)
+        self.title = try container.decode(String.self, forKey: .title)
+        self.price = try container.decode(String.self, forKey: .price)
+        self.sku = try container.decode(String.self, forKey: .sku)
+        self.position = try container.decode(Int.self, forKey: .position)
+        self.inventoryPolicy = try container.decode(String.self, forKey: .inventoryPolicy)
+        self.compareAtPrice = try container.decodeIfPresent(String.self, forKey: .compareAtPrice)
+        self.fulfillmentService = try container.decode(String.self, forKey: .fulfillmentService)
+        self.inventoryManagement = try container.decode(String.self, forKey: .inventoryManagement)
+        self.option1 = try container.decodeIfPresent(String.self, forKey: .option1)
+        self.option2 = try container.decodeIfPresent(String.self, forKey: .option2)
+        self.option3 = try container.decodeIfPresent(String.self, forKey: .option3)
+        self.createdAt = try container.decode(String.self, forKey: .createdAt)
+        self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
+        self.taxable = try container.decode(Bool.self, forKey: .taxable)
+        self.barcode = try container.decodeIfPresent(String.self, forKey: .barcode)
+        self.grams = try container.decode(Int.self, forKey: .grams)
+        self.weight = try container.decode(Double.self, forKey: .weight)
+        self.weightUnit = try container.decode(String.self, forKey: .weightUnit)
+        self.inventoryItemId = try container.decode(Int.self, forKey: .inventoryItemId)
+        self.inventoryQuantity = try container.decode(Int.self, forKey: .inventoryQuantity)
+        self.oldInventoryQuantity = try container.decode(Int.self, forKey: .oldInventoryQuantity)
+        self.requiresShipping = try container.decode(Bool.self, forKey: .requiresShipping)
+        self.adminGraphqlApiId = try container.decode(String.self, forKey: .adminGraphqlApiId)
+        self.imageId = try container.decodeIfPresent(String.self, forKey: .imageId)
+    }
 }
+
 
 struct Option: Codable {
     let id, productId: Int
