@@ -103,10 +103,10 @@ extension HomeViewController: UICollectionViewDataSource,UICollectionViewDelegat
     }
     
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView == brandsCollection {
-            performSegue(withIdentifier: "goToProducts", sender: nil)
-        }
-    }
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        if collectionView == brandsCollection {
+//            performSegue(withIdentifier: "goToProducts", sender: nil)
+//        }
+//    }
 
 }
