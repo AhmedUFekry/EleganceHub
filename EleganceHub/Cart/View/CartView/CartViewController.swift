@@ -11,6 +11,8 @@ class CartViewController: UIViewController {
 
     @IBOutlet weak var countOfItemInCart: UILabel!
     @IBOutlet weak var cartTableView: UITableView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let cartNibCell = UINib(nibName: "CartTableViewCell", bundle: nil)
@@ -27,6 +29,12 @@ class CartViewController: UIViewController {
     @IBAction func backBtn(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
+    
+    @IBAction func checkoutBtn(_ sender: UIButton) {
+        let viewController =  self.storyboard?.instantiateViewController(withIdentifier: "PaymentViewController") as? PaymentViewController
+        self.navigationController?.pushViewController(viewController!, animated: true)
+    }
+    
     
 }
 

@@ -12,7 +12,7 @@
 		<key>Alamofire-Alamofire.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>7</integer>
+			<integer>16</integer>
 		</dict>
 		<key>Alamofire.xcscheme</key>
 		<dict>
@@ -32,7 +32,7 @@
 		<key>Kingfisher-Kingfisher.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>13</integer>
+			<integer>11</integer>
 		</dict>
 		<key>Kingfisher.xcscheme</key>
 		<dict>
@@ -42,7 +42,7 @@
 		<key>Kingfisher.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>17</integer>
+			<integer>3</integer>
 		</dict>
 		<key>Pods-EleganceHub-EleganceHubUITests.xcscheme</key>
 		<dict>
@@ -52,7 +52,7 @@
 		<key>Pods-EleganceHub-EleganceHubUITests.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>12</integer>
+			<integer>10</integer>
 		</dict>
 		<key>Pods-EleganceHub.xcscheme</key>
 		<dict>
@@ -62,7 +62,7 @@
 		<key>Pods-EleganceHub.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>15</integer>
+			<integer>7</integer>
 		</dict>
 		<key>Pods-EleganceHubTests.xcscheme</key>
 		<dict>
@@ -72,7 +72,7 @@
 		<key>Pods-EleganceHubTests.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>1</integer>
+			<integer>17</integer>
 		</dict>
 		<key>ReachabilitySwift-ReachabilitySwift.xcscheme</key>
 		<dict>
@@ -82,7 +82,7 @@
 		<key>ReachabilitySwift-ReachabilitySwift.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>8</integer>
+			<integer>15</integer>
 		</dict>
 		<key>ReachabilitySwift.xcscheme</key>
 		<dict>
@@ -92,7 +92,7 @@
 		<key>ReachabilitySwift.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>4</integer>
+			<integer>6</integer>
 		</dict>
 		<key>RxCocoa.xcscheme</key>
 		<dict>
@@ -102,7 +102,7 @@
 		<key>RxCocoa.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>6</integer>
+			<integer>19</integer>
 		</dict>
 		<key>RxRelay.xcscheme</key>
 		<dict>
@@ -112,7 +112,7 @@
 		<key>RxRelay.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>2</integer>
+			<integer>5</integer>
 		</dict>
 		<key>RxSwift.xcscheme</key>
 		<dict>
@@ -122,7 +122,7 @@
 		<key>RxSwift.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>10</integer>
+			<integer>4</integer>
 		</dict>
 		<key>SDWebImage-SDWebImage.xcscheme</key>
 		<dict>
@@ -132,7 +132,7 @@
 		<key>SDWebImage-SDWebImage.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>11</integer>
+			<integer>9</integer>
 		</dict>
 		<key>SDWebImage.xcscheme</key>
 		<dict>
@@ -142,7 +142,7 @@
 		<key>SDWebImage.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>5</integer>
+			<integer>8</integer>
 		</dict>
 		<key>SplashScreen-SplashScreen.xcscheme</key>
 		<dict>
@@ -152,7 +152,7 @@
 		<key>SplashScreen-SplashScreen.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>3</integer>
+			<integer>2</integer>
 		</dict>
 		<key>SplashScreen.xcscheme</key>
 		<dict>
@@ -162,7 +162,7 @@
 		<key>SplashScreen.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>16</integer>
+			<integer>0</integer>
 		</dict>
 		<key>SwiftyOnboard.xcscheme</key>
 		<dict>
@@ -172,7 +172,7 @@
 		<key>SwiftyOnboard.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>1</integer>
 		</dict>
 		<key>lottie-ios-LottiePrivacyInfo.xcscheme</key>
 		<dict>
@@ -182,7 +182,7 @@
 		<key>lottie-ios-LottiePrivacyInfo.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>19</integer>
+			<integer>12</integer>
 		</dict>
 		<key>lottie-ios.xcscheme</key>
 		<dict>
@@ -192,7 +192,7 @@
 		<key>lottie-ios.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>9</integer>
+			<integer>14</integer>
 		</dict>
 	</dict>
 </dict>
