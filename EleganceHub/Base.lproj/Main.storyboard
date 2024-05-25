@@ -2,7 +2,10 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1jR-if-Iy8">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -50,21 +53,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V4U-bR-FLC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1782.4427480916029" y="-38.028169014084511"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
-            <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="EleganceHub" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-709" y="-23"/>
         </scene>
         <!--Category-->
         <scene sceneID="Owh-J6-mRR">
@@ -349,6 +337,9 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </collectionViewCellContentView>
                                         <size key="customSize" width="166" height="166"/>
+                                        <connections>
+                                            <segue destination="GyZ-Rf-6qO" kind="show" identifier="goToProducts" id="d7B-M3-EiT"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
@@ -494,6 +485,62 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u9M-1O-Kl0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1775" y="-535"/>
+        <!--Product View Controller-->
+        <scene sceneID="dvj-pU-6nU">
+            <objects>
+                <viewController storyboardIdentifier="ProductTableViewController" id="GyZ-Rf-6qO" customClass="ProductViewController" customModule="EleganceHub" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="WB0-Nm-2OD">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="prl-ut-l2h">
+                                <rect key="frame" x="66" y="76" width="308" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Price:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qTx-Dd-8MF">
+                                <rect key="frame" x="16" y="80" width="44" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="dXq-Se-7u2">
+                                <rect key="frame" x="16" y="131" width="356" height="687"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="productsCell" rowHeight="104" id="Cjd-dM-OJw" customClass="ProductsTableViewCell" customModule="EleganceHub" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="50" width="356" height="104"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Cjd-dM-OJw" id="4Ao-0l-rYa" customClass="ProductsTableViewCell" customModule="EleganceHub" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="356" height="104"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="GyZ-Rf-6qO" id="qSZ-qG-FxD"/>
+                                    <outlet property="delegate" destination="GyZ-Rf-6qO" id="BYo-4o-dnX"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="5Yr-wq-kbM"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="5Yr-wq-kbM" firstAttribute="bottom" secondItem="dXq-Se-7u2" secondAttribute="bottom" constant="24" id="QhD-YD-gUb"/>
+                            <constraint firstItem="5Yr-wq-kbM" firstAttribute="trailing" secondItem="dXq-Se-7u2" secondAttribute="trailing" constant="21" id="WX3-TJ-S0f"/>
+                            <constraint firstItem="dXq-Se-7u2" firstAttribute="leading" secondItem="5Yr-wq-kbM" secondAttribute="leading" constant="16" id="X82-aU-ex0"/>
+                            <constraint firstItem="dXq-Se-7u2" firstAttribute="top" secondItem="5Yr-wq-kbM" secondAttribute="top" constant="131" id="jER-pf-EHa"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="icE-tO-24h"/>
+                    <connections>
+                        <outlet property="productsTableView" destination="dXq-Se-7u2" id="WS2-sT-glV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vc9-og-qWI" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2595" y="-535"/>
         </scene>
     </scenes>
     <resources>
