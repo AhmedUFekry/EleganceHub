@@ -48,6 +48,7 @@
 		D403E27A2C00F47700AE9C68 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D403E2792C00F47700AE9C68 /* LoginViewController.swift */; };
 		D478FC682BFF49D700BBA2BB /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D478FC672BFF49D700BBA2BB /* WelcomeViewController.swift */; };
 		D478FC6C2BFF9AC000BBA2BB /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D478FC6B2BFF9AC000BBA2BB /* SignUpViewController.swift */; };
+		D4B17FBF2C07A65B00A8F9D3 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B17FBE2C07A65B00A8F9D3 /* LoginViewModel.swift */; };
 		DC68DABB496FAAF0D90B9526 /* Pods_EleganceHubTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DC1630ABF143E093FFAB7C0 /* Pods_EleganceHubTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -119,6 +120,7 @@
 		D403E2792C00F47700AE9C68 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D478FC672BFF49D700BBA2BB /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		D478FC6B2BFF9AC000BBA2BB /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		D4B17FBE2C07A65B00A8F9D3 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		EB8234701D34F1C511068448 /* Pods-EleganceHub-EleganceHubUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EleganceHub-EleganceHubUITests.release.xcconfig"; path = "Target Support Files/Pods-EleganceHub-EleganceHubUITests/Pods-EleganceHub-EleganceHubUITests.release.xcconfig"; sourceTree = "<group>"; };
 		F5380FBCB266D4065C010708 /* Pods_EleganceHub_EleganceHubUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EleganceHub_EleganceHubUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -428,6 +430,7 @@
 		D403E2772C00F45300AE9C68 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				D4B17FBD2C07A64900A8F9D3 /* ViewModel */,
 				D403E2782C00F45C00AE9C68 /* View */,
 			);
 			path = Login;
@@ -471,6 +474,14 @@
 				D478FC6B2BFF9AC000BBA2BB /* SignUpViewController.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		D4B17FBD2C07A64900A8F9D3 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D4B17FBE2C07A65B00A8F9D3 /* LoginViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -752,6 +763,7 @@
 				7F3E46A52BFFF9D70096211E /* NetworkCall.swift in Sources */,
 				7F3E469D2BFFF3010096211E /* Constants.swift in Sources */,
 
+				D4B17FBF2C07A65B00A8F9D3 /* LoginViewModel.swift in Sources */,
 				D403E2762C00BD2400AE9C68 /* UserModel.swift in Sources */,
 				D478FC682BFF49D700BBA2BB /* WelcomeViewController.swift in Sources */,
 				D403E27A2C00F47700AE9C68 /* LoginViewController.swift in Sources */,
