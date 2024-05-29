@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Qe3-0i-qfH">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Tii-hD-sS5">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
-
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -278,7 +275,6 @@
             </objects>
             <point key="canvasLocation" x="709.16030534351137" y="-59.154929577464792"/>
         </scene>
-
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -292,7 +288,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1834.3511450381679" y="-49.295774647887328"/>
+            <point key="canvasLocation" x="1805" y="291"/>
         </scene>
         <!--Category-->
         <scene sceneID="Owh-J6-mRR">
@@ -308,7 +304,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zb8-PC-dde" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3518.320610687023" y="298.59154929577466"/>
+            <point key="canvasLocation" x="3518" y="1285"/>
         </scene>
         <!--Payment View Controller-->
         <scene sceneID="4Ec-aA-Wf6">
@@ -326,10 +322,10 @@
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PaymentMethodTableViewCell" id="FBb-Gc-LPU" customClass="PaymentMethodTableViewCell" customModule="EleganceHub" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="392.66666666666669" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="50" width="392.66666666666669" height="47.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FBb-Gc-LPU" id="kTh-Ae-kmr">
-                                            <rect key="frame" x="0.0" y="0.0" width="392.66666666666669" height="43.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="392.66666666666669" height="47.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -397,7 +393,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iEs-XP-B78" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4031.2977099236641" y="-535.21126760563379"/>
+            <point key="canvasLocation" x="4201" y="-940"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="Jgt-HQ-Iwd">
@@ -430,10 +426,10 @@
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CartTableViewCell" id="DfY-bS-d2J" customClass="CartTableViewCell" customModule="EleganceHub" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="50" width="393" height="47.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DfY-bS-d2J" id="R1m-ZN-v4C">
-                                            <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="47.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -533,7 +529,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nbA-9S-dS7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3330.5343511450378" y="-535.21126760563379"/>
+            <point key="canvasLocation" x="4135" y="-261"/>
         </scene>
         <!--Profile-->
         <scene sceneID="B1D-kw-rvS">
@@ -549,9 +545,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BJi-nJ-F6Q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="888" y="689"/>
+            <point key="canvasLocation" x="2135" y="1285"/>
         </scene>
-        <!--Home View Controller-->
+        <!--Home-->
         <scene sceneID="a5m-LP-WYd">
             <objects>
                 <viewController storyboardIdentifier="HomeViewController" id="F0p-Yv-Hho" customClass="HomeViewController" customModule="EleganceHub" customModuleProvider="target" sceneMemberID="viewController">
@@ -560,7 +556,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yEn-rn-1O8">
-                                <rect key="frame" x="16" y="395" width="361" height="374"/>
+                                <rect key="frame" x="16" y="395" width="361" height="423"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="p0L-k9-e3k">
                                     <size key="itemSize" width="166" height="166"/>
@@ -671,6 +667,7 @@
                             <constraint firstItem="GHb-AW-C8z" firstAttribute="bottom" secondItem="yEn-rn-1O8" secondAttribute="bottom" id="xEe-cH-tL6"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Home" image="homekit" catalog="system" id="own-ax-g9e"/>
                     <navigationItem key="navigationItem" id="tyr-Vi-Tng"/>
                     <connections>
                         <outlet property="brandsCollection" destination="yEn-rn-1O8" id="v2h-Pk-Q0w"/>
@@ -686,8 +683,7 @@
                 </label>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Agh-nA-ZxI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-
-            <point key="canvasLocation" x="3518.320610687023" y="-535.21126760563379"/>
+            <point key="canvasLocation" x="3749" y="452"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="msu-vE-26m">
@@ -700,15 +696,14 @@
                         <color key="selectedImageTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="eXW-wy-ZJ0" kind="relationship" relationship="viewControllers" id="8FB-xZ-zPt"/>
+                        <segue destination="F0p-Yv-Hho" kind="relationship" relationship="viewControllers" id="i5F-O7-IVQ"/>
                         <segue destination="T80-uh-czD" kind="relationship" relationship="viewControllers" id="9Mn-K9-U3H"/>
                         <segue destination="58a-64-TAb" kind="relationship" relationship="viewControllers" id="BbK-yQ-5CD"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MLc-CG-Zse" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-
-            <point key="canvasLocation" x="2741.2213740458014" y="-23.239436619718312"/>
+            <point key="canvasLocation" x="2691" y="361"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="A9s-az-B3p">
@@ -725,14 +720,14 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u9M-1O-Kl0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1775" y="-535"/>
-</scene>
+            <point key="canvasLocation" x="1512" y="-503"/>
+        </scene>
         <!--Product View Controller-->
         <scene sceneID="dvj-pU-6nU">
             <objects>
                 <viewController storyboardIdentifier="ProductTableViewController" id="GyZ-Rf-6qO" customClass="ProductViewController" customModule="EleganceHub" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WB0-Nm-2OD">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="prl-ut-l2h">
@@ -748,7 +743,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="dXq-Se-7u2">
-                                <rect key="frame" x="16" y="131" width="356" height="687"/>
+                                <rect key="frame" x="16" y="234" width="356" height="560"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="productsCell" rowHeight="104" id="Cjd-dM-OJw" customClass="ProductsTableViewCell" customModule="EleganceHub" customModuleProvider="target">
@@ -783,23 +778,36 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vc9-og-qWI" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2595" y="-535"/>
-                        <segue destination="Tii-hD-sS5" kind="relationship" relationship="rootViewController" id="1Ee-IR-yay"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="hV4-yp-wnO">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="o1g-Zr-1YZ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Dgq-iZ-K16">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="GyZ-Rf-6qO" kind="relationship" relationship="rootViewController" id="1Ee-IR-yay"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y1U-iX-l91" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1695.4198473282443" y="-59.154929577464792"/>
+            <point key="canvasLocation" x="-163" y="-814"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="1Ee-IR-yay"/>
+        <segue reference="U3T-YJ-rbl"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="back" width="35" height="35"/>
         <image name="cart.circle" catalog="system" width="128" height="123"/>
         <image name="heart.circle" catalog="system" width="128" height="123"/>
         <image name="home" width="128" height="128"/>
-        <image name="house" catalog="system" width="128" height="104"/>
-        <image name="house.fill" catalog="system" width="128" height="104"/>
+        <image name="homekit" catalog="system" width="128" height="104"/>
         <image name="icons8-forward-button-50" width="35" height="35"/>
-        <image name="logo" width="896" height="898"/>
         <image name="l" width="499" height="500"/>
         <image name="person.circle.fill" catalog="system" width="128" height="123"/>
         <image name="person.crop.circle" catalog="system" width="128" height="123"/>
@@ -808,15 +816,13 @@
         <image name="square.grid.3x3.fill" catalog="system" width="128" height="113"/>
         <image name="wscreen" width="718" height="1484"/>
         <systemColor name="labelColor">
-            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        <systemColor name="systemGray2Color">
-            <color red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
