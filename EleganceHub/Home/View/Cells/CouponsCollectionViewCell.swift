@@ -9,5 +9,7 @@ import UIKit
 
 class CouponsCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var codeLabel: UILabel!
+    @IBOutlet weak var couponsLabel: UILabel!
     @IBOutlet weak var couponsImage: UIImageView!
 }

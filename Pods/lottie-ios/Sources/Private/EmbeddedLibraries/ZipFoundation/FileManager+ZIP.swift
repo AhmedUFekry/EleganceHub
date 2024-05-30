@@ -347,12 +347,12 @@ extension Date {
 // We have to provide an implementation for non-Darwin platforms using Swift versions < 4.2.
 
 extension CocoaError {
-  static func error(_ code: CocoaError.Code, userInfo: [AnyHashable: Any]? = nil, url: URL? = nil) -> Error {
+  static func error(_ codeLabel: CocoaError.Code, userInfo: [AnyHashable: Any]? = nil, url: URL? = nil) -> Error {
     var info: [String: Any] = userInfo as? [String: Any] ?? [:]
     if let url {
       info[NSURLErrorKey] = url
     }
-    return NSError(domain: NSCocoaErrorDomain, code: code.rawValue, userInfo: info)
+    return NSError(domain: NSCocoaErrorDomain, codeLabel: codeLabel.rawValue, userInfo: info)
   }
 }
 
