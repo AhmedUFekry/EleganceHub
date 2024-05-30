@@ -15,6 +15,9 @@
 		03B68E062C019DAE0054DA74 /* PaymentMethodTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03B68E042C019DAE0054DA74 /* PaymentMethodTableViewCell.xib */; };
 		03B68E082C01A1950054DA74 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B68E072C01A1950054DA74 /* PaymentViewController.swift */; };
 		03B68E0A2C01A3160054DA74 /* PaymentMethodModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B68E092C01A3160054DA74 /* PaymentMethodModel.swift */; };
+		03DE270F2C08037800E18567 /* DiscountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DE270E2C08037800E18567 /* DiscountModel.swift */; };
+		03DE27142C080C0300E18567 /* NetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DE27132C080C0300E18567 /* NetworkProtocol.swift */; };
+		03DE27162C08207100E18567 /* ViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DE27152C08207100E18567 /* ViewModelProtocol.swift */; };
 		03E40B6A2C01E2AB00345DE2 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E40B692C01E2AB00345DE2 /* SettingsViewController.swift */; };
 		3BC297D75085200E575E3889 /* Pods_EleganceHub_EleganceHubUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5380FBCB266D4065C010708 /* Pods_EleganceHub_EleganceHubUITests.framework */; };
 		78E6C913A67E1D0956C26FF0 /* Pods_EleganceHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C949754F3348588708BF29C /* Pods_EleganceHub.framework */; };
@@ -78,6 +81,9 @@
 		03B68E042C019DAE0054DA74 /* PaymentMethodTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentMethodTableViewCell.xib; sourceTree = "<group>"; };
 		03B68E072C01A1950054DA74 /* PaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
 		03B68E092C01A3160054DA74 /* PaymentMethodModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodModel.swift; sourceTree = "<group>"; };
+		03DE270E2C08037800E18567 /* DiscountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DiscountModel.swift; path = "../New Group/DiscountModel.swift"; sourceTree = "<group>"; };
+		03DE27132C080C0300E18567 /* NetworkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProtocol.swift; sourceTree = "<group>"; };
+		03DE27152C08207100E18567 /* ViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelProtocol.swift; sourceTree = "<group>"; };
 		03E40B692C01E2AB00345DE2 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		0DC1630ABF143E093FFAB7C0 /* Pods_EleganceHubTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EleganceHubTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BE2F76C89CB56A6C91EF8B7 /* Pods-EleganceHubTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EleganceHubTests.debug.xcconfig"; path = "Target Support Files/Pods-EleganceHubTests/Pods-EleganceHubTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -208,6 +214,23 @@
 			path = PaymentView;
 			sourceTree = "<group>";
 		};
+		03DE27112C08067B00E18567 /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				03DE270E2C08037800E18567 /* DiscountModel.swift */,
+			);
+			path = DataModel;
+			sourceTree = "<group>";
+		};
+		03DE27122C080BD700E18567 /* Contract */ = {
+			isa = PBXGroup;
+			children = (
+				03DE27132C080C0300E18567 /* NetworkProtocol.swift */,
+				03DE27152C08207100E18567 /* ViewModelProtocol.swift */,
+			);
+			path = Contract;
+			sourceTree = "<group>";
+		};
 		03E40B652C01E23B00345DE2 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -256,6 +279,7 @@
 		7F359E8D2BFEA9DA00D0D733 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				03DE27122C080BD700E18567 /* Contract */,
 				7F3E469F2BFFF3160096211E /* Model */,
 				7F3E46A12BFFF3160096211E /* ViewModel */,
 				7F359E8E2BFEA9EE00D0D733 /* View */,
@@ -295,6 +319,7 @@
 		7F3E469F2BFFF3160096211E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				03DE27112C08067B00E18567 /* DataModel */,
 				7F3E469E2BFFF3160096211E /* SmartCollections.swift */,
 				7F3E46A42BFFF9D70096211E /* NetworkCall.swift */,
 			);
@@ -729,22 +754,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-
-				C88C20612BFE8CAF00886365 /* ViewController.swift in Sources */,
 				03B68E082C01A1950054DA74 /* PaymentViewController.swift in Sources */,
-
 				7F3E46A32BFFF3160096211E /* HomeViewModel.swift in Sources */,
 				7F3E46B42C013D640096211E /* ProductsViewModel.swift in Sources */,
-
 				C88C205D2BFE8CAF00886365 /* AppDelegate.swift in Sources */,
 				D478FC6C2BFF9AC000BBA2BB /* SignUpViewController.swift in Sources */,
 				D403E2742C00B3BA00AE9C68 /* AuthService.swift in Sources */,
 				7F359E932BFEB9B700D0D733 /* BrandsCollectionViewCell.swift in Sources */,
 				7F359E8A2BFE9CFC00D0D733 /* TabBarCorners.swift in Sources */,
+				03DE27142C080C0300E18567 /* NetworkProtocol.swift in Sources */,
+				03DE270F2C08037800E18567 /* DiscountModel.swift in Sources */,
 				7F3E46B82C0149340096211E /* ProductViewController.swift in Sources */,
 				C88C205F2BFE8CAF00886365 /* SceneDelegate.swift in Sources */,
 				7F359E962BFEBD7200D0D733 /* HomeViewController.swift in Sources */,
-
 				03B68E052C019DAE0054DA74 /* PaymentMethodTableViewCell.swift in Sources */,
 				03E40B6A2C01E2AB00345DE2 /* SettingsViewController.swift in Sources */,
 				7F359E982BFF4DC500D0D733 /* CouponsCollectionViewCell.swift in Sources */,
@@ -753,7 +775,6 @@
 				03B68E0A2C01A3160054DA74 /* PaymentMethodModel.swift in Sources */,
 				03B68E002C019AAE0054DA74 /* OrderModel.swift in Sources */,
 				D478FC682BFF49D700BBA2BB /* WelcomeViewController.swift in Sources */,
-
 				7F3E46AB2C010AB80096211E /* Products.swift in Sources */,
 				7F359E982BFF4DC500D0D733 /* CouponsCollectionViewCell.swift in Sources */,
 				7F3E46AF2C0129910096211E /* ProductsTableViewCell.swift in Sources */,
@@ -762,10 +783,10 @@
 				7F3E46BA2C01E7260096211E /* ProductsCall.swift in Sources */,
 				7F3E46A52BFFF9D70096211E /* NetworkCall.swift in Sources */,
 				7F3E469D2BFFF3010096211E /* Constants.swift in Sources */,
-
 				D4B17FBF2C07A65B00A8F9D3 /* LoginViewModel.swift in Sources */,
 				D403E2762C00BD2400AE9C68 /* UserModel.swift in Sources */,
 				D478FC682BFF49D700BBA2BB /* WelcomeViewController.swift in Sources */,
+				03DE27162C08207100E18567 /* ViewModelProtocol.swift in Sources */,
 				D403E27A2C00F47700AE9C68 /* LoginViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

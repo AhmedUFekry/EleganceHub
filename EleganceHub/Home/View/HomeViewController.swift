@@ -15,6 +15,8 @@ class HomeViewController: UIViewController {
     
     var homeViewModel = HomeViewModel()
     var smartCollections : SmartCollections?
+    var couponsList : [DiscountCodes]? = []
+    var couponsImage : [String] = ["discount_1","discount_2","discount_3","discount_4"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,14 +27,28 @@ class HomeViewController: UIViewController {
             self.smartCollections = self.homeViewModel.vmResult
             self.renderView()
         }
+        
+        homeViewModel.bindCouponsToViewController = {[weak self] in
+            guard let self = self else {return}
+            self.couponsList = self.homeViewModel.couponsResult!
+            self.renderView()
+        }
+        
+        homeViewModel.failureIngetData = { faildMsg in
+            Constants.displayToast(viewController: self, message: faildMsg, seconds: 2.2)
+        }
 
         homeViewModel.getBrandsFromModel()
+        homeViewModel.getCouponsFromModel()
         setupCollectionView()
     }
+    
+
     
     func renderView(){
         DispatchQueue.main.async {
             self.brandsCollection.reloadData()
+            self.couponsCollection.reloadData()
         }
     }
     
@@ -58,7 +74,7 @@ class HomeViewController: UIViewController {
     
 
     @IBAction func cartBtn(_ sender: UIBarButtonItem) {
-        print("cartBtn")
+        print("cartBtn \(couponsList?.count ?? 0)")
         if let viewController = self.storyboard?.instantiateViewController(withIdentifier: "CartViewController") as? CartViewController {
             print("cartBtn CartViewController")
                 self.navigationController?.pushViewController(viewController, animated: true)
@@ -72,7 +88,7 @@ extension HomeViewController: UICollectionViewDataSource,UICollectionViewDelegat
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if(collectionView == couponsCollection){
-            return 10
+            return couponsList?.count ?? 2
         }else{
             return smartCollections?.smartCollections.count ?? 5
         }
@@ -91,15 +107,29 @@ extension HomeViewController: UICollectionViewDataSource,UICollectionViewDelegat
             return brandsCell
         }else {
             let couponsCell = collectionView.dequeueReusableCell(withReuseIdentifier: "couponsCell", for: indexPath) as! CouponsCollectionViewCell
+            if(!couponsList!.isEmpty){
+                print("!couponsList!.isEmpty")
+                couponsCell.couponsLabel.text = couponsList![indexPath.row].code
+                couponsCell.codeLabel.text = "Coupons code: \(couponsList?[indexPath.row].code ?? "")"
+                if(indexPath.row < couponsList!.count){
+                    //var index = 0
+                    couponsCell.couponsImage.image = UIImage(named: couponsImage[indexPath.row])
+                 //   index += 1
+                }else{
+                    couponsCell.couponsImage.image = UIImage(named: couponsImage[3])
+                }
+            }
             return couponsCell
         }
     }
 
    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("cartBtn")
-        let viewController =  self.storyboard?.instantiateViewController(withIdentifier: "CartViewController") as? CartViewController
-        self.navigationController?.pushViewController(viewController!, animated: true)
+//        if collectionView == brandsCollection {
+//            print("brandsCollection clicked")
+//        }else{
+//            Constants.displayToast(viewController: self, message: "Coupon code is \(couponsList?[indexPath.row].code ?? "")", seconds: 2.2)
+//        }
     }
     
     
