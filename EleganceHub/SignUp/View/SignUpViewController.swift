@@ -18,9 +18,16 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var confirmPasswordTxt: UITextField!
     @IBOutlet weak var registerButton: UIButton!
     
+    
+    var signViewModel:SignViewModel?
+    //var newUser:User?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         styleSignUpButton()
+        signViewModel = SignViewModel()
+        //newUser = User()
+        setupBindings()
     }
             
         
@@ -30,6 +37,27 @@ class SignUpViewController: UIViewController {
     registerButton.tintColor = .black
     registerButton.layer.borderWidth = 1.0
     registerButton.setTitleColor(.white, for: .normal)
+    }
+    
+    private func setupBindings() {
+            signViewModel?.bindingSignUp = { [weak self] in
+                DispatchQueue.main.async {
+                    if let signUpStatus = self?.signViewModel?.observableSignUp {
+                        switch signUpStatus.statusCode {
+                        case 201:
+                            self?.displayAlert(message: "User signed up successfully", seconds: 5.0)
+                            self?.navigateToHome()
+                        case 422:
+                            self?.displayAlert(message: "Unprocessable Entity: The request was well-formed but was unable to be followed due to semantic errors.", seconds: 5.0)
+                        case 0:
+                            self?.displayAlert(message: "Error during Firebase signup process", seconds: 5.0)
+                        default:
+                            self?.displayAlert(message: "Error signing up user: HTTP Status \(signUpStatus.statusCode)\nResponse: \(signUpStatus.responseData ?? "No data")", seconds: 5.0)
+                        }
+                        print("Sign up response: \(signUpStatus.responseData ?? "No data")")
+                    }
+                }
+            }
         }
     
     
@@ -40,17 +68,17 @@ class SignUpViewController: UIViewController {
               let email = emailTxt.text, !email.isEmpty,
               let password = passwordTxt.text, !password.isEmpty,
               let confirmPassword = confirmPasswordTxt.text, !confirmPassword.isEmpty else {
-                displayAlert(message: "Please fill all fields", seconds: 2.0)
+                displayAlert(message: "Please fill all fields", seconds: 5.0)
                 return
             }
                 
         guard isValidPhone(phone) else {
-            displayAlert(message: "Please enter a valid phone number", seconds: 2.0)
+            displayAlert(message: "Please enter a valid phone number", seconds: 5.0)
             return
         }
                 
         guard password == confirmPassword else {
-            displayAlert(message: "Passwords do not match", seconds: 2.0)
+            displayAlert(message: "Passwords do not match", seconds: 5.0)
             return
         }
                 
@@ -58,7 +86,7 @@ class SignUpViewController: UIViewController {
                 
         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
             if let error = error {
-                self.displayAlert(message: "Error creating user: \(error.localizedDescription)", seconds: 2.0)
+                self.displayAlert(message: "Error creating user: \(error.localizedDescription)", seconds: 5.0)
                 return
             }
                     
@@ -67,10 +95,10 @@ class SignUpViewController: UIViewController {
                 changeRequest.displayName = fullName
                 changeRequest.commitChanges { error in
                     if let error = error {
-                    self.displayAlert(message: "Error updating user profile: \(error.localizedDescription)", seconds: 2.0)
+                    self.displayAlert(message: "Error updating user profile: \(error.localizedDescription)", seconds: 5.0)
                     } else {
-                    self.displayAlert(message: "User signed up successfully", seconds: 2.0)
-                    self.navigateToHome()
+                    self.displayAlert(message: "User signed up successfully", seconds: 5.0)
+                    self.navigateToLogin()
                 }
             }
         }
@@ -88,6 +116,12 @@ class SignUpViewController: UIViewController {
     private func navigateToHome() {
         if let homeViewController = storyboard?.instantiateViewController(withIdentifier: "HomeViewController") as? HomeViewController {
                 navigationController?.pushViewController(homeViewController, animated: true)
+        }
+    }
+    
+    private func navigateToLogin(){
+        if let loginViewController = storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController {
+                navigationController?.pushViewController(loginViewController, animated: true)
         }
     }
     

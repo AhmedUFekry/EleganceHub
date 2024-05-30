@@ -15,12 +15,12 @@ class AuthService{
     
     private init(){}
     
-    public func registerUser(with userRequest: AuthUserRequest, completion: @escaping (Bool, Error?)->Void) {
+    public func signUp(with userRequest: User, completion: @escaping (Bool, Error?)->Void) {
         
         let email = userRequest.email
-        let password = userRequest.password
+        guard let password = userRequest.password else { return  }
                 
-        Auth.auth().createUser(withEmail: email, password: password) { result, error in
+        Auth.auth().createUser(withEmail: email ?? "not found", password: password) { result, error in
             if let error = error {
                 completion(false, error)
                     return
@@ -44,10 +44,10 @@ class AuthService{
         }
     }
     
-    public func signIn(with userRequest: AuthUserRequest, completion: @escaping (Error?)->Void) {
+    public func signIn(with userRequest: User, completion: @escaping (Error?)->Void) {
         Auth.auth().signIn(
-            withEmail: userRequest.email,
-            password: userRequest.password
+            withEmail: userRequest.email ?? "not found",
+            password: userRequest.password ?? "not found"
         ) { result, error in
             if let error = error {
                 completion(error)
