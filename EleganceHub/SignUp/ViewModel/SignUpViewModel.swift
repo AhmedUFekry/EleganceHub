@@ -1,47 +1,24 @@
-////
-////  SignUpViewModel.swift
-////  EleganceHub
-////
-////  Created by Shimaa on 30/05/2024.
-////
 //
-//import Foundation
-//class SignViewModel {
-//    
-//    var bindingSignUp: (() -> Void) = {}
-//    var observableSignUp: (statusCode: Int, responseData: String?)? {
-//        didSet {
-//            bindingSignUp()
-//        }
-//    }
-//    
-//    func insertCustomer(user: User) {
-//        SignUpNetworkService.userRegister(newUser: user) { statusCode, responseData in
-//            print("Status Code: \(statusCode)")
-//            print("Response Data: \(responseData ?? "No data")")
-//            self.observableSignUp = (statusCode, responseData)
-//        }
-//    }
-//}
-import Foundation
+//  SignUpViewModel.swift
+//  EleganceHub
+//
+//  Created by Shimaa on 30/05/2024.
+//
 
-struct SignUpStatus {
-    let statusCode: Int
-    let responseData: String?
-}
+import Foundation
 
 class SignViewModel {
     
-    var bindingSignUp: (() -> Void) = {}
-    var observableSignUp: SignUpStatus? {
+    var bindingSignUp:(()->()) = {}
+    var ObservableSignUp : Int? {
         didSet {
             bindingSignUp()
         }
     }
     
-    func insertCustomer(user: User) {
-        SignUpNetworkService.userRegister(newUser: user) { statusCode, responseData in
-            self.observableSignUp = SignUpStatus(statusCode: statusCode, responseData: responseData)
-        }
+func insertCustomer(user:User){
+    SignUpNetworkService.userRegister(newUser: user) { checkSignAblitiy in
+        self.ObservableSignUp = checkSignAblitiy
+    }
     }
 }

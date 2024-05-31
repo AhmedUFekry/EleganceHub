@@ -17,20 +17,58 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     
     var loginViewModel: LoginViewModel?
+    private var signUpLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         styleLogInButton()
+        setupSignUpLabel()
         loginViewModel = LoginViewModel()
     }
     
-
     private func styleLogInButton() {
     loginButton.layer.cornerRadius = 100
     loginButton.backgroundColor = .black
     loginButton.tintColor = .black
     loginButton.layer.borderWidth = 1.0
     loginButton.setTitleColor(.white, for: .normal)
+    }
+    
+    private func setupSignUpLabel() {
+        signUpLabel = UILabel()
+        signUpLabel.translatesAutoresizingMaskIntoConstraints = false
+        signUpLabel.textAlignment = .center
+            
+        let text = "Don't have an account? Sign Up"
+        let attributedString = NSMutableAttributedString(string: text)
+        let loginRange = (text as NSString).range(of: "Sign Up")
+            
+        attributedString.addAttribute(.font, value: UIFont.systemFont(ofSize: 14), range: NSMakeRange(0, text.count))
+        attributedString.addAttribute(.foregroundColor, value: UIColor.gray, range: loginRange)
+        attributedString.addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: loginRange)
+            
+        signUpLabel.attributedText = attributedString
+        signUpLabel.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(loginLabelTapped))
+        signUpLabel.addGestureRecognizer(tapGesture)
+            
+        view.addSubview(signUpLabel)
+            
+        NSLayoutConstraint.activate([
+            signUpLabel.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 10),
+            signUpLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            signUpLabel.heightAnchor.constraint(equalToConstant: 15)
+        ])
+    }
+
+    @objc private func loginLabelTapped() {
+        navigateToSignUp()
+    }
+    
+    func navigateToSignUp(){
+        if let loginViewController = storyboard?.instantiateViewController(identifier: "LoginViewController") as? LoginViewController{
+            navigationController?.pushViewController(loginViewController, animated: true)
+        }
     }
   
     @IBAction func logToAccount(_ sender: Any) {
@@ -51,7 +89,11 @@ class LoginViewController: UIViewController {
             }
         }
     }
-            
+    
+    @IBAction func navigateToPreScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     private func displayToast(message: String, seconds: Double) {
         let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
         self.present(alert, animated: true)

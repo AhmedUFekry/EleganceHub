@@ -173,11 +173,22 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yNf-Or-J4O">
                                 <rect key="frame" x="87" y="734" width="217" height="39"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="0.025035511359999998" green="0.025035511359999998" blue="0.025035511359999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" systemColor="groupTableViewBackgroundColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Register"/>
                                 <connections>
                                     <action selector="signUp:" destination="ZuI-Wr-C2G" eventType="touchUpInside" id="bka-Ja-v85"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1IQ-UU-22u">
+                                <rect key="frame" x="41" y="69" width="35" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="back"/>
+                                <connections>
+                                    <action selector="backBtn:" destination="voJ-NR-9B7" eventType="touchUpInside" id="vuy-WR-5kT"/>
+                                    <action selector="navigateToPreScreen:" destination="ZuI-Wr-C2G" eventType="touchUpInside" id="gix-dZ-Fgg"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -262,6 +273,16 @@
                                 <rect key="frame" x="86" y="84" width="202" height="209"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7mg-DK-nAr">
+                                <rect key="frame" x="53" y="69" width="35" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="back"/>
+                                <connections>
+                                    <action selector="backBtn:" destination="voJ-NR-9B7" eventType="touchUpInside" id="pdJ-Zi-oKd"/>
+                                    <action selector="navigateToPreScreen:" destination="5T0-xX-GU0" eventType="touchUpInside" id="4iV-ZL-Grk"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="PzX-iE-Ix7"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -847,6 +868,9 @@
         <image name="square.grid.3x3" catalog="system" width="128" height="113"/>
         <image name="square.grid.3x3.fill" catalog="system" width="128" height="113"/>
         <image name="wscreen" width="718" height="1484"/>
+        <systemColor name="groupTableViewBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
