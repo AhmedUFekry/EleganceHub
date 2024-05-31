@@ -100,7 +100,6 @@ extension HomeViewController: UICollectionViewDataSource,UICollectionViewDelegat
             let brand = smartCollections?.smartCollections[indexPath.row]
             
             brandsCell.brandName?.text = brand?.title
-            print(brand?.title, brand?.id)
             KF.url(URL(string: brand?.image.src ?? "https://cdn.shopify.com/s/files/1/0880/0426/4211/collections/a340ce89e0298e52c438ae79591e3284.jpg?v=1716276581"))
                 .set(to: brandsCell.brandImage)
             
@@ -125,9 +124,15 @@ extension HomeViewController: UICollectionViewDataSource,UICollectionViewDelegat
 
    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        if collectionView == brandsCollection {
-//            print("brandsCollection clicked")
-//        }else{
+        let brand = smartCollections?.smartCollections[indexPath.row]
+        if let ProductViewController = storyboard?.instantiateViewController(withIdentifier: "ProductViewController") as? ProductViewController {
+            if collectionView == brandsCollection {
+                print("brandsCollection clicked")
+                ProductViewController.brandsId = brand?.id
+                navigationController?.pushViewController(ProductViewController, animated: true)
+            }
+        }
+        //else{
 //            Constants.displayToast(viewController: self, message: "Coupon code is \(couponsList?[indexPath.row].code ?? "")", seconds: 2.2)
 //        }
     }

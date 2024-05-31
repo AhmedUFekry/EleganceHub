@@ -64,7 +64,6 @@ class NetworkCall: NetworkProtocol{
     static func getBrands(complationhandler: @escaping (SmartCollections?,Error?) -> Void) {
         let url = URL(string: "\(Constants.storeUrl)smart_collections.json?since_id=482865238&\(Constants.accessToken)")
         
-        print(url)
         guard let newUrl = url else {return}
         
         let request = URLRequest(url: newUrl)
@@ -73,7 +72,6 @@ class NetworkCall: NetworkProtocol{
       
         let task = session.dataTask(with: request) { (data, response, error) in
             guard let data = data else {return}
-            print("whoooo data has arrived \(data.count)")
             
             do {
                 let result = try JSONDecoder().decode(SmartCollections.self, from:data)

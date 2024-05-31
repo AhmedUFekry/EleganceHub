@@ -7,25 +7,28 @@
 
 import Foundation
 
-class ProductsViewModel{
-    
-    var vmResult : ProductResponse? {
+
+import Foundation
+
+class ProductsViewModel {
+    var vmResult: [Product]? {
         didSet {
             bindResultToViewController()
         }
     }
     var bindResultToViewController: (() -> ()) = {}
-
-    func getProductsFromModel() {
-        ProductsCall.getProducts(complationhandler:{ result, error in
+    
+    func getProductsFromModel(collectionId:Int) {
+        ProductsCall.getProducts(collectionId: collectionId) { result, error in
             if let result = result {
-                self.vmResult = result
-                print("getProductsFromModel \(result.products.count)")
-            }else{
+                DispatchQueue.main.async {
+                    self.vmResult = result.products
+                    print("ProductsViewModel \(result.products.count)")
+                }
+            } else {
                 print("Error fetching products: \(error?.localizedDescription ?? "Unknown error")")
             }
         }
-    )}
-    
-    
+    }
 }
+
