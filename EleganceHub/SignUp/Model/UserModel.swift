@@ -17,7 +17,7 @@ struct User:Codable {
     var last_name:String?
     let email: String?
     let password: String?
-    var addresses:[String]?
+    //var addresses:[String]
     //var note:String?
 }
 
