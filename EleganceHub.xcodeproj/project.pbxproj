@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		036C9EA02C0A712300CEEE92 /* ProfileImageUIView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 036C9E9F2C0A712300CEEE92 /* ProfileImageUIView.xib */; };
+		036C9EA42C0A717300CEEE92 /* ProfileImageUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036C9EA32C0A717300CEEE92 /* ProfileImageUIView.swift */; };
+		036C9EA62C0A826D00CEEE92 /* customAppBarUIView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 036C9EA52C0A826D00CEEE92 /* customAppBarUIView.xib */; };
+		036C9EA92C0A855300CEEE92 /* CustomAppBarUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036C9EA82C0A855300CEEE92 /* CustomAppBarUIView.swift */; };
 		03A7F5522C01484000F68AC7 /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A7F5512C01484000F68AC7 /* CartViewController.swift */; };
 		03A7F5552C0164E500F68AC7 /* CartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A7F5532C0164E500F68AC7 /* CartTableViewCell.swift */; };
 		03A7F5562C0164E500F68AC7 /* CartTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03A7F5542C0164E500F68AC7 /* CartTableViewCell.xib */; };
@@ -73,6 +77,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		036C9E9F2C0A712300CEEE92 /* ProfileImageUIView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileImageUIView.xib; sourceTree = "<group>"; };
+		036C9EA32C0A717300CEEE92 /* ProfileImageUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageUIView.swift; sourceTree = "<group>"; };
+		036C9EA52C0A826D00CEEE92 /* customAppBarUIView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = customAppBarUIView.xib; sourceTree = "<group>"; };
+		036C9EA82C0A855300CEEE92 /* CustomAppBarUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAppBarUIView.swift; sourceTree = "<group>"; };
 		03A7F5512C01484000F68AC7 /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
 		03A7F5532C0164E500F68AC7 /* CartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartTableViewCell.swift; sourceTree = "<group>"; };
 		03A7F5542C0164E500F68AC7 /* CartTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CartTableViewCell.xib; sourceTree = "<group>"; };
@@ -159,6 +167,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		036C9EA72C0A852E00CEEE92 /* CustomAppBar */ = {
+			isa = PBXGroup;
+			children = (
+				036C9EA52C0A826D00CEEE92 /* customAppBarUIView.xib */,
+				036C9EA82C0A855300CEEE92 /* CustomAppBarUIView.swift */,
+			);
+			path = CustomAppBar;
+			sourceTree = "<group>";
+		};
 		03A7F54D2C01440A00F68AC7 /* Cart */ = {
 			isa = PBXGroup;
 			children = (
@@ -245,6 +262,8 @@
 			isa = PBXGroup;
 			children = (
 				03E40B692C01E2AB00345DE2 /* SettingsViewController.swift */,
+				036C9E9F2C0A712300CEEE92 /* ProfileImageUIView.xib */,
+				036C9EA32C0A717300CEEE92 /* ProfileImageUIView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -311,6 +330,7 @@
 		7F3E469C2BFFF3010096211E /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				036C9EA72C0A852E00CEEE92 /* CustomAppBar */,
 				7F3E469B2BFFF3010096211E /* Constants.swift */,
 			);
 			path = Utility;
@@ -620,6 +640,8 @@
 			files = (
 				7F359E942BFEB9B700D0D733 /* BrandsCollectionViewCell.xib in Resources */,
 				7F3E46B02C0129910096211E /* ProductsTableViewCell.xib in Resources */,
+				036C9EA02C0A712300CEEE92 /* ProfileImageUIView.xib in Resources */,
+				036C9EA62C0A826D00CEEE92 /* customAppBarUIView.xib in Resources */,
 				7F359E9B2BFF63D400D0D733 /* CouponsCollectionViewCell.xib in Resources */,
 				C88C20692BFE8CB400886365 /* LaunchScreen.storyboard in Resources */,
 				03A7F5562C0164E500F68AC7 /* CartTableViewCell.xib in Resources */,
@@ -755,6 +777,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				03B68E082C01A1950054DA74 /* PaymentViewController.swift in Sources */,
+				036C9EA92C0A855300CEEE92 /* CustomAppBarUIView.swift in Sources */,
 				7F3E46A32BFFF3160096211E /* HomeViewModel.swift in Sources */,
 				7F3E46B42C013D640096211E /* ProductsViewModel.swift in Sources */,
 				C88C205D2BFE8CAF00886365 /* AppDelegate.swift in Sources */,
@@ -771,6 +794,7 @@
 				03E40B6A2C01E2AB00345DE2 /* SettingsViewController.swift in Sources */,
 				7F359E982BFF4DC500D0D733 /* CouponsCollectionViewCell.swift in Sources */,
 				03A7F5552C0164E500F68AC7 /* CartTableViewCell.swift in Sources */,
+				036C9EA42C0A717300CEEE92 /* ProfileImageUIView.swift in Sources */,
 				03A7F5522C01484000F68AC7 /* CartViewController.swift in Sources */,
 				03B68E0A2C01A3160054DA74 /* PaymentMethodModel.swift in Sources */,
 				03B68E002C019AAE0054DA74 /* OrderModel.swift in Sources */,
