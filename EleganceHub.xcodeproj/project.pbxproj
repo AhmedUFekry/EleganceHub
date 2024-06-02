@@ -11,6 +11,13 @@
 		036C9EA42C0A717300CEEE92 /* ProfileImageUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036C9EA32C0A717300CEEE92 /* ProfileImageUIView.swift */; };
 		036C9EA62C0A826D00CEEE92 /* customAppBarUIView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 036C9EA52C0A826D00CEEE92 /* customAppBarUIView.xib */; };
 		036C9EA92C0A855300CEEE92 /* CustomAppBarUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036C9EA82C0A855300CEEE92 /* CustomAppBarUIView.swift */; };
+		0383BC3E2C0BA96C00855384 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0383BC3C2C0BA96C00855384 /* SettingsTableViewCell.swift */; };
+		0383BC3F2C0BA96C00855384 /* SettingsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0383BC3D2C0BA96C00855384 /* SettingsTableViewCell.xib */; };
+		0383BC482C0BC57000855384 /* CellModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0383BC472C0BC57000855384 /* CellModelData.swift */; };
+		0383BC4B2C0BD0AA00855384 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0383BC4A2C0BD0A900855384 /* ProfileViewController.swift */; };
+		0383BC4F2C0BEBE900855384 /* ShippingAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0383BC4D2C0BEBE900855384 /* ShippingAddressViewController.swift */; };
+		0383BC502C0BEBE900855384 /* ShippingAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0383BC4E2C0BEBE900855384 /* ShippingAddressViewController.xib */; };
+		0383BC522C0BF26300855384 /* AddressDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0383BC512C0BF26300855384 /* AddressDataModel.swift */; };
 		03A7F5522C01484000F68AC7 /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A7F5512C01484000F68AC7 /* CartViewController.swift */; };
 		03A7F5552C0164E500F68AC7 /* CartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A7F5532C0164E500F68AC7 /* CartTableViewCell.swift */; };
 		03A7F5562C0164E500F68AC7 /* CartTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03A7F5542C0164E500F68AC7 /* CartTableViewCell.xib */; };
@@ -81,6 +88,13 @@
 		036C9EA32C0A717300CEEE92 /* ProfileImageUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageUIView.swift; sourceTree = "<group>"; };
 		036C9EA52C0A826D00CEEE92 /* customAppBarUIView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = customAppBarUIView.xib; sourceTree = "<group>"; };
 		036C9EA82C0A855300CEEE92 /* CustomAppBarUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAppBarUIView.swift; sourceTree = "<group>"; };
+		0383BC3C2C0BA96C00855384 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
+		0383BC3D2C0BA96C00855384 /* SettingsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsTableViewCell.xib; sourceTree = "<group>"; };
+		0383BC472C0BC57000855384 /* CellModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CellModelData.swift; path = EleganceHub/Settings/View/CellModelData.swift; sourceTree = SOURCE_ROOT; };
+		0383BC4A2C0BD0A900855384 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		0383BC4D2C0BEBE900855384 /* ShippingAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShippingAddressViewController.swift; sourceTree = "<group>"; };
+		0383BC4E2C0BEBE900855384 /* ShippingAddressViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShippingAddressViewController.xib; sourceTree = "<group>"; };
+		0383BC512C0BF26300855384 /* AddressDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddressDataModel.swift; path = EleganceHub/Settings/View/ShippingAddressView/AddressDataModel.swift; sourceTree = SOURCE_ROOT; };
 		03A7F5512C01484000F68AC7 /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
 		03A7F5532C0164E500F68AC7 /* CartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartTableViewCell.swift; sourceTree = "<group>"; };
 		03A7F5542C0164E500F68AC7 /* CartTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CartTableViewCell.xib; sourceTree = "<group>"; };
@@ -176,6 +190,43 @@
 			path = CustomAppBar;
 			sourceTree = "<group>";
 		};
+		0383BC452C0BBE6F00855384 /* SettingsView */ = {
+			isa = PBXGroup;
+			children = (
+				0383BC462C0BBE9300855384 /* ProfileImageView */,
+				03E40B692C01E2AB00345DE2 /* SettingsViewController.swift */,
+				0383BC3C2C0BA96C00855384 /* SettingsTableViewCell.swift */,
+				0383BC3D2C0BA96C00855384 /* SettingsTableViewCell.xib */,
+			);
+			path = SettingsView;
+			sourceTree = "<group>";
+		};
+		0383BC462C0BBE9300855384 /* ProfileImageView */ = {
+			isa = PBXGroup;
+			children = (
+				036C9E9F2C0A712300CEEE92 /* ProfileImageUIView.xib */,
+				036C9EA32C0A717300CEEE92 /* ProfileImageUIView.swift */,
+			);
+			path = ProfileImageView;
+			sourceTree = "<group>";
+		};
+		0383BC492C0BD07500855384 /* ProfileViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0383BC4A2C0BD0A900855384 /* ProfileViewController.swift */,
+			);
+			path = ProfileViewController;
+			sourceTree = "<group>";
+		};
+		0383BC4C2C0BEB9700855384 /* ShippingAddressView */ = {
+			isa = PBXGroup;
+			children = (
+				0383BC4D2C0BEBE900855384 /* ShippingAddressViewController.swift */,
+				0383BC4E2C0BEBE900855384 /* ShippingAddressViewController.xib */,
+			);
+			path = ShippingAddressView;
+			sourceTree = "<group>";
+		};
 		03A7F54D2C01440A00F68AC7 /* Cart */ = {
 			isa = PBXGroup;
 			children = (
@@ -261,9 +312,9 @@
 		03E40B662C01E24500345DE2 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				03E40B692C01E2AB00345DE2 /* SettingsViewController.swift */,
-				036C9E9F2C0A712300CEEE92 /* ProfileImageUIView.xib */,
-				036C9EA32C0A717300CEEE92 /* ProfileImageUIView.swift */,
+				0383BC4C2C0BEB9700855384 /* ShippingAddressView */,
+				0383BC492C0BD07500855384 /* ProfileViewController */,
+				0383BC452C0BBE6F00855384 /* SettingsView */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -278,6 +329,8 @@
 		03E40B682C01E28F00345DE2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0383BC472C0BC57000855384 /* CellModelData.swift */,
+				0383BC512C0BF26300855384 /* AddressDataModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -640,12 +693,14 @@
 			files = (
 				7F359E942BFEB9B700D0D733 /* BrandsCollectionViewCell.xib in Resources */,
 				7F3E46B02C0129910096211E /* ProductsTableViewCell.xib in Resources */,
+				0383BC502C0BEBE900855384 /* ShippingAddressViewController.xib in Resources */,
 				036C9EA02C0A712300CEEE92 /* ProfileImageUIView.xib in Resources */,
 				036C9EA62C0A826D00CEEE92 /* customAppBarUIView.xib in Resources */,
 				7F359E9B2BFF63D400D0D733 /* CouponsCollectionViewCell.xib in Resources */,
 				C88C20692BFE8CB400886365 /* LaunchScreen.storyboard in Resources */,
 				03A7F5562C0164E500F68AC7 /* CartTableViewCell.xib in Resources */,
 				D403E2722C00AA4C00AE9C68 /* GoogleService-Info.plist in Resources */,
+				0383BC3F2C0BA96C00855384 /* SettingsTableViewCell.xib in Resources */,
 				C88C20662BFE8CB400886365 /* Assets.xcassets in Resources */,
 				C88C20642BFE8CAF00886365 /* Main.storyboard in Resources */,
 				03B68E062C019DAE0054DA74 /* PaymentMethodTableViewCell.xib in Resources */,
@@ -797,12 +852,16 @@
 				036C9EA42C0A717300CEEE92 /* ProfileImageUIView.swift in Sources */,
 				03A7F5522C01484000F68AC7 /* CartViewController.swift in Sources */,
 				03B68E0A2C01A3160054DA74 /* PaymentMethodModel.swift in Sources */,
+				0383BC4F2C0BEBE900855384 /* ShippingAddressViewController.swift in Sources */,
+				0383BC4B2C0BD0AA00855384 /* ProfileViewController.swift in Sources */,
 				03B68E002C019AAE0054DA74 /* OrderModel.swift in Sources */,
 				D478FC682BFF49D700BBA2BB /* WelcomeViewController.swift in Sources */,
+				0383BC3E2C0BA96C00855384 /* SettingsTableViewCell.swift in Sources */,
 				7F3E46AB2C010AB80096211E /* Products.swift in Sources */,
 				7F359E982BFF4DC500D0D733 /* CouponsCollectionViewCell.swift in Sources */,
 				7F3E46AF2C0129910096211E /* ProductsTableViewCell.swift in Sources */,
 				7F3E46A22BFFF3160096211E /* SmartCollections.swift in Sources */,
+				0383BC522C0BF26300855384 /* AddressDataModel.swift in Sources */,
 				D478FC682BFF49D700BBA2BB /* WelcomeViewController.swift in Sources */,
 				7F3E46BA2C01E7260096211E /* ProductsCall.swift in Sources */,
 				7F3E46A52BFFF9D70096211E /* NetworkCall.swift in Sources */,
@@ -812,6 +871,7 @@
 				D478FC682BFF49D700BBA2BB /* WelcomeViewController.swift in Sources */,
 				03DE27162C08207100E18567 /* ViewModelProtocol.swift in Sources */,
 				D403E27A2C00F47700AE9C68 /* LoginViewController.swift in Sources */,
+				0383BC482C0BC57000855384 /* CellModelData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
