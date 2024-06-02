@@ -8,7 +8,7 @@
 import Foundation
 enum Categories : String{
     case Men = "484442636563"
-    case Women = "484442669331"
+    case Women = "484443422995"
     case Kids = "484442702099"
     case Sale = "484442734867"
 }

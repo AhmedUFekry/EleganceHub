@@ -64,7 +64,7 @@ extension SuperCategoryViewController: UICollectionViewDataSource,UICollectionVi
         KF.url(URL(string: category?.image?.src ?? "https://cdn.shopify.com/s/files/1/0880/0426/4211/collections/a340ce89e0298e52c438ae79591e3284.jpg?v=1716276581"))
             .set(to: categoryCell.categoryImage)
         categoryCell.categoryType?.text = category?.productType
-        categoryCell.categoryPrice?.text = (category?.variants?[0].price)! + "$"
+        categoryCell.categoryPrice?.text = category?.variants?[0].price
 
 
         
