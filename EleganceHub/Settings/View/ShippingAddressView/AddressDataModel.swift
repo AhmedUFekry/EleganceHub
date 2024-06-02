@@ -34,3 +34,13 @@ struct Address: Codable {
     }
 }
 
+struct CountryDataModel{
+    let countryCode, countryName, currencyCode, extensionCode, flag :String?
+}
+
+struct CitiesResponse:Codable{
+    let error : String?
+    let msg :String?
+    let date:[String]?
+}
+

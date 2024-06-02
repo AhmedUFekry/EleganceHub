@@ -22,8 +22,8 @@ class SettingsViewController: UIViewController {
         uISetUp()
     }
     private func uISetUp(){
-        textFieldStyle(tF: userNameTF)
-        textFieldStyle(tF: userEmailTF)
+        Constants.textFieldStyle(tF: userNameTF)
+        Constants.textFieldStyle(tF: userEmailTF)
         uiViewStyle.layer.borderWidth = 1
         uiViewStyle.layer.cornerRadius = 10
         uiViewStyle.layer.borderColor = UIColor.gray.cgColor
@@ -33,13 +33,7 @@ class SettingsViewController: UIViewController {
         
         appBarView.backBtn.addTarget(self, action: #selector(goBack), for: .touchUpInside)
     }
-    private func textFieldStyle(tF:UITextField){
-        let bottomBorder = CALayer()
-        bottomBorder.frame = CGRect(x: 0, y: tF.frame.size.height - 1, width: tF.frame.size.width, height: 1)
-        bottomBorder.backgroundColor = UIColor.gray.cgColor
-        tF.layer.addSublayer(bottomBorder)
-        tF.layer.masksToBounds = true
-    }
+   
     
     @objc func goBack(){
         self.navigationController?.popViewController(animated: true)

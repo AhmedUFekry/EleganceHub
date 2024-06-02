@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CountryItemView" customModule="EleganceHub" customModuleProvider="target">
+            <connections>
+                <outlet property="countryIcon" destination="6BN-aV-Q52" id="Lgj-3E-YYs"/>
+                <outlet property="countryNameLable" destination="g6R-Ld-Zeh" id="vzE-C4-U0G"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="63"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="4Un-0X-B5H">
+                    <rect key="frame" x="146.33333333333334" y="4" width="100.66666666666666" height="55"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6BN-aV-Q52">
+                            <rect key="frame" x="0.0" y="0.0" width="46.333333333333336" height="55"/>
+                            <fontDescription key="fontDescription" name="Palatino-Roman" family="Palatino" pointSize="19"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g6R-Ld-Zeh">
+                            <rect key="frame" x="54.333333333333314" y="0.0" width="46.333333333333343" height="55"/>
+                            <fontDescription key="fontDescription" name="Palatino-Roman" family="Palatino" pointSize="19"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="4Un-0X-B5H" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="4" id="9BQ-c3-0CM"/>
+                <constraint firstItem="4Un-0X-B5H" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="P6A-sh-APq"/>
+                <constraint firstItem="4Un-0X-B5H" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="akD-eB-MfG"/>
+                <constraint firstItem="4Un-0X-B5H" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="taK-ie-FPi"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="12.977099236641221" y="-258.80281690140845"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

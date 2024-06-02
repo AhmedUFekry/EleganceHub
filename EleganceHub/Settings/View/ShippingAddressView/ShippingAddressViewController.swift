@@ -11,23 +11,34 @@ class ShippingAddressViewController: UIViewController {
     
     @IBOutlet weak var appBar:CustomAppBarUIView!
     @IBOutlet weak var tableView:UITableView!
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
+        
       //  tableView.dataSource = self
         tableView.delegate = self
+    }
+    override func viewWillAppear(_ animated: Bool) {
         commenInit()
     }
     private func commenInit(){
         appBar.secoundTrailingIcon.isHidden = true
-        appBar.trailingIcon.imageView?.image = UIImage(named: "add")
+        appBar.lableTitle.text = "Shipping Address"
+        appBar.trailingIcon.setImage(UIImage(named: "add"), for: .normal)
         appBar.backBtn.addTarget(self, action: #selector(goBack), for: .touchUpInside)
+        appBar.trailingIcon.addTarget(self, action: #selector(addNewLocation), for: .touchUpInside)
         
     }
     @objc func goBack(){
         self.navigationController?.popViewController(animated: true)
+    }
+    @objc func addNewLocation(){
+        self.navigationController?.present(LocationViewController(), animated: true)
+                
     }
 
 }
