@@ -18,47 +18,104 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var confirmPasswordTxt: UITextField!
     @IBOutlet weak var registerButton: UIButton!
     
+    var signViewModel:SignViewModel?
+    private var loginLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         styleSignUpButton()
+        signViewModel = SignViewModel()
+        setupBindings()
+        setupLoginLabel()
     }
-            
-        
+    
     private func styleSignUpButton() {
-    registerButton.layer.cornerRadius = 100
+    registerButton.layer.cornerRadius = 10
     registerButton.backgroundColor = .black
     registerButton.tintColor = .black
-    registerButton.layer.borderWidth = 1.0
     registerButton.setTitleColor(.white, for: .normal)
+    }
+    
+    private func setupBindings() {
+        signViewModel?.bindingSignUp = { [weak self] in
+                DispatchQueue.main.async {
+                    if let statusCode = self?.signViewModel?.ObservableSignUp {
+                        switch statusCode {
+                        case 201:
+                            self?.displayAlert(message: "User signed up successfully", seconds: 3.0)
+                            self?.navigateToHome()
+                        case 422:
+                            self?.displayAlert(message: "Unprocessable Entity: The request was well-formed but was unable to be followed due to semantic errors.", seconds: 3.0)
+                        case 0:
+                            self?.displayAlert(message: "Error during Firebase signup process", seconds: 3.0)
+                        default:
+                            self?.displayAlert(message: "Error signing up user: HTTP Status \(statusCode)", seconds: 3.0)
+                        }
+                    }
+                }
+            }
         }
     
+    private func setupLoginLabel() {
+            loginLabel = UILabel()
+            loginLabel.translatesAutoresizingMaskIntoConstraints = false
+            loginLabel.textAlignment = .center
+            
+            let text = "Already have an account? Login"
+            let attributedString = NSMutableAttributedString(string: text)
+            let loginRange = (text as NSString).range(of: "Login")
+            
+            attributedString.addAttribute(.font, value: UIFont.systemFont(ofSize: 14), range: NSMakeRange(0, text.count))
+            attributedString.addAttribute(.foregroundColor, value: UIColor.gray, range: loginRange)
+            attributedString.addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: loginRange)
+            
+            loginLabel.attributedText = attributedString
+            loginLabel.isUserInteractionEnabled = true
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(loginLabelTapped))
+            loginLabel.addGestureRecognizer(tapGesture)
+            
+            view.addSubview(loginLabel)
+            
+           
+            NSLayoutConstraint.activate([
+                loginLabel.topAnchor.constraint(equalTo: registerButton.bottomAnchor, constant: 10),
+                loginLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                loginLabel.heightAnchor.constraint(equalToConstant: 15)
+            ])
+        }
+
+    @objc private func loginLabelTapped() {
+        navigateToLogin()
+    }
+
     
     @IBAction func signUp(_ sender: Any) {
+   
         guard let firstName = fNameTxt.text, !firstName.isEmpty,
-              let lastName = lNameTxt.text, !lastName.isEmpty,
-              let phone = phoneTxt.text, !phone.isEmpty,
-              let email = emailTxt.text, !email.isEmpty,
-              let password = passwordTxt.text, !password.isEmpty,
-              let confirmPassword = confirmPasswordTxt.text, !confirmPassword.isEmpty else {
-                displayAlert(message: "Please fill all fields", seconds: 2.0)
-                return
-            }
-                
-        guard isValidPhone(phone) else {
-            displayAlert(message: "Please enter a valid phone number", seconds: 2.0)
-            return
-        }
-                
-        guard password == confirmPassword else {
-            displayAlert(message: "Passwords do not match", seconds: 2.0)
-            return
-        }
-                
-        let fullName = "\(firstName) \(lastName)"
-                
+                      let lastName = lNameTxt.text, !lastName.isEmpty,
+                      let phone = phoneTxt.text, !phone.isEmpty,
+                      let email = emailTxt.text, !email.isEmpty,
+                      let password = passwordTxt.text, !password.isEmpty,
+                      let confirmPassword = confirmPasswordTxt.text, !confirmPassword.isEmpty else {
+                    displayAlert(message: "Please fill all fields", seconds: 5.0)
+                    return
+                }
+
+                guard isValidPhone(phone) else {
+                    displayAlert(message: "Please enter a valid phone number", seconds: 5.0)
+                    return
+                }
+
+                guard password == confirmPassword else {
+                    displayAlert(message: "Passwords do not match", seconds: 5.0)
+                    return
+                }
+
+                let fullName = "\(firstName) \(lastName)"
+
         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
             if let error = error {
-                self.displayAlert(message: "Error creating user: \(error.localizedDescription)", seconds: 2.0)
+                self.displayAlert(message: "Error creating user: \(error.localizedDescription)", seconds: 5.0)
                 return
             }
                     
@@ -67,27 +124,53 @@ class SignUpViewController: UIViewController {
                 changeRequest.displayName = fullName
                 changeRequest.commitChanges { error in
                     if let error = error {
-                    self.displayAlert(message: "Error updating user profile: \(error.localizedDescription)", seconds: 2.0)
+                        self.displayAlert(message: "Error updating user profile: \(error.localizedDescription)", seconds: 5.0)
                     } else {
-                    self.displayAlert(message: "User signed up successfully", seconds: 2.0)
-                    self.navigateToHome()
-                }
+                        self.sendVerificationEmail(user: user)
+                        let user = User(first_name: firstName, last_name: lastName, email: email, password: password)
+                        self.signViewModel?.insertCustomer(user: user)
+                    }
             }
         }
     }
 }
     
-    private func displayAlert(message: String, seconds: Double) {
+    
+    @IBAction func navigateToPreScreen(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    
+    private func displayAlert(message: String, seconds: Double, completion: (() -> Void)? = nil) {
         let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
         self.present(alert, animated: true)
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + seconds) {
-        alert.dismiss(animated: true)
+            alert.dismiss(animated: true) {
+                completion?()
+            }
         }
     }
-        
+    
+    private func sendVerificationEmail(user: FirebaseAuth.User) {
+           user.sendEmailVerification { error in
+               if let error = error {
+                   self.displayAlert(message: "Error sending verification email: \(error.localizedDescription)", seconds: 5.0)
+                   return
+               }
+               self.displayAlert(message: "Verification email sent. Please check your inbox.", seconds: 5.0)
+               self.navigateToLogin()
+           }
+       }
+    
     private func navigateToHome() {
         if let homeViewController = storyboard?.instantiateViewController(withIdentifier: "HomeViewController") as? HomeViewController {
-                navigationController?.pushViewController(homeViewController, animated: true)
+            navigationController?.pushViewController(homeViewController, animated: true)
+        }
+    }
+            
+    private func navigateToLogin() {
+        if let loginViewController = storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController {
+            navigationController?.pushViewController(loginViewController, animated: true)
         }
     }
     
@@ -97,3 +180,4 @@ class SignUpViewController: UIViewController {
             return phoneTest.evaluate(with: phone)
         }
 }
+

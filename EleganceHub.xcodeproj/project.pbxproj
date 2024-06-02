@@ -52,6 +52,8 @@
 		D478FC682BFF49D700BBA2BB /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D478FC672BFF49D700BBA2BB /* WelcomeViewController.swift */; };
 		D478FC6C2BFF9AC000BBA2BB /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D478FC6B2BFF9AC000BBA2BB /* SignUpViewController.swift */; };
 		D4B17FBF2C07A65B00A8F9D3 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B17FBE2C07A65B00A8F9D3 /* LoginViewModel.swift */; };
+		D4B17FC22C07EF0D00A8F9D3 /* SignUpNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B17FC12C07EF0D00A8F9D3 /* SignUpNetworkService.swift */; };
+		D4B17FC72C07F01300A8F9D3 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B17FC62C07F01300A8F9D3 /* SignUpViewModel.swift */; };
 		DC68DABB496FAAF0D90B9526 /* Pods_EleganceHubTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DC1630ABF143E093FFAB7C0 /* Pods_EleganceHubTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -127,6 +129,8 @@
 		D478FC672BFF49D700BBA2BB /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		D478FC6B2BFF9AC000BBA2BB /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		D4B17FBE2C07A65B00A8F9D3 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		D4B17FC12C07EF0D00A8F9D3 /* SignUpNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpNetworkService.swift; sourceTree = "<group>"; };
+		D4B17FC62C07F01300A8F9D3 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		EB8234701D34F1C511068448 /* Pods-EleganceHub-EleganceHubUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EleganceHub-EleganceHubUITests.release.xcconfig"; path = "Target Support Files/Pods-EleganceHub-EleganceHubUITests/Pods-EleganceHub-EleganceHubUITests.release.xcconfig"; sourceTree = "<group>"; };
 		F5380FBCB266D4065C010708 /* Pods_EleganceHub_EleganceHubUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EleganceHub_EleganceHubUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -429,8 +433,6 @@
 				C88C20672BFE8CB400886365 /* LaunchScreen.storyboard */,
 				C88C206A2BFE8CB400886365 /* Info.plist */,
 				D403E2712C00AA4C00AE9C68 /* GoogleService-Info.plist */,
-				D403E2732C00B3BA00AE9C68 /* AuthService.swift */,
-				D403E2752C00BD2400AE9C68 /* UserModel.swift */,
 			);
 			path = EleganceHub;
 			sourceTree = "<group>";
@@ -488,6 +490,8 @@
 		D478FC692BFF9A9E00BBA2BB /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
+				D4B17FC32C07EFE600A8F9D3 /* ViewModel */,
+				D4B17FC02C07EEC700A8F9D3 /* Model */,
 				D478FC6A2BFF9AAC00BBA2BB /* View */,
 			);
 			path = SignUp;
@@ -505,6 +509,24 @@
 			isa = PBXGroup;
 			children = (
 				D4B17FBE2C07A65B00A8F9D3 /* LoginViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		D4B17FC02C07EEC700A8F9D3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D403E2732C00B3BA00AE9C68 /* AuthService.swift */,
+				D403E2752C00BD2400AE9C68 /* UserModel.swift */,
+				D4B17FC12C07EF0D00A8F9D3 /* SignUpNetworkService.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D4B17FC32C07EFE600A8F9D3 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D4B17FC62C07F01300A8F9D3 /* SignUpViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -760,6 +782,7 @@
 				C88C205D2BFE8CAF00886365 /* AppDelegate.swift in Sources */,
 				D478FC6C2BFF9AC000BBA2BB /* SignUpViewController.swift in Sources */,
 				D403E2742C00B3BA00AE9C68 /* AuthService.swift in Sources */,
+				D4B17FC22C07EF0D00A8F9D3 /* SignUpNetworkService.swift in Sources */,
 				7F359E932BFEB9B700D0D733 /* BrandsCollectionViewCell.swift in Sources */,
 				7F359E8A2BFE9CFC00D0D733 /* TabBarCorners.swift in Sources */,
 				03DE27142C080C0300E18567 /* NetworkProtocol.swift in Sources */,
@@ -787,6 +810,7 @@
 				D403E2762C00BD2400AE9C68 /* UserModel.swift in Sources */,
 				D478FC682BFF49D700BBA2BB /* WelcomeViewController.swift in Sources */,
 				03DE27162C08207100E18567 /* ViewModelProtocol.swift in Sources */,
+				D4B17FC72C07F01300A8F9D3 /* SignUpViewModel.swift in Sources */,
 				D403E27A2C00F47700AE9C68 /* LoginViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

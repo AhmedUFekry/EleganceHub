@@ -30,9 +30,9 @@ class WelcomeViewController: UIViewController {
     }
     
     @IBAction func NavigateToLoginView(_ sender: Any) {
-        let loginViewController = storyboard?.instantiateViewController(identifier: "LoginViewController") as! LoginViewController
-        loginViewController.modalPresentationStyle = .fullScreen
-            present(loginViewController, animated: true)
+        if let loginViewController = storyboard?.instantiateViewController(identifier: "LoginViewController") as? LoginViewController{
+            navigationController?.pushViewController(loginViewController, animated: true)
+        }
     }
     
     
