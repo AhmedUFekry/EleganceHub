@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProfileImageUIView" customModule="EleganceHub" customModuleProvider="target">
+            <connections>
+                <outlet property="editPicBtn" destination="Nsa-rL-wCV" id="oOF-AQ-IHw"/>
+                <outlet property="profileImage" destination="Y4x-I8-ZOx" id="fIQ-Bl-TKV"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="110" height="128"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coupon" translatesAutoresizingMaskIntoConstraints="NO" id="Y4x-I8-ZOx">
+                    <rect key="frame" x="5" y="0.0" width="100" height="100"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="3Cg-EZ-Koz"/>
+                        <constraint firstAttribute="height" constant="100" id="cnW-eF-Ev2"/>
+                    </constraints>
+                </imageView>
+                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nsa-rL-wCV">
+                    <rect key="frame" x="75" y="65" width="35" height="35"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="35" id="UpW-cN-TYe"/>
+                        <constraint firstAttribute="width" constant="35" id="YKU-uG-QrM"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" image="icons8-edit-25-2"/>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upload image" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vXs-gp-jd0">
+                    <rect key="frame" x="0.0" y="108" width="110" height="20"/>
+                    <fontDescription key="fontDescription" name="Palatino-Bold" family="Palatino" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="Y4x-I8-ZOx" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="5" id="0wW-PS-RuL"/>
+                <constraint firstItem="vXs-gp-jd0" firstAttribute="top" secondItem="Nsa-rL-wCV" secondAttribute="bottom" constant="8" id="8Sz-Ba-FDc"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Y4x-I8-ZOx" secondAttribute="trailing" constant="5" id="C89-cj-Ozc"/>
+                <constraint firstItem="vXs-gp-jd0" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="D0r-Qo-F1r"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="vXs-gp-jd0" secondAttribute="trailing" id="I2J-74-UXy"/>
+                <constraint firstItem="vXs-gp-jd0" firstAttribute="top" secondItem="Y4x-I8-ZOx" secondAttribute="bottom" constant="8" id="cBR-1D-Dec"/>
+                <constraint firstItem="Y4x-I8-ZOx" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="kfF-iG-LtD"/>
+                <constraint firstItem="vXs-gp-jd0" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="pMV-EH-CAd"/>
+                <constraint firstItem="Y4x-I8-ZOx" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="t4O-vG-Pgy"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="vXs-gp-jd0" secondAttribute="bottom" id="udN-ZW-VtQ"/>
+                <constraint firstItem="Nsa-rL-wCV" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="uqv-0Z-EX1"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="131.29770992366412" y="-1.4084507042253522"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="coupon" width="675" height="371"/>
+        <image name="icons8-edit-25-2" width="25" height="25"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
