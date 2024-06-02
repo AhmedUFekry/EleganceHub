@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 class Constants {
+    
     static let storeUrl = "https://mad44-ism-ios1.myshopify.com/admin/api/2024-04/"
     static let accessToken = "access_token=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"
     static let accessTokenKey = "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"
@@ -21,3 +22,5 @@ class Constants {
             }
         }
 }
+
+
