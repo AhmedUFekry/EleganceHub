@@ -7,9 +7,6 @@
 
 import Foundation
 
-
-import Foundation
-
 class ProductsViewModel {
     var vmResult: [Product]? {
         didSet {
@@ -19,13 +16,10 @@ class ProductsViewModel {
     var bindResultToViewController: (() -> ()) = {}
     
     func getProductsFromModel(collectionId:Int) {
-        ProductsCall.getProducts(collectionId: collectionId) { result, error in
+        ProductsCall.getProducts(collectionId: collectionId) {[weak self] result, error in
             if let result = result {
-                DispatchQueue.main.async {
-                    self.vmResult = result.products
-                    print("ProductsViewModel \(result.products.count)")
-                }
-            } else {
+                self?.vmResult = result.products
+            }else {
                 print("Error fetching products: \(error?.localizedDescription ?? "Unknown error")")
             }
         }

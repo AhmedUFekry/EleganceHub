@@ -41,6 +41,7 @@ class HomeViewController: UIViewController {
         homeViewModel.getBrandsFromModel()
         homeViewModel.getCouponsFromModel()
         setupCollectionView()
+        
     }
     
 
@@ -127,14 +128,10 @@ extension HomeViewController: UICollectionViewDataSource,UICollectionViewDelegat
         let brand = smartCollections?.smartCollections[indexPath.row]
         if let ProductViewController = storyboard?.instantiateViewController(withIdentifier: "ProductViewController") as? ProductViewController {
             if collectionView == brandsCollection {
-                print("brandsCollection clicked")
                 ProductViewController.brandsId = brand?.id
                 navigationController?.pushViewController(ProductViewController, animated: true)
             }
         }
-        //else{
-//            Constants.displayToast(viewController: self, message: "Coupon code is \(couponsList?[indexPath.row].code ?? "")", seconds: 2.2)
-//        }
     }
     
     
@@ -145,3 +142,5 @@ extension HomeViewController: UICollectionViewDataSource,UICollectionViewDelegat
 //    }
 
 }
+
+ 

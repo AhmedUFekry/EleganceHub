@@ -312,21 +312,100 @@
             </objects>
             <point key="canvasLocation" x="3094" y="369"/>
         </scene>
-        <!--View Controller-->
+        <!--Super Category View Controller-->
         <scene sceneID="Owh-J6-mRR">
             <objects>
-                <viewController id="T80-uh-czD" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SuperCategoryViewController" id="T80-uh-czD" customClass="SuperCategoryViewController" customModule="EleganceHub" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uqQ-f0-e51">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" id="Aba-fZ-x7R">
+                                <rect key="frame" x="0.0" y="52" width="393" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem title="Category" id="Mnp-7V-qhQ">
+                                        <rightBarButtonItems>
+                                            <barButtonItem title="Item" image="heart.circle" catalog="system" id="8eg-aL-gGR">
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </barButtonItem>
+                                            <barButtonItem title="Item" image="cart.circle" catalog="system" id="DtM-5O-Beg">
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </barButtonItem>
+                                        </rightBarButtonItems>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="kVi-nT-4Tc">
+                                <rect key="frame" x="16" y="96" width="361" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="T80-uh-czD" id="084-8H-mgH"/>
+                                </connections>
+                            </searchBar>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="qqS-KQ-I3w">
+                                <rect key="frame" x="16" y="147" width="361" height="32"/>
+                                <segments>
+                                    <segment title="Women"/>
+                                    <segment title="Men"/>
+                                    <segment title="Kids"/>
+                                    <segment title="Sale"/>
+                                </segments>
+                                <color key="selectedSegmentTintColor" white="0.0" alpha="0.31206022350000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="segmentChanges:" destination="T80-uh-czD" eventType="valueChanged" id="uGc-nr-bbc"/>
+                                </connections>
+                            </segmentedControl>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="HvR-PE-k50">
+                                <rect key="frame" x="16" y="199" width="361" height="636"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="h4w-tu-Rkk">
+                                    <size key="itemSize" width="175" height="236"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CategoryCell" id="O88-GL-48t" customClass="CategoryCollectionViewCell" customModule="EleganceHub" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="175" height="236"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="hTw-f0-ngc">
+                                            <rect key="frame" x="0.0" y="0.0" width="175" height="236"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                        <size key="customSize" width="175" height="236"/>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="T80-uh-czD" id="Xag-M7-ewg"/>
+                                    <outlet property="delegate" destination="T80-uh-czD" id="cvd-WZ-0Nv"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="SHl-1Z-9TQ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="SHl-1Z-9TQ" firstAttribute="trailing" secondItem="qqS-KQ-I3w" secondAttribute="trailing" constant="16" id="Cs5-lt-muI"/>
+                            <constraint firstItem="kVi-nT-4Tc" firstAttribute="top" secondItem="SHl-1Z-9TQ" secondAttribute="top" constant="37" id="Hod-Cs-Wm2"/>
+                            <constraint firstItem="HvR-PE-k50" firstAttribute="top" secondItem="SHl-1Z-9TQ" secondAttribute="top" constant="140" id="M2S-vp-OtV"/>
+                            <constraint firstItem="SHl-1Z-9TQ" firstAttribute="trailing" secondItem="HvR-PE-k50" secondAttribute="trailing" constant="16" id="PHf-8S-cGJ"/>
+                            <constraint firstItem="HvR-PE-k50" firstAttribute="top" secondItem="qqS-KQ-I3w" secondAttribute="bottom" constant="21" id="Wax-5D-Cwf"/>
+                            <constraint firstItem="SHl-1Z-9TQ" firstAttribute="trailing" secondItem="kVi-nT-4Tc" secondAttribute="trailing" constant="16" id="ada-wo-Bxr"/>
+                            <constraint firstItem="qqS-KQ-I3w" firstAttribute="leading" secondItem="kVi-nT-4Tc" secondAttribute="leading" id="l0C-vm-dZ4"/>
+                            <constraint firstItem="HvR-PE-k50" firstAttribute="leading" secondItem="SHl-1Z-9TQ" secondAttribute="leading" constant="16" id="lCm-kF-5kg"/>
+                            <constraint firstItem="HvR-PE-k50" firstAttribute="bottom" secondItem="SHl-1Z-9TQ" secondAttribute="bottom" constant="66" id="qQ3-xB-bVL"/>
+                            <constraint firstItem="kVi-nT-4Tc" firstAttribute="leading" secondItem="SHl-1Z-9TQ" secondAttribute="leading" constant="16" id="rsJ-dz-1W1"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="tL5-BI-Vlz"/>
+                    <connections>
+                        <outlet property="categoryCollection" destination="HvR-PE-k50" id="t1I-RR-kxI"/>
+                        <outlet property="segmentCategory" destination="qqS-KQ-I3w" id="ptt-V9-b1Y"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zb8-PC-dde" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5937" y="1263"/>
+            <point key="canvasLocation" x="5936.6412213740459" y="1262.6760563380283"/>
         </scene>
         <!--Payment View Controller-->
         <scene sceneID="4Ec-aA-Wf6">
@@ -624,7 +703,13 @@
                                 <rect key="frame" x="-1" y="51" width="391" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
-                                    <navigationItem title="Title" id="hsS-Tv-6lx">
+                                    <navigationItem title="Home" id="hsS-Tv-6lx">
+                                        <barButtonItem key="leftBarButtonItem" title="Item" image="magnifyingglass.circle" catalog="system" id="qZE-u3-Sb0">
+                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <connections>
+                                                <action selector="cartBtn:" destination="F0p-Yv-Hho" id="RTG-ou-kwl"/>
+                                            </connections>
+                                        </barButtonItem>
                                         <rightBarButtonItems>
                                             <barButtonItem title="Item" image="heart.circle" catalog="system" id="XT9-kZ-oaf">
                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -731,11 +816,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="prl-ut-l2h">
+                            <slider opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="prl-ut-l2h">
                                 <rect key="frame" x="66" y="76" width="308" height="30"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </slider>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Price:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qTx-Dd-8MF">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qTx-Dd-8MF">
                                 <rect key="frame" x="16" y="80" width="44" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -861,6 +946,7 @@
         <image name="homekit" catalog="system" width="128" height="104"/>
         <image name="icons8-forward-button-50" width="35" height="35"/>
         <image name="l" width="499" height="500"/>
+        <image name="magnifyingglass.circle" catalog="system" width="128" height="123"/>
         <image name="person.circle.fill" catalog="system" width="128" height="123"/>
         <image name="person.crop.circle" catalog="system" width="128" height="123"/>
         <image name="shopping-bag" width="50" height="50"/>
