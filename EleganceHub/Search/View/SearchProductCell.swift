@@ -43,8 +43,7 @@ class SearchProductCell: UITableViewCell {
                 } else {
                     searchProductPriceTxt.text = "No Price"
                 }
-                
-//                searchProductRating.text = Utilities.formatRating(ratingString: product.templateSuffix)
+            
             }
     
     private func setupConstraints() {
@@ -69,16 +68,17 @@ class SearchProductCell: UITableViewCell {
         }
         
         private func setupAppearance() {
-            self.contentView.layer.cornerRadius = 35 // Adjust to make it more oval
-                    self.contentView.layer.masksToBounds = true
+            containerView.layer.cornerRadius = 20
+            containerView.layer.masksToBounds = true
+            containerView.layer.borderWidth = 1
+            containerView.layer.borderColor = UIColor.white.cgColor
                     
-                    self.layer.cornerRadius = 35 // Adjust to make it more oval
-                    self.layer.borderWidth = 1
-                    self.layer.borderColor = UIColor.black.cgColor
-                    self.layer.masksToBounds = false
-                    self.layer.shadowColor = UIColor.black.cgColor
-                    self.layer.shadowOffset = CGSize(width: 2, height: 2)
-                    self.layer.shadowOpacity = 0.5
-                    self.layer.shadowRadius = 2
+            self.contentView.layer.cornerRadius = 20
+            self.contentView.layer.masksToBounds = true
+            self.layer.masksToBounds = false
+            self.layer.shadowColor = UIColor.black.cgColor
+            self.layer.shadowOffset = CGSize(width: 0, height: 2)
+            self.layer.shadowOpacity = 0.2
+            self.layer.shadowRadius = 2
         }
     }

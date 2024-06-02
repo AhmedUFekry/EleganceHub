@@ -437,7 +437,6 @@
 		C88C205B2BFE8CAF00886365 /* EleganceHub */ = {
 			isa = PBXGroup;
 			children = (
-				D4F168572C0A602200551795 /* Models */,
 				D4F1684E2C0A5BF700551795 /* Search */,
 				03E40B652C01E23B00345DE2 /* Settings */,
 				03A7F54D2C01440A00F68AC7 /* Cart */,
@@ -566,20 +565,13 @@
 		D4F168512C0A5C1A00551795 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D4F168542C0A5F7700551795 /* ProductModel.swift */,
+				D4F168582C0A603F00551795 /* Variants.swift */,
+				D4F1685A2C0A60BF00551795 /* Options.swift */,
 				D4F168522C0A5E5A00551795 /* NetworkServiceProtocol.swift */,
 				D4F1685C2C0A625300551795 /* NetworkService.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		D4F168572C0A602200551795 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				D4F168542C0A5F7700551795 /* ProductModel.swift */,
-				D4F168582C0A603F00551795 /* Variants.swift */,
-				D4F1685A2C0A60BF00551795 /* Options.swift */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
