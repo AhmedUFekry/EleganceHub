@@ -7,6 +7,7 @@
 
 import UIKit
 import Kingfisher
+import JJFloatingActionButton
 
 class SuperCategoryViewController: UIViewController {
     
@@ -15,23 +16,32 @@ class SuperCategoryViewController: UIViewController {
     
     let categoryViewModel = CategoryViewModel()
     var categoryProductList : [Product]?
+    var filteredList : [Product]?
+    var isFiltered : Bool = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let categoryNibCell = UINib(nibName: "CategoryCollectionViewCell", bundle: nil)
-        categoryCollection.register(categoryNibCell, forCellWithReuseIdentifier: "CategoryCell")
-        
+        loadNib()
         categoryViewModel.bindResultToViewController = { [weak self] in
             guard let self = self else {return}
             self.categoryProductList = self.categoryViewModel.categoryResult
             self.renderView()
         }
+        displayFloatingButton()
+    }
+    
+    
+    func loadNib(){
+        let categoryNibCell = UINib(nibName: "CategoryCollectionViewCell", bundle: nil)
+        categoryCollection.register(categoryNibCell, forCellWithReuseIdentifier: "CategoryCell")
     }
     func renderView(){
         DispatchQueue.main.async {
             self.categoryCollection.reloadData()
         }
     }
+    
     @IBAction func segmentChanges(_ sender: Any) {
         switch(segmentCategory.selectedSegmentIndex) {
         case 0:
@@ -48,12 +58,45 @@ class SuperCategoryViewController: UIViewController {
         categoryCollection.reloadData()
     }
     
-    
+    func displayFloatingButton(){
+        let actionButton = JJFloatingActionButton()
+        actionButton.buttonColor = UIColor.black
+        
+        actionButton.buttonImage = UIImage(named: "menu")
+        actionButton.addItem(title: "All", image: UIImage(named: "menu")?.withRenderingMode(.alwaysTemplate)) { item in
+            self.isFiltered = false
+            self.renderView()
+        }
+        actionButton.addItem(title: "Shoes", image: UIImage(named: "shoes")?.withRenderingMode(.alwaysTemplate)) { item in
+            self.isFiltered = true
+            self.filteredList = self.categoryViewModel.filterCategory(filterType: "SHOES")
+            self.categoryCollection.reloadData()
+            
+        }
 
+        actionButton.addItem(title: "T-Shirts", image: UIImage(named: "tshirt")?.withRenderingMode(.alwaysTemplate)) { item in
+            self.isFiltered = true
+            self.filteredList = self.categoryViewModel.filterCategory(filterType: "T-SHIRTS")
+            self.categoryCollection.reloadData()
+        }
+
+        actionButton.addItem(title: "Accessories", image: UIImage(named: "Accsesory")?.withRenderingMode(.alwaysTemplate)) { item in
+            self.isFiltered = true
+            self.filteredList = self.categoryViewModel.filterCategory(filterType: "ACCESSORIES")
+            self.categoryCollection.reloadData()
+        }
+        actionButton.display(inViewController: self)
+    }
+    
+    
 }
 extension SuperCategoryViewController: UICollectionViewDataSource,UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        categoryProductList?.count ?? 6
+        if isFiltered{
+            return filteredList?.count ?? 0
+        }else{
+            return categoryProductList?.count ?? 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

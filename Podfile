@@ -20,6 +20,7 @@ target 'EleganceHub' do
   pod 'FirebaseUI/Auth'
   pod 'FirebaseFirestore'
   pod 'FirebaseStorage'
+  pod 'JJFloatingActionButton'
 
   target 'EleganceHubTests' do
     inherit! :search_paths

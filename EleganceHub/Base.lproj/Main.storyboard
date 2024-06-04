@@ -64,7 +64,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V4U-bR-FLC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-768.70229007633588" y="-59.154929577464792"/>
+            <point key="canvasLocation" x="-602" y="1263"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="sRh-hu-Zqo">
@@ -208,7 +208,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b6I-mQ-GV7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-12.977099236641221" y="-59.154929577464792"/>
+            <point key="canvasLocation" x="353" y="1263"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="dBz-72-2nr">
@@ -295,7 +295,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mLx-kd-mSM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="709.16030534351137" y="-59.154929577464792"/>
+            <point key="canvasLocation" x="1321" y="1263"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -310,7 +310,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3094" y="369"/>
+            <point key="canvasLocation" x="2456" y="2951"/>
         </scene>
         <!--Super Category View Controller-->
         <scene sceneID="Owh-J6-mRR">
@@ -405,7 +405,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zb8-PC-dde" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5936.6412213740459" y="1262.6760563380283"/>
+            <point key="canvasLocation" x="5497" y="1263"/>
         </scene>
         <!--Payment View Controller-->
         <scene sceneID="4Ec-aA-Wf6">
@@ -646,7 +646,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BJi-nJ-F6Q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5937" y="2101"/>
+            <point key="canvasLocation" x="5497" y="2101"/>
         </scene>
         <!--Home View Controller-->
         <scene sceneID="a5m-LP-WYd">
@@ -786,7 +786,7 @@
                 </label>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Agh-nA-ZxI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5880" y="473"/>
+            <point key="canvasLocation" x="5439" y="473"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="msu-vE-26m">
@@ -806,7 +806,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MLc-CG-Zse" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3095" y="1175"/>
+            <point key="canvasLocation" x="2770" y="1263"/>
         </scene>
         <!--Product View Controller-->
         <scene sceneID="dvj-pU-6nU">
@@ -865,7 +865,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vc9-og-qWI" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6804" y="473"/>
+            <point key="canvasLocation" x="6334" y="473"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="hV4-yp-wnO">
@@ -881,7 +881,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y1U-iX-l91" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1624" y="-59"/>
+            <point key="canvasLocation" x="-1479" y="1263"/>
         </scene>
         <!--Category-->
         <scene sceneID="oNy-Up-EO2">
@@ -899,7 +899,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U0t-xK-8Ec" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5015" y="1263"/>
+            <point key="canvasLocation" x="4575" y="1263"/>
         </scene>
         <!--Profile-->
         <scene sceneID="CBW-Ha-syu">
@@ -917,7 +917,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NvC-Ia-u4V" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5015" y="2101"/>
+            <point key="canvasLocation" x="4575" y="2101"/>
         </scene>
         <!--Home-->
         <scene sceneID="Ykd-BM-6mZ">
@@ -935,7 +935,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xbd-R0-yMA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5014.5038167938928" y="472.53521126760563"/>
+            <point key="canvasLocation" x="4575" y="473"/>
         </scene>
     </scenes>
     <resources>
@@ -963,7 +963,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -6,12 +6,6 @@
 //
 
 import Foundation
-enum Categories : String{
-    case Men = "484442636563"
-    case Women = "484443422995"
-    case Kids = "484442702099"
-    case Sale = "484442734867"
-}
 
 class CategoryViewModel {
     var bindResultToViewController : (()->()) = {}
@@ -32,4 +26,12 @@ class CategoryViewModel {
             }
         }
     }
+    
+    
+    func filterCategory(filterType: String) -> [Product] {
+        let productsCopy = categoryResult
+        let filterList = productsCopy?.filter{$0.productType == filterType}
+        return filterList ?? []
+    }
+
 }
