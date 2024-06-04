@@ -12,6 +12,7 @@ class CategoryCall {
     
     static func getCategoryProducts(collectionId: String, completionHandler: @escaping (ProductResponse?, Error?) -> Void) {
         let urlString = "\(Constants.storeUrl)products.json?collection_id=\(collectionId)&\(Constants.accessToken)"
+        print("getCategoryProducts URL: \(urlString)")
         guard let url = URL(string: urlString) else {
             print("Invalid URL: \(urlString)")
             return
