@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -13,8 +14,8 @@
             <connections>
                 <outlet property="filterByLettersButton" destination="vwI-mz-gvx" id="mbW-wy-ou5"/>
                 <outlet property="filterByPriceButton" destination="mfI-7C-cF2" id="7uF-4O-K8E"/>
-                <outlet property="filterByRateButton" destination="C4r-MR-Ale" id="ocO-7D-e8R"/>
-                <outlet property="searchTableView" destination="CfF-HY-O2D" id="aOX-rB-Yys"/>
+                <outlet property="removeFiltersButton" destination="TS9-nn-PZK" id="XVY-gl-dBY"/>
+                <outlet property="searchTableView" destination="CfF-HY-O2D" id="DPN-05-CET"/>
                 <outlet property="txtSearchBar" destination="Gco-FI-IHa" id="B16-fT-eEj"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -25,7 +26,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <searchBar contentMode="redraw" fixedFrame="YES" text="" translatesAutoresizingMaskIntoConstraints="NO" id="Gco-FI-IHa">
-                    <rect key="frame" x="0.0" y="98" width="393" height="56"/>
+                    <rect key="frame" x="16" y="98" width="316" height="56"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <textInputTraits key="textInputTraits"/>
                     <connections>
@@ -41,32 +42,8 @@
                         <action selector="navigateBack:" destination="-1" eventType="touchUpInside" id="irE-zi-wZx"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C4r-MR-Ale">
-                    <rect key="frame" x="142" y="177" width="109" height="40"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" systemColor="labelColor"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                    <state key="normal" image="star.fill" catalog="system"/>
-                    <connections>
-                        <action selector="filterByRate:" destination="-1" eventType="touchUpInside" id="OXw-2c-bNO"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mfI-7C-cF2">
-                    <rect key="frame" x="25" y="177" width="109" height="39"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" systemColor="labelColor"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                    <state key="normal" image="dollarsign" catalog="system"/>
-                    <connections>
-                        <action selector="filterByPrice:" destination="-1" eventType="touchUpInside" id="ZPQ-gP-72i"/>
-                    </connections>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vwI-mz-gvx">
-                    <rect key="frame" x="259" y="176" width="109" height="40"/>
+                    <rect key="frame" x="340" y="49" width="40" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" systemColor="labelColor"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
@@ -78,21 +55,48 @@
                     </connections>
                 </button>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="CfF-HY-O2D">
-                    <rect key="frame" x="0.0" y="237" width="393" height="567"/>
+                    <rect key="frame" x="16" y="206" width="364" height="598"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mfI-7C-cF2">
+                    <rect key="frame" x="292" y="49" width="40" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" systemColor="labelColor"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" image="dollarsign" catalog="system"/>
+                    <connections>
+                        <action selector="filterByPrice:" destination="-1" eventType="touchUpInside" id="ZPQ-gP-72i"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TS9-nn-PZK">
+                    <rect key="frame" x="340" y="106" width="40" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="tinted" title="">
+                        <imageReference key="image" image="pip.remove" catalog="system" symbolScale="large"/>
+                        <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="baseBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </buttonConfiguration>
+                    <connections>
+                        <action selector="removeAllFilters:" destination="-1" eventType="touchUpInside" id="gZb-gg-nnP"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-            <point key="canvasLocation" x="-474" y="46"/>
+            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <point key="canvasLocation" x="-782.44274809160299" y="41.549295774647888"/>
         </view>
     </objects>
     <resources>
         <image name="abc" catalog="system" width="128" height="50"/>
         <image name="back" width="35" height="35"/>
         <image name="dollarsign" catalog="system" width="89" height="128"/>
-        <image name="star.fill" catalog="system" width="128" height="116"/>
+        <image name="pip.remove" catalog="system" width="128" height="98"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

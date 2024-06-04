@@ -13,11 +13,13 @@ import RxCocoa
 class SearchViewController: UIViewController ,UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate{
     
     @IBOutlet weak var txtSearchBar: UISearchBar!
+    
+   
     @IBOutlet weak var searchTableView: UITableView!
     
     @IBOutlet weak var filterByPriceButton: UIButton!
-    @IBOutlet weak var filterByRateButton: UIButton!
     @IBOutlet weak var filterByLettersButton: UIButton!
+    @IBOutlet weak var removeFiltersButton: UIButton!
     
     var disposeBag = DisposeBag()
     var searchViewModel: SearchViewModel!
@@ -50,17 +52,19 @@ class SearchViewController: UIViewController ,UITableViewDelegate, UITableViewDa
     }
     
     func configureRoundedButtons() {
-        let buttons: [UIButton] = [filterByPriceButton, filterByRateButton, filterByLettersButton]
+        let buttons: [UIButton] = [filterByPriceButton, filterByLettersButton, removeFiltersButton]
         buttons.forEach { button in
-            button.layer.cornerRadius = button.frame.height / 2
+            button.layoutIfNeeded()
+            button.layer.cornerRadius = button.bounds.height / 2
             button.clipsToBounds = true
             button.layer.borderWidth = 1.0
             button.layer.borderColor = UIColor.black.cgColor
-            }
         }
+    }
+
     
     func setupButtons() {
-        let buttons: [UIButton] = [filterByPriceButton, filterByRateButton, filterByLettersButton]
+        let buttons: [UIButton] = [filterByPriceButton, filterByLettersButton,removeFiltersButton]
         buttons.forEach { button in
             button.backgroundColor = .white
             button.setTitleColor(.black, for: .normal)
@@ -70,7 +74,7 @@ class SearchViewController: UIViewController ,UITableViewDelegate, UITableViewDa
     }
         
     @objc func buttonPressed(_ sender: UIButton) {
-        let buttons: [UIButton] = [ filterByPriceButton, filterByRateButton, filterByLettersButton]
+        let buttons: [UIButton] = [ filterByPriceButton,  filterByLettersButton]
         buttons.forEach { button in
             if button == sender {
                 button.backgroundColor = .black
@@ -95,7 +99,6 @@ class SearchViewController: UIViewController ,UITableViewDelegate, UITableViewDa
             .disposed(by: disposeBag)
     }
     
-    
     func filterProducts(searchText: String) {
         let lowercaseSearchText = searchText.lowercased()
         
@@ -105,11 +108,17 @@ class SearchViewController: UIViewController ,UITableViewDelegate, UITableViewDa
             products = productList.filter { product in
                 guard let title = product.title else { return false }
                 let parts = title.components(separatedBy: " | ")
-                return parts.contains { $0.trimmingCharacters(in: .whitespacesAndNewlines).lowercased().contains(lowercaseSearchText) }
+                
+                if let lastPart = parts.last {
+                    return lastPart.trimmingCharacters(in: .whitespacesAndNewlines).lowercased().contains(lowercaseSearchText)
+                } else {
+                    return false
+                }
             }
         }
         searchTableView.reloadData()
     }
+
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
             return 1
@@ -143,13 +152,16 @@ class SearchViewController: UIViewController ,UITableViewDelegate, UITableViewDa
         searchTableView.reloadData()
     }
     
-    @IBAction func filterByRate(_ sender: Any) {
-        products = products.sorted(by:  {Float($0.templateSuffix ?? "") ?? 0 > Float($1.templateSuffix ?? "") ?? 0})
-        searchTableView.reloadData()
-    }
     
     @IBAction func filterByLetters(_ sender: Any) {
         products = products.sorted { Utilities.splitName(text: $0.title ?? "", delimiter: " | ") < Utilities.splitName(text: $1.title ?? "", delimiter: " | ") }
                 searchTableView.reloadData()
     }
+    
+    @IBAction func removeAllFilters(_ sender: Any) {
+        products = productList
+        searchTableView.reloadData()
+    }
+    
+    
 }
