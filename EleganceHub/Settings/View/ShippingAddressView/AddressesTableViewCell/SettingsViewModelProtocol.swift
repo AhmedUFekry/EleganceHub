@@ -17,4 +17,10 @@ protocol SettingsViewModelProtocol{
     
     func configrationCountries()
     func getCitiesOfSelectedCountry(selectedCountry:String)
+    
+    func addNewAddress(customerID: Int, addressData: AddressData)
+    
+    var failureResponse:((String) -> ()) {get set}
+    
+    func getAllAddresses(customerID: Int)
 }

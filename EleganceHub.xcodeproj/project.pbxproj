@@ -12,6 +12,9 @@
 		034346A12C0C3BD7006EAC8A /* SettingsViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034346A02C0C3BD7006EAC8A /* SettingsViewModelProtocol.swift */; };
 		034346A32C0C3DC4006EAC8A /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034346A22C0C3DC4006EAC8A /* SettingsViewModel.swift */; };
 		034346A52C0C4A65006EAC8A /* CountryItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 034346A42C0C4A65006EAC8A /* CountryItemView.xib */; };
+		035A1C422C0E67C50054F186 /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035A1C402C0E67C50054F186 /* CustomAlertViewController.swift */; };
+		035A1C432C0E67C50054F186 /* CustomAlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 035A1C412C0E67C50054F186 /* CustomAlertViewController.xib */; };
+		035A1C452C0E96530054F186 /* PostCustomerAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035A1C442C0E96530054F186 /* PostCustomerAddress.swift */; };
 		036717242C0C171C00BFB9DC /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036717222C0C171C00BFB9DC /* LocationViewController.swift */; };
 		036717252C0C171C00BFB9DC /* LocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 036717232C0C171C00BFB9DC /* LocationViewController.xib */; };
 		0367172A2C0C1FD000BFB9DC /* AddressesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036717282C0C1FD000BFB9DC /* AddressesTableViewCell.swift */; };
@@ -101,6 +104,9 @@
 		034346A02C0C3BD7006EAC8A /* SettingsViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsViewModelProtocol.swift; path = EleganceHub/Settings/View/ShippingAddressView/AddressesTableViewCell/SettingsViewModelProtocol.swift; sourceTree = SOURCE_ROOT; };
 		034346A22C0C3DC4006EAC8A /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsViewModel.swift; path = EleganceHub/Settings/View/ShippingAddressView/AddressesTableViewCell/SettingsViewModel.swift; sourceTree = SOURCE_ROOT; };
 		034346A42C0C4A65006EAC8A /* CountryItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CountryItemView.xib; sourceTree = "<group>"; };
+		035A1C402C0E67C50054F186 /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
+		035A1C412C0E67C50054F186 /* CustomAlertViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomAlertViewController.xib; sourceTree = "<group>"; };
+		035A1C442C0E96530054F186 /* PostCustomerAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PostCustomerAddress.swift; path = EleganceHub/Settings/Model/PostCustomerAddress.swift; sourceTree = SOURCE_ROOT; };
 		036717222C0C171C00BFB9DC /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		036717232C0C171C00BFB9DC /* LocationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LocationViewController.xib; sourceTree = "<group>"; };
 		036717282C0C1FD000BFB9DC /* AddressesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressesTableViewCell.swift; sourceTree = "<group>"; };
@@ -212,6 +218,15 @@
 				031F8E012C0C592600BA92CF /* NetworkServiceProtocol.swift */,
 			);
 			path = NetworkService;
+			sourceTree = "<group>";
+		};
+		035A1C3F2C0E678B0054F186 /* CustomAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				035A1C402C0E67C50054F186 /* CustomAlertViewController.swift */,
+				035A1C412C0E67C50054F186 /* CustomAlertViewController.xib */,
+			);
+			path = CustomAlertView;
 			sourceTree = "<group>";
 		};
 		036717212C0C16F900BFB9DC /* LocationsViews */ = {
@@ -366,6 +381,7 @@
 		03E40B662C01E24500345DE2 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				035A1C3F2C0E678B0054F186 /* CustomAlertView */,
 				036717212C0C16F900BFB9DC /* LocationsViews */,
 				0383BC4C2C0BEB9700855384 /* ShippingAddressView */,
 				0383BC492C0BD07500855384 /* ProfileViewController */,
@@ -388,6 +404,7 @@
 			children = (
 				031F8DFE2C0C58F900BA92CF /* NetworkService */,
 				0383BC472C0BC57000855384 /* CellModelData.swift */,
+				035A1C442C0E96530054F186 /* PostCustomerAddress.swift */,
 				0383BC512C0BF26300855384 /* AddressDataModel.swift */,
 			);
 			path = Model;
@@ -778,6 +795,7 @@
 				C88C20692BFE8CB400886365 /* LaunchScreen.storyboard in Resources */,
 				03A7F5562C0164E500F68AC7 /* CartTableViewCell.xib in Resources */,
 				D403E2722C00AA4C00AE9C68 /* GoogleService-Info.plist in Resources */,
+				035A1C432C0E67C50054F186 /* CustomAlertViewController.xib in Resources */,
 				0383BC3F2C0BA96C00855384 /* SettingsTableViewCell.xib in Resources */,
 				C88C20662BFE8CB400886365 /* Assets.xcassets in Resources */,
 				C88C20642BFE8CAF00886365 /* Main.storyboard in Resources */,
@@ -918,6 +936,7 @@
 				C88C205D2BFE8CAF00886365 /* AppDelegate.swift in Sources */,
 				D478FC6C2BFF9AC000BBA2BB /* SignUpViewController.swift in Sources */,
 				D403E2742C00B3BA00AE9C68 /* AuthService.swift in Sources */,
+				035A1C422C0E67C50054F186 /* CustomAlertViewController.swift in Sources */,
 				D4B17FC22C07EF0D00A8F9D3 /* SignUpNetworkService.swift in Sources */,
 				7F359E932BFEB9B700D0D733 /* BrandsCollectionViewCell.swift in Sources */,
 				7F359E8A2BFE9CFC00D0D733 /* TabBarCorners.swift in Sources */,
@@ -943,6 +962,7 @@
 				0383BC3E2C0BA96C00855384 /* SettingsTableViewCell.swift in Sources */,
 				036717242C0C171C00BFB9DC /* LocationViewController.swift in Sources */,
 				03D6C5B72C0C4F9F00254753 /* CountryItemView.swift in Sources */,
+				035A1C452C0E96530054F186 /* PostCustomerAddress.swift in Sources */,
 				7F3E46AB2C010AB80096211E /* Products.swift in Sources */,
 				7F359E982BFF4DC500D0D733 /* CouponsCollectionViewCell.swift in Sources */,
 				7F3E46AF2C0129910096211E /* ProductsTableViewCell.swift in Sources */,

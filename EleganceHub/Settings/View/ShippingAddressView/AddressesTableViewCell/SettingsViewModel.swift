@@ -6,8 +6,15 @@
 //
 
 import Foundation
+import RxSwift
 
 class SettingsViewModel:SettingsViewModelProtocol{
+    
+    private let disposeBag = DisposeBag()
+    
+    let addresses: PublishSubject<[Address]> = PublishSubject<[Address]>()
+    let isLoading: PublishSubject<Bool> = PublishSubject()
+    let error: PublishSubject<Error> = PublishSubject()
     
     var listOfCities: [String]? {
         didSet{
@@ -27,17 +34,17 @@ class SettingsViewModel:SettingsViewModelProtocol{
         NetworkService.fetchCities(country: selectedCountry) { [self] response in
             switch response {
                 case .success(let success):
-                self.listOfCities = success.date
+                self.listOfCities = success.data
             case .failure(let err):
-                print("Errooooor")
+                print("Errooooor \(err)")
+                self.failureResponse(err.localizedDescription)
+
             }
         }
         
     }
     
     var bindCountriesList: (([CountryDataModel]) -> ()) = {_ in}
-    
-
     
     func configrationCountries() {
         let dispatchGroup = DispatchGroup()
@@ -66,6 +73,38 @@ class SettingsViewModel:SettingsViewModelProtocol{
             print("All Countries codes fetched: \(list)")
             self.listOfCountries = list
         }
+    }
+    
+    func addNewAddress(customerID: Int, addressData: AddressData) {
+        NetworkService.postNewAddress(customerID: customerID, addressData: addressData) { result in
+            switch result{
+                case .success(let data):
+                    print("Added address successFully \(data)")
+                case .failure(let err):
+                    print("Faild add address \(err)")
+                    self.failureResponse(err.localizedDescription)
+            }
+        }
+    }
+    
+    var failureResponse: ((String) -> ()) = {_ in}
+    
+    
+    
+    func getAllAddresses(customerID: Int) {
+        isLoading.onNext(true)
+        NetworkService.getAllAddresses(customerID: customerID)
+            .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .userInitiated))
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] addressDataModel in
+                self?.addresses.onNext(addressDataModel.addresses ?? [])
+                self?.isLoading.onNext(false)
+            }, onError: { [weak self] error in
+                self?.error.onNext(error)
+                self?.isLoading.onNext(false)
+            })
+            .disposed(by: disposeBag)
+
     }
 }
 

@@ -12,6 +12,7 @@ struct AddressDataModel: Codable {
     let addresses: [Address]?
 }
 
+
 // MARK: - Address
 struct Address: Codable {
     let id, customerID: Int?
@@ -39,8 +40,8 @@ struct CountryDataModel{
 }
 
 struct CitiesResponse:Codable{
-    let error : String?
+    let error : Bool?
     let msg :String?
-    let date:[String]?
+    let data: [String]?
 }
 

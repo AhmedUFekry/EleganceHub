@@ -15,100 +15,125 @@ class LocationViewController: UIViewController {
     @IBOutlet weak var phoneTF: UITextField!
     @IBOutlet weak var zipCodeTF: UITextField!
     @IBOutlet weak var streetTF: UITextField!
+    @IBOutlet weak var selectCityBtn : UIButton!
+    @IBOutlet weak var cancelBtn : UIButton!
     
-    let screenWidth = UIScreen.main.bounds.width - 10
-        let screenHeight = UIScreen.main.bounds.height / 2
-        var selectedRow = 0
-    
-    
+    var onSelect: ((CountryDataModel) -> Void)?
     
     var settingVM:SettingsViewModelProtocol? = SettingsViewModel()
     
     var listCountry:[CountryDataModel] = []
+    var listCities:[String] = []
+    
+    // MARK: get address data
+    var selectedCountry,selectedCity,address,zip,phoneTxt,selectedCountryCode :String?
+    // MARK: User Data
+    var customerData:User? = User(id: 8222308237587, first_name: "shimaa", last_name: "shimo", email: "", password: "")
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setup()
+        self.settingVM?.configrationCountries()
+        self.settingVM?.bindCountriesList = { [weak self] list in
+            self?.listCountry = list
+        }
+        self.settingVM?.bindCitiesList = { [weak self] list in
+            self?.listCities = list
+            self?.selectCityBtn.isEnabled = true
+        }
+        
+        self.settingVM?.failureResponse = { [weak self] err in
+            self?.displayAlert(message: err, seconds: 3)
+        }
+    }
+    
+    private func setup(){
+        
         Constants.textFieldStyle(tF: phoneTF)
         Constants.textFieldStyle(tF: zipCodeTF)
         Constants.textFieldStyle(tF: streetTF)
-        self.settingVM?.configrationCountries()
-        //listCountry = settingVM?.listOfCountries ?? []
-        self.settingVM?.bindCountriesList = { list in
-            self.listCountry = list
-        }
         
+        self.selectCityBtn.isEnabled = false
+        
+        cancelBtn.layer.borderWidth = 2.0
+        cancelBtn.layer.borderColor = UIColor.black.cgColor
+        cancelBtn.layer.cornerRadius = 10
     }
-
+    
     @IBAction func pickCountryBtn(_ sender: UIButton) {
-        //self.settingVM?.configrationCountries()
+        let customAlert = CustomAlertViewController()
+        customAlert.alertTitle = "Choose Country"
+        customAlert.pickerData = listCountry
+        customAlert.onSelect = { [weak self] isSelected, selectedItem in
+                if isSelected {
+                    print("Select button tapped")
+                    if let selectedItem = selectedItem as? CountryDataModel {
+                            print("Selected item: \(selectedItem)")
+                        self?.countryNameLable.text = selectedItem.countryName
+                        self?.settingVM?.getCitiesOfSelectedCountry(selectedCountry:  selectedItem.countryName ?? "Egypt" )
+                        self?.selectedCountry = selectedItem.countryName
+                        self?.selectedCountryCode = selectedItem.countryCode
+                        
+                        self?.countryIconLable.text = selectedItem.flag
+                    }
+                    
+                } else {
+                    print("Cancel button tapped")
+                }
+            }
+        customAlert.show(from: self)
         
-        //listCountry = settingVM?.listOfCountries ?? []
-        let vc = UIViewController()
-                vc.preferredContentSize = CGSize(width: screenWidth, height: screenHeight)
-                let pickerView = UIPickerView(frame: CGRect(x: 0, y: 0, width: screenWidth, height:screenHeight))
-                pickerView.dataSource = self
-                pickerView.delegate = self
-        
-        pickerView.selectRow(selectedRow, inComponent: 0, animated: false)
-        
-        vc.view.addSubview(pickerView)
-                pickerView.centerXAnchor.constraint(equalTo: vc.view.centerXAnchor).isActive = true
-                pickerView.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor).isActive = true
-                
-                let alert = UIAlertController(title: "Select Country", message: "", preferredStyle: .actionSheet)
-                
-                
-                alert.setValue(vc, forKey: "contentViewController")
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
-            print("Cancel button tapped")
-        }
-
-        alert.addAction(cancelAction)
-        let selectAction = UIAlertAction(title: "Select", style: .default) { (action) in
-            print("selected button tapped")
-            self.selectedRow = pickerView.selectedRow(inComponent: 0)
-            let selected = self.listCountry[self.selectedRow]
-            self.countryNameLable.text = selected.countryName
-            self.countryIconLable.text = selected.flag
-        }
-        
-        alert.addAction(selectAction)
-        
-        print("list country count is \(listCountry.count)")
-        self.present(alert, animated: true, completion: nil)
     }
+    
     @IBAction func pickCityBtn(_ sender: UIButton) {
+        
+        let customAlert = CustomAlertViewController()
+        customAlert.alertTitle = "Choose City"
+        customAlert.pickerData = listCities
+        customAlert.onSelect = { [weak self] isSelected, selectedItem in
+            if isSelected {
+                print("Select button tapped")
+                if let selectedItem = selectedItem as? String{
+                    self?.cityNameLable.text = selectedItem
+                    self?.selectedCity = selectedItem
+                }
+                
+            } else {
+                print("Cancel button tapped")
+            }
+        }
+        customAlert.show(from: self)
         
     }
     
     @IBAction func addLocationBtn(_ sender: UIButton) {
+        
+        if let selectedCountry = selectedCountry,
+           let selectedCity = selectedCity,
+           let address = streetTF.text, !address.isEmpty,
+           let phoneTxt = phoneTF.text, !phoneTxt.isEmpty,
+           let zip = zipCodeTF.text, !zip.isEmpty {
+            print("not nill data")
+            var userAdress = AddressData(address1: address, address2: "", city: selectedCity, company: "", firstName: customerData?.first_name, lastName: customerData?.last_name, phone: phoneTxt, province: "", country: selectedCountry, zip: zip, name: "\(customerData!.first_name!) \(customerData!.last_name!)", provinceCode: "", countryCode: selectedCountryCode, countryName: selectedCountry)
+            self.settingVM?.addNewAddress(customerID: customerData!.id!, addressData: userAdress)
+
+        self.dismiss(animated: true, completion: nil)
+                }else{
+            displayAlert(message: "Please enter your data", seconds: 3.0)
+        }
+    }
+    @IBAction func cancelBtnTapped(_ sender: UIButton){
+        self.dismiss(animated: true)
     }
     
-
+    private func displayAlert(message: String, seconds: Double, completion: (() -> Void)? = nil) {
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        self.present(alert, animated: true)
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + seconds) {
+            alert.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    
 }
 
-extension LocationViewController:UIPickerViewDelegate, UIPickerViewDataSource{
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        //self.settingVM?.listOfCountries?.count ?? 0
-        self.listCountry.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat
-        {
-            return 60
-        }
-    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView
-        {
-            let label = CountryItemView()
-      
-            label.countryNameLable.text = self.listCountry[row].countryName
-            label.countryIcon.text = self.listCountry[row].flag!
-            return label
-        }
-    
-}
