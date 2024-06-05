@@ -21,8 +21,15 @@ class Constants {
                 alert.dismiss(animated: true)
             }
         }
-    
-    
+
+    static func textFieldStyle(tF:UITextField){
+        let bottomBorder = CALayer()
+        bottomBorder.frame = CGRect(x: 0, y: tF.frame.size.height - 1, width: tF.frame.size.width, height: 1)
+        bottomBorder.backgroundColor = UIColor.black.cgColor
+        tF.layer.addSublayer(bottomBorder)
+        tF.layer.masksToBounds = true
+    }
+
 }
 
 enum Categories : String{

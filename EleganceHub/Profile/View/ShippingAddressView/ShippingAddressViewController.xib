@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShippingAddressViewController" customModule="EleganceHub" customModuleProvider="target">
+            <connections>
+                <outlet property="activityIndicator" destination="2lU-Pq-Gxx" id="xiE-K5-Iau"/>
+                <outlet property="appBar" destination="IOo-IT-zw4" id="E9n-iG-75f"/>
+                <outlet property="tableView" destination="Ros-hf-b7A" id="uj1-Co-91w"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IOo-IT-zw4" customClass="CustomAppBarUIView" customModule="EleganceHub" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="59" width="393" height="50"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="arf-cV-igL"/>
+                    </constraints>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Ros-hf-b7A">
+                    <rect key="frame" x="16" y="125" width="361" height="629"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </tableView>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="2lU-Pq-Gxx">
+                    <rect key="frame" x="178" y="407.66666666666669" width="37" height="37"/>
+                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </activityIndicatorView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="Ros-hf-b7A" firstAttribute="top" secondItem="IOo-IT-zw4" secondAttribute="bottom" constant="16" id="DPV-OQ-QSl"/>
+                <constraint firstItem="IOo-IT-zw4" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="GDr-Iv-lIN"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Ros-hf-b7A" secondAttribute="bottom" constant="64" id="JoI-Zg-luJ"/>
+                <constraint firstItem="Ros-hf-b7A" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="Wa8-1s-ehi"/>
+                <constraint firstItem="Ros-hf-b7A" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" constant="-16" id="ePg-tL-pDY"/>
+                <constraint firstItem="2lU-Pq-Gxx" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="kPO-CE-EJ3"/>
+                <constraint firstItem="IOo-IT-zw4" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="pQb-dD-M6Y"/>
+                <constraint firstItem="IOo-IT-zw4" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="qmc-w9-q0Z"/>
+                <constraint firstItem="2lU-Pq-Gxx" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="xZk-cf-2mQ"/>
+            </constraints>
+            <point key="canvasLocation" x="38.931297709923662" y="-11.267605633802818"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
