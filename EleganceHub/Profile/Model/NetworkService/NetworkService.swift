@@ -19,14 +19,8 @@ class NetworkService:NetworkServiceProtocol{
         AF.request(stringUrl, method: .post, parameters: parameters).responseDecodable(of: CitiesResponse.self) { response in
             switch response.result {
                 case .success(let value):
-                    print("Response JSON: \(value)")
-                    do {
-                        //let cityResponse = try JSONDecoder().decode(CitiesResponse.self, from: value as! Data)
-                        print("cityResponse: \(value.data)")
-                       completionHandler(.success(value))
-                    } catch {
-                        completionHandler(.failure(error))
-                    }
+                    print("cityResponse: \(value.data)")
+                    completionHandler(.success(value))
                 case .failure(let error):
                     print("Error: \(error)")
                     completionHandler(.failure(error))

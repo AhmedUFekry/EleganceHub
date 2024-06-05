@@ -20,7 +20,7 @@ class LocationViewController: UIViewController {
     
     var onSelect: ((CountryDataModel) -> Void)?
     
-    var settingVM:SettingsViewModelProtocol? = SettingsViewModel()
+    var settingVM:AddressesViewModelProtocol? = AddressesViewModel()
     
     var listCountry:[CountryDataModel] = []
     var listCities:[String] = []

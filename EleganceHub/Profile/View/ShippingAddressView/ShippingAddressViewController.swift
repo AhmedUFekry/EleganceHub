@@ -17,7 +17,7 @@ class ShippingAddressViewController: UIViewController {
     
     var customerData:User? = User(id: 8222308237587, first_name: "shimaa", last_name: "shimo", email: "", password: "")
     
-    let viewModel = SettingsViewModel()
+    let viewModel = AddressesViewModel()
     let disposeBag = DisposeBag()
     
     override func viewDidLoad() {

@@ -7,8 +7,6 @@
 
 import Foundation
 
-import Foundation
-
 // MARK: - PostCustomerAddress
 struct PostCustomerAddress: Codable {
     let address: AddressData?

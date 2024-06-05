@@ -8,9 +8,9 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-    let cellData:[CellModelData] = [CellModelData(lableName: "Personal Details", iconName: "person_info", navigationId: "personalDetails"),CellModelData(lableName: "My Orders", iconName: "orders", navigationId: "myOrders"),CellModelData(lableName: "My WishLists", iconName: "fav", navigationId: "fav"),CellModelData(lableName: "Shipping Address", iconName: "shipping", navigationId: "shippingAddress"),
-         CellModelData(lableName: "Currency", iconName: "currency", navigationId: "currency"),CellModelData(lableName: "Settings", iconName: "settings", navigationId: "settings"),
-         CellModelData(lableName: "About Us", iconName: "aboutus", navigationId: "aboutUs")]
+    let cellData:[SettingCellModelData] = [SettingCellModelData(lableName: "Personal Details", iconName: "person_info", navigationId: "personalDetails"),SettingCellModelData(lableName: "My Orders", iconName: "orders", navigationId: "myOrders"),SettingCellModelData(lableName: "My WishLists", iconName: "fav", navigationId: "fav"),SettingCellModelData(lableName: "Shipping Address", iconName: "shipping", navigationId: "shippingAddress"),
+        SettingCellModelData(lableName: "Currency", iconName: "currency", navigationId: "currency"),SettingCellModelData(lableName: "Settings", iconName: "settings", navigationId: "settings"),
+         SettingCellModelData(lableName: "About Us", iconName: "aboutus", navigationId: "aboutUs")]
     
     @IBOutlet weak var settingTableView:UITableView!
     
@@ -21,7 +21,6 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         commenInit()
     }
     
