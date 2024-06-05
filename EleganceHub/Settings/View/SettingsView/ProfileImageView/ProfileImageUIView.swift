@@ -11,6 +11,7 @@ class ProfileImageUIView: UIView {
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var editPicBtn: UIButton!
     
+    @IBOutlet weak var uploadLabel: UILabel!
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.commenInit()
