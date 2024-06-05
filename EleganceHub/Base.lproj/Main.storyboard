@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="12j-hp-cQt">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1jR-if-Iy8">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
@@ -17,16 +17,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="wscreen" translatesAutoresizingMaskIntoConstraints="NO" id="95g-nC-5g3">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wscreen" translatesAutoresizingMaskIntoConstraints="NO" id="95g-nC-5g3">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5UV-Ny-efU">
                                 <rect key="frame" x="59" y="730" width="274" height="39"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" red="0.025035511359999998" green="0.025035511359999998" blue="0.025035511359999998" alpha="0.5" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Sign Up"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Sign Up">
+                                    <color key="baseBackgroundColor" systemColor="secondaryLabelColor"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="navigateToSignUpView:" destination="Tii-hD-sS5" eventType="touchUpInside" id="lsl-LC-Bq6"/>
                                 </connections>
@@ -36,14 +37,18 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" systemColor="labelColor"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Login"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Login">
+                                    <color key="baseBackgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="NavigateToLoginView:" destination="Tii-hD-sS5" eventType="touchUpInside" id="LyS-F0-jWg"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="l" translatesAutoresizingMaskIntoConstraints="NO" id="shs-Vc-G4M">
-                                <rect key="frame" x="27" y="127" width="338" height="454"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="l" translatesAutoresizingMaskIntoConstraints="NO" id="shs-Vc-G4M">
+                                <rect key="frame" x="0.0" y="201" width="393" height="450"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="450" id="rbp-Gl-0uz"/>
+                                </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hr5-Sx-spF">
                                 <rect key="frame" x="287" y="59" width="78" height="46"/>
@@ -58,6 +63,16 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Cxy-5O-AuF"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="95g-nC-5g3" secondAttribute="bottom" id="0kG-Nw-byR"/>
+                            <constraint firstItem="shs-Vc-G4M" firstAttribute="centerX" secondItem="hZ2-N4-65Y" secondAttribute="centerX" id="2Zx-dg-QkM"/>
+                            <constraint firstItem="95g-nC-5g3" firstAttribute="leading" secondItem="Cxy-5O-AuF" secondAttribute="leading" id="LQW-c1-mKp"/>
+                            <constraint firstAttribute="trailing" secondItem="shs-Vc-G4M" secondAttribute="trailing" id="Rcv-uO-JpW"/>
+                            <constraint firstItem="95g-nC-5g3" firstAttribute="top" secondItem="hZ2-N4-65Y" secondAttribute="top" id="VaV-1z-eea"/>
+                            <constraint firstItem="shs-Vc-G4M" firstAttribute="centerY" secondItem="hZ2-N4-65Y" secondAttribute="centerY" id="cTs-FG-abz"/>
+                            <constraint firstItem="shs-Vc-G4M" firstAttribute="leading" secondItem="hZ2-N4-65Y" secondAttribute="leading" id="dHP-yM-BbK"/>
+                            <constraint firstItem="95g-nC-5g3" firstAttribute="trailing" secondItem="Cxy-5O-AuF" secondAttribute="trailing" id="wix-l2-caC"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="HsX-ET-HCI"/>
                 </viewController>
@@ -404,7 +419,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" id="Aba-fZ-x7R">
-                                <rect key="frame" x="0.0" y="52" width="393" height="44"/>
+                                <rect key="frame" x="-1" y="52" width="394" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <navigationItem title="Category" id="Mnp-7V-qhQ">
@@ -909,9 +924,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BJi-nJ-F6Q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-
             <point key="canvasLocation" x="6853" y="2101"/>
-
         </scene>
         <!--Home View Controller-->
         <scene sceneID="a5m-LP-WYd">
@@ -965,7 +978,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PaG-1F-tbd">
-                                <rect key="frame" x="-7" y="51" width="390" height="44"/>
+                                <rect key="frame" x="-8" y="51" width="391" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <navigationItem title="Home" id="hsS-Tv-6lx">
@@ -1215,11 +1228,8 @@
         <image name="icons8-forward-button-50" width="35" height="35"/>
         <image name="icons8-log-out-25" width="25" height="25"/>
         <image name="l" width="499" height="500"/>
-
-        <image name="magnifyingglass.circle" catalog="system" width="128" height="123"/>
-
         <image name="lang" width="30" height="30"/>
-
+        <image name="magnifyingglass.circle" catalog="system" width="128" height="123"/>
         <image name="person.circle.fill" catalog="system" width="128" height="123"/>
         <image name="person.crop.circle" catalog="system" width="128" height="123"/>
         <image name="shopping-bag" width="50" height="50"/>
@@ -1232,11 +1242,14 @@
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
