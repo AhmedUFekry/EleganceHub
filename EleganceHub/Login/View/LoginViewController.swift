@@ -103,10 +103,10 @@ class LoginViewController: UIViewController {
     }
             
     private func navigateToHome() {
-        if let homeViewController = storyboard?.instantiateViewController(withIdentifier: "HomeViewController") as? HomeViewController {
-            let nav = UINavigationController(rootViewController: homeViewController)
-            nav.modalPresentationStyle = .fullScreen
-            self.present(nav, animated: true, completion: nil)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarViewController") as? UITabBarController {
+            tabBarController.modalPresentationStyle = .fullScreen
+            present(tabBarController, animated: true, completion: nil)
         }
     }
 }
