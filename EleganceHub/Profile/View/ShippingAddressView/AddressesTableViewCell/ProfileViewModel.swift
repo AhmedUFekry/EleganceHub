@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-class SettingsViewModel:SettingsViewModelProtocol{
+class ProfileViewModel:ProfileViewModelProtocol{
     
     private let disposeBag = DisposeBag()
     

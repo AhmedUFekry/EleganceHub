@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol SettingsViewModelProtocol{
+protocol ProfileViewModelProtocol{
     var listOfCountries:[CountryDataModel]? {get set}
     var bindCountriesList:((_ countries:[CountryDataModel]) -> ()) {get set}
     

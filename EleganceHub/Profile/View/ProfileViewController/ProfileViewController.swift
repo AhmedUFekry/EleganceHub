@@ -8,7 +8,7 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-    let cellData:[CellModelData] = [CellModelData(lableName: "Personal Details", iconName: "person_info", navigationId: "personalDetails"),CellModelData(lableName: "My Orders", iconName: "orders", navigationId: "myOrders"),CellModelData(lableName: "My WishLists", iconName: "fav", navigationId: "fav"),CellModelData(lableName: "Shipping Address", iconName: "shipping", navigationId: "shippingAddress"),CellModelData(lableName: "Settings", iconName: "settings", navigationId: "settings"),
+    let cellData:[CellModelData] = [CellModelData(lableName: "Personal Details", iconName: "person_info", navigationId: "personalDetails"),CellModelData(lableName: "My Orders", iconName: "orders", navigationId: "myOrders"),CellModelData(lableName: "My WishLists", iconName: "fav", navigationId: "fav"),CellModelData(lableName: "Shipping Address", iconName: "shipping", navigationId: "shippingAddress"),
          CellModelData(lableName: "Currency", iconName: "currency", navigationId: "currency"),CellModelData(lableName: "Settings", iconName: "settings", navigationId: "settings"),
          CellModelData(lableName: "About Us", iconName: "aboutus", navigationId: "aboutUs")]
     
@@ -50,6 +50,8 @@ class ProfileViewController: UIViewController {
         personUIView.layer.cornerRadius = 10
         personUIView.layer.shadowPath = UIBezierPath(roundedRect: self.personUIView.bounds, cornerRadius: self.personUIView.layer.cornerRadius).cgPath
         }
+    
+
 
 }
 
@@ -84,3 +86,5 @@ extension ProfileViewController:UITableViewDataSource,UITableViewDelegate{
     }
     
 }
+
+
