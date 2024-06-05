@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CategoryViewController" customModule="EleganceHub" customModuleProvider="target">
+            <connections>
+                <outlet property="contentView" destination="i5M-Pr-FkT" id="6ae-t1-nG4"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT" customClass="CategoryViewController" customModule="EleganceHub" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <navigationBar contentMode="scaleToFill" id="0Xt-kW-ITA">
+                    <rect key="frame" x="0.0" y="50" width="391" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <items>
+                        <navigationItem title="Category" id="CqP-dv-qmU">
+                            <barButtonItem key="leftBarButtonItem" title="Item" image="back" id="uZM-kj-ucE">
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </barButtonItem>
+                            <rightBarButtonItems>
+                                <barButtonItem title="Item" image="heart.circle" catalog="system" id="43g-wq-99A">
+                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </barButtonItem>
+                                <barButtonItem title="Item" image="cart.circle" catalog="system" id="y6e-pp-eZz">
+                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </barButtonItem>
+                            </rightBarButtonItems>
+                        </navigationItem>
+                    </items>
+                </navigationBar>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Wt4-2J-Knd">
+                    <rect key="frame" x="16" y="149" width="361" height="32"/>
+                    <segments>
+                        <segment title="Women"/>
+                        <segment title="Men"/>
+                        <segment title="Kids"/>
+                        <segment title="Sale"/>
+                    </segments>
+                    <color key="selectedSegmentTintColor" white="0.0" alpha="0.31206022350000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </segmentedControl>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="H1w-8v-cj0">
+                    <rect key="frame" x="16" y="185" width="361" height="633"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="XTU-Aw-bhk">
+                        <size key="itemSize" width="128" height="128"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+                <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="o2h-Cd-3Vs">
+                    <rect key="frame" x="16" y="94" width="361" height="56"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="ALP-2d-2c0"/>
+                    </connections>
+                </searchBar>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="Wt4-2J-Knd" firstAttribute="width" secondItem="o2h-Cd-3Vs" secondAttribute="width" id="5WA-N9-Biu"/>
+                <constraint firstItem="H1w-8v-cj0" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="6JU-q0-glM"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="H1w-8v-cj0" secondAttribute="bottom" id="ICT-jc-mkk"/>
+                <constraint firstItem="H1w-8v-cj0" firstAttribute="top" secondItem="Wt4-2J-Knd" secondAttribute="bottom" constant="5" id="Ong-zm-CXh"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="H1w-8v-cj0" secondAttribute="trailing" constant="16" id="Q61-fI-hMV"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Wt4-2J-Knd" secondAttribute="trailing" constant="16" id="QbK-PY-xCa"/>
+                <constraint firstItem="Wt4-2J-Knd" firstAttribute="leading" secondItem="o2h-Cd-3Vs" secondAttribute="leading" id="cPT-PH-LwR"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="o2h-Cd-3Vs" secondAttribute="trailing" constant="16" id="kZ0-r8-kdc"/>
+                <constraint firstItem="H1w-8v-cj0" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="126" id="mWs-U1-evQ"/>
+                <constraint firstItem="o2h-Cd-3Vs" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="35" id="otl-Bm-Mve"/>
+                <constraint firstItem="Wt4-2J-Knd" firstAttribute="centerX" secondItem="H1w-8v-cj0" secondAttribute="centerX" id="tBW-zW-BaW"/>
+            </constraints>
+            <point key="canvasLocation" x="113.74045801526717" y="19.718309859154932"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="back" width="35" height="35"/>
+        <image name="cart.circle" catalog="system" width="128" height="123"/>
+        <image name="heart.circle" catalog="system" width="128" height="123"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

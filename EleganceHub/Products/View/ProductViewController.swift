@@ -31,6 +31,8 @@ class ProductViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
 
             productsViewModel.getProductsFromModel(collectionId: brandsId ?? 484442308883)
+            
+            
         }
         
         func renderView() {

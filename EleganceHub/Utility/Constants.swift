@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 class Constants {
+    
     static let storeUrl = "https://mad44-ism-ios1.myshopify.com/admin/api/2024-04/"
     static let accessToken = "access_token=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"
     static let accessTokenKey = "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"
@@ -20,6 +21,7 @@ class Constants {
                 alert.dismiss(animated: true)
             }
         }
+
     static func textFieldStyle(tF:UITextField){
         let bottomBorder = CALayer()
         bottomBorder.frame = CGRect(x: 0, y: tF.frame.size.height - 1, width: tF.frame.size.width, height: 1)
@@ -27,4 +29,16 @@ class Constants {
         tF.layer.addSublayer(bottomBorder)
         tF.layer.masksToBounds = true
     }
+
 }
+
+enum Categories : String{
+    case Men = "484444274963" //   484445028627
+    case Women = "484444307731" //   484445061395
+    case Kids = "484444340499" //   484445094163
+    case Sale = "484444406035" //   484445126931
+}
+//men 484442636563 484443390227
+//women 484443422995 484442669331
+//kids 484442702099 484443455763
+//sale 484442734867 484443488531

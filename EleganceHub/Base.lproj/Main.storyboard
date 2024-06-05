@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1jR-if-Iy8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="12j-hp-cQt">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
@@ -63,7 +63,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V4U-bR-FLC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-768.70229007633588" y="-59.154929577464792"/>
+            <point key="canvasLocation" x="-602" y="1263"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="sRh-hu-Zqo">
@@ -207,7 +207,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b6I-mQ-GV7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-12.977099236641221" y="-59.154929577464792"/>
+            <point key="canvasLocation" x="353" y="1263"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="dBz-72-2nr">
@@ -294,7 +294,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mLx-kd-mSM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="709.16030534351137" y="-59.154929577464792"/>
+            <point key="canvasLocation" x="1321" y="1263"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -395,16 +395,16 @@
             </objects>
             <point key="canvasLocation" x="6012.9770992366412" y="2100.7042253521126"/>
         </scene>
-        <!--View Controller-->
+        <!--Super Category View Controller-->
         <scene sceneID="Owh-J6-mRR">
             <objects>
-                <viewController id="T80-uh-czD" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SuperCategoryViewController" id="T80-uh-czD" customClass="SuperCategoryViewController" customModule="EleganceHub" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uqQ-f0-e51">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" id="Aba-fZ-x7R">
-                                <rect key="frame" x="-2" y="52" width="394" height="44"/>
+                                <rect key="frame" x="0.0" y="52" width="393" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <navigationItem title="Category" id="Mnp-7V-qhQ">
@@ -467,12 +467,28 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="SHl-1Z-9TQ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="SHl-1Z-9TQ" firstAttribute="trailing" secondItem="qqS-KQ-I3w" secondAttribute="trailing" constant="16" id="Cs5-lt-muI"/>
+                            <constraint firstItem="kVi-nT-4Tc" firstAttribute="top" secondItem="SHl-1Z-9TQ" secondAttribute="top" constant="37" id="Hod-Cs-Wm2"/>
+                            <constraint firstItem="HvR-PE-k50" firstAttribute="top" secondItem="SHl-1Z-9TQ" secondAttribute="top" constant="140" id="M2S-vp-OtV"/>
+                            <constraint firstItem="SHl-1Z-9TQ" firstAttribute="trailing" secondItem="HvR-PE-k50" secondAttribute="trailing" constant="16" id="PHf-8S-cGJ"/>
+                            <constraint firstItem="HvR-PE-k50" firstAttribute="top" secondItem="qqS-KQ-I3w" secondAttribute="bottom" constant="21" id="Wax-5D-Cwf"/>
+                            <constraint firstItem="SHl-1Z-9TQ" firstAttribute="trailing" secondItem="kVi-nT-4Tc" secondAttribute="trailing" constant="16" id="ada-wo-Bxr"/>
+                            <constraint firstItem="qqS-KQ-I3w" firstAttribute="leading" secondItem="kVi-nT-4Tc" secondAttribute="leading" id="l0C-vm-dZ4"/>
+                            <constraint firstItem="HvR-PE-k50" firstAttribute="leading" secondItem="SHl-1Z-9TQ" secondAttribute="leading" constant="16" id="lCm-kF-5kg"/>
+                            <constraint firstItem="HvR-PE-k50" firstAttribute="bottom" secondItem="SHl-1Z-9TQ" secondAttribute="bottom" constant="66" id="qQ3-xB-bVL"/>
+                            <constraint firstItem="kVi-nT-4Tc" firstAttribute="leading" secondItem="SHl-1Z-9TQ" secondAttribute="leading" constant="16" id="rsJ-dz-1W1"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="tL5-BI-Vlz"/>
+                    <connections>
+                        <outlet property="categoryCollection" destination="HvR-PE-k50" id="t1I-RR-kxI"/>
+                        <outlet property="segmentCategory" destination="qqS-KQ-I3w" id="ptt-V9-b1Y"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zb8-PC-dde" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5937" y="1263"/>
+            <point key="canvasLocation" x="5497" y="1263"/>
         </scene>
         <!--Payment View Controller-->
         <scene sceneID="4Ec-aA-Wf6">
@@ -893,7 +909,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BJi-nJ-F6Q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
+
             <point key="canvasLocation" x="6853" y="2101"/>
+
         </scene>
         <!--Home View Controller-->
         <scene sceneID="a5m-LP-WYd">
@@ -947,10 +965,16 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PaG-1F-tbd">
-                                <rect key="frame" x="-11" y="51" width="393" height="44"/>
+                                <rect key="frame" x="-7" y="51" width="390" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
-                                    <navigationItem title="Title" id="hsS-Tv-6lx">
+                                    <navigationItem title="Home" id="hsS-Tv-6lx">
+                                        <barButtonItem key="leftBarButtonItem" title="Item" image="magnifyingglass.circle" catalog="system" id="qZE-u3-Sb0">
+                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <connections>
+                                                <action selector="cartBtn:" destination="F0p-Yv-Hho" id="RTG-ou-kwl"/>
+                                            </connections>
+                                        </barButtonItem>
                                         <rightBarButtonItems>
                                             <barButtonItem title="Item" image="heart.circle" catalog="system" id="XT9-kZ-oaf">
                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1027,7 +1051,7 @@
                 </label>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Agh-nA-ZxI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5880" y="473"/>
+            <point key="canvasLocation" x="5439" y="473"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="msu-vE-26m">
@@ -1047,7 +1071,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MLc-CG-Zse" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3095" y="1175"/>
+            <point key="canvasLocation" x="2770" y="1263"/>
         </scene>
         <!--Product View Controller-->
         <scene sceneID="dvj-pU-6nU">
@@ -1106,7 +1130,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vc9-og-qWI" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6804" y="473"/>
+            <point key="canvasLocation" x="6334" y="473"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="hV4-yp-wnO">
@@ -1122,7 +1146,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y1U-iX-l91" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1624" y="-59"/>
+            <point key="canvasLocation" x="-1479" y="1263"/>
         </scene>
         <!--Category-->
         <scene sceneID="oNy-Up-EO2">
@@ -1140,7 +1164,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U0t-xK-8Ec" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5015" y="1263"/>
+            <point key="canvasLocation" x="4575" y="1263"/>
         </scene>
         <!--Profile-->
         <scene sceneID="CBW-Ha-syu">
@@ -1158,7 +1182,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NvC-Ia-u4V" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5015" y="2101"/>
+            <point key="canvasLocation" x="4575" y="2101"/>
         </scene>
         <!--Home-->
         <scene sceneID="Ykd-BM-6mZ">
@@ -1176,7 +1200,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xbd-R0-yMA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5014.5038167938928" y="472.53521126760563"/>
+            <point key="canvasLocation" x="4575" y="473"/>
         </scene>
     </scenes>
     <resources>
@@ -1191,9 +1215,10 @@
         <image name="icons8-forward-button-50" width="35" height="35"/>
         <image name="icons8-log-out-25" width="25" height="25"/>
         <image name="l" width="499" height="500"/>
-        <image name="lang" width="30" height="30"/>
 
         <image name="magnifyingglass.circle" catalog="system" width="128" height="123"/>
+
+        <image name="lang" width="30" height="30"/>
 
         <image name="person.circle.fill" catalog="system" width="128" height="123"/>
         <image name="person.crop.circle" catalog="system" width="128" height="123"/>
@@ -1211,7 +1236,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
