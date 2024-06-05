@@ -91,4 +91,24 @@ class NetworkService:NetworkServiceProtocol{
             return Disposables.create()
         }
     }
+    
+    static func removeAddress(customerID: Int, addressID: Int) -> Observable<Void>{
+        return Observable.create { observer in
+            let urlString = "\(Constants.storeUrl)/customers/\(customerID)/addresses/\(addressID).json"
+            let headers: HTTPHeaders = [
+                "X-Shopify-Access-Token": Constants.accessTokenKey
+            ]
+            AF.request(urlString, method: .delete, encoding: JSONEncoding.default, headers: headers).response { response in
+                switch response.result {
+                   case .success:
+                       observer.onNext(())
+                       observer.onCompleted()
+                   case .failure(let error):
+                       print("Error: \(error)")
+                       observer.onError(error)
+                   }
+               }
+               return Disposables.create()
+        }
+    }
 }

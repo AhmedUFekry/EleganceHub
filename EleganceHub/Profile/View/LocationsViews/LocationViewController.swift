@@ -19,6 +19,11 @@ class LocationViewController: UIViewController {
     @IBOutlet weak var cancelBtn : UIButton!
     
     var onSelect: ((CountryDataModel) -> Void)?
+    var delegate: UpdateLocationDelegate? {
+        didSet {
+            print("Delegate assigned: \(delegate)")
+        }
+    }
     
     var settingVM:AddressesViewModelProtocol? = AddressesViewModel()
     
@@ -72,8 +77,7 @@ class LocationViewController: UIViewController {
                         self?.countryNameLable.text = selectedItem.countryName
                         self?.settingVM?.getCitiesOfSelectedCountry(selectedCountry:  selectedItem.countryName ?? "Egypt" )
                         self?.selectedCountry = selectedItem.countryName
-                        self?.selectedCountryCode = selectedItem.countryCode
-                        
+                        self?.selectedCountryCode = selectedItem.extensionCode
                         self?.countryIconLable.text = selectedItem.flag
                     }
                     
@@ -110,12 +114,16 @@ class LocationViewController: UIViewController {
         
         if let selectedCountry = selectedCountry,
            let selectedCity = selectedCity,
+           let selectedCountryCode = selectedCountryCode,
            let address = streetTF.text, !address.isEmpty,
            let phoneTxt = phoneTF.text, !phoneTxt.isEmpty,
            let zip = zipCodeTF.text, !zip.isEmpty {
             print("not nill data")
             var userAdress = AddressData(address1: address, address2: "", city: selectedCity, company: "", firstName: customerData?.first_name, lastName: customerData?.last_name, phone: phoneTxt, province: "", country: selectedCountry, zip: zip, name: "\(customerData!.first_name!) \(customerData!.last_name!)", provinceCode: "", countryCode: selectedCountryCode, countryName: selectedCountry)
             self.settingVM?.addNewAddress(customerID: customerData!.id!, addressData: userAdress)
+            self.dismiss(animated: true) {
+                self.delegate?.didAddNewAddress()
+            }
 
         self.dismiss(animated: true, completion: nil)
                 }else{

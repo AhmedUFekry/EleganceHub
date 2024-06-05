@@ -25,9 +25,11 @@ class ProfileViewController: UIViewController {
     }
     
     private func commenInit() {
-        let nibCell = UINib(nibName: "SettingsTableViewCell", bundle: nil)
-        settingTableView.register(nibCell, forCellReuseIdentifier: "SettingsTableViewCell")
-                
+        let nibCell = UINib(nibName: "ProfileTableViewCell", bundle: nil)
+        settingTableView.register(nibCell, forCellReuseIdentifier: "ProfileTableViewCell")
+        //let cartNibCell = UINib(nibName: "CartTableViewCell", bundle: nil)
+        //settingTableView.register(cartNibCell, forCellReuseIdentifier: "CartTableViewCell")
+        
         settingTableView.dataSource = self
         settingTableView.delegate = self
         settingTableView.separatorStyle = .none
@@ -60,9 +62,10 @@ extension ProfileViewController:UITableViewDataSource,UITableViewDelegate{
         return cellData.count
     }
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsTableViewCell", for: indexPath) as! SettingsTableViewCell
-            cell.cellIcon.image = UIImage(named: cellData[indexPath.row].iconName)
-            cell.cellLable.text = cellData[indexPath.row].lableName
+            //let cell = tableView.dequeueReusableCell(withIdentifier: "CartTableViewCell", for: indexPath) as! CartTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileTableViewCell", for: indexPath) as! ProfileTableViewCell
+                cell.cellIcon.image = UIImage(named: cellData[indexPath.row].iconName)
+                cell.cellLable.text = cellData[indexPath.row].lableName
         return cell
     }
     

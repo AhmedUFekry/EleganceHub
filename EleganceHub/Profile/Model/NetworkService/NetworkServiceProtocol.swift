@@ -14,4 +14,6 @@ protocol NetworkServiceProtocol{
     static func postNewAddress(customerID: Int,addressData: AddressData, completionHandler: @escaping(Result<PostAddressResponse,Error>) -> Void)
     
     static func getAllAddresses(customerID: Int) -> Observable<AddressDataModel>
+    
+    static func removeAddress(customerID:Int, addressID:Int) -> Observable<Void>
 }

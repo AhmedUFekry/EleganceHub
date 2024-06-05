@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class ShippingAddressViewController: UIViewController {
+class ShippingAddressViewController: UIViewController,UpdateLocationDelegate {
     
     @IBOutlet weak var appBar:CustomAppBarUIView!
     @IBOutlet weak var tableView:UITableView!
@@ -44,6 +44,9 @@ class ShippingAddressViewController: UIViewController {
         
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
+        
+        //tableView.rx.setDelegate(self)
+               // .disposed(by: disposeBag)
     }
     
     @objc func goBack(){
@@ -51,18 +54,29 @@ class ShippingAddressViewController: UIViewController {
     }
     
     @objc func addNewLocation(){
-        self.navigationController?.present(LocationViewController(), animated: true)
+        let locationVC = LocationViewController()
+        locationVC.delegate = self
+        self.present(locationVC, animated: true)
     }
 
     private func setupTableViewBinding() {
-
         viewModel.addresses.asObserver().bind(to: tableView.rx.items(cellIdentifier: "AddressesTableViewCell", cellType: AddressesTableViewCell.self)) { index, address, cell in
             cell.setCellData(address:address)
             
         }.disposed(by: disposeBag)
         
-        tableView.rx.setDelegate(self)
-                .disposed(by: disposeBag)
+        tableView.rx.itemDeleted
+        .withLatestFrom(viewModel.addresses) { (indexPath, addresses) in
+            return (indexPath, addresses)
+        }
+        .subscribe(onNext: { [weak self] (indexPath, addresses) in
+            guard let self = self else { return }
+            let address = addresses[indexPath.row]
+            self.viewModel.removeAddress(customerID: self.customerData?.id ?? 0, addressID: address.id!)
+        })
+        .disposed(by: disposeBag)
+
+        tableView.rx.setDelegate(self).disposed(by: disposeBag)
     }
     private func loadingObserverSetUp(){
         viewModel.isLoading.subscribe{ isloading in
@@ -86,6 +100,10 @@ class ShippingAddressViewController: UIViewController {
     }
     private func showAlertError(err:String){
         print(err)
+    }
+    
+    func didAddNewAddress() {
+        viewModel.getAllAddresses(customerID: customerData!.id!)
     }
 }
 

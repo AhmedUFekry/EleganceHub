@@ -75,13 +75,13 @@ class AddressesViewModel:AddressesViewModelProtocol{
     }
     
     func addNewAddress(customerID: Int, addressData: AddressData) {
-            NetworkService.postNewAddress(customerID: customerID, addressData: addressData) { result in
+            NetworkService.postNewAddress(customerID: customerID, addressData: addressData) {[weak self] result in
                 switch result{
                     case .success(let data):
                         print("Added address successFully \(data)")
                     case .failure(let err):
                         print("Faild add address \(err)")
-                        self.failureResponse(err.localizedDescription)
+                        self?.failureResponse(err.localizedDescription)
                 }
             }
         }
@@ -101,6 +101,20 @@ class AddressesViewModel:AddressesViewModelProtocol{
                 .disposed(by: disposeBag)
 
         }
+    
+    func removeAddress(customerID: Int, addressID: Int){
+        isLoading.onNext(true)
+        NetworkService.removeAddress(customerID: customerID, addressID: addressID)
+            .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .userInitiated))
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] in
+                self?.getAllAddresses(customerID: customerID)
+            }, onError: { [weak self] error in
+                self?.error.onNext(error)
+                self?.isLoading.onNext(false)
+            })
+            .disposed(by: disposeBag)
+    }
 }
 
 extension String {

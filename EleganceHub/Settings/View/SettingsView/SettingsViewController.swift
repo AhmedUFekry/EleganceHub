@@ -16,6 +16,7 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var profileImageView:ProfileImageUIView!
     @IBOutlet weak var logOutBtn:UIButton!
     @IBOutlet weak var uiViewStyle:UIView!
+    var isEditingTapped: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,13 +30,22 @@ class SettingsViewController: UIViewController {
         uiViewStyle.layer.borderColor = UIColor.gray.cgColor
         
         appBarView.secoundTrailingIcon.isHidden = true
-        appBarView.trailingIcon.isHidden = true
+        appBarView.trailingIcon.setImage(UIImage(named:"icons8-edit-35"), for: .normal)
         
         appBarView.backBtn.addTarget(self, action: #selector(goBack), for: .touchUpInside)
+        appBarView.trailingIcon.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
+        
+        appBarView.lableTitle.text = "Personal Details"
     }
    
     
     @objc func goBack(){
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func editButtonTapped(){
+        isEditing = !isEditing
+        isEditing ? appBarView.trailingIcon.setImage(UIImage(named: "icons8-done-35"), for: .normal) : appBarView.trailingIcon.setImage(UIImage(named:"icons8-edit-35"), for: .normal)
+        
     }
 }
