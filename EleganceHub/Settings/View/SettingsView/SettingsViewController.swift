@@ -36,8 +36,16 @@ class SettingsViewController: UIViewController {
         appBarView.trailingIcon.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
         
         appBarView.lableTitle.text = "Personal Details"
+        
+        profileImageView.editPicBtn.addTarget(self, action: #selector(editImageTapped), for: .touchUpInside)
+        
     }
-   
+    @objc func editImageTapped(){
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.delegate = self
+        self.present(imagePicker, animated: true, completion: nil)
+    }
     
     @objc func goBack(){
         self.navigationController?.popViewController(animated: true)
@@ -46,6 +54,17 @@ class SettingsViewController: UIViewController {
     @objc func editButtonTapped(){
         isEditing = !isEditing
         isEditing ? appBarView.trailingIcon.setImage(UIImage(named: "icons8-done-35"), for: .normal) : appBarView.trailingIcon.setImage(UIImage(named:"icons8-edit-35"), for: .normal)
-        
+    }
+    private func enableEditting(isEnable:Bool){
+        profileImageView.editPicBtn.isHidden = isEnable
+        self.userNameTF.isEnabled = isEnable
+        self.userEmailTF.isEnabled = isEnable
+    }
+}
+
+extension SettingsViewController:UIImagePickerControllerDelegate,UINavigationControllerDelegate{
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        profileImageView.profileImage.image = info[.originalImage] as? UIImage
+        self.dismiss(animated: true)
     }
 }

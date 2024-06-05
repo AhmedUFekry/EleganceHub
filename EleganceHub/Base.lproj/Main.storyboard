@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="12j-hp-cQt">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1jR-if-Iy8">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
@@ -402,6 +402,69 @@
                     <view key="view" contentMode="scaleToFill" id="uqQ-f0-e51">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" id="Aba-fZ-x7R">
+                                <rect key="frame" x="-2" y="52" width="394" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem title="Category" id="Mnp-7V-qhQ">
+                                        <rightBarButtonItems>
+                                            <barButtonItem title="Item" image="heart.circle" catalog="system" id="8eg-aL-gGR">
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </barButtonItem>
+                                            <barButtonItem title="Item" image="cart.circle" catalog="system" id="DtM-5O-Beg">
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </barButtonItem>
+                                        </rightBarButtonItems>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="kVi-nT-4Tc">
+                                <rect key="frame" x="16" y="96" width="361" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="T80-uh-czD" id="084-8H-mgH"/>
+                                </connections>
+                            </searchBar>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="qqS-KQ-I3w">
+                                <rect key="frame" x="16" y="147" width="361" height="32"/>
+                                <segments>
+                                    <segment title="Women"/>
+                                    <segment title="Men"/>
+                                    <segment title="Kids"/>
+                                    <segment title="Sale"/>
+                                </segments>
+                                <color key="selectedSegmentTintColor" white="0.0" alpha="0.31206022350000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="segmentChanges:" destination="T80-uh-czD" eventType="valueChanged" id="uGc-nr-bbc"/>
+                                </connections>
+                            </segmentedControl>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="HvR-PE-k50">
+                                <rect key="frame" x="16" y="199" width="361" height="636"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="h4w-tu-Rkk">
+                                    <size key="itemSize" width="175" height="236"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CategoryCell" id="O88-GL-48t" customClass="CategoryCollectionViewCell" customModule="EleganceHub" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="175" height="236"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="hTw-f0-ngc">
+                                            <rect key="frame" x="0.0" y="0.0" width="175" height="236"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                        <size key="customSize" width="175" height="236"/>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="T80-uh-czD" id="Xag-M7-ewg"/>
+                                    <outlet property="delegate" destination="T80-uh-czD" id="cvd-WZ-0Nv"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="SHl-1Z-9TQ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
@@ -884,7 +947,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PaG-1F-tbd">
-                                <rect key="frame" x="-7" y="51" width="390" height="44"/>
+                                <rect key="frame" x="-11" y="51" width="393" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <navigationItem title="Title" id="hsS-Tv-6lx">
@@ -1129,6 +1192,9 @@
         <image name="icons8-log-out-25" width="25" height="25"/>
         <image name="l" width="499" height="500"/>
         <image name="lang" width="30" height="30"/>
+
+        <image name="magnifyingglass.circle" catalog="system" width="128" height="123"/>
+
         <image name="person.circle.fill" catalog="system" width="128" height="123"/>
         <image name="person.crop.circle" catalog="system" width="128" height="123"/>
         <image name="shopping-bag" width="50" height="50"/>
