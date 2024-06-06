@@ -17,9 +17,8 @@ import UIKit
 
 protocol ProductDetailViewModelProtocol {
     func getProductDetails(productId: Int)
-    func getAvailableSizes(productId: Int, completion: @escaping ([String]) -> Void)
-    func getAvailableSizesAndColors(productId: Int, completion: @escaping ([String: [UIColor]]?) -> Void)
-    }
+    func getAvailableSizesAndColors(productId: Int, completion: @escaping ([String], [String]) -> Void)
+}
 
 class ProductDetailViewModel: ProductDetailViewModelProtocol {
     var bindingProduct: (() -> Void)?
@@ -41,73 +40,45 @@ class ProductDetailViewModel: ProductDetailViewModelProtocol {
         networkManager.getProductDetails(productId: productId) { [weak self] fetchProduct in
             self?.observableProduct = fetchProduct?.product
             
-
             if let product = fetchProduct?.product {
                 print("Product ID: \(product.id ?? 0)")
                 print("Product Title: \(product.title ?? "No title")")
                 print("Product Description: \(product.bodyHTML ?? "No description")")
                 
+                self?.productVariants = product.variants ?? []
             } else {
                 print("Failed to fetch product details")
             }
         }
     }
     
-    func getAvailableSizes(productId: Int, completion: @escaping ([String]) -> Void) {
-            networkManager.getProductDetails(productId: productId) { [weak self] fetchProduct in
-                guard let variants = fetchProduct?.product?.variants else {
-                    print("Failed to fetch product variants")
-                    completion([])
-                    return
-                }
-                let sizes = variants.compactMap { $0.title?.components(separatedBy: "/").first }
-                print("Available sizes: \(sizes)")
-                completion(sizes)
+    func getAvailableSizesAndColors(productId: Int, completion: @escaping ([String], [String]) -> Void) {
+        networkManager.getProductDetails(productId: productId) { [weak self] fetchProduct in
+            guard let variants = fetchProduct?.product?.variants else {
+                print("Failed to fetch product variants")
+                completion([], [])
+                return
             }
-        }
-        
-    func getAvailableSizesAndColors(productId: Int, completion: @escaping ([String: [UIColor]]?) -> Void) {
-        guard !productVariants.isEmpty else {
-            completion(nil)
-            return
-        }
-        
-        var sizes: [String] = []
-        var colors: [[String]] = []
-        
-        for variant in productVariants {
-            if let title = variant.title {
-                let size = title.components(separatedBy: "/").first ?? ""
-                sizes.append(size)
-                
-                if let color = title.components(separatedBy: "/").last {
-                    let trimmedColor = color.trimmingCharacters(in: .whitespaces)
-                    if let index = sizes.firstIndex(of: size) {
-                        if index < colors.count {
-                            colors[index].append(trimmedColor)
-                        } else {
-                            colors.append([trimmedColor])
+            
+            var sizes: [String] = []
+            var colors: [String] = []
+            
+            for variant in variants {
+                if let title = variant.title {
+                    let components = title.components(separatedBy: "/")
+                    if let size = components.first?.trimmingCharacters(in: .whitespaces), let color = components.last?.trimmingCharacters(in: .whitespaces) {
+                        sizes.append(size)
+                        if !colors.contains(color) {
+                            colors.append(color)
                         }
                     }
                 }
             }
+            
+            print("Sizes: \(sizes)")
+            print("Colors: \(colors)")
+            
+            completion(sizes, colors)
         }
-        
-        let colorObjects = colors.map { colorArray -> [UIColor] in
-            return colorArray.map { colorString -> UIColor in
-                return UIColor(named: colorString) ?? UIColor.black
-            }
-        }
-        
-        
-        var sizesAndColors: [String: [UIColor]] = [:]
-        for i in 0..<sizes.count {
-            sizesAndColors[sizes[i]] = colorObjects[i]
-        }
-        
-        completion(sizesAndColors)
     }
-
-    }
-
-
+}
