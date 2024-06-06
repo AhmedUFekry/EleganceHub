@@ -17,7 +17,7 @@ import UIKit
 
 protocol ProductDetailViewModelProtocol {
     func getProductDetails(productId: Int)
-    func getAvailableSizesAndColors(productId: Int, completion: @escaping ([String], [String]) -> Void)
+    func getAvailableSizesAndColors(productId: Int, completion: @escaping ([String: [String]], [String]) -> Void)
 }
 
 class ProductDetailViewModel: ProductDetailViewModelProtocol {
@@ -52,22 +52,24 @@ class ProductDetailViewModel: ProductDetailViewModelProtocol {
         }
     }
     
-    func getAvailableSizesAndColors(productId: Int, completion: @escaping ([String], [String]) -> Void) {
+    func getAvailableSizesAndColors(productId: Int, completion: @escaping ([String: [String]], [String]) -> Void) {
         networkManager.getProductDetails(productId: productId) { [weak self] fetchProduct in
             guard let variants = fetchProduct?.product?.variants else {
                 print("Failed to fetch product variants")
-                completion([], [])
+                completion([:], [])
                 return
             }
             
-            var sizes: [String] = []
+            var sizeColorMap: [String: [String]] = [:]
             var colors: [String] = []
             
             for variant in variants {
                 if let title = variant.title {
                     let components = title.components(separatedBy: "/")
-                    if let size = components.first?.trimmingCharacters(in: .whitespaces), let color = components.last?.trimmingCharacters(in: .whitespaces) {
-                        sizes.append(size)
+                    if components.count == 2 {
+                        let size = components.first?.trimmingCharacters(in: .whitespaces) ?? ""
+                        let color = components.last?.trimmingCharacters(in: .whitespaces) ?? ""
+                        sizeColorMap[size, default: []].append(color)
                         if !colors.contains(color) {
                             colors.append(color)
                         }
@@ -75,10 +77,11 @@ class ProductDetailViewModel: ProductDetailViewModelProtocol {
                 }
             }
             
-            print("Sizes: \(sizes)")
-            print("Colors: \(colors)")
+            print("Size-Color Map: \(sizeColorMap)")
+            print("Available Colors: \(colors)")
             
-            completion(sizes, colors)
+            completion(sizeColorMap, colors)
         }
     }
+
 }
