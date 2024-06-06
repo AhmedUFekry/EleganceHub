@@ -1374,6 +1374,7 @@
                     <navigationItem key="navigationItem" id="Qhd-Nm-fe4"/>
                     <connections>
                         <outlet property="ProductDescription" destination="bd3-4D-bTv" id="Rdd-vC-hQv"/>
+                        <outlet property="ProductImagesCollection" destination="70x-uq-Pck" id="HG0-eS-JsX"/>
                         <outlet property="ProductName" destination="KMa-Pb-ZUm" id="9hk-sI-VTc"/>
                         <outlet property="colorSelectorContainer" destination="XBv-EN-bfA" id="gdO-HH-iwn"/>
                         <outlet property="imageSlider" destination="C6T-g4-PuK" id="5ys-kc-Qyg"/>

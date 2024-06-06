@@ -5,13 +5,6 @@
 //  Created by Shimaa on 03/06/2024.
 //
 
-
-
-//        let apiUrl = "https://2f2d859ed1f27082b1497dddfe0771dd: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@mad44-ism-ios1.myshopify.com/admin/api/2024-04/products/9425665655059.json"
-//
-//        "https://2f2d859ed1f27082b1497dddfe0771dd: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@mad44-ism-ios1.myshopify.com/admin/api/2024-04/products/\(productId).json"
-
-
 import Foundation
 import UIKit
 
@@ -38,14 +31,11 @@ class ProductDetailViewModel: ProductDetailViewModelProtocol {
     
     func getProductDetails(productId: Int) {
         networkManager.getProductDetails(productId: productId) { [weak self] fetchProduct in
-            self?.observableProduct = fetchProduct?.product
+            guard let self = self else { return }
+            self.observableProduct = fetchProduct?.product
             
             if let product = fetchProduct?.product {
-                print("Product ID: \(product.id ?? 0)")
-                print("Product Title: \(product.title ?? "No title")")
-                print("Product Description: \(product.bodyHTML ?? "No description")")
-                
-                self?.productVariants = product.variants ?? []
+                self.productVariants = product.variants ?? []
             } else {
                 print("Failed to fetch product details")
             }
@@ -53,7 +43,7 @@ class ProductDetailViewModel: ProductDetailViewModelProtocol {
     }
     
     func getAvailableSizesAndColors(productId: Int, completion: @escaping ([String: [String]], [String]) -> Void) {
-        networkManager.getProductDetails(productId: productId) { [weak self] fetchProduct in
+        networkManager.getProductDetails(productId: productId) { fetchProduct in
             guard let variants = fetchProduct?.product?.variants else {
                 print("Failed to fetch product variants")
                 completion([:], [])
@@ -83,5 +73,5 @@ class ProductDetailViewModel: ProductDetailViewModelProtocol {
             completion(sizeColorMap, colors)
         }
     }
-
 }
+
