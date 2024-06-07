@@ -55,7 +55,7 @@ class ProductDetailViewController: UIViewController {
             
             viewModel.getProductDetails(productId: productId)
             
-            viewModel.getAvailableSizesAndColors(productId: productId) { [weak self] sizeColorMap, colors in
+            viewModel.getAvailableVarients(productId: productId) { [weak self] sizeColorMap, colors in
                 guard let self = self else { return }
                 
                 self.sizeColorMap = sizeColorMap
@@ -143,6 +143,19 @@ class ProductDetailViewController: UIViewController {
                 return .gray
             }
         }
+    
+   
+    @IBAction func addToFavorite(_ sender: Any) {
+    }
+    
+    @IBAction func goBack(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func addToCart(_ sender: Any) {
+        
+    }
+    
     }
 
     extension ProductDetailViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {

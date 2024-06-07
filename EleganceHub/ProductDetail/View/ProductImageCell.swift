@@ -28,28 +28,20 @@ class ProductImageCell: UICollectionViewCell {
     }
 }
 
-// UIImageView extension to load image from URL
-
-
 extension UIImageView {
     func loadImage(from url: URL) {
-        // Create a data task to load the image
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            // Ensure there is no error and data exists
             guard let data = data, error == nil else {
                 print("Failed to load image from URL: \(url), Error: \(String(describing: error))")
                 return
             }
             
-            // Create the image from data
             if let image = UIImage(data: data) {
-                // Update the image view on the main thread
                 DispatchQueue.main.async {
                     self.image = image
                 }
             }
         }
-        // Start the task
         task.resume()
     }
 }
