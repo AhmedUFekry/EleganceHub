@@ -7,6 +7,7 @@
 
 import Foundation
 import RxSwift
+import Alamofire
 
 protocol NetworkServiceProtocol{
     static func fetchCities(country: String,completionHandler: @escaping (Result<CitiesResponse, Error>) -> Void)
@@ -16,4 +17,6 @@ protocol NetworkServiceProtocol{
     static func getAllAddresses(customerID: Int) -> Observable<AddressDataModel>
     
     static func removeAddress(customerID:Int, addressID:Int) -> Observable<Void>
+    
+    func getProducts( parameters: Alamofire.Parameters, handler: @escaping (ProductsResponse?) -> Void)
 }
