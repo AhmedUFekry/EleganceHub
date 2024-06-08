@@ -11,32 +11,43 @@ import JJFloatingActionButton
 
 class SuperCategoryViewController: UIViewController {
     
+    @IBOutlet weak var categorySearchBar: UISearchBar!
     @IBOutlet weak var segmentCategory: UISegmentedControl!
     @IBOutlet weak var categoryCollection: UICollectionView!
     
     let categoryViewModel = CategoryViewModel()
-    var categoryProductList : [Product]?
-    var filteredList : [Product]?
-    var isFiltered : Bool = false
+    var categoryProductList: [Product]?
+    var filteredList: [Product]?
+    var searchList: [Product]?
+    
+    var isFiltered: Bool = false
+    var isSearching: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         loadNib()
+        categorySearchBar.delegate = self
         categoryViewModel.bindResultToViewController = { [weak self] in
-            guard let self = self else {return}
+            guard let self = self else { return }
             self.categoryProductList = self.categoryViewModel.categoryResult
             self.renderView()
         }
         displayFloatingButton()
+        categoryViewModel.getCategoryProducts(category: .Women)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.renderView()
+    }
     
-    func loadNib(){
+    func loadNib() {
         let categoryNibCell = UINib(nibName: "CategoryCollectionViewCell", bundle: nil)
         categoryCollection.register(categoryNibCell, forCellWithReuseIdentifier: "CategoryCell")
     }
-    func renderView(){
+    
+    func renderView() {
         DispatchQueue.main.async {
             self.categoryCollection.reloadData()
         }
@@ -58,11 +69,11 @@ class SuperCategoryViewController: UIViewController {
         categoryCollection.reloadData()
     }
     
-    func displayFloatingButton(){
+    func displayFloatingButton() {
         let actionButton = JJFloatingActionButton()
         actionButton.buttonColor = UIColor.black
-        
         actionButton.buttonImage = UIImage(named: "menu")
+        
         actionButton.addItem(title: "All", image: UIImage(named: "menu")?.withRenderingMode(.alwaysTemplate)) { item in
             self.isFiltered = false
             self.renderView()
@@ -70,50 +81,46 @@ class SuperCategoryViewController: UIViewController {
         actionButton.addItem(title: "Shoes", image: UIImage(named: "shoes")?.withRenderingMode(.alwaysTemplate)) { item in
             self.isFiltered = true
             self.filteredList = self.categoryViewModel.filterCategory(filterType: "SHOES")
-            self.categoryCollection.reloadData()
-            
+            self.renderView()
         }
-
         actionButton.addItem(title: "T-Shirts", image: UIImage(named: "tshirt")?.withRenderingMode(.alwaysTemplate)) { item in
             self.isFiltered = true
             self.filteredList = self.categoryViewModel.filterCategory(filterType: "T-SHIRTS")
-            self.categoryCollection.reloadData()
+            self.renderView()
         }
-
         actionButton.addItem(title: "Accessories", image: UIImage(named: "Accsesory")?.withRenderingMode(.alwaysTemplate)) { item in
             self.isFiltered = true
             self.filteredList = self.categoryViewModel.filterCategory(filterType: "ACCESSORIES")
-            self.categoryCollection.reloadData()
+            self.renderView()
         }
         actionButton.display(inViewController: self)
     }
-    
-    
 }
-extension SuperCategoryViewController: UICollectionViewDataSource,UICollectionViewDelegate {
+
+//MARK: CollectionViewDataSource & CollectionViewDelegate
+extension SuperCategoryViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if isFiltered{
+        if isSearching {
+            return searchList?.count ?? 0
+        } else if isFiltered {
             return filteredList?.count ?? 0
-        }else{
+        } else {
             return categoryProductList?.count ?? 0
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let categoryCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCell", for: indexPath) as! CategoryCollectionViewCell
-        let category = categoryProductList?[indexPath.row]
+        let category = isSearching ? searchList?[indexPath.row] : (isFiltered ? filteredList?[indexPath.row] : categoryProductList?[indexPath.row])
         
         categoryCell.categoryTitle?.text = category?.title
         KF.url(URL(string: category?.image?.src ?? "https://cdn.shopify.com/s/files/1/0880/0426/4211/collections/a340ce89e0298e52c438ae79591e3284.jpg?v=1716276581"))
             .set(to: categoryCell.categoryImage)
         categoryCell.categoryType?.text = category?.productType
         categoryCell.categoryPrice?.text = category?.variants?[0].price
-
-
         
         return categoryCell
     }
-    
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let padding: CGFloat = 0
@@ -122,16 +129,28 @@ extension SuperCategoryViewController: UICollectionViewDataSource,UICollectionVi
         let height = width
         return CGSize(width: width, height: height)
     }
-    
 }
-/*
- // MARK: - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
- // Get the new view controller using segue.destination.
- // Pass the selected object to the new view controller.
- }
- */
+
+//MARK: UISearchBarDelegate
+extension SuperCategoryViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            isSearching = false
+            searchList = nil
+        } else {
+            isSearching = true
+            searchList = categoryProductList?.filter { $0.title?.localizedCaseInsensitiveContains(searchText) ?? false }
+        }
+        renderView()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        isSearching = false
+        searchList = nil
+        renderView()
+    }
+}
+
 
 
