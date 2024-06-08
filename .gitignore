@@ -1,0 +1,4 @@
+
+*.lock
+*.xcconfig
+Podfile.lock

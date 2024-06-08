@@ -27,8 +27,6 @@ class ProfileViewController: UIViewController {
     private func commenInit() {
         let nibCell = UINib(nibName: "ProfileTableViewCell", bundle: nil)
         settingTableView.register(nibCell, forCellReuseIdentifier: "ProfileTableViewCell")
-        //let cartNibCell = UINib(nibName: "CartTableViewCell", bundle: nil)
-        //settingTableView.register(cartNibCell, forCellReuseIdentifier: "CartTableViewCell")
         
         settingTableView.dataSource = self
         settingTableView.delegate = self
@@ -44,13 +42,13 @@ class ProfileViewController: UIViewController {
         uiViewStyle.layer.borderColor = UIColor.gray.cgColor
     }
     private func setupShadow() {
-            personUIView.layer.shadowColor = UIColor.black.cgColor
+        personUIView.layer.shadowColor = UIColor.black.cgColor
         personUIView.layer.shadowOpacity = 0.5
         personUIView.layer.shadowOffset = CGSize(width: 0, height: 2)
         personUIView.layer.shadowRadius = 4
         personUIView.layer.cornerRadius = 10
-        personUIView.layer.shadowPath = UIBezierPath(roundedRect: self.personUIView.bounds, cornerRadius: self.personUIView.layer.cornerRadius).cgPath
-        }
+        //personUIView.layer.shadowPath = UIBezierPath(roundedRect: self.personUIView.bounds, cornerRadius: self.personUIView.layer.cornerRadius).cgPath
+    }
     
 
 

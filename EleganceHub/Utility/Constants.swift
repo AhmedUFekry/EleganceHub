@@ -30,6 +30,14 @@ class Constants {
         tF.layer.masksToBounds = true
     }
 
+    static func displayAlert(viewController vc:UIViewController,message: String, seconds: Double, completion: (() -> Void)? = nil) {
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        vc.present(alert, animated: true)
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + seconds) {
+            alert.dismiss(animated: true, completion: nil)
+        }
+    }
+    
 }
 
 enum Categories : String{

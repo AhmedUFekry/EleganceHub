@@ -12,6 +12,7 @@ import RxSwift
 class NetworkService:NetworkServiceProtocol{
  
     static func fetchCities(country: String,completionHandler: @escaping (Result<CitiesResponse, Error>) -> Void) {
+        
         let stringUrl = "https://countriesnow.space/api/v0.1/countries/cities"
         let parameters: [String: String] = [
             "country":country
@@ -26,7 +27,6 @@ class NetworkService:NetworkServiceProtocol{
                     completionHandler(.failure(error))
                 }
         }
-        
     }
     
     static func postNewAddress(customerID: Int, addressData: AddressData, completionHandler: @escaping (Result<PostAddressResponse, Error>) -> Void) {
@@ -109,6 +109,26 @@ class NetworkService:NetworkServiceProtocol{
                    }
                }
                return Disposables.create()
+        }
+    }
+    
+    func getProducts( parameters: Alamofire.Parameters, handler: @escaping (ProductsResponse?) -> Void) {
+        
+        let headers: HTTPHeaders = [
+            "X-Shopify-Access-Token": Constants.accessTokenKey
+        ]
+        
+        AF.request("https://mad44-ism-ios1.myshopify.com/admin/api/2024-04/products.json"
+                   ,parameters: parameters, headers: headers).responseDecodable(of: ProductsResponse.self) { response in
+            switch response.result {
+            case .success(let data):
+                print("Data retrieved successfully:")
+                print(data)
+                handler(data)
+            case .failure(let error):
+                print("Error: \(error)")
+            }
+            
         }
     }
 }

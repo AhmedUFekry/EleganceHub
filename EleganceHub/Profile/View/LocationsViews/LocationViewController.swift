@@ -48,7 +48,8 @@ class LocationViewController: UIViewController {
         }
         
         self.settingVM?.failureResponse = { [weak self] err in
-            self?.displayAlert(message: err, seconds: 3)
+            guard let self = self else {return}
+            Constants.displayAlert(viewController: self,message: err, seconds: 3)
         }
     }
     
@@ -127,20 +128,14 @@ class LocationViewController: UIViewController {
 
         self.dismiss(animated: true, completion: nil)
                 }else{
-            displayAlert(message: "Please enter your data", seconds: 3.0)
+                    Constants.displayAlert(viewController:self,message: "Please enter your data", seconds: 3.0)
         }
     }
     @IBAction func cancelBtnTapped(_ sender: UIButton){
         self.dismiss(animated: true)
     }
     
-    private func displayAlert(message: String, seconds: Double, completion: (() -> Void)? = nil) {
-        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-        self.present(alert, animated: true)
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + seconds) {
-            alert.dismiss(animated: true, completion: nil)
-        }
-    }
+    
     
     
 }

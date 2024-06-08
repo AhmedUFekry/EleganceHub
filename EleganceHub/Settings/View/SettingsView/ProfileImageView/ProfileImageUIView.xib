@@ -12,6 +12,7 @@
             <connections>
                 <outlet property="editPicBtn" destination="Nsa-rL-wCV" id="oOF-AQ-IHw"/>
                 <outlet property="profileImage" destination="Y4x-I8-ZOx" id="fIQ-Bl-TKV"/>
+                <outlet property="uploadLabel" destination="vXs-gp-jd0" id="VcZ-9U-fqi"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -35,7 +36,7 @@
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="plain" image="icons8-edit-25-2"/>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upload image" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vXs-gp-jd0">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upload image" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vXs-gp-jd0">
                     <rect key="frame" x="0.0" y="108" width="110" height="20"/>
                     <fontDescription key="fontDescription" name="Palatino-Bold" family="Palatino" pointSize="17"/>
                     <nil key="textColor"/>

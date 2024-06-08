@@ -23,7 +23,7 @@ class SignUpNetworkService : SignUpNetworkServiceProtocol{
         let customerInfoDictionary = ["customer": ["first_name": newUser.first_name,
                                            "last_name" : newUser.last_name,
                                            "email": newUser.email,
-                                           //"note": newCustomer.note
+                                           "phone": newUser.phone
                                           ]]
         urlRequest.httpShouldHandleCookies = false
                 do {
