@@ -137,14 +137,13 @@ class SettingsViewController: UIViewController {
     }
             
     private func navigateToWelcomeScreen() {
-            if let welcomeViewController = storyboard?.instantiateViewController(identifier: "WelcomeViewController") as? WelcomeViewController {
-                if let window = UIApplication.shared.windows.first {
-                    window.rootViewController = UINavigationController(rootViewController: welcomeViewController)
-                    window.makeKeyAndVisible()
-                }
+        if let newViewController = storyboard?.instantiateViewController(withIdentifier: "WelcomeViewController") {
+                newViewController.hidesBottomBarWhenPushed = true
+                navigationController?.pushViewController(newViewController, animated: true)
             }
-        }
     }
+
+}
 
 
 extension SettingsViewController:UIImagePickerControllerDelegate,UINavigationControllerDelegate{

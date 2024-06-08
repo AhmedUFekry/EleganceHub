@@ -83,7 +83,13 @@ class HomeViewController: UIViewController {
                 print("Failed to instantiate CartViewController")
             }
     }
-
+    
+    
+    @IBAction func searchBtn(_ sender: UIBarButtonItem) {
+        let searchViewController = SearchViewController(nibName: "SearchViewController", bundle: nil)
+            self.navigationController?.pushViewController(searchViewController, animated: true)
+    }
+    
 }
 extension HomeViewController: UICollectionViewDataSource,UICollectionViewDelegate {
     

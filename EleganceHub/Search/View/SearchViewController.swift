@@ -144,7 +144,7 @@ class SearchViewController: UIViewController ,UITableViewDelegate, UITableViewDa
             }
         
     @IBAction func navigateBack(_ sender: Any) {
-        self.dismiss(animated: true)
+        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func filterByPrice(_ sender: Any) {
