@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		031F8E002C0C591700BA92CF /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031F8DFF2C0C591700BA92CF /* NetworkService.swift */; };
 		031F8E022C0C592600BA92CF /* NetworkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031F8E012C0C592600BA92CF /* NetworkServiceProtocol.swift */; };
+		033CEBA32C105DEF003B9DA9 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033CEBA22C105DEE003B9DA9 /* SettingsViewModel.swift */; };
+		033CEBA52C105F01003B9DA9 /* CustomerDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033CEBA42C105F01003B9DA9 /* CustomerDataModel.swift */; };
+		033CEBA82C107100003B9DA9 /* SettingsNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033CEBA72C107100003B9DA9 /* SettingsNetworkService.swift */; };
 		034346A52C0C4A65006EAC8A /* CountryItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 034346A42C0C4A65006EAC8A /* CountryItemView.xib */; };
 		035A1C422C0E67C50054F186 /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035A1C402C0E67C50054F186 /* CustomAlertViewController.swift */; };
 		035A1C432C0E67C50054F186 /* CustomAlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 035A1C412C0E67C50054F186 /* CustomAlertViewController.xib */; };
@@ -28,6 +31,8 @@
 		03B68E062C019DAE0054DA74 /* PaymentMethodTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03B68E042C019DAE0054DA74 /* PaymentMethodTableViewCell.xib */; };
 		03B68E082C01A1950054DA74 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B68E072C01A1950054DA74 /* PaymentViewController.swift */; };
 		03B68E0A2C01A3160054DA74 /* PaymentMethodModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B68E092C01A3160054DA74 /* PaymentMethodModel.swift */; };
+		03BAA12F2C14302E00A325AB /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BAA12E2C14302E00A325AB /* DatabaseService.swift */; };
+		03BAA1312C14304400A325AB /* DatabaseServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BAA1302C14304400A325AB /* DatabaseServiceProtocol.swift */; };
 		03C3966B2C0FFB8D00FFADF7 /* ShippingAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0383BC4D2C0BEBE900855384 /* ShippingAddressViewController.swift */; };
 		03C396782C0FFC6B00FFADF7 /* ProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03C396722C0FFC6B00FFADF7 /* ProfileTableViewCell.xib */; };
 		03C396792C0FFC6B00FFADF7 /* ProfileImageUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C396742C0FFC6B00FFADF7 /* ProfileImageUIView.swift */; };
@@ -117,6 +122,9 @@
 /* Begin PBXFileReference section */
 		031F8DFF2C0C591700BA92CF /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		031F8E012C0C592600BA92CF /* NetworkServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceProtocol.swift; sourceTree = "<group>"; };
+		033CEBA22C105DEE003B9DA9 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		033CEBA42C105F01003B9DA9 /* CustomerDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerDataModel.swift; sourceTree = "<group>"; };
+		033CEBA72C107100003B9DA9 /* SettingsNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNetworkService.swift; sourceTree = "<group>"; };
 		034346A42C0C4A65006EAC8A /* CountryItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CountryItemView.xib; sourceTree = "<group>"; };
 		035A1C402C0E67C50054F186 /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
 		035A1C412C0E67C50054F186 /* CustomAlertViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomAlertViewController.xib; sourceTree = "<group>"; };
@@ -137,6 +145,8 @@
 		03B68E042C019DAE0054DA74 /* PaymentMethodTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentMethodTableViewCell.xib; sourceTree = "<group>"; };
 		03B68E072C01A1950054DA74 /* PaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
 		03B68E092C01A3160054DA74 /* PaymentMethodModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodModel.swift; sourceTree = "<group>"; };
+		03BAA12E2C14302E00A325AB /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
+		03BAA1302C14304400A325AB /* DatabaseServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseServiceProtocol.swift; sourceTree = "<group>"; };
 		03C396722C0FFC6B00FFADF7 /* ProfileTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileTableViewCell.xib; sourceTree = "<group>"; };
 		03C396742C0FFC6B00FFADF7 /* ProfileImageUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileImageUIView.swift; sourceTree = "<group>"; };
 		03C396752C0FFC6B00FFADF7 /* ProfileImageUIView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileImageUIView.xib; sourceTree = "<group>"; };
@@ -252,6 +262,14 @@
 			path = NetworkService;
 			sourceTree = "<group>";
 		};
+		033CEBA62C1070DC003B9DA9 /* SettingsNetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				033CEBA72C107100003B9DA9 /* SettingsNetworkService.swift */,
+			);
+			path = SettingsNetworkService;
+			sourceTree = "<group>";
+		};
 		035A1C3F2C0E678B0054F186 /* CustomAlertView */ = {
 			isa = PBXGroup;
 			children = (
@@ -356,6 +374,15 @@
 			path = PaymentView;
 			sourceTree = "<group>";
 		};
+		03BAA12D2C142FF700A325AB /* DatabaseService */ = {
+			isa = PBXGroup;
+			children = (
+				03BAA12E2C14302E00A325AB /* DatabaseService.swift */,
+				03BAA1302C14304400A325AB /* DatabaseServiceProtocol.swift */,
+			);
+			path = DatabaseService;
+			sourceTree = "<group>";
+		};
 		03C396712C0FFC6B00FFADF7 /* SettingsView */ = {
 			isa = PBXGroup;
 			children = (
@@ -455,6 +482,7 @@
 		03F4232E2C0FE8C500002316 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				033CEBA22C105DEE003B9DA9 /* SettingsViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -470,6 +498,9 @@
 		03F423302C0FE8D600002316 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				03BAA12D2C142FF700A325AB /* DatabaseService */,
+				033CEBA62C1070DC003B9DA9 /* SettingsNetworkService */,
+				033CEBA42C105F01003B9DA9 /* CustomerDataModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1099,12 +1130,14 @@
 				D4883C572C112A2100EE6C78 /* ColorSelectorView.swift in Sources */,
 				D4883C5D2C11304200EE6C78 /* ProductDetailNetworkService.swift in Sources */,
 				D4F168592C0A603F00551795 /* Variants.swift in Sources */,
+				7FDAC40E2C0A4E1E00BC37A6 /* CategoryViewModel.swift in Sources */,
 				7F359E982BFF4DC500D0D733 /* CouponsCollectionViewCell.swift in Sources */,
 				D4883C532C11261D00EE6C78 /* SizeOptionCell.swift in Sources */,
 				03A7F5552C0164E500F68AC7 /* CartTableViewCell.swift in Sources */,
 				03C396892C10022900FFADF7 /* AddressesViewModelProtocol.swift in Sources */,
 				03C3967C2C0FFC6B00FFADF7 /* SettingsViewController.swift in Sources */,
 				03A7F5522C01484000F68AC7 /* CartViewController.swift in Sources */,
+				033CEBA82C107100003B9DA9 /* SettingsNetworkService.swift in Sources */,
 				03B68E0A2C01A3160054DA74 /* PaymentMethodModel.swift in Sources */,
 				03B68E002C019AAE0054DA74 /* OrderModel.swift in Sources */,
 				D478FC682BFF49D700BBA2BB /* WelcomeViewController.swift in Sources */,
@@ -1115,7 +1148,9 @@
 				7F359E982BFF4DC500D0D733 /* CouponsCollectionViewCell.swift in Sources */,
 				D4883C5F2C12818000EE6C78 /* ProductImageCell.swift in Sources */,
 				D4883C552C11264A00EE6C78 /* ProductDetailViewController.swift in Sources */,
+				03BAA1312C14304400A325AB /* DatabaseServiceProtocol.swift in Sources */,
 				03C3968B2C10023800FFADF7 /* AddressDataModel.swift in Sources */,
+				033CEBA52C105F01003B9DA9 /* CustomerDataModel.swift in Sources */,
 				7F3E46AF2C0129910096211E /* ProductsTableViewCell.swift in Sources */,
 				D4F1685F2C0A72CD00551795 /* SearchViewModel.swift in Sources */,
 				7F3E46A22BFFF3160096211E /* SmartCollections.swift in Sources */,
@@ -1125,6 +1160,7 @@
 				7F3E46BA2C01E7260096211E /* ProductsCall.swift in Sources */,
 				7F3E46A52BFFF9D70096211E /* NetworkCall.swift in Sources */,
 				03C3967E2C0FFD3A00FFADF7 /* PostCustomerAddress.swift in Sources */,
+				033CEBA32C105DEF003B9DA9 /* SettingsViewModel.swift in Sources */,
 				03C396882C10022900FFADF7 /* AddressesViewModel.swift in Sources */,
 				03C3968D2C10115600FFADF7 /* UpdateLocationDelegate.swift in Sources */,
 				7F3E469D2BFFF3010096211E /* Constants.swift in Sources */,
@@ -1139,6 +1175,7 @@
 				D478FC682BFF49D700BBA2BB /* WelcomeViewController.swift in Sources */,
 				03DE27162C08207100E18567 /* ViewModelProtocol.swift in Sources */,
 				D4B17FC72C07F01300A8F9D3 /* SignUpViewModel.swift in Sources */,
+				03BAA12F2C14302E00A325AB /* DatabaseService.swift in Sources */,
 				D403E27A2C00F47700AE9C68 /* LoginViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -12,6 +12,7 @@ import RxSwift
 class NetworkService:NetworkServiceProtocol{
  
     static func fetchCities(country: String,completionHandler: @escaping (Result<CitiesResponse, Error>) -> Void) {
+        
         let stringUrl = "https://countriesnow.space/api/v0.1/countries/cities"
         let parameters: [String: String] = [
             "country":country
@@ -26,7 +27,6 @@ class NetworkService:NetworkServiceProtocol{
                     completionHandler(.failure(error))
                 }
         }
-        
     }
     
     static func postNewAddress(customerID: Int, addressData: AddressData, completionHandler: @escaping (Result<PostAddressResponse, Error>) -> Void) {
