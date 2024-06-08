@@ -99,7 +99,7 @@ class ShippingAddressViewController: UIViewController,UpdateLocationDelegate {
         }.disposed(by: disposeBag)
     }
     private func showAlertError(err:String){
-        print(err)
+        Constants.displayAlert(viewController: self,message: err, seconds: 3)
     }
     
     func didAddNewAddress() {

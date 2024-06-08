@@ -34,16 +34,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>CountryPickerView-CountryPickerView_CountryPickerView.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>CountryPickerView.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>FBAEMKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -265,6 +255,11 @@
 			<false/>
 		</dict>
 		<key>GoogleUtilities.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>JJFloatingActionButton.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
