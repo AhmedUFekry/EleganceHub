@@ -27,7 +27,7 @@ class ProductDetailViewController: UIViewController {
         var availableColors: [String] = []
         var sizeColorMap: [String: [String]] = [:]
         var selectedSize: String?
-        var productId: Int = 9425664999699  // Example product ID
+        var productId: Int = 9425664999699  // Static product Id
         var viewModel: ProductDetailViewModel!
         
         override func viewDidLoad() {
@@ -76,17 +76,14 @@ class ProductDetailViewController: UIViewController {
                 return
             }
             
-            // Log product details
             print("Product Title: \(product.title ?? "No title")")
             print("Product Price: \(product.variants?.first?.price ?? "No price")")
             print("Product Description: \(product.bodyHTML ?? "No description")")
             
-            // Update UI elements
             ProductName.text = product.title ?? "No title"
             productPrice.text = "$\(product.variants?.first?.price ?? "0.00")"
             ProductDescription.text = product.bodyHTML ?? "No description"
             
-            // Update images
             ProductImagesCollection.reloadData()
             imageSlider.numberOfPages = product.images?.count ?? 0
         }

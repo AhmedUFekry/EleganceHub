@@ -20,4 +20,6 @@ protocol NetworkServiceProtocol{
     static func removeAddress(customerID:Int, addressID:Int) -> Observable<Void>
     
     func getProducts( parameters: Alamofire.Parameters, handler: @escaping (ProductsResponse?) -> Void)
+    
+    func getUsers(parameters: Parameters, handler: @escaping (UserResponse?) -> Void)
 }

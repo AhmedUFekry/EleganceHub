@@ -16,9 +16,9 @@ class SignViewModel {
         }
     }
     
-func insertCustomer(user:User){
-    SignUpNetworkService.userRegister(newUser: user) { checkSignAblitiy in
-        self.ObservableSignUp = checkSignAblitiy
-    }
+    func insertCustomer(user:User){
+        SignUpNetworkService.userRegister(newUser: user) { checkSignAblitiy in
+            self.ObservableSignUp = checkSignAblitiy
+        }
     }
 }

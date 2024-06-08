@@ -15,8 +15,7 @@ class WelcomeViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    @IBAction func navigateToHomeAsGuest(_ sender: Any){
-        
+    @IBAction func navigateToHomeAsGuest(_ sender: Any){        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarViewController") as? UITabBarController {
             tabBarController.modalPresentationStyle = .fullScreen
