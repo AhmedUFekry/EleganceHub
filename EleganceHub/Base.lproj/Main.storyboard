@@ -3,7 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -499,7 +499,7 @@
                     <navigationItem key="navigationItem" id="tL5-BI-Vlz"/>
                     <connections>
                         <outlet property="categoryCollection" destination="HvR-PE-k50" id="t1I-RR-kxI"/>
-                        <outlet property="categorySearchBar" destination="kVi-nT-4Tc" id="zKV-M3-zNZ"/>
+                        <outlet property="categorySearchBar" destination="kVi-nT-4Tc" id="yTH-jG-Hxt"/>
                         <outlet property="segmentCategory" destination="qqS-KQ-I3w" id="ptt-V9-b1Y"/>
                     </connections>
                 </viewController>
