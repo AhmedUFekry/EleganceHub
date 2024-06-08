@@ -499,6 +499,7 @@
                     <navigationItem key="navigationItem" id="tL5-BI-Vlz"/>
                     <connections>
                         <outlet property="categoryCollection" destination="HvR-PE-k50" id="t1I-RR-kxI"/>
+                        <outlet property="categorySearchBar" destination="kVi-nT-4Tc" id="zKV-M3-zNZ"/>
                         <outlet property="segmentCategory" destination="qqS-KQ-I3w" id="ptt-V9-b1Y"/>
                     </connections>
                 </viewController>
