@@ -10,7 +10,7 @@ import UIKit
 
 protocol ProductDetailViewModelProtocol {
     func getProductDetails(productId: Int)
-    func getAvailableSizesAndColors(productId: Int, completion: @escaping ([String: [String]], [String]) -> Void)
+    func getAvailableVarients(productId: Int, completion: @escaping ([String: [String]], [String]) -> Void)
 }
 
 class ProductDetailViewModel: ProductDetailViewModelProtocol {
@@ -42,7 +42,7 @@ class ProductDetailViewModel: ProductDetailViewModelProtocol {
         }
     }
     
-    func getAvailableSizesAndColors(productId: Int, completion: @escaping ([String: [String]], [String]) -> Void) {
+    func getAvailableVarients(productId: Int, completion: @escaping ([String: [String]], [String]) -> Void) {
         networkManager.getProductDetails(productId: productId) { fetchProduct in
             guard let variants = fetchProduct?.product?.variants else {
                 print("Failed to fetch product variants")

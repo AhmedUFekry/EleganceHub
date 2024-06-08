@@ -1326,6 +1326,7 @@
                                 <buttonConfiguration key="configuration" style="plain" image="back"/>
                                 <connections>
                                     <action selector="backBtn:" destination="voJ-NR-9B7" eventType="touchUpInside" id="0hc-vy-eXS"/>
+                                    <action selector="goBack:" destination="ORL-JI-QO5" eventType="touchUpInside" id="pbm-K4-blt"/>
                                     <action selector="navigateToPreScreen:" destination="ZuI-Wr-C2G" eventType="touchUpInside" id="rJ0-4z-VM9"/>
                                 </connections>
                             </button>
@@ -1336,6 +1337,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="suit.heart" catalog="system"/>
                                 <connections>
+                                    <action selector="addToFavorite:" destination="ORL-JI-QO5" eventType="touchUpInside" id="FPt-qx-AOX"/>
                                     <action selector="backBtn:" destination="voJ-NR-9B7" eventType="touchUpInside" id="4un-fP-TdI"/>
                                     <action selector="navigateToPreScreen:" destination="ZuI-Wr-C2G" eventType="touchUpInside" id="LSs-5Z-6RB"/>
                                 </connections>
@@ -1360,6 +1362,9 @@
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" image="cart.fill" catalog="system" title="Add To Cart"/>
+                                <connections>
+                                    <action selector="addToCart:" destination="ORL-JI-QO5" eventType="touchUpInside" id="vpi-ml-vfJ"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M0p-mN-vnG">
                                 <rect key="frame" x="18" y="421" width="47" height="25"/>
