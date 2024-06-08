@@ -39,7 +39,7 @@ class SearchViewController: UIViewController ,UITableViewDelegate, UITableViewDa
         self.txtSearchBar.delegate = self
         self.searchTableView.rowHeight = 100
        
-        searchViewModel = SearchViewModel(networkManager: Network())
+        searchViewModel = SearchViewModel(networkManager: NetworkService())
         searchViewModel.bindResultToViewController = { [weak self] in
             DispatchQueue.main.async {
                 self?.products = self?.searchViewModel.result ?? []
