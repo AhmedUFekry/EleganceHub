@@ -55,7 +55,7 @@ extension OrdersViewController : UITableViewDelegate ,UITableViewDataSource{
         let ordersCell = tableView.dequeueReusableCell(withIdentifier: "OrdersCell", for: indexPath) as! OrdersCell
         if let orders = orders?[indexPath.section] {
             ordersCell.orderIdLabel?.text = "\(orders.id!)"
-            ordersCell.orderDateLabel?.text = orders.email
+            ordersCell.orderDateLabel?.text = "\( orders.createdAt?.split(separator: "T").first)"
             //ordersCell.orderPriceLabel?.text = orders.subtotalPrice
         }
         return ordersCell
