@@ -1770,8 +1770,9 @@
 			children = (
 				030A5D7A2C159E0800A4E4C3 /* Model.xcdatamodel */,
 			);
-			currentVersion = 030A5D7A2C159E0800A4E4C3 /* Model.xcdatamodel */;
-			path = Model.xcdatamodeld;
+			currentVersion = D4883C742C15405600EE6C78 /* Model.xcdatamodel */;
+			name = Model.xcdatamodeld;
+			path = /Users/shimaa/Desktop/Swift/GradPro/EleganceHub/EleganceHub/EleganceHub/Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

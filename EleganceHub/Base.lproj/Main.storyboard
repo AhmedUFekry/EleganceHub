@@ -1549,6 +1549,7 @@
                                 <buttonConfiguration key="configuration" style="plain" image="back"/>
                                 <connections>
                                     <action selector="backBtn:" destination="voJ-NR-9B7" eventType="touchUpInside" id="xoq-4T-xAQ"/>
+                                    <action selector="goBack:" destination="exh-wj-qpn" eventType="touchUpInside" id="UeA-mD-P1W"/>
                                     <action selector="goBack:" destination="ORL-JI-QO5" eventType="touchUpInside" id="mHd-ok-7ib"/>
                                     <action selector="navigateToPreScreen:" destination="ZuI-Wr-C2G" eventType="touchUpInside" id="anM-vp-vAv"/>
                                 </connections>
@@ -1580,7 +1581,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <connections>
-                        <outlet property="favoriteTableView" destination="qGS-an-Wnh" id="cAT-UQ-iFa"/>
+                        <outlet property="favoriteTableView" destination="qGS-an-Wnh" id="npC-Ic-d89"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BIk-Bz-SuZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
