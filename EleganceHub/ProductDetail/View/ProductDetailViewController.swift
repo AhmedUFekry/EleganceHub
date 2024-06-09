@@ -27,7 +27,7 @@ class ProductDetailViewController: UIViewController {
         var availableColors: [String] = []
         var sizeColorMap: [String: [String]] = [:]
         var selectedSize: String?
-        var productId: Int = 9425664999699  // Static product Id
+        var productId: Int?  // Static product Id
         var viewModel: ProductDetailViewModel!
         
         override func viewDidLoad() {
@@ -53,22 +53,22 @@ class ProductDetailViewController: UIViewController {
                 }
             }
             
-            viewModel.getProductDetails(productId: productId)
-            
-            viewModel.getAvailableVarients(productId: productId) { [weak self] sizeColorMap, colors in
-                guard let self = self else { return }
-                
-                self.sizeColorMap = sizeColorMap
-                self.availableColors = colors
-                self.availableSizes = Array(sizeColorMap.keys)
-                
-                print("Available Sizes: \(self.availableSizes)")
-                print("Available Colors: \(colors)")
-                
-                self.sizeCollectionView.reloadData()
-                self.setupColorSelectorView()
+            if let productId = productId {
+                viewModel.getProductDetails(productId: productId)
+                viewModel.getAvailableVarients(productId: productId) { [weak self] sizeColorMap, colors in
+                    guard let self = self else { return }
+                            
+                    self.sizeColorMap = sizeColorMap
+                    self.availableColors = colors
+                    self.availableSizes = Array(sizeColorMap.keys)
+                            
+                    self.sizeCollectionView.reloadData()
+                    self.setupColorSelectorView()
+                    }
+                } else {
+                    print("Product ID is nil.")
+                }
             }
-        }
         
         private func updateUI() {
             guard let product = viewModel.observableProduct else {
@@ -143,6 +143,28 @@ class ProductDetailViewController: UIViewController {
     
    
     @IBAction func addToFavorite(_ sender: Any) {
+        
+        guard let product = viewModel.observableProduct else {
+            print("No product available to add to favorites.")
+                return
+            }
+
+            let favoriteData: [String: Any] = [
+                "id": product.id ?? 0,
+                "customer_id": UserDefaults.standard.integer(forKey: Constants.customerId),
+                "variant_id": product.variants?.first?.id ?? 0,
+                "title": product.title ?? "",
+                "price": product.variants?.first?.price ?? "",
+                "image": product.images?.first?.src ?? ""
+            ]
+
+            FavoriteCoreData.shared.saveToCoreData([favoriteData]) { success, error in
+                if success {
+                    print("Product added to favorites.")
+                } else {
+                    print("Error adding product to favorites: \(error?.localizedDescription ?? "Unknown error")")
+            }
+        }
     }
     
     @IBAction func goBack(_ sender: Any) {
