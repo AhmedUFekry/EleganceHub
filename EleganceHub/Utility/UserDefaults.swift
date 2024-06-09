@@ -18,6 +18,7 @@ class UserDefaultsHelper {
     
     func getLoggedInUserID() -> Int? {
         let id = userDefaults.integer(forKey: "loggedInUserID")
+        print("getLoggedInUserID \(id)")
         return id != 0 ? id : nil
     }
     
