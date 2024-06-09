@@ -145,7 +145,7 @@ class ProductDetailViewController: UIViewController {
     @IBAction func addToFavorite(_ sender: Any) {
         
         guard let product = viewModel.observableProduct else {
-            print("No product available to add to favorites.")
+                print("No product available to add to favorites.")
                 return
             }
 
@@ -163,9 +163,9 @@ class ProductDetailViewController: UIViewController {
                     print("Product added to favorites.")
                 } else {
                     print("Error adding product to favorites: \(error?.localizedDescription ?? "Unknown error")")
+                }
             }
         }
-    }
     
     @IBAction func goBack(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
