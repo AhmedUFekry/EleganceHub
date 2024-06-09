@@ -23,8 +23,8 @@ class CartTableViewCell: UITableViewCell {
         // Initialization code
         productImage.layer.cornerRadius = 10
         setupShadow()
-        productNameLabel.adjustsFontSizeToFitWidth = true // bool
-        productNameLabel.minimumScaleFactor = 0.5
+//        productNameLabel.adjustsFontSizeToFitWidth = true // bool
+//        productNameLabel.minimumScaleFactor = 0.5
     }
     
 
@@ -44,9 +44,9 @@ class CartTableViewCell: UITableViewCell {
     }
     
     func setCellData(order:LineItem){
-        productNameLabel.text = order.title
+        productNameLabel.text = order.vendor
         productPriceLabel.text = order.price
-        productVarintLabel.text = order.vendor
+        productVarintLabel.text = order.title
         productQuantityLabel.text = "1"
         //properties?.first is the image
         let placeholderImage = UIImage(named: "AppIcon")

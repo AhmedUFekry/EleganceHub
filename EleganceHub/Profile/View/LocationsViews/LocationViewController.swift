@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 class LocationViewController: UIViewController {
     
@@ -27,17 +28,23 @@ class LocationViewController: UIViewController {
     
     var settingVM:AddressesViewModelProtocol? = AddressesViewModel()
     
+    var viewModel:CustomerDataProtocol?
+    var disposeBag = DisposeBag()
+    
     var listCountry:[CountryDataModel] = []
     var listCities:[String] = []
     
     // MARK: get address data
     var selectedCountry,selectedCity,address,zip,phoneTxt,selectedCountryCode :String?
     // MARK: User Data
-    var customerData:User? = User(id: 8222308237587, first_name: "shimaa", last_name: "shimo", email: "", password: "")
+    var customerData:Customer?
+    var customerID:Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        customerID = UserDefaultsHelper.shared.getLoggedInUserID()
+        getUserData()
         self.settingVM?.configrationCountries()
         self.settingVM?.bindCountriesList = { [weak self] list in
             self?.listCountry = list
@@ -51,6 +58,21 @@ class LocationViewController: UIViewController {
             guard let self = self else {return}
             Constants.displayAlert(viewController: self,message: err, seconds: 3)
         }
+    }
+    
+    private func getUserData(){
+        viewModel?.loadUSerData(customerID: customerID!)
+        bindUserData()
+    }
+    private func bindUserData(){
+        viewModel?.customerResponse
+            .subscribe(onNext: { [weak self] response in
+                guard let self = self else { return }
+                if let response = response.customer {
+                    self.customerData = response
+                }
+            })
+            .disposed(by: disposeBag)
     }
     
     private func setup(){
@@ -79,6 +101,7 @@ class LocationViewController: UIViewController {
                         self?.settingVM?.getCitiesOfSelectedCountry(selectedCountry:  selectedItem.countryName ?? "Egypt" )
                         self?.selectedCountry = selectedItem.countryName
                         self?.selectedCountryCode = selectedItem.extensionCode
+                        print("selectedCountryCode \(selectedItem.extensionCode) ")
                         self?.countryIconLable.text = selectedItem.flag
                     }
                     
@@ -120,8 +143,9 @@ class LocationViewController: UIViewController {
            let phoneTxt = phoneTF.text, !phoneTxt.isEmpty,
            let zip = zipCodeTF.text, !zip.isEmpty {
             print("not nill data")
-            var userAdress = AddressData(address1: address, address2: "", city: selectedCity, company: "", firstName: customerData?.first_name, lastName: customerData?.last_name, phone: phoneTxt, province: "", country: selectedCountry, zip: zip, name: "\(customerData!.first_name!) \(customerData!.last_name!)", provinceCode: "", countryCode: selectedCountryCode, countryName: selectedCountry)
-            self.settingVM?.addNewAddress(customerID: customerData!.id!, addressData: userAdress)
+            var userAdress = AddressData(address1: address, address2: "", city: selectedCity, company: "", firstName: customerData?.firstName, lastName: customerData?.lastName, phone: phoneTxt, province: "", country: selectedCountry, zip: zip, name: "\(customerData?.firstName!) \(customerData?.lastName!)", provinceCode: "", countryCode: selectedCountryCode, countryName: selectedCountry)
+            print("selectedCountryCode \(selectedCountryCode) ")
+            self.settingVM?.addNewAddress(customerID: customerID!, addressData: userAdress)
             self.dismiss(animated: true) {
                 self.delegate?.didAddNewAddress()
             }

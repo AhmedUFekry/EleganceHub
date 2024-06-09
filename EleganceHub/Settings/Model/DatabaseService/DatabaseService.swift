@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import RxSwift
 
-class DatabaseService: DatabaseServiceProtocol{
+class DatabaseService{
     private let defaults = UserDefaults.standard
     
     func saveImage(_ image: UIImage, forKey key: String) {

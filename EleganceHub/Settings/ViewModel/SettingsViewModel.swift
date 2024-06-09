@@ -10,10 +10,10 @@ import RxSwift
 import RxRelay
 
 
-class SettingsViewModel{
+class SettingsViewModel:CustomerDataProtocol{
     private let disposeBag = DisposeBag()
     
-    private let dataBaseModel: DatabaseServiceProtocol = DatabaseService()
+    private let dataBaseModel: DatabaseServiceProtocol = UserDefaultsHelper.shared
     var savedImage: UIImage?
     
     let customerResponse: PublishSubject<CustomerResponse> = PublishSubject<CustomerResponse>()
@@ -51,13 +51,15 @@ class SettingsViewModel{
     }
 
     func saveImage(_ image: UIImage) {
-        dataBaseModel.saveImage(image, forKey: "savedImage")
+        dataBaseModel.saveImage(image)
     }
 
     func loadImage() {
-        savedImage = dataBaseModel.getImage(forKey: "savedImage")
+        savedImage = dataBaseModel.getImage()
     }
-    
+    func clearLoggedInImage() {
+        dataBaseModel.clearImageProfile()
+    }
     
     
 }

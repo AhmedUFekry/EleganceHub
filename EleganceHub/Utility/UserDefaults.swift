@@ -6,7 +6,10 @@
 //
 
 import Foundation
-class UserDefaultsHelper {
+import UIKit
+
+class UserDefaultsHelper:DatabaseServiceProtocol {
+ 
     static let shared = UserDefaultsHelper()
     private let userDefaults = UserDefaults.standard
     
@@ -36,6 +39,23 @@ class UserDefaultsHelper {
     
     func clearLoggedIn() {
         userDefaults.set(false, forKey: "isLoggedIn")
+    }
+    
+    func saveImage(_ image: UIImage) {
+        if let imageData = image.pngData() {
+            userDefaults.set(imageData, forKey: "savedImage")
+        }
+    }
+
+    func getImage() -> UIImage? {
+        if let imageData = userDefaults.data(forKey: "savedImage") {
+            return UIImage(data: imageData)
+        }
+        return nil
+    }
+    
+    func clearImageProfile() {
+        userDefaults.removeObject(forKey: "savedImage")
     }
 }
 

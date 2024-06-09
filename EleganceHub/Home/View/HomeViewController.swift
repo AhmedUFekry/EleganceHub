@@ -123,7 +123,7 @@ extension HomeViewController: UICollectionViewDataSource,UICollectionViewDelegat
                 print("!couponsList!.isEmpty")
                 couponsCell.couponsLabel.text = couponsList![indexPath.row].code
                 couponsCell.codeLabel.text = "Coupons code: \(couponsList?[indexPath.row].code ?? "")"
-                if(indexPath.row < couponsList!.count){
+                if(indexPath.row < couponsImage.count){
                     //var index = 0
                     couponsCell.couponsImage.image = UIImage(named: couponsImage[indexPath.row])
                  //   index += 1
