@@ -78,6 +78,10 @@ extension ProfileViewController:UITableViewDataSource,UITableViewDelegate{
                 self.navigationController?.pushViewController(viewController!, animated: true)
         case "shippingAddress":
             self.navigationController?.pushViewController(ShippingAddressViewController(), animated: true)
+        case "myOrders":
+        
+            let OrdersViewController =  self.storyboard?.instantiateViewController(withIdentifier: "OrdersViewController") as? OrdersViewController
+            self.navigationController?.pushViewController(OrdersViewController!, animated: true)
             
         default: break
             
