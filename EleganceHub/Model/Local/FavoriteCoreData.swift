@@ -88,6 +88,34 @@ class FavoriteCoreData {
         }
     }
     
+    func fetchFavoritesByUserId(userId: Int) -> [[String: Any]]? {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return nil
+        }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest: NSFetchRequest<FavoriteProduct> = FavoriteProduct.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "customer_id == %d", userId)
+        
+        do {
+            let results = try managedContext.fetch(fetchRequest)
+            return results.map { product in
+                [
+                    "id": Int(product.id),
+                    "customer_id": Int(product.customer_id),
+                    "variant_id": Int(product.variant_id),
+                    "title": product.title ?? "",
+                    "price": product.price ?? "",
+                    "image": product.image ?? ""
+                ]
+            }
+        } catch {
+            print("Error fetching data from Core Data: \(error.localizedDescription)")
+            return nil
+        }
+    }
+
+    
     func deleteFromCoreData(id: Int) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
