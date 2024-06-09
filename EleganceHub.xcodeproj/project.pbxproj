@@ -14,6 +14,7 @@
 		033CEBA52C105F01003B9DA9 /* CustomerDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033CEBA42C105F01003B9DA9 /* CustomerDataModel.swift */; };
 		033CEBA82C107100003B9DA9 /* SettingsNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033CEBA72C107100003B9DA9 /* SettingsNetworkService.swift */; };
 		034346A52C0C4A65006EAC8A /* CountryItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 034346A42C0C4A65006EAC8A /* CountryItemView.xib */; };
+		0351A1B12C15BBD4009D1FF8 /* CustomerDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0351A1B02C15BBD4009D1FF8 /* CustomerDataProtocol.swift */; };
 		035A1C422C0E67C50054F186 /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035A1C402C0E67C50054F186 /* CustomAlertViewController.swift */; };
 		035A1C432C0E67C50054F186 /* CustomAlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 035A1C412C0E67C50054F186 /* CustomAlertViewController.xib */; };
 		036717242C0C171C00BFB9DC /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036717222C0C171C00BFB9DC /* LocationViewController.swift */; };
@@ -149,6 +150,7 @@
 		033CEBA42C105F01003B9DA9 /* CustomerDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerDataModel.swift; sourceTree = "<group>"; };
 		033CEBA72C107100003B9DA9 /* SettingsNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNetworkService.swift; sourceTree = "<group>"; };
 		034346A42C0C4A65006EAC8A /* CountryItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CountryItemView.xib; sourceTree = "<group>"; };
+		0351A1B02C15BBD4009D1FF8 /* CustomerDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerDataProtocol.swift; sourceTree = "<group>"; };
 		035A1C402C0E67C50054F186 /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
 		035A1C412C0E67C50054F186 /* CustomAlertViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomAlertViewController.xib; sourceTree = "<group>"; };
 		036717222C0C171C00BFB9DC /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
@@ -471,6 +473,7 @@
 			children = (
 				03C396862C10022900FFADF7 /* AddressesViewModel.swift */,
 				03C396872C10022900FFADF7 /* AddressesViewModelProtocol.swift */,
+				0351A1B02C15BBD4009D1FF8 /* CustomerDataProtocol.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1382,6 +1385,7 @@
 				D4883C5F2C12818000EE6C78 /* ProductImageCell.swift in Sources */,
 				D4883C552C11264A00EE6C78 /* ProductDetailViewController.swift in Sources */,
 				03BAA1312C14304400A325AB /* DatabaseServiceProtocol.swift in Sources */,
+				0351A1B12C15BBD4009D1FF8 /* CustomerDataProtocol.swift in Sources */,
 				03C3968B2C10023800FFADF7 /* AddressDataModel.swift in Sources */,
 				033CEBA52C105F01003B9DA9 /* CustomerDataModel.swift in Sources */,
 				7F3E46AF2C0129910096211E /* ProductsTableViewCell.swift in Sources */,

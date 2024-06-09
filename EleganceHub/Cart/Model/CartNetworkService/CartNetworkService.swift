@@ -22,12 +22,9 @@ class CartNetworkService:CartNetworkServiceProtocol{
                 "draft_order": [
                     "line_items": [
                         [
-                            "title": product.title!,
-                            "price": product.variants?.first?.price ?? "19",
-                            "quantity": product.variants?.first?.inventory_quantity ?? "1",
-                            //"sku":product.image?.src ?? "https://cdn.shopify.com/s/files/1/0880/0426/4211/collections/a340ce89e0298e52c438ae79591e3284.jpg?v=1716276581",
                             "variant_id": product.variants?.first?.id ?? -1,
                             "product_id": product.id ?? -1,
+                            "quantity": 2,
                             "properties": [
                                     ["name": "Image", "value": product.image?.src ?? "https://cdn.shopify.com/s/files/1/0880/0426/4211/collections/a340ce89e0298e52c438ae79591e3284.jpg?v=1716276581"],
                                     ["name": "Selected Size", "value": selectedSize ]
