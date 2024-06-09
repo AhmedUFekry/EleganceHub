@@ -103,6 +103,7 @@
 		D4883C722C153E6600EE6C78 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4883C712C153E6600EE6C78 /* CoreData.framework */; };
 		D4883C752C15405700EE6C78 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D4883C732C15405600EE6C78 /* Model.xcdatamodeld */; };
 		D4883C7A2C1543D600EE6C78 /* FavoriteCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4883C792C1543D600EE6C78 /* FavoriteCoreData.swift */; };
+		D4883C812C15968000EE6C78 /* ElegenceHub.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D4883C7F2C15968000EE6C78 /* ElegenceHub.xcdatamodeld */; };
 		D49953032C0B3EDF004A1DAB /* SearchProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49953012C0B3EDF004A1DAB /* SearchProductCell.swift */; };
 		D49953042C0B3EDF004A1DAB /* SearchProductCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D49953022C0B3EDF004A1DAB /* SearchProductCell.xib */; };
 		D49953062C0BCADE004A1DAB /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49953052C0BCADE004A1DAB /* Utilities.swift */; };
@@ -241,6 +242,7 @@
 		D4883C712C153E6600EE6C78 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		D4883C742C15405600EE6C78 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		D4883C792C1543D600EE6C78 /* FavoriteCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCoreData.swift; sourceTree = "<group>"; };
+		D4883C802C15968000EE6C78 /* ElegenceHub.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ElegenceHub.xcdatamodel; sourceTree = "<group>"; };
 		D49953012C0B3EDF004A1DAB /* SearchProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchProductCell.swift; sourceTree = "<group>"; };
 		D49953022C0B3EDF004A1DAB /* SearchProductCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchProductCell.xib; sourceTree = "<group>"; };
 		D49953052C0BCADE004A1DAB /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
@@ -934,6 +936,7 @@
 			isa = PBXGroup;
 			children = (
 				D4883C792C1543D600EE6C78 /* FavoriteCoreData.swift */,
+				D4883C7F2C15968000EE6C78 /* ElegenceHub.xcdatamodeld */,
 			);
 			path = Local;
 			sourceTree = "<group>";
@@ -1281,6 +1284,7 @@
 				7F359E932BFEB9B700D0D733 /* BrandsCollectionViewCell.swift in Sources */,
 				03C3967B2C0FFC6B00FFADF7 /* ProfileTableViewCell.swift in Sources */,
 				03BAA1362C147F6200A325AB /* CartViewModelProtocol.swift in Sources */,
+				D4883C812C15968000EE6C78 /* ElegenceHub.xcdatamodeld in Sources */,
 				7F359E8A2BFE9CFC00D0D733 /* TabBarCorners.swift in Sources */,
 				03DE27142C080C0300E18567 /* NetworkProtocol.swift in Sources */,
 				03DE270F2C08037800E18567 /* DiscountModel.swift in Sources */,
@@ -1709,6 +1713,17 @@
 			currentVersion = D4883C742C15405600EE6C78 /* Model.xcdatamodel */;
 			name = Model.xcdatamodeld;
 			path = /Users/shimaa/Desktop/Swift/GradPro/EleganceHub/EleganceHub/EleganceHub/Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		D4883C7F2C15968000EE6C78 /* ElegenceHub.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				D4883C802C15968000EE6C78 /* ElegenceHub.xcdatamodel */,
+			);
+			currentVersion = D4883C802C15968000EE6C78 /* ElegenceHub.xcdatamodel */;
+			name = ElegenceHub.xcdatamodeld;
+			path = /Users/shimaa/Desktop/Swift/GradPro/EleganceHub/EleganceHub/EleganceHub/Model/Local/ElegenceHub.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
