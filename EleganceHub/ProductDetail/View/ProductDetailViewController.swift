@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class ProductDetailViewController: UIViewController {
     
@@ -21,6 +23,8 @@ class ProductDetailViewController: UIViewController {
     
     @IBOutlet weak var ProductDescription: UILabel!
     
+    var productItem:Product?
+    var disposeBag = DisposeBag()
     
     var colorSelectorView: ColorSelectorView!
         var availableSizes: [String] = []
@@ -29,9 +33,15 @@ class ProductDetailViewController: UIViewController {
         var selectedSize: String?
         var productId: Int = 9425664999699  // Example product ID
         var viewModel: ProductDetailViewModel!
+    
+    var customerId = 8229959500051
+    var selectedSizeItem:String? = "19"
+    
+    var cartViewModel:CartViewModelProtocol?
         
         override func viewDidLoad() {
             super.viewDidLoad()
+            cartViewModel = CartViewModel()
             
             sizeCollectionView.delegate = self
             sizeCollectionView.dataSource = self
@@ -68,6 +78,7 @@ class ProductDetailViewController: UIViewController {
                 self.sizeCollectionView.reloadData()
                 self.setupColorSelectorView()
             }
+            addToCartObserversFuncs()
         }
         
         private func updateUI() {
@@ -75,7 +86,7 @@ class ProductDetailViewController: UIViewController {
                 print("Observable product is nil.")
                 return
             }
-            
+            productItem = product
             // Log product details
             print("Product Title: \(product.title ?? "No title")")
             print("Product Price: \(product.variants?.first?.price ?? "No price")")
@@ -143,7 +154,33 @@ class ProductDetailViewController: UIViewController {
                 return .gray
             }
         }
+    
+    @IBAction func addToCartBtn(_ sender: UIButton) {
+        guard let productItem = productItem else {
+            return
+        }
+        cartViewModel?.addToCart(customerID: customerId, product: productItem,selectedSize:selectedSizeItem ?? "19")
+        
+        
     }
+    private func addToCartObserversFuncs(){
+        onErrorObserverSetUp()
+        onResponseObserverSetUp()
+    }
+    private func onErrorObserverSetUp(){
+        cartViewModel?.error.subscribe{ err in
+            self.showAlertError(err: err.error?.localizedDescription ?? "Error")
+        }.disposed(by: disposeBag)
+    }
+    private func onResponseObserverSetUp(){
+        cartViewModel?.productItem.subscribe{ err in
+            Constants.displayToast(viewController: self, message: "Product Added To cart Successfully", seconds: 2.0)
+        }.disposed(by: disposeBag)
+    }
+    private func showAlertError(err:String){
+        Constants.displayAlert(viewController: self,message: err, seconds: 3)
+    }
+}
 
     extension ProductDetailViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
         func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -173,6 +210,8 @@ class ProductDetailViewController: UIViewController {
                 selectedSize = availableSizes[indexPath.row]
                 if let selectedSize = selectedSize, let colorsForSelectedSize = sizeColorMap[selectedSize] {
                     setupColorSelectorView(filteredColors: colorsForSelectedSize)
+                    self.selectedSizeItem = selectedSize
+                    print("selected Size \(selectedSizeItem)")
                 } else {
                     setupColorSelectorView()
                 }
