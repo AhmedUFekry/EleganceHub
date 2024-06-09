@@ -13,6 +13,7 @@ class Constants {
     static let storeUrl = "https://mad44-ism-ios1.myshopify.com/admin/api/2024-04/"
     static let accessToken = "access_token=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"
     static let accessTokenKey = "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"
+    static let customerId = "customerId"
     
     static func displayToast(viewController vc:UIViewController,message msg: String, seconds sec: Double) {
             let alert = UIAlertController(title: nil, message: msg, preferredStyle: .alert)

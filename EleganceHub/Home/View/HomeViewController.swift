@@ -84,12 +84,18 @@ class HomeViewController: UIViewController {
             }
     }
     
-    
     @IBAction func searchBtn(_ sender: UIBarButtonItem) {
         let searchViewController = SearchViewController(nibName: "SearchViewController", bundle: nil)
             self.navigationController?.pushViewController(searchViewController, animated: true)
     }
     
+    @IBAction func favoriteBtn(_ sender: Any) {
+        if let favoriteViewController = storyboard?.instantiateViewController(withIdentifier: "FavoriteViewController") as? FavoriteViewController {
+                navigationController?.pushViewController(favoriteViewController, animated: true)
+        } else {
+            print("Failed to instantiate FavoriteViewController")
+        }
+    }
 }
 extension HomeViewController: UICollectionViewDataSource,UICollectionViewDelegate {
     

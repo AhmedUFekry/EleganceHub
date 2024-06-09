@@ -31,30 +31,30 @@ class ProductDetailViewController: UIViewController {
         var availableColors: [String] = []
         var sizeColorMap: [String: [String]] = [:]
         var selectedSize: String?
-        var productId: Int = 9425664999699  // Static product Id
+        var productId: Int?  // Static product Id
         var viewModel: ProductDetailViewModel!
     
-    var customerId = 8229959500051
-    var selectedSizeItem:String? = "19"
+        var customerId = 8229959500051
+        var selectedSizeItem:String? = "19"
     
-    var cartViewModel:CartViewModelProtocol?
+        var cartViewModel:CartViewModelProtocol?
         
         override func viewDidLoad() {
             super.viewDidLoad()
             cartViewModel = CartViewModel()
-            
+                    
             sizeCollectionView.delegate = self
             sizeCollectionView.dataSource = self
             sizeCollectionView.register(SizeOptionCell.self, forCellWithReuseIdentifier: "SizeOptionCell")
-            
+                    
             ProductImagesCollection.delegate = self
             ProductImagesCollection.dataSource = self
             ProductImagesCollection.register(ProductImageCell.self, forCellWithReuseIdentifier: "ProductImageCell")
-            
+                    
             if let layout = sizeCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
                 layout.scrollDirection = .horizontal
             }
-            
+                    
             let networkManager = ProductDetailNetworkService()
             viewModel = ProductDetailViewModel(networkManager: networkManager)
             viewModel.bindingProduct = { [weak self] in
@@ -62,33 +62,33 @@ class ProductDetailViewController: UIViewController {
                     self?.updateUI()
                 }
             }
-            
-            viewModel.getProductDetails(productId: productId)
-            
-            viewModel.getAvailableVarients(productId: productId) { [weak self] sizeColorMap, colors in
-                guard let self = self else { return }
-                
-                self.sizeColorMap = sizeColorMap
-                self.availableColors = colors
-                self.availableSizes = Array(sizeColorMap.keys)
-                
-                print("Available Sizes: \(self.availableSizes)")
-                print("Available Colors: \(colors)")
-                
-                self.sizeCollectionView.reloadData()
-                self.setupColorSelectorView()
+                    
+            if let productId = productId {
+                viewModel.getProductDetails(productId: productId)
+                viewModel.getAvailableVarients(productId: productId) { [weak self] sizeColorMap, colors in
+                    guard let self = self else { return }
+                                
+                    self.sizeColorMap = sizeColorMap
+                    self.availableColors = colors
+                    self.availableSizes = Array(sizeColorMap.keys)
+                            
+                    self.sizeCollectionView.reloadData()
+                    self.setupColorSelectorView()
+                }
+            } else {
+                print("Product ID is nil.")
             }
+                    
             addToCartObserversFuncs()
         }
-        
+
         private func updateUI() {
             guard let product = viewModel.observableProduct else {
                 print("Observable product is nil.")
                 return
             }
             productItem = product
-            // Log product details
-
+            
             print("Product Title: \(product.title ?? "No title")")
             print("Product Price: \(product.variants?.first?.price ?? "No price")")
             print("Product Description: \(product.bodyHTML ?? "No description")")
@@ -96,18 +96,18 @@ class ProductDetailViewController: UIViewController {
             ProductName.text = product.title ?? "No title"
             productPrice.text = "$\(product.variants?.first?.price ?? "0.00")"
             ProductDescription.text = product.bodyHTML ?? "No description"
-            
+                    
             ProductImagesCollection.reloadData()
             imageSlider.numberOfPages = product.images?.count ?? 0
         }
-        
+                
         private func setupColorSelectorView(filteredColors: [String]? = nil) {
             colorSelectorView?.removeFromSuperview()
 
             if let filteredColors = filteredColors {
                 let dynamicColors: [UIColor] = filteredColors.map { color in
                     return colorToUIColor(color)
-                }
+            }
 
                 colorSelectorView = ColorSelectorView(colors: dynamicColors)
             } else {
@@ -157,6 +157,28 @@ class ProductDetailViewController: UIViewController {
 
    
     @IBAction func addToFavorite(_ sender: Any) {
+        
+        guard let product = viewModel.observableProduct else {
+            print("No product available to add to favorites.")
+                return
+            }
+
+            let favoriteData: [String: Any] = [
+                "id": product.id ?? 0,
+                "customer_id": UserDefaults.standard.integer(forKey: Constants.customerId),
+                "variant_id": product.variants?.first?.id ?? 0,
+                "title": product.title ?? "",
+                "price": product.variants?.first?.price ?? "",
+                "image": product.images?.first?.src ?? ""
+            ]
+
+            FavoriteCoreData.shared.saveToCoreData([favoriteData]) { success, error in
+                if success {
+                    print("Product added to favorites.")
+                } else {
+                    print("Error adding product to favorites: \(error?.localizedDescription ?? "Unknown error")")
+            }
+        }
     }
     
     @IBAction func goBack(_ sender: Any) {

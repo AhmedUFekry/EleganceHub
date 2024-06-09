@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:FavoriteProduct+CoreDataClass.swift">
+   </FileRef>
+   <FileRef
+      location = "group:FavoriteProduct+CoreDataProperties.swift">
+   </FileRef>
+   <FileRef
       location = "group:EleganceHub.xcodeproj">
    </FileRef>
    <FileRef
