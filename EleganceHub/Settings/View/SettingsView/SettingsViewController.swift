@@ -25,8 +25,9 @@ class SettingsViewController: UIViewController {
     var imageString: String?
         var isEditingTapped: Bool = false
         
-        var customerData: User? = User(id: 8229959500051, first_name: "shimaa", last_name: "shimo", email: "", password: "")
-        
+        //var customerData: User? = User(id: 8229959500051, first_name: "shimaa", last_name: "shimo", email: "", password: "")
+    var customerID:Int?
+    
         let viewModel = SettingsViewModel()
         let disposeBag = DisposeBag()
         
@@ -37,6 +38,8 @@ class SettingsViewController: UIViewController {
 
             uISetUp()
             bindViewModel()
+            
+            customerID = UserDefaultsHelper.shared.getLoggedInUserID()
             
             viewModel.loadImage()
             if let savedImage = viewModel.savedImage {
@@ -89,8 +92,8 @@ class SettingsViewController: UIViewController {
                 if let newImage = profileImageView.profileImage.image {
                     viewModel.saveImage(newImage)
                 }
-                
-                viewModel.updateData(customerID: customerData!.id!, firstName: userFirstNameTF.text, lastName: userLastNameTF.text, email: userEmailTF.text, phone: userPhoneTF.text)
+                guard let id = customerID else {return}
+                viewModel.updateData(customerID: id, firstName: userFirstNameTF.text, lastName: userLastNameTF.text, email: userEmailTF.text, phone: userPhoneTF.text)
             }
         }
         
@@ -101,14 +104,14 @@ class SettingsViewController: UIViewController {
             self.userLastNameTF.isEnabled = isEnable
             self.userPhoneTF.isEnabled = isEnable
             
-            profileImageView.uploadLabel.text = isEnable ? "Upload image" : "Aya Hany"
+            profileImageView.uploadLabel.text = isEnable ? "Upload image" : ""
         }
         
         private func bindViewModel() {
             loadingObserverSetUp()
             onErrorObserverSetUp()
             
-            if let id = customerData?.id {
+            if let id = UserDefaultsHelper.shared.getLoggedInUserID(){
                 viewModel.loadUSerData(customerID: id)
             }
             

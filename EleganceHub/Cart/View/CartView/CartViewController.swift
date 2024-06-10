@@ -19,11 +19,14 @@ class CartViewController: UIViewController {
     
     var viewModel:CartViewModelProtocol = CartViewModel()
     var disposeBag = DisposeBag()
-    var customerID = 8229959500051
+    var customerID:Int?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel.getAllDraftOrdersForUser(customerID: customerID)
+
+        customerID = UserDefaultsHelper.shared.getLoggedInUserID()
+        guard let id = customerID else{return}
+
         setupTableViewBinding()
         loadingObserverSetUp()
         bindDataToView()
@@ -67,7 +70,7 @@ class CartViewController: UIViewController {
             guard let self = self else { return }
             let order = orders[indexPath.row]
             if let orderID = order.id {
-                self.viewModel.deleteDraftOrder(orderID: orderID, customerID: self.customerID)
+                self.viewModel.deleteDraftOrder(orderID: orderID, customerID: self.customerID!)
             }
             
         })
@@ -130,14 +133,4 @@ class CartViewController: UIViewController {
     }
 
 
-}
-
-//extension CartViewController: UITableViewDelegate{
-////    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-////        ret
-////    }
-//}
-
-extension CartViewController{
-   
 }

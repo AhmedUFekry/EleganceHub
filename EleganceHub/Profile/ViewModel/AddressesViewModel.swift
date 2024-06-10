@@ -115,6 +115,7 @@ class AddressesViewModel:AddressesViewModelProtocol{
             })
             .disposed(by: disposeBag)
     }
+    
 }
 
 extension String {

@@ -322,13 +322,13 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Bp-lg-19y">
                                 <rect key="frame" x="16" y="91" width="361" height="80"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aya" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aa9-rq-dMQ">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aa9-rq-dMQ">
                                         <rect key="frame" x="84" y="10" width="261" height="28"/>
                                         <fontDescription key="fontDescription" name="Palatino-Bold" family="Palatino" pointSize="25"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="aayahanyy@gmail.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bE1-c7-uZ3">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bE1-c7-uZ3">
                                         <rect key="frame" x="84" y="46" width="261" height="23"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="23" id="KeN-1y-F5x"/>
@@ -337,7 +337,7 @@
                                         <color key="textColor" white="0.56000000000000005" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coupon" translatesAutoresizingMaskIntoConstraints="NO" id="TNt-ik-duc">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person" translatesAutoresizingMaskIntoConstraints="NO" id="TNt-ik-duc">
                                         <rect key="frame" x="16" y="10" width="60" height="60"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="60" id="1Jb-iD-hHw"/>
@@ -400,6 +400,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="5Up-qs-75U"/>
                     <connections>
+                        <outlet property="customerEmailLabel" destination="bE1-c7-uZ3" id="8N9-ue-Jla"/>
+                        <outlet property="customerNameLabel" destination="Aa9-rq-dMQ" id="xdw-P2-bVr"/>
                         <outlet property="personImage" destination="TNt-ik-duc" id="lzi-bm-xHZ"/>
                         <outlet property="personUIView" destination="7Bp-lg-19y" id="DcV-q9-ygV"/>
                         <outlet property="settingTableView" destination="fdr-ov-Vw4" id="brz-AF-COF"/>
@@ -1549,6 +1551,7 @@
                                 <buttonConfiguration key="configuration" style="plain" image="back"/>
                                 <connections>
                                     <action selector="backBtn:" destination="voJ-NR-9B7" eventType="touchUpInside" id="xoq-4T-xAQ"/>
+                                    <action selector="goBack:" destination="exh-wj-qpn" eventType="touchUpInside" id="UeA-mD-P1W"/>
                                     <action selector="goBack:" destination="ORL-JI-QO5" eventType="touchUpInside" id="mHd-ok-7ib"/>
                                     <action selector="navigateToPreScreen:" destination="ZuI-Wr-C2G" eventType="touchUpInside" id="anM-vp-vAv"/>
                                 </connections>
@@ -1580,7 +1583,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <connections>
-                        <outlet property="favoriteTableView" destination="qGS-an-Wnh" id="cAT-UQ-iFa"/>
+                        <outlet property="favoriteTableView" destination="qGS-an-Wnh" id="npC-Ic-d89"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BIk-Bz-SuZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1593,7 +1596,6 @@
         <image name="cart.circle" catalog="system" width="128" height="123"/>
         <image name="cart.fill" catalog="system" width="128" height="102"/>
         <image name="continue" width="25" height="25"/>
-        <image name="coupon" width="675" height="371"/>
         <image name="darkmode" width="30" height="30"/>
         <image name="heart.circle" catalog="system" width="128" height="123"/>
         <image name="home" width="128" height="128"/>
@@ -1604,6 +1606,7 @@
         <image name="l" width="499" height="500"/>
         <image name="lang" width="30" height="30"/>
         <image name="magnifyingglass.circle" catalog="system" width="128" height="123"/>
+        <image name="person" width="50" height="50"/>
         <image name="person.circle.fill" catalog="system" width="128" height="123"/>
         <image name="person.crop.circle" catalog="system" width="128" height="123"/>
         <image name="shopping-bag" width="50" height="50"/>

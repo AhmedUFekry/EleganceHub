@@ -82,6 +82,7 @@ class LoginViewModel {
     func logout() {
             UserDefaultsHelper.shared.clearLoggedInUserID()
             UserDefaultsHelper.shared.clearLoggedIn()
+        UserDefaultsHelper.shared.clearImageProfile()
             
             // Optionally, sign out from Firebase Auth
             do {

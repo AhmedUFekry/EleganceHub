@@ -6,22 +6,32 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class ProfileViewController: UIViewController {
     let cellData:[SettingCellModelData] = [SettingCellModelData(lableName: "Personal Details", iconName: "person_info", navigationId: "personalDetails"),SettingCellModelData(lableName: "My Orders", iconName: "orders", navigationId: "myOrders"),SettingCellModelData(lableName: "My WishLists", iconName: "fav", navigationId: "fav"),SettingCellModelData(lableName: "Shipping Address", iconName: "shipping", navigationId: "shippingAddress"),
         SettingCellModelData(lableName: "Currency", iconName: "currency", navigationId: "currency"),SettingCellModelData(lableName: "Settings", iconName: "settings", navigationId: "settings"),
          SettingCellModelData(lableName: "About Us", iconName: "aboutus", navigationId: "aboutUs")]
     
+    @IBOutlet weak var customerEmailLabel: UILabel!
+    @IBOutlet weak var customerNameLabel: UILabel!
     @IBOutlet weak var settingTableView:UITableView!
     
     @IBOutlet weak var tableUIView:UIView!
     @IBOutlet weak var personUIView:UIView!
     
     @IBOutlet weak var personImage:UIImageView!
+    var customerID:Int?
+    
+    var viewModel:CustomerDataProtocol?
+    var disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         commenInit()
+        viewModel = SettingsViewModel()
+        checkForUser()
     }
     
     private func commenInit() {
@@ -49,6 +59,50 @@ class ProfileViewController: UIViewController {
         personUIView.layer.shadowRadius = 4
         personUIView.layer.cornerRadius = 10
     }
+
+    
+    private func checkForUser(){
+        bindUserData()
+        onErrorObserverSetUp()
+        profilePicBind()
+        if(UserDefaultsHelper.shared.isLoggedIn()){
+            customerID = UserDefaultsHelper.shared.getLoggedInUserID()
+            guard let id = customerID else {return}
+            getUserData(id:id)
+            
+        }
+    }
+    private func getUserData(id:Int){
+        viewModel?.loadUSerData(customerID: id)
+    }
+    private func bindUserData(){
+        viewModel?.customerResponse
+            .subscribe(onNext: { [weak self] response in
+                guard let self = self else { return }
+                if let response = response.customer {
+                    Constants.displayToast(viewController: self, message: "data downloaded Successfully", seconds: 2.0)
+                    self.updateUI(user: response)
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+    private func onErrorObserverSetUp(){
+        viewModel?.error.subscribe{ err in
+            Constants.displayAlert(viewController: self,message: err.error?.localizedDescription as? String ?? "Failed to get data", seconds: 3)
+        }.disposed(by: disposeBag)
+    }
+    private func updateUI(user: Customer){
+        customerEmailLabel.text = user.email
+        customerNameLabel.text = user.firstName
+        
+    }
+    private func profilePicBind(){
+        viewModel?.loadImage()
+        if let img = viewModel?.savedImage {
+            personImage.image = img
+        }
+    }
+
 }
 
 extension ProfileViewController:UITableViewDataSource,UITableViewDelegate{
@@ -69,21 +123,26 @@ extension ProfileViewController:UITableViewDataSource,UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch(cellData[indexPath.row].navigationId){
+        if(UserDefaultsHelper.shared.isLoggedIn()){
+            switch(cellData[indexPath.row].navigationId){
             case "personalDetails":
                 let viewController =  self.storyboard?.instantiateViewController(withIdentifier: "SettingsViewController") as? SettingsViewController
                 self.navigationController?.pushViewController(viewController!, animated: true)
-        case "shippingAddress":
-            self.navigationController?.pushViewController(ShippingAddressViewController(), animated: true)
-        case "myOrders":
-        
-            let OrdersViewController =  self.storyboard?.instantiateViewController(withIdentifier: "OrdersViewController") as? OrdersViewController
-            self.navigationController?.pushViewController(OrdersViewController!, animated: true)
-            
-        default: break
-            
+            case "shippingAddress":
+                self.navigationController?.pushViewController(ShippingAddressViewController(), animated: true)
+            case "myOrders":
+                
+                let OrdersViewController =  self.storyboard?.instantiateViewController(withIdentifier: "OrdersViewController") as? OrdersViewController
+                self.navigationController?.pushViewController(OrdersViewController!, animated: true)
+                
+            default: break
+                
+            }
+            settingTableView.deselectRow(at: indexPath, animated: true)
+        }else{
+            settingTableView.deselectRow(at: indexPath, animated: true)
+            Constants.displayAlert(viewController: self,message: "Please Log in or Sigh up", seconds: 3)
         }
-        settingTableView.deselectRow(at: indexPath, animated: true)
     }
     
 }
