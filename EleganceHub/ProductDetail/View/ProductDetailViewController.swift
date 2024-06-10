@@ -190,7 +190,12 @@ class ProductDetailViewController: UIViewController {
         guard let productItem = productItem else {
             return
         }
-        cartViewModel?.addToCart(customerID: customerId, product: productItem,selectedSize:selectedSizeItem ?? "19")
+        if let orderID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.getDraftOrder.rawValue){
+                print("User has Draft order append items and post it \(orderID)")
+        }else{
+            print("Create draft order user doesnt have one ")
+        }
+        
 
     }
     private func addToCartObserversFuncs(){

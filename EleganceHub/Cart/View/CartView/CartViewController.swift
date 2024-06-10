@@ -23,11 +23,12 @@ class CartViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel.getAllDrraftOrdersForUser(customerID: customerID)
+        viewModel.getAllDraftOrdersForUser(customerID: customerID)
         setupTableViewBinding()
         loadingObserverSetUp()
         bindDataToView()
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let cartNibCell = UINib(nibName: "CartTableViewCell", bundle: nil)

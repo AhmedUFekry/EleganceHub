@@ -48,3 +48,10 @@ enum Categories : String{
     case Sale = "484444406035" //   484445126931
 }
 
+enum UserDefaultsConstants:String{
+    case isLoggedIn = "isLoggedIn"
+    case loggedInUserID = "loggedInUserID"
+    case savedImage = "savedImage"
+    case hasDraftOrder = "hasDraftOrder"
+    case getDraftOrder = "getDraftOrder"
+}

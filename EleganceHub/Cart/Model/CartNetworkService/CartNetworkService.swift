@@ -83,7 +83,7 @@ class CartNetworkService:CartNetworkServiceProtocol{
             AF.request(urlString, encoding: JSONEncoding.default,headers: headers).responseDecodable(of: DraftOrdersResponse.self) { response in
                 switch response.result{
                 case .success(let data):
-                    print("Json Response \(data)")
+                   // print("Json Response \(data)")
                     observer.onNext(data)
                     observer.onCompleted()
                 case .failure(let err):

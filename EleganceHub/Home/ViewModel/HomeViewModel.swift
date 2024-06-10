@@ -6,8 +6,12 @@
 //
 
 import Foundation
+import RxSwift
 
 class HomeViewModel: ViewModelProtocol {
+    let draftOrderID = PublishSubject<Int>()
+    private let disposeBag = DisposeBag()
+    private let cartNetworkService:CartNetworkServiceProtocol = CartNetworkService()
    
     var couponsResult: [DiscountCodes]?{
         didSet{
@@ -52,7 +56,7 @@ class HomeViewModel: ViewModelProtocol {
                     NetworkCall.getDiscountCodes(discountId: "\(priceRule.id!)") { result in
                         switch result{
                             case .success(let couponsResponse):
-                            print("getDiscountCodes \(couponsResponse)")
+                            //print("getDiscountCodes \(couponsResponse)")
                             if let firstDiscountCode = couponsResponse.discount_codes.first {
                                 couponsList.append(firstDiscountCode)
                             }
@@ -62,7 +66,7 @@ class HomeViewModel: ViewModelProtocol {
                         dispatchGroup.leave()
                     }
                     dispatchGroup.notify(queue: .main) {
-                        print("All discount codes fetched: \(couponsList)")
+                        //print("All discount codes fetched: \(couponsList)")
                         self.couponsResult = couponsList
                     }
                 }
@@ -72,6 +76,31 @@ class HomeViewModel: ViewModelProtocol {
             }
         }
     }
+    
+    func checkIfUserHasDraftOrder(customerID: Int) {
+       cartNetworkService.getAllDraftOrders()
+           .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .userInitiated))
+           .observe(on: MainScheduler.instance)
+           .subscribe(onNext: { [weak self] draftResponses in
+               guard let self = self else { return }
+               let draftOrders = draftResponses.draftOrders ?? []
+               let draftList = draftOrders.filter { $0.customer?.id == customerID }
+               
+               if let id = draftList.first?.id {
+                   print("Draft Order ID for user \(customerID) is \(id)")
+                   self.draftOrderID.onNext(id)
+               } else {
+                   print("No draft orders found for user \(customerID)")
+                   self.draftOrderID.onNext(-1)
+               }
+               self.draftOrderID.onCompleted()
+           }, onError: { [weak self] error in
+               print("Error fetching draft orders: \(error)")
+               self?.draftOrderID.onNext(-1)
+               self?.draftOrderID.onCompleted()
+           }).disposed(by: disposeBag)
+    }
+
 }
     
 

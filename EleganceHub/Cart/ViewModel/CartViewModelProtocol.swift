@@ -17,7 +17,7 @@ protocol CartViewModelProtocol{
     
     func addToCart(customerID:Int,product: Product,selectedSize:String)
     
-    func getAllDrraftOrdersForUser(customerID:Int)
+    func getAllDraftOrdersForUser(customerID:Int)
     
     func deleteDraftOrder(orderID:Int,customerID:Int)
 }

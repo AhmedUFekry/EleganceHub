@@ -34,7 +34,7 @@ class CartViewModel:CartViewModelProtocol{
         
     }
     
-    func getAllDrraftOrdersForUser(customerID: Int) {
+    func getAllDraftOrdersForUser(customerID: Int) {
         isLoading.accept(true)
         networkService.getAllDraftOrders()
             .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .userInitiated))
@@ -50,9 +50,6 @@ class CartViewModel:CartViewModelProtocol{
                     draftList = listResponse.filter { order in
                         order.customer?.id == customerID
                     }
-                //                   .flatMap { dra in
-//                        dra.lineItems!
-//                    }
                     print("draft Order List for user  \(draftList.count)")
                 self?.draftOrdersList.onNext(draftList)
                     self?.isLoading.accept(false)
@@ -68,7 +65,7 @@ class CartViewModel:CartViewModelProtocol{
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] in
                 //self?.getAllAddresses(customerID: customerID)
-                self?.getAllDrraftOrdersForUser(customerID: customerID)
+                self?.getAllDraftOrdersForUser(customerID: customerID)
             }, onError: { [weak self] error in
                 self?.error.onNext(error)
             })

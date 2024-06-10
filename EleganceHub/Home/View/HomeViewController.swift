@@ -7,11 +7,16 @@
 
 import UIKit
 import Kingfisher
+import RxSwift
+import RxCocoa
+
 class HomeViewController: UIViewController {
 
-    
     @IBOutlet weak var brandsCollection: UICollectionView!
     @IBOutlet weak var couponsCollection: UICollectionView!
+    @IBOutlet weak var cartBtn:UIBarButtonItem!
+    
+    private let disposeBag = DisposeBag()
     
     var homeViewModel = HomeViewModel()
     var smartCollections : SmartCollections?
@@ -21,7 +26,6 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
- 
         homeViewModel.bindResultToViewController = { [weak self] in
             guard let self = self else {return}
             self.smartCollections = self.homeViewModel.vmResult
@@ -40,11 +44,38 @@ class HomeViewController: UIViewController {
 
         homeViewModel.getBrandsFromModel()
         homeViewModel.getCouponsFromModel()
-        setupCollectionView()
+            setupCollectionView()
         
-    }
+            orderDraft()
+            checkIfUserLoggedIn()
+        }
     
-
+    private func orderDraft(){
+        print("hiiiiiiiiiii")
+        homeViewModel.draftOrderID.subscribe{ value in
+            if(value != -1){
+                UserDefaultsHelper.shared.setIfDataFound(value, key: UserDefaultsConstants.getDraftOrder.rawValue)
+                print("order ID founddd \(value)")
+            }else{
+                print("order ID \(value)")
+            }
+        }.disposed(by: disposeBag)
+    }
+        
+    private func checkIfUserLoggedIn(){
+        if(UserDefaultsHelper.shared.isDataFound(key: UserDefaultsConstants.isLoggedIn.rawValue)){
+            self.cartBtn.isEnabled = true
+            guard let customerID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.loggedInUserID.rawValue) else {
+                print("Customer id not found ")
+                return
+            }
+            homeViewModel.checkIfUserHasDraftOrder(customerID: customerID)
+            print("Customer id found \(customerID)")
+            
+        }else{
+            self.cartBtn.isEnabled = false
+        }
+    }
     
     func renderView(){
         DispatchQueue.main.async {
@@ -123,7 +154,7 @@ extension HomeViewController: UICollectionViewDataSource,UICollectionViewDelegat
                 print("!couponsList!.isEmpty")
                 couponsCell.couponsLabel.text = couponsList![indexPath.row].code
                 couponsCell.codeLabel.text = "Coupons code: \(couponsList?[indexPath.row].code ?? "")"
-                if(indexPath.row < couponsList!.count){
+                if(indexPath.row < couponsImage.count){
                     //var index = 0
                     couponsCell.couponsImage.image = UIImage(named: couponsImage[indexPath.row])
                  //   index += 1
@@ -135,7 +166,6 @@ extension HomeViewController: UICollectionViewDataSource,UICollectionViewDelegat
         }
     }
 
-   
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let brand = smartCollections?.smartCollections[indexPath.row]
         if let ProductViewController = storyboard?.instantiateViewController(withIdentifier: "ProductViewController") as? ProductViewController {
@@ -145,14 +175,6 @@ extension HomeViewController: UICollectionViewDataSource,UICollectionViewDelegat
             }
         }
     }
-    
-    
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        if collectionView == brandsCollection {
-//            performSegue(withIdentifier: "goToProducts", sender: nil)
-//        }
-//    }
-
 }
 
  

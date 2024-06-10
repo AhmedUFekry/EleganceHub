@@ -37,6 +37,24 @@ class UserDefaultsHelper {
     func clearLoggedIn() {
         userDefaults.set(false, forKey: "isLoggedIn")
     }
+    
+    func setIfDataFound(_ id: Int,key: String) {
+         userDefaults.set(id, forKey: key)
+     }
+     
+     func getDataFound(key:String) -> Int? {
+         let id = userDefaults.integer(forKey: key)
+         print("\(key) \(id)")
+         return id != 0 ? id : nil
+     }
+     
+     func clearUserData(key:String) {
+         userDefaults.removeObject(forKey: key)
+     }
+     
+     func isDataFound(key:String) -> Bool {
+         return userDefaults.bool(forKey: key)
+     }
 }
 
 

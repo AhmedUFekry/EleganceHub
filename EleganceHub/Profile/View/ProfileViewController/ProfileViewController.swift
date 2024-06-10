@@ -36,6 +36,7 @@ class ProfileViewController: UIViewController {
         setupShadow()
         self.personImage.layer.cornerRadius = 10
     }
+    
     private func setUpViewStyle(uiViewStyle:UIView){
         uiViewStyle.layer.borderWidth = 1
         uiViewStyle.layer.cornerRadius = 10
@@ -47,11 +48,7 @@ class ProfileViewController: UIViewController {
         personUIView.layer.shadowOffset = CGSize(width: 0, height: 2)
         personUIView.layer.shadowRadius = 4
         personUIView.layer.cornerRadius = 10
-        //personUIView.layer.shadowPath = UIBezierPath(roundedRect: self.personUIView.bounds, cornerRadius: self.personUIView.layer.cornerRadius).cgPath
     }
-    
-
-
 }
 
 extension ProfileViewController:UITableViewDataSource,UITableViewDelegate{
@@ -59,11 +56,11 @@ extension ProfileViewController:UITableViewDataSource,UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cellData.count
     }
-        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            //let cell = tableView.dequeueReusableCell(withIdentifier: "CartTableViewCell", for: indexPath) as! CartTableViewCell
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileTableViewCell", for: indexPath) as! ProfileTableViewCell
-                cell.cellIcon.image = UIImage(named: cellData[indexPath.row].iconName)
-                cell.cellLable.text = cellData[indexPath.row].lableName
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        //let cell = tableView.dequeueReusableCell(withIdentifier: "CartTableViewCell", for: indexPath) as! CartTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileTableViewCell", for: indexPath) as! ProfileTableViewCell
+            cell.cellIcon.image = UIImage(named: cellData[indexPath.row].iconName)
+            cell.cellLable.text = cellData[indexPath.row].lableName
         return cell
     }
     
