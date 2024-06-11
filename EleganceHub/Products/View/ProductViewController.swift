@@ -58,8 +58,14 @@ class ProductViewController: UIViewController, UITableViewDelegate, UITableViewD
 
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             let productsCell = tableView.dequeueReusableCell(withIdentifier: "productsCell", for: indexPath) as! ProductsTableViewCell
+            
             if let product = productArray?[indexPath.section] {
-                productsCell.ProductTitle?.text = product.title
+            if let title = product.title {
+                
+                    let components = title.split(separator: "|")
+                    let remainingTitle = components.dropFirst().joined(separator: "|")
+                    productsCell.ProductTitle?.text = remainingTitle.isEmpty ? nil : remainingTitle
+                }
                 productsCell.productCategory?.text = product.productType
                 productsCell.productPrice?.text = product.variants?[0].price
 

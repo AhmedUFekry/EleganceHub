@@ -97,7 +97,7 @@ struct Order: Codable {
     let customer: CustomerForOrders?
     let discountApplications: [String]?
     let fulfillments: [String]?
-    let lineItems: [LineItem]?
+   // let lineItems: [LineItem]?
     let paymentTerms: String?
     let refunds: [String]?
     let shippingAddress: ShippingAddress?
@@ -155,37 +155,38 @@ struct SmsMarketingConsent: Codable {
     let consentUpdatedAt: String?
 }
 
-struct LineItem: Codable {
-    let id: Int?
-    let adminGraphqlApiId: String?
-    let attributedStaffs: [String]?
-    let currentQuantity: Int?
-    let fulfillableQuantity: Int?
-    let fulfillmentService: String?
-    let fulfillmentStatus: String?
-    let giftCard: Bool?
-    let grams: Int?
-    let name: String?
-    let price: String?
-    let priceSet: PriceSet?
-    let productExists: Bool?
-    let productId: Int?  // Ensure this is an Int if the JSON contains numbers
-    let properties: [String]?
-    let quantity: Int?
-    let requiresShipping: Bool?
-    let sku: String?
-    let taxable: Bool?
-    let title: String?
-    let totalDiscount: String?
-    let totalDiscountSet: PriceSet?
-    let variantId: Int?  // Changed from String? to Int?
-    let variantInventoryManagement: String?
-    let variantTitle: String?
-    let vendor: String?
-    let taxLines: [TaxLine]?
-    let duties: [String]?
-    let discountAllocations: [String]?
-}
+//struct LineItem: Codable {
+//    let id: Int?
+//    let adminGraphqlApiId: String?
+//    let attributedStaffs: [String]?
+//    let currentQuantity: Int?
+//    let fulfillableQuantity: Int?
+//    let fulfillmentService: String?
+//    let fulfillmentStatus: String?
+//    let giftCard: Bool?
+//    let grams: Int?
+//    let name: String?
+//    let price: String?
+//    let priceSet: PriceSet?
+//    let productExists: Bool?
+//    let productId: Int?
+//    let properties: [String]?
+//    let quantity: Int?
+//    let requiresShipping: Bool?
+//    let sku: String?
+//    let taxable: Bool?
+//    let title: String?
+//    let totalDiscount: String?
+//    let totalDiscountSet: PriceSet?
+//    let variantId: Int?  // Changed from String? to Int?
+//    let variantInventoryManagement: String?
+//    let variantTitle: String?
+//    let vendor: String?
+//    let taxLines: [TaxLine]?
+//    let duties: [String]?
+//    let discountAllocations: [String]?
+//}
+
 struct ShippingAddress: Codable {
     let firstName: String?
     let lastName: String?

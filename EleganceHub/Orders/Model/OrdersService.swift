@@ -38,7 +38,7 @@ class OrdersService:OrdersServiceProtocol{
             do {
                 let result = try JSONDecoder().decode(OrderResponse.self, from: data)
                 completionHandler(result, nil)
-                print(result.orders?.first?.email)
+                print(result.orders?.first?.lineItems   )
             } catch let decodingError {
                 print("JSON Decoding Error: \(decodingError.localizedDescription)")
                 completionHandler(nil, decodingError)
