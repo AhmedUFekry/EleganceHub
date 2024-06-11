@@ -108,11 +108,11 @@ struct PriceSet: Codable {
     let shopMoney: Money?
     let presentmentMoney: Money?
 }
-
-struct Money: Codable {
-    let amount: String?
-    let currencyCode: String?
-}
+//
+//struct Money: Codable {
+//    let amount: String?
+//    let currencyCode: String?
+//}
 
 struct TaxLine: Codable {
     let price: String?
@@ -170,6 +170,7 @@ struct SmsMarketingConsent: Codable {
 //    let priceSet: PriceSet?
 //    let productExists: Bool?
 //    let productId: Int?
+
 //    let properties: [String]?
 //    let quantity: Int?
 //    let requiresShipping: Bool?

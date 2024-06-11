@@ -15,7 +15,8 @@ class ShippingAddressViewController: UIViewController,UpdateLocationDelegate {
     @IBOutlet weak var tableView:UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    var customerData:User? = User(id: 8222308237587, first_name: "shimaa", last_name: "shimo", email: "", password: "")
+    //var customerData:User? = User(id: 8222308237587, first_name: "shimaa", last_name: "shimo", email: "", password: "")
+    var customerID:Int?
     
     let viewModel = AddressesViewModel()
     let disposeBag = DisposeBag()
@@ -28,7 +29,9 @@ class ShippingAddressViewController: UIViewController,UpdateLocationDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         print("viewWillAppear")
-        viewModel.getAllAddresses(customerID: customerData!.id!)
+        customerID = UserDefaultsHelper.shared.getLoggedInUserID()
+        guard let id = customerID else {return}
+        viewModel.getAllAddresses(customerID: id)
         setupTableViewBinding()
         loadingObserverSetUp()
     }
@@ -72,7 +75,8 @@ class ShippingAddressViewController: UIViewController,UpdateLocationDelegate {
         .subscribe(onNext: { [weak self] (indexPath, addresses) in
             guard let self = self else { return }
             let address = addresses[indexPath.row]
-            self.viewModel.removeAddress(customerID: self.customerData?.id ?? 0, addressID: address.id!)
+            guard let id = self.customerID else {return}
+            self.viewModel.removeAddress(customerID: id , addressID: address.id!)
         })
         .disposed(by: disposeBag)
 
@@ -103,7 +107,8 @@ class ShippingAddressViewController: UIViewController,UpdateLocationDelegate {
     }
     
     func didAddNewAddress() {
-        viewModel.getAllAddresses(customerID: customerData!.id!)
+        guard let id = self.customerID else {return}
+        viewModel.getAllAddresses(customerID: id)
     }
 }
 

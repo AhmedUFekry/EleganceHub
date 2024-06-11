@@ -83,7 +83,19 @@ class HomeViewController: UIViewController {
                 print("Failed to instantiate CartViewController")
             }
     }
-
+    
+    @IBAction func searchBtn(_ sender: UIBarButtonItem) {
+        let searchViewController = SearchViewController(nibName: "SearchViewController", bundle: nil)
+            self.navigationController?.pushViewController(searchViewController, animated: true)
+    }
+    
+    @IBAction func favoriteBtn(_ sender: Any) {
+        if let favoriteViewController = storyboard?.instantiateViewController(withIdentifier: "FavoriteViewController") as? FavoriteViewController {
+                navigationController?.pushViewController(favoriteViewController, animated: true)
+        } else {
+            print("Failed to instantiate FavoriteViewController")
+        }
+    }
 }
 extension HomeViewController: UICollectionViewDataSource,UICollectionViewDelegate {
     
@@ -111,7 +123,7 @@ extension HomeViewController: UICollectionViewDataSource,UICollectionViewDelegat
                 print("!couponsList!.isEmpty")
                 couponsCell.couponsLabel.text = couponsList![indexPath.row].code
                 couponsCell.codeLabel.text = "Coupons code: \(couponsList?[indexPath.row].code ?? "")"
-                if(indexPath.row < couponsList!.count){
+                if(indexPath.row < couponsImage.count){
                     //var index = 0
                     couponsCell.couponsImage.image = UIImage(named: couponsImage[indexPath.row])
                  //   index += 1

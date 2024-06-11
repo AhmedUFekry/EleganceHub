@@ -133,6 +133,32 @@ extension SuperCategoryViewController: UICollectionViewDataSource, UICollectionV
         let height = width
         return CGSize(width: width, height: height)
     }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        guard let productDetailVC = storyboard.instantiateViewController(withIdentifier: "ProductDetailViewController") as? ProductDetailViewController else {
+            return
+        }
+        
+        let product = getProductForIndexPath(indexPath)
+        
+        productDetailVC.productId = product?.id ?? -404
+        
+        navigationController?.pushViewController(productDetailVC, animated: true)
+    }
+
+    private func getProductForIndexPath(_ indexPath: IndexPath) -> Product? {
+        if isSearching {
+            return searchList?[indexPath.row]
+        } else if isFiltered {
+            return filteredList?[indexPath.row]
+        } else {
+            return categoryProductList?[indexPath.row]
+        }
+    }
+
+
 }
 
 //MARK: UISearchBarDelegate

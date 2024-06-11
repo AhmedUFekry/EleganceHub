@@ -4,6 +4,7 @@
 //
 //  Created by raneem on 09/06/2024.
 //
+//"\(Constants.storeUrl)customers/\(customerId)/orders.json?\(Constants.accessToken)"
 
 import Foundation
 
@@ -13,7 +14,7 @@ protocol OrdersServiceProtocol{
 
 class OrdersService:OrdersServiceProtocol{
     func getOrders(customerId: String, completionHandler: @escaping (OrderResponse?, (any Error)?) -> Void) {
-        let urlString = "\(Constants.storeUrl)customers/\(customerId)/orders.json?\(Constants.accessToken)"
+        let urlString = "https://mad44-ism-ios1.myshopify.com/admin/api/2024-04/orders.json?status=any&access_token=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"
        print(urlString)
         guard let url = URL(string: urlString) else {
             print("Invalid URL: \(urlString)")

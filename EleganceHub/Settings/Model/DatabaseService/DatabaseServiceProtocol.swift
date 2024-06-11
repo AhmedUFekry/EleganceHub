@@ -11,6 +11,7 @@ import RxSwift
 
 
 protocol DatabaseServiceProtocol{
-    func saveImage(_ image: UIImage, forKey key: String)
-    func getImage(forKey key: String) -> UIImage?
+    func saveImage(_ image: UIImage)
+    func getImage() -> UIImage?
+    func clearImageProfile()
 }
