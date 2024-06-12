@@ -13,23 +13,9 @@ import Foundation
 protocol OrdersServiceProtocol {
     func getOrders(customerId: String, completionHandler: @escaping (OrderResponse?, Error?) -> Void)
     
-    func postOrder(order: PostOrdersModel, completionHandler:@escaping (Int) -> Void)
 }
 
 class OrdersService: OrdersServiceProtocol {
-    func postOrder(order: PostOrdersModel, completionHandler: @escaping (Int) -> Void) {
-        
-        guard let url = URL(string: "https://mad44-ism-ios1.myshopify.com/admin/api/2024-04/orders.json?&access_token=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") else {
-            print("Invalid URL")
-            return
-        }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        
-
-        
-    }
     
     func getOrders(customerId: String, completionHandler: @escaping (OrderResponse?, Error?) -> Void) {
         

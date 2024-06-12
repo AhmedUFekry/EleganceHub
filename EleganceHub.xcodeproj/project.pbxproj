@@ -85,6 +85,7 @@
 		7F3E46BA2C01E7260096211E /* ProductsCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3E46B92C01E7260096211E /* ProductsCall.swift */; };
 		7FF3BF6C2C163D0A00E7EABC /* OrderDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF3BF6B2C163D0A00E7EABC /* OrderDetailsViewController.swift */; };
 		7FF3BF722C184F8C00E7EABC /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7FF3BF702C184F8C00E7EABC /* Model.xcdatamodeld */; };
+		7FF3BFA92C19C8F900E7EABC /* OrderCheckOutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF3BFA82C19C8F900E7EABC /* OrderCheckOutViewController.swift */; };
 		C88C205D2BFE8CAF00886365 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C205C2BFE8CAF00886365 /* AppDelegate.swift */; };
 		C88C205F2BFE8CAF00886365 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C205E2BFE8CAF00886365 /* SceneDelegate.swift */; };
 		C88C20642BFE8CAF00886365 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C88C20622BFE8CAF00886365 /* Main.storyboard */; };
@@ -223,6 +224,7 @@
 		7F3E46B92C01E7260096211E /* ProductsCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsCall.swift; sourceTree = "<group>"; };
 		7FF3BF6B2C163D0A00E7EABC /* OrderDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailsViewController.swift; sourceTree = "<group>"; };
 		7FF3BF712C184F8C00E7EABC /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		7FF3BFA82C19C8F900E7EABC /* OrderCheckOutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCheckOutViewController.swift; sourceTree = "<group>"; };
 		8742FAA0010C6E09FF4C59DC /* Pods-EleganceHubTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EleganceHubTests.release.xcconfig"; path = "Target Support Files/Pods-EleganceHubTests/Pods-EleganceHubTests.release.xcconfig"; sourceTree = "<group>"; };
 		8964028234E4E728CF2EA612 /* Pods-EleganceHub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EleganceHub.debug.xcconfig"; path = "Target Support Files/Pods-EleganceHub/Pods-EleganceHub.debug.xcconfig"; sourceTree = "<group>"; };
 		B6B004924D3376DD4DE18E35 /* Pods-EleganceHub-EleganceHubUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EleganceHub-EleganceHubUITests.debug.xcconfig"; path = "Target Support Files/Pods-EleganceHub-EleganceHubUITests/Pods-EleganceHub-EleganceHubUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -648,6 +650,7 @@
 				7F1BEEF12C15137100C5A114 /* Cell */,
 				7F1BEEED2C14F6D700C5A114 /* OrdersViewController.swift */,
 				7FF3BF6B2C163D0A00E7EABC /* OrderDetailsViewController.swift */,
+				7FF3BFA82C19C8F900E7EABC /* OrderCheckOutViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1422,6 +1425,7 @@
 				03DE27162C08207100E18567 /* ViewModelProtocol.swift in Sources */,
 				D4883C652C14644F00EE6C78 /* UserDefaults.swift in Sources */,
 				D4B17FC72C07F01300A8F9D3 /* SignUpViewModel.swift in Sources */,
+				7FF3BFA92C19C8F900E7EABC /* OrderCheckOutViewController.swift in Sources */,
 				03BAA12F2C14302E00A325AB /* DatabaseService.swift in Sources */,
 				D403E27A2C00F47700AE9C68 /* LoginViewController.swift in Sources */,
 			);
