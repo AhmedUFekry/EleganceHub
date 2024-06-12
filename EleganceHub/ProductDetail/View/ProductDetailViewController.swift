@@ -22,6 +22,7 @@ class ProductDetailViewController: UIViewController {
     @IBOutlet weak var productPrice: UILabel!
     
     @IBOutlet weak var ProductDescription: UILabel!
+    @IBOutlet weak var addToCartBtn: UIButton!
     
     var productItem:Product?
     var disposeBag = DisposeBag()
@@ -34,14 +35,14 @@ class ProductDetailViewController: UIViewController {
         var productId: Int?  // Static product Id
         var viewModel: ProductDetailViewModel!
     
-        var customerId = 8229959500051
+    var customerID:Int?
         var selectedSizeItem:String? = "19"
     
-        var cartViewModel:CartViewModelProtocol?
+        //var cartViewModel:CartViewModelProtocol?
         
         override func viewDidLoad() {
             super.viewDidLoad()
-            cartViewModel = CartViewModel()
+            //cartViewModel = CartViewModel()
                     
             sizeCollectionView.delegate = self
             sizeCollectionView.dataSource = self
@@ -62,7 +63,9 @@ class ProductDetailViewController: UIViewController {
                     self?.updateUI()
                 }
             }
-                    
+                
+            addToCartObserversFuncs()
+            
             if let productId = productId {
                 viewModel.getProductDetails(productId: productId)
                 viewModel.getAvailableVarients(productId: productId) { [weak self] sizeColorMap, colors in
@@ -78,84 +81,86 @@ class ProductDetailViewController: UIViewController {
             } else {
                 print("Product ID is nil.")
             }
-                    
+             
+            //checkIfUserLoggedIn()
+            if let customerID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.loggedInUserID.rawValue){
+                self.customerID = customerID
+            }
             addToCartObserversFuncs()
         }
 
-        private func updateUI() {
-            guard let product = viewModel.observableProduct else {
-                print("Observable product is nil.")
-                return
-            }
-            productItem = product
-            
-            print("Product Title: \(product.title ?? "No title")")
-            print("Product Price: \(product.variants?.first?.price ?? "No price")")
-            print("Product Description: \(product.bodyHTML ?? "No description")")
-            
-            ProductName.text = product.title ?? "No title"
-            productPrice.text = "$\(product.variants?.first?.price ?? "0.00")"
-            ProductDescription.text = product.bodyHTML ?? "No description"
-                    
-            ProductImagesCollection.reloadData()
-            imageSlider.numberOfPages = product.images?.count ?? 0
+    private func updateUI() {
+        guard let product = viewModel.observableProduct else {
+            print("Observable product is nil.")
+            return
         }
+        productItem = product
+        
+        print("Product Title: \(product.title ?? "No title")")
+        print("Product Price: \(product.variants?.first?.price ?? "No price")")
+        print("Product Description: \(product.bodyHTML ?? "No description")")
+        
+        ProductName.text = product.title ?? "No title"
+        productPrice.text = "$\(product.variants?.first?.price ?? "0.00")"
+        ProductDescription.text = product.bodyHTML ?? "No description"
                 
-        private func setupColorSelectorView(filteredColors: [String]? = nil) {
-            colorSelectorView?.removeFromSuperview()
-
-            if let filteredColors = filteredColors {
-                let dynamicColors: [UIColor] = filteredColors.map { color in
-                    return colorToUIColor(color)
-            }
-
-                colorSelectorView = ColorSelectorView(colors: dynamicColors)
-            } else {
-                let dynamicColors: [UIColor] = availableColors.map { color in
-                    return colorToUIColor(color)
-                }
-
-                colorSelectorView = ColorSelectorView(colors: dynamicColors)
-            }
-
-            colorSelectorView.translatesAutoresizingMaskIntoConstraints = false
-            colorSelectorContainer.addSubview(colorSelectorView)
-
-            NSLayoutConstraint.activate([
-                colorSelectorView.leadingAnchor.constraint(equalTo: colorSelectorContainer.leadingAnchor),
-                colorSelectorView.trailingAnchor.constraint(equalTo: colorSelectorContainer.trailingAnchor),
-                colorSelectorView.topAnchor.constraint(equalTo: colorSelectorContainer.topAnchor),
-                colorSelectorView.bottomAnchor.constraint(equalTo: colorSelectorContainer.bottomAnchor)
-            ])
-        }
-
-        private func colorToUIColor(_ color: String) -> UIColor {
-            switch color.lowercased() {
-            case "black":
-                return .black
-            case "green":
-                return .green
-            case "red":
-                return .red
-            case "blue":
-                return .blue
-            case "brown":
-                return .brown
-            case "purple":
-                return .purple
-            case "orange":
-                return .orange
-            case "white":
-                return .white
-            case "yellow":
-                return .yellow
-            default:
-                return .gray
-            }
-        }
+        ProductImagesCollection.reloadData()
+        imageSlider.numberOfPages = product.images?.count ?? 0
+    }
     
+    private func setupColorSelectorView(filteredColors: [String]? = nil) {
+        colorSelectorView?.removeFromSuperview()
 
-   
+        if let filteredColors = filteredColors {
+            let dynamicColors: [UIColor] = filteredColors.map { color in
+                return colorToUIColor(color)
+        }
+
+            colorSelectorView = ColorSelectorView(colors: dynamicColors)
+        } else {
+            let dynamicColors: [UIColor] = availableColors.map { color in
+                return colorToUIColor(color)
+            }
+
+            colorSelectorView = ColorSelectorView(colors: dynamicColors)
+        }
+
+        colorSelectorView.translatesAutoresizingMaskIntoConstraints = false
+        colorSelectorContainer.addSubview(colorSelectorView)
+
+        NSLayoutConstraint.activate([
+            colorSelectorView.leadingAnchor.constraint(equalTo: colorSelectorContainer.leadingAnchor),
+            colorSelectorView.trailingAnchor.constraint(equalTo: colorSelectorContainer.trailingAnchor),
+            colorSelectorView.topAnchor.constraint(equalTo: colorSelectorContainer.topAnchor),
+            colorSelectorView.bottomAnchor.constraint(equalTo: colorSelectorContainer.bottomAnchor)
+        ])
+    }
+
+    private func colorToUIColor(_ color: String) -> UIColor {
+        switch color.lowercased() {
+        case "black":
+            return .black
+        case "green":
+            return .green
+        case "red":
+            return .red
+        case "blue":
+            return .blue
+        case "brown":
+            return .brown
+        case "purple":
+            return .purple
+        case "orange":
+            return .orange
+        case "white":
+            return .white
+        case "yellow":
+            return .yellow
+        default:
+            return .gray
+        }
+    }
+    
     @IBAction func addToFavorite(_ sender: Any) {
         
         guard let product = viewModel.observableProduct else {
@@ -185,33 +190,52 @@ class ProductDetailViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-
     @IBAction func addToCartBtn(_ sender: UIButton) {
-        guard let productItem = productItem else {
-            return
-        }
-        if let orderID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.getDraftOrder.rawValue){
+        if(UserDefaultsHelper.shared.isDataFound(key: UserDefaultsConstants.isLoggedIn.rawValue)){
+            guard let productItem = productItem else {
+                return
+            }
+            guard let orderID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.getDraftOrder.rawValue) else {
+                return
+            }
+            if(orderID != 0) {
                 print("User has Draft order append items and post it \(orderID)")
+                viewModel.updateCustomerDraftOrder(orderID: orderID, customerID: customerID!, newProduct: productItem)
+            }else{
+                print("Create draft order user doesnt have one ")
+                viewModel.createNewDraftOrderAndPostNewItem(customerID: customerID!, product: productItem)
+            }
         }else{
-            print("Create draft order user doesnt have one ")
+            showAlertError(err: "You have to logged in first")
         }
-        
-
     }
+    
+    
     private func addToCartObserversFuncs(){
+        print("TTTTTTTTTTTTTTT")
         onErrorObserverSetUp()
         onResponseObserverSetUp()
     }
     private func onErrorObserverSetUp(){
-        cartViewModel?.error.subscribe{ err in
+        viewModel?.error.subscribe{ err in
             self.showAlertError(err: err.error?.localizedDescription ?? "Error")
         }.disposed(by: disposeBag)
     }
     private func onResponseObserverSetUp(){
-        cartViewModel?.productItem.subscribe{ err in
-            Constants.displayToast(viewController: self, message: "Product Added To cart Successfully", seconds: 2.0)
-        }.disposed(by: disposeBag)
+        viewModel?.draftOrder.subscribe(onNext: { [weak self] draftResponse in
+            guard let self = self else { return }
+            //print("productItem.subscribe \(draftResponse)")
+            guard let id = draftResponse.id else {
+                return
+            }
+            UserDefaultsHelper.shared.setIfDataFound(id, key: UserDefaultsConstants.getDraftOrder.rawValue)
+            print("Draft order created \(id)")
+            Constants.displayToast(viewController: self, message: "Product Added To cart Successfully", seconds: 1.0)
+        }, onError: { error in
+            print("Error subscribing to draft order: \(error)")
+        }).disposed(by: disposeBag)
     }
+    
     private func showAlertError(err:String){
         Constants.displayAlert(viewController: self,message: err, seconds: 3)
     }

@@ -69,7 +69,6 @@ class ProfileViewController: UIViewController {
             customerID = UserDefaultsHelper.shared.getLoggedInUserID()
             guard let id = customerID else {return}
             getUserData(id:id)
-            
         }
     }
     private func getUserData(id:Int){

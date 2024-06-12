@@ -20,8 +20,8 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ucf-oV-mkr">
                         <rect key="frame" x="8" y="8" width="304" height="96"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="center" distribution="equalSpacing" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="PJw-Sb-f59">
-                                <rect key="frame" x="210" y="60" width="84" height="28"/>
+                            <stackView opaque="NO" contentMode="center" distribution="fillProportionally" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="PJw-Sb-f59">
+                                <rect key="frame" x="201.33333333333334" y="60" width="92.666666666666657" height="28"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ks-Z2-yFY">
                                         <rect key="frame" x="0.0" y="0.0" width="28" height="28"/>
@@ -32,8 +32,9 @@
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="icons8-minus-30"/>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1YQ-E8-NJL">
-                                        <rect key="frame" x="36" y="1.3333333333333286" width="12" height="25.333333333333332"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1YQ-E8-NJL">
+                                        <rect key="frame" x="40.5" y="1.3333333333333286" width="12" height="25.333333333333332"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="12" id="rz9-f8-hpb"/>
                                         </constraints>
@@ -42,7 +43,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cu5-dn-zT7">
-                                        <rect key="frame" x="56" y="0.0" width="28" height="28"/>
+                                        <rect key="frame" x="64.666666666666657" y="0.0" width="28" height="28"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="28" id="G1o-Mb-MJS"/>
                                             <constraint firstAttribute="width" constant="28" id="WXU-9b-GZo"/>

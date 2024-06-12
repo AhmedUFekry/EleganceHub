@@ -44,22 +44,26 @@ class HomeViewController: UIViewController {
 
         homeViewModel.getBrandsFromModel()
         homeViewModel.getCouponsFromModel()
-            setupCollectionView()
+        setupCollectionView()
+        orderDraft()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-            orderDraft()
-            checkIfUserLoggedIn()
-        }
+        checkIfUserLoggedIn()
+    }
     
     private func orderDraft(){
         print("hiiiiiiiiiii")
-        homeViewModel.draftOrderID.subscribe{ value in
-            if(value != -1){
-                UserDefaultsHelper.shared.setIfDataFound(value, key: UserDefaultsConstants.getDraftOrder.rawValue)
-                print("order ID founddd \(value)")
+        homeViewModel.draftOrderID.subscribe(onNext:{ value in
+            if(value == 0){
+                print("order ID not founddd \(value) and Order ID is \(UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.getDraftOrder.rawValue))")
             }else{
+                UserDefaultsHelper.shared.setIfDataFound(value, key: UserDefaultsConstants.getDraftOrder.rawValue)
                 print("order ID \(value)")
+                
             }
-        }.disposed(by: disposeBag)
+        }).disposed(by: disposeBag)
     }
         
     private func checkIfUserLoggedIn(){

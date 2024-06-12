@@ -421,7 +421,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" id="Aba-fZ-x7R">
-                                <rect key="frame" x="-7" y="52" width="394" height="44"/>
+                                <rect key="frame" x="-8" y="52" width="395" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <navigationItem title="Category" id="Mnp-7V-qhQ">
@@ -1103,7 +1103,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PaG-1F-tbd">
-                                <rect key="frame" x="-14" y="51" width="389" height="44"/>
+                                <rect key="frame" x="-15" y="51" width="388" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <navigationItem title="Home" id="hsS-Tv-6lx">
@@ -1511,6 +1511,7 @@
                         <outlet property="ProductDescription" destination="bd3-4D-bTv" id="Rdd-vC-hQv"/>
                         <outlet property="ProductImagesCollection" destination="70x-uq-Pck" id="HG0-eS-JsX"/>
                         <outlet property="ProductName" destination="KMa-Pb-ZUm" id="9hk-sI-VTc"/>
+                        <outlet property="addToCartBtn" destination="6vg-aR-nb2" id="eSy-F1-B5x"/>
                         <outlet property="colorSelectorContainer" destination="XBv-EN-bfA" id="gdO-HH-iwn"/>
                         <outlet property="imageSlider" destination="C6T-g4-PuK" id="5ys-kc-Qyg"/>
                         <outlet property="productPrice" destination="K1O-oq-n28" id="oQ4-rJ-zpE"/>

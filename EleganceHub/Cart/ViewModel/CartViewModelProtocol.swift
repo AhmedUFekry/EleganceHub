@@ -10,14 +10,18 @@ import RxSwift
 import RxRelay
 
 protocol CartViewModelProtocol{
-    var productItem:PublishSubject<PostDraftOrderResponse> { get set }
+    //var productItem:PublishSubject<PostDraftOrderResponse> { get set }
     var isLoading: BehaviorRelay<Bool> { get set }
     var error: PublishSubject<Error> { get set }
-    var draftOrdersList: PublishSubject<[DraftOrder]> {get set}
+    var lineItemsList: PublishSubject<[LineItem]> {get set}
     
-    func addToCart(customerID:Int,product: Product,selectedSize:String)
+    //func addToCart(customerID:Int,product: Product,selectedSize:String)
     
-    func getAllDraftOrdersForUser(customerID:Int)
+    func getDraftOrderForUser(orderID:Int)
+    func deleteItemFromDraftOrder(orderID:Int, itemID:Int)
+    func deleteDraftOrder(orderID:Int)
     
-    func deleteDraftOrder(orderID:Int,customerID:Int)
+    func decremantQuantity(at index: Int)
+    func incrementQuantity(at index: Int)
+    func updateLatestListItem(orderID:Int)
 }

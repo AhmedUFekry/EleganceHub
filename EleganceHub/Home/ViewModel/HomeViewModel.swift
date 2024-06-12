@@ -85,18 +85,18 @@ class HomeViewModel: ViewModelProtocol {
                guard let self = self else { return }
                let draftOrders = draftResponses.draftOrders ?? []
                let draftList = draftOrders.filter { $0.customer?.id == customerID }
-               
+               //print("draftList.first?.id \(draftResponses)")
                if let id = draftList.first?.id {
                    print("Draft Order ID for user \(customerID) is \(id)")
                    self.draftOrderID.onNext(id)
                } else {
                    print("No draft orders found for user \(customerID)")
-                   self.draftOrderID.onNext(-1)
+                   self.draftOrderID.onNext(0)
                }
                self.draftOrderID.onCompleted()
            }, onError: { [weak self] error in
                print("Error fetching draft orders: \(error)")
-               self?.draftOrderID.onNext(-1)
+               self?.draftOrderID.onNext(0)
                self?.draftOrderID.onCompleted()
            }).disposed(by: disposeBag)
     }

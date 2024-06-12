@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		030A5D7B2C159E0800A4E4C3 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 030A5D792C159E0800A4E4C3 /* Model.xcdatamodeld */; };
 		031F8E002C0C591700BA92CF /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031F8DFF2C0C591700BA92CF /* NetworkService.swift */; };
 		031F8E022C0C592600BA92CF /* NetworkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031F8E012C0C592600BA92CF /* NetworkServiceProtocol.swift */; };
 		033CEBA32C105DEF003B9DA9 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033CEBA22C105DEE003B9DA9 /* SettingsViewModel.swift */; };
@@ -29,6 +28,7 @@
 		03A7F5552C0164E500F68AC7 /* CartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A7F5532C0164E500F68AC7 /* CartTableViewCell.swift */; };
 		03A7F5562C0164E500F68AC7 /* CartTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03A7F5542C0164E500F68AC7 /* CartTableViewCell.xib */; };
 		03B13AD72C172351006A2234 /* DiscountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B13AD62C172351006A2234 /* DiscountModel.swift */; };
+		03B13ADB2C173164006A2234 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 03B13AD92C173163006A2234 /* Model.xcdatamodeld */; };
 		03B68E002C019AAE0054DA74 /* DraftOrderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B68DFF2C019AAE0054DA74 /* DraftOrderModel.swift */; };
 		03B68E052C019DAE0054DA74 /* PaymentMethodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B68E032C019DAE0054DA74 /* PaymentMethodTableViewCell.swift */; };
 		03B68E062C019DAE0054DA74 /* PaymentMethodTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03B68E042C019DAE0054DA74 /* PaymentMethodTableViewCell.xib */; };
@@ -143,7 +143,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		030A5D7A2C159E0800A4E4C3 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		031F8DFF2C0C591700BA92CF /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		031F8E012C0C592600BA92CF /* NetworkServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceProtocol.swift; sourceTree = "<group>"; };
 		033CEBA22C105DEE003B9DA9 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
@@ -166,6 +165,7 @@
 		03A7F5532C0164E500F68AC7 /* CartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartTableViewCell.swift; sourceTree = "<group>"; };
 		03A7F5542C0164E500F68AC7 /* CartTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CartTableViewCell.xib; sourceTree = "<group>"; };
 		03B13AD62C172351006A2234 /* DiscountModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiscountModel.swift; path = "EleganceHub/Home/Model/New Group/DiscountModel.swift"; sourceTree = SOURCE_ROOT; };
+		03B13ADA2C173163006A2234 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		03B68DFF2C019AAE0054DA74 /* DraftOrderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftOrderModel.swift; sourceTree = "<group>"; };
 		03B68E032C019DAE0054DA74 /* PaymentMethodTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodTableViewCell.swift; sourceTree = "<group>"; };
 		03B68E042C019DAE0054DA74 /* PaymentMethodTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentMethodTableViewCell.xib; sourceTree = "<group>"; };
@@ -839,7 +839,7 @@
 				C88C20672BFE8CB400886365 /* LaunchScreen.storyboard */,
 				C88C206A2BFE8CB400886365 /* Info.plist */,
 				D403E2712C00AA4C00AE9C68 /* GoogleService-Info.plist */,
-				030A5D792C159E0800A4E4C3 /* Model.xcdatamodeld */,
+				03B13AD92C173163006A2234 /* Model.xcdatamodeld */,
 			);
 			path = EleganceHub;
 			sourceTree = "<group>";
@@ -1352,7 +1352,6 @@
 				03BAA13B2C14815700A325AB /* CartNetworkService.swift in Sources */,
 				031F8E022C0C592600BA92CF /* NetworkServiceProtocol.swift in Sources */,
 				7F3E46B82C0149340096211E /* ProductViewController.swift in Sources */,
-				030A5D7B2C159E0800A4E4C3 /* Model.xcdatamodeld in Sources */,
 				C88C205F2BFE8CAF00886365 /* SceneDelegate.swift in Sources */,
 				7F359E962BFEBD7200D0D733 /* HomeViewController.swift in Sources */,
 				D4883C6E2C15071900EE6C78 /* FavoriteViewController.swift in Sources */,
@@ -1376,6 +1375,7 @@
 				7F1BEEEE2C14F6D800C5A114 /* OrdersViewController.swift in Sources */,
 				7F1BEEEC2C14E01900C5A114 /* OrdersResponse.swift in Sources */,
 				D478FC682BFF49D700BBA2BB /* WelcomeViewController.swift in Sources */,
+				03B13ADB2C173164006A2234 /* Model.xcdatamodeld in Sources */,
 				0383BC4B2C0BD0AA00855384 /* ProfileViewController.swift in Sources */,
 				7F1BEEDB2C14D71500C5A114 /* SuperCategoryViewController.swift in Sources */,
 				036717242C0C171C00BFB9DC /* LocationViewController.swift in Sources */,
@@ -1769,14 +1769,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		030A5D792C159E0800A4E4C3 /* Model.xcdatamodeld */ = {
+		03B13AD92C173163006A2234 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				030A5D7A2C159E0800A4E4C3 /* Model.xcdatamodel */,
+				03B13ADA2C173163006A2234 /* Model.xcdatamodel */,
 			);
-			currentVersion = D4883C742C15405600EE6C78 /* Model.xcdatamodel */;
-			name = Model.xcdatamodeld;
-			path = /Users/shimaa/Desktop/Swift/GradPro/EleganceHub/EleganceHub/EleganceHub/Model.xcdatamodeld;
+			currentVersion = 03B13ADA2C173163006A2234 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

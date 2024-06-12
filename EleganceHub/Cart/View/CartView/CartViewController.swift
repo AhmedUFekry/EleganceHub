@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import RxRelay
 
 class CartViewController: UIViewController {
 
@@ -20,27 +21,39 @@ class CartViewController: UIViewController {
     var viewModel:CartViewModelProtocol = CartViewModel()
     var disposeBag = DisposeBag()
     var customerID:Int?
+    var draftOrder:Int!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         customerID = UserDefaultsHelper.shared.getLoggedInUserID()
-        guard let id = customerID else{return}
-
+        guard customerID != nil else{return}
+        
+        draftOrder = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.getDraftOrder.rawValue)
+        if(draftOrder != 0){
+            viewModel.getDraftOrderForUser(orderID: draftOrder)
+        }else{
+            handleCartEmptyState(isEmpty: true)
+        }
+        
         setupTableViewBinding()
         loadingObserverSetUp()
         bindDataToView()
+        handleEmptyState()
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let cartNibCell = UINib(nibName: "CartTableViewCell", bundle: nil)
         cartTableView.register(cartNibCell, forCellReuseIdentifier: "CartTableViewCell")
-            
+       
         countOfItemInCart.backgroundColor  = UIColor.red
         countOfItemInCart.layer.cornerRadius = 8
         countOfItemInCart.layer.masksToBounds = true
         cartTableView.separatorStyle = .none
+        
+        
     }
     
     
@@ -55,52 +68,75 @@ class CartViewController: UIViewController {
     
     private func setupTableViewBinding() {
         
-        viewModel.draftOrdersList.asObserver().bind(to: cartTableView.rx.items(cellIdentifier: "CartTableViewCell", cellType: CartTableViewCell.self)) { index, order, cell in
-            guard let productItem = order.lineItems?.first else {
-                return
-            }
-            cell.setCellData(order:productItem)
-            
-        }.disposed(by: disposeBag)
-           
+//        viewModel.lineItemsList
+//        /*.asObserver()*/
+//            .bind(to: cartTableView.rx.items(cellIdentifier: "CartTableViewCell", cellType: CartTableViewCell.self)){[weak self] index, item, cell in
+//                guard let self = self else { return }
+//            cell.decreaseQuantityBtn.tag = index
+//            cell.IncreaseQuantityBtn.tag = index
+//            cell.setCellData(order: item)
+//            cell.IncreaseQuantityBtn.addTarget(self, action: #selector(self.increaceQuantityTapped(_:)), for: .touchUpInside)
+//            cell.decreaseQuantityTapped.addTarget(self, action: #selector(self.decreaceQuantityTapped(_:)), for: .touchUpInside)
+//        }.disposed(by: disposeBag)
+        viewModel.lineItemsList
+            .bind(to: cartTableView.rx.items(cellIdentifier: "CartTableViewCell", cellType: CartTableViewCell.self)){[weak self] index, item, cell in
+                guard let self = self else { return }
+                
+                cell.setCellData(order: item)
+                cell.decreaseQuantityBtn.tag = index
+                cell.IncreaseQuantityBtn.tag = index
+                cell.IncreaseQuantityBtn.addTarget(self, action: #selector(self.increaceQuantityTapped(_:)), for: .touchUpInside)
+                cell.decreaseQuantityBtn.addTarget(self, action: #selector(self.decreaseQuantityTapped(_:)), for: .touchUpInside)
+                
+            }.disposed(by: disposeBag)
+        
+        
+        //cartTableView.rx.itemAccessoryButtonTapped
+        
         cartTableView.rx.itemDeleted
-        .withLatestFrom(viewModel.draftOrdersList) { (indexPath, orders) in
+        .withLatestFrom(viewModel.lineItemsList) { (indexPath, orders) in
             return (indexPath, orders)
         }.subscribe(onNext: { [weak self] (indexPath, orders) in
             guard let self = self else { return }
             let order = orders[indexPath.row]
-            if let orderID = order.id {
-                self.viewModel.deleteDraftOrder(orderID: orderID, customerID: self.customerID!)
+            if(orders.count <= 1){
+                print("Last Item")
+                self.viewModel.deleteDraftOrder(orderID: self.draftOrder)
+               // self.handleCartEmptyState(isEmpty: true)
+            }else{
+                print("not last Item Item")
+                if let orderID = order.id{
+                    print("orderID = order.id \(orderID)")
+                    self.viewModel.deleteItemFromDraftOrder(orderID: self.draftOrder, itemID: orderID)
+                }
             }
-            
         })
         .disposed(by: disposeBag)
 
-        //tableView.rx.setDelegate(self).disposed(by: disposeBag)
     }
+    
     private func bindDataToView(){
-        viewModel.draftOrdersList
+        viewModel.lineItemsList
             .map { String($0.count) }
             .bind(to: countOfItemInCart.rx.text)
             .disposed(by: disposeBag)
         
-        viewModel.draftOrdersList
+        viewModel.lineItemsList
             .map { "Total(\($0.count) item):" }
             .bind(to: totalItemPrice.rx.text)
             .disposed(by: disposeBag)
         
-        viewModel.draftOrdersList
-            .map { orders in //map operator to transform each DraftOrder into an array of prices
-                orders.compactMap { order in //to remove any nil values.
-                    guard let priceString = order.lineItems?.first?.price, let price = Double(priceString) else {
-                        return nil
+        viewModel.lineItemsList
+            .compactMap({ items in
+                items.reduce(0.0) { partialResult, item in
+                    guard let priceString = item.price, var price = Double(priceString) else {
+                        return 0.0
                     }
-                    return price
+                    price = price * Double(item.quantity ?? 1)
+                    print("partialResult + price \(partialResult + price)")
+                   return partialResult + price
                 }
-            }
-            .map { prices in
-                prices.reduce(0.0, +)
-            }
+            })
             .subscribe(onNext: { totalPrice in
                 var total = String(format: "%.2f", totalPrice)
                 print("Total price is \(total)")
@@ -108,6 +144,7 @@ class CartViewController: UIViewController {
             })
             .disposed(by: disposeBag)
     }
+    
     private func loadingObserverSetUp(){
         viewModel.isLoading.subscribe{ isloading in
             self.showActivityIndicator(isloading)
@@ -131,6 +168,53 @@ class CartViewController: UIViewController {
     private func showAlertError(err:String){
         Constants.displayAlert(viewController: self,message: err, seconds: 3)
     }
-
-
+    
+   
+    private func handleCartEmptyState(isEmpty: Bool) {
+        if isEmpty {
+            print("Cart is empty")
+            let emptyLabel = UILabel(frame: self.cartTableView.bounds)
+            emptyLabel.text = "Your cart is empty."
+            emptyLabel.textAlignment = .center
+            self.cartTableView.backgroundView = emptyLabel
+            UserDefaultsHelper.shared.clearUserData(key: UserDefaultsConstants.getDraftOrder.rawValue)
+            draftOrder = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.getDraftOrder.rawValue)
+            print("draft order is removed \(UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.getDraftOrder.rawValue)) draft order \(draftOrder )")
+        }
+    }
+    private func handleEmptyState() {
+        viewModel.lineItemsList
+            .map { $0.isEmpty }
+            .distinctUntilChanged()
+            .subscribe(onNext: { [weak self] isEmpty in
+                if isEmpty {
+                    self?.handleCartEmptyState(isEmpty: isEmpty)
+                } else {
+                    self?.cartTableView.backgroundView = nil
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+  
+    @objc func increaceQuantityTapped(_ sender: UIButton){
+        print("Increased")
+        let index = sender.tag
+         print("Index \(index)")
+        viewModel.incrementQuantity(at: index)
+        
+    }
+    
+    @objc func decreaseQuantityTapped(_ sender: UIButton) {
+           let index = sender.tag
+        print("Index \(index)")
+       viewModel.decremantQuantity(at: index)
+   }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        cartTableView.dataSource = nil
+        cartTableView.delegate = nil
+        print("viewWillDisappear")
+        self.viewModel.updateLatestListItem(orderID: draftOrder)
+    }
 }

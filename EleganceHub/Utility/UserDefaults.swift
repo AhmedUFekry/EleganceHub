@@ -48,7 +48,8 @@ class UserDefaultsHelper:DatabaseServiceProtocol {
      func getDataFound(key:String) -> Int? {
          let id = userDefaults.integer(forKey: key)
          print("\(key) \(id)")
-         return id != 0 ? id : nil
+         return id
+         //!= 0 ? id : nil
      }
      
      func clearUserData(key:String) {
