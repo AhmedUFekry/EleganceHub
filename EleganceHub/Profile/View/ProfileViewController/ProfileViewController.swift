@@ -79,6 +79,14 @@ extension ProfileViewController:UITableViewDataSource,UITableViewDelegate{
         case "shippingAddress":
             self.navigationController?.pushViewController(ShippingAddressViewController(), animated: true)
             
+        case "fav":
+            if let favoriteViewController = storyboard?.instantiateViewController(withIdentifier: "FavoriteViewController") as? FavoriteViewController {
+                    navigationController?.pushViewController(favoriteViewController, animated: true)
+            } else {
+                print("Failed to instantiate FavoriteViewController")
+            }
+
+            
         default: break
             
         }

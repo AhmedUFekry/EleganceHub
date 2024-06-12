@@ -69,6 +69,15 @@ class SuperCategoryViewController: UIViewController {
         categoryCollection.reloadData()
     }
     
+    
+    @IBAction func favoriteBtn(_ sender: Any) {
+        if let favoriteViewController = storyboard?.instantiateViewController(withIdentifier: "FavoriteViewController") as? FavoriteViewController {
+                navigationController?.pushViewController(favoriteViewController, animated: true)
+        } else {
+            print("Failed to instantiate FavoriteViewController")
+        }
+    }
+    
     func displayFloatingButton() {
         let actionButton = JJFloatingActionButton()
         actionButton.buttonColor = UIColor.black

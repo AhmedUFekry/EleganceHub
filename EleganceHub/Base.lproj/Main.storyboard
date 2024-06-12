@@ -185,13 +185,15 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yNf-Or-J4O">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yNf-Or-J4O">
                                 <rect key="frame" x="87" y="734" width="217" height="39"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" systemColor="groupTableViewBackgroundColor"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Register"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Register" titleAlignment="center">
+                                    <color key="baseBackgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="signUp:" destination="ZuI-Wr-C2G" eventType="touchUpInside" id="bka-Ja-v85"/>
                                 </connections>
@@ -427,6 +429,9 @@
                                         <rightBarButtonItems>
                                             <barButtonItem title="Item" image="heart.circle" catalog="system" id="8eg-aL-gGR">
                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <connections>
+                                                    <action selector="favoriteBtn:" destination="T80-uh-czD" id="EDd-dk-gL4"/>
+                                                </connections>
                                             </barButtonItem>
                                             <barButtonItem title="Item" image="cart.circle" catalog="system" id="DtM-5O-Beg">
                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1304,7 +1309,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="395" height="269"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="image1" translatesAutoresizingMaskIntoConstraints="NO" id="UF3-t7-ncE">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="coupon" translatesAutoresizingMaskIntoConstraints="NO" id="UF3-t7-ncE">
                                                     <rect key="frame" x="0.0" y="0.0" width="395" height="274"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
@@ -1364,7 +1369,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" image="cart.fill" catalog="system" title="Add To Cart"/>
+                                <buttonConfiguration key="configuration" style="filled" image="cart.fill" catalog="system" title="Add To Cart">
+                                    <color key="baseBackgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="addToCart:" destination="ORL-JI-QO5" eventType="touchUpInside" id="vpi-ml-vfJ"/>
                                 </connections>
@@ -1441,6 +1448,7 @@
                         <outlet property="ProductDescription" destination="bd3-4D-bTv" id="Rdd-vC-hQv"/>
                         <outlet property="ProductImagesCollection" destination="70x-uq-Pck" id="HG0-eS-JsX"/>
                         <outlet property="ProductName" destination="KMa-Pb-ZUm" id="9hk-sI-VTc"/>
+                        <outlet property="addToCartButton" destination="6vg-aR-nb2" id="e91-Nd-Jhq"/>
                         <outlet property="colorSelectorContainer" destination="XBv-EN-bfA" id="gdO-HH-iwn"/>
                         <outlet property="imageSlider" destination="C6T-g4-PuK" id="5ys-kc-Qyg"/>
                         <outlet property="productPrice" destination="K1O-oq-n28" id="oQ4-rJ-zpE"/>
@@ -1533,7 +1541,6 @@
         <image name="homekit" catalog="system" width="128" height="104"/>
         <image name="icons8-forward-button-50" width="35" height="35"/>
         <image name="icons8-log-out-25" width="25" height="25"/>
-        <image name="image1" width="564" height="390"/>
         <image name="l" width="499" height="500"/>
         <image name="lang" width="30" height="30"/>
         <image name="magnifyingglass.circle" catalog="system" width="128" height="123"/>
