@@ -8,7 +8,8 @@
 import UIKit
 
 class ProductsTableViewCell: UITableViewCell {
-
+    @IBOutlet weak var backGroundview: UIView!
+    
     @IBOutlet weak var productPrice: UILabel!
     @IBOutlet weak var productCategory: UILabel!
     @IBOutlet weak var productImage: UIImageView!
@@ -16,7 +17,7 @@ class ProductsTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+     self.backGroundview.applyShadow()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

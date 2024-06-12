@@ -24,6 +24,7 @@ class OrdersViewModel {
         orderService?.getOrders(customerId: customerId){[weak self] result, error in
             if let result = result {
                 self?.viewModelresult = result.orders
+                print("getOrders lineItems \(result.orders?.first?.lineItems)")
             }else {
                 print("Error fetching products: \(error?.localizedDescription ?? "Unknown error")")
             }

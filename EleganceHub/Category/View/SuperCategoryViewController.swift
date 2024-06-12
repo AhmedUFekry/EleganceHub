@@ -11,6 +11,7 @@ import JJFloatingActionButton
 
 class SuperCategoryViewController: UIViewController {
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var categorySearchBar: UISearchBar!
     @IBOutlet weak var segmentCategory: UISegmentedControl!
     @IBOutlet weak var categoryCollection: UICollectionView!
@@ -25,7 +26,8 @@ class SuperCategoryViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        activityIndicator.startAnimating()
+
         loadNib()
         categorySearchBar.delegate = self
         categoryViewModel.bindResultToViewController = { [weak self] in
@@ -50,6 +52,8 @@ class SuperCategoryViewController: UIViewController {
     func renderView() {
         DispatchQueue.main.async {
             self.categoryCollection.reloadData()
+            self.activityIndicator.stopAnimating()
+            self.activityIndicator.isHidden = true
         }
     }
     

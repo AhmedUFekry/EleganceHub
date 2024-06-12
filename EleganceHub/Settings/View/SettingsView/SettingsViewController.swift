@@ -11,6 +11,7 @@ import RxCocoa
 
 class SettingsViewController: UIViewController {
     
+    @IBOutlet weak var darkMode: UISwitch!
     
     @IBOutlet weak var userFirstNameTF: UITextField!
     @IBOutlet weak var userEmailTF: UITextField!

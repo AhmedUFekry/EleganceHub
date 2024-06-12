@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class Utilities {
     
@@ -20,5 +21,21 @@ class Utilities {
         } else {
             return "No Rating"
         }
+    }
+    
+}
+extension UIView {
+    func applyShadow(color: UIColor = .black,
+                     opacity: Float = 0.5,
+                     offset: CGSize = CGSize(width: 0, height: 2),
+                     radius: CGFloat = 4,
+                     cornerRadius: CGFloat = 10) {
+        self.layer.shadowColor = color.cgColor
+        self.layer.shadowOpacity = opacity
+        self.layer.shadowOffset = offset
+        self.layer.shadowRadius = radius
+        self.layer.cornerRadius = cornerRadius
+        self.layer.masksToBounds = false
+
     }
 }
