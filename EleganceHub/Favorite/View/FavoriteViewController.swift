@@ -13,98 +13,114 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
 
     @IBOutlet weak var favoriteTableView: UITableView!
     var favoriteProducts: BehaviorRelay<[[String: Any]]> = BehaviorRelay(value: [])
-        let disposeBag = DisposeBag()
+    let disposeBag = DisposeBag()
             
-        override func viewDidLoad() {
-            super.viewDidLoad()
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
-            favoriteTableView.register(UITableViewCell.self, forCellReuseIdentifier: "favcell")
-            favoriteTableView.rx.setDelegate(self).disposed(by: disposeBag)
-                
-            if let userId = getLoggedInUserID() {
-                print("User ID: \(userId)")
-                let fetchedProducts = FavoriteCoreData.shared.fetchFavoritesByUserId(userId: userId) ?? []
-                favoriteProducts.accept(fetchedProducts)
-                print("Fetched Products: \(fetchedProducts)")
-            } else {
-                print("User ID not found.")
-            }
-                
-            favoriteProducts.bind(to: favoriteTableView.rx.items(cellIdentifier: "favcell", cellType: UITableViewCell.self)) { row, product, cell in
-                cell.textLabel?.text = product["title"] as? String
-                cell.detailTextLabel?.text = product["price"] as? String
-                    
-                if let imageUrlString = product["image"] as? String, let imageUrl = URL(string: imageUrlString) {
-                    self.loadImage(url: imageUrl) { image in
-                        DispatchQueue.main.async {
-                            cell.imageView?.image = image
-                            cell.setNeedsLayout()
-                        }
-                    }
+        favoriteTableView.register(UINib(nibName: "CartTableViewCell", bundle: nil), forCellReuseIdentifier: "CartTableViewCell")
+        favoriteTableView.rx.setDelegate(self).disposed(by: disposeBag)
+               
+        if let userId = getLoggedInUserID() {
+            print("User ID: \(userId)")
+            let fetchedProducts = FavoriteCoreData.shared.fetchFavoritesByUserId(userId: userId) ?? []
+            favoriteProducts.accept(fetchedProducts)
+            print("Fetched Products: \(fetchedProducts)")
+        } else {
+            print("User ID not found.")
+        }
+               
+        favoriteProducts.bind(to: favoriteTableView.rx.items(cellIdentifier: "CartTableViewCell", cellType: CartTableViewCell.self)) { [self] row, product, cell in
+                if let title = product["title"] as? String,
+                   let price = product["price"] as? String,
+                   let imageUrlString = product["image"] as? String,
+                   let imageUrl = URL(string: imageUrlString) {
+                    cell.productNameLabel.text = title
+                    cell.productPriceLabel.text = price
+                    cell.productImage.kf.setImage(with: imageUrl, placeholder: UIImage(named: "AppIcon"))
                 }
+                cell.productVarintLabel.text = product["variant"] as? String
+                   
+                cell.decreaseQuantityBtn.isHidden = true
+                cell.IncreaseQuantityBtn.isHidden = true
+                cell.productQuantityLabel.isHidden = true
+                   
+                let addToCartBtn = UIButton(type: .system)
+                addToCartBtn.setTitle("Add To Cart", for: .normal)
+                addToCartBtn.backgroundColor = .black
+                addToCartBtn.setTitleColor(.white, for: .normal)
+                addToCartBtn.layer.cornerRadius = 10
+            
+                cell.contentView.addSubview(addToCartBtn)
+
+                addToCartBtn.translatesAutoresizingMaskIntoConstraints = false
+                NSLayoutConstraint.activate([
+                    addToCartBtn.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 220),
+                    addToCartBtn.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -16),
+                    addToCartBtn.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor, constant: -18),
+                    addToCartBtn.heightAnchor.constraint(equalToConstant: 40)
+                ])
+
+                addToCartBtn.tag = row
+                addToCartBtn.addTarget(self, action: #selector(addToCartButtonTapped(_:)), for: .touchUpInside)
             }.disposed(by: disposeBag)
-                
-            favoriteTableView.rx.itemDeleted.subscribe(onNext: { indexPath in
-                let product = self.favoriteProducts.value[indexPath.row]
-                if let productId = product["id"] as? Int, let customerId = self.getLoggedInUserID() {
-                    self.showDeleteConfirmationAlert(productId: productId, customerId: customerId, indexPath: indexPath)
-                }
-            }).disposed(by: disposeBag)
-            
-            favoriteTableView.rx.modelSelected([String: Any].self).subscribe(onNext: { [weak self] product in
-                self?.navigateToProductDetail(product: product)
-            }).disposed(by: disposeBag)
-        }
-        
-        func getLoggedInUserID() -> Int? {
-            return UserDefaultsHelper.shared.getLoggedInUserID()
-        }
-                    
-        func loadImage(url: URL, completion: @escaping (UIImage?) -> Void) {
-            URLSession.shared.dataTask(with: url) { data, response, error in
-                if let data = data, error == nil {
-                    completion(UIImage(data: data))
-                } else {
-                    completion(nil)
-                }
-            }.resume()
-        }
-            
-        func showDeleteConfirmationAlert(productId: Int, customerId: Int, indexPath: IndexPath) {
-            let alert = UIAlertController(title: "Confirm Delete", message: "Are you sure you want to delete this item?", preferredStyle: .alert)
-            
-            let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
-                self.deleteProduct(productId: productId, customerId: customerId, indexPath: indexPath)
+                   
+        favoriteTableView.rx.itemDeleted.subscribe(onNext: { indexPath in
+            let product = self.favoriteProducts.value[indexPath.row]
+            if let productId = product["id"] as? Int, let customerId = self.getLoggedInUserID() {
+                self.showDeleteConfirmationAlert(productId: productId, customerId: customerId, indexPath: indexPath)
             }
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-            
-            alert.addAction(deleteAction)
-            alert.addAction(cancelAction)
-                
-            present(alert, animated: true, completion: nil)
-        }
+        }).disposed(by: disposeBag)
+               
+        favoriteTableView.rx.modelSelected([String: Any].self).subscribe(onNext: { [weak self] product in
+            self?.navigateToProductDetail(product: product)
+        }).disposed(by: disposeBag)
+    }
 
-        func deleteProduct(productId: Int, customerId: Int, indexPath: IndexPath) {
-            FavoriteCoreData.shared.deleteFromCoreData(productId: productId, customerId: customerId)
-            var updatedProducts = favoriteProducts.value
-            updatedProducts.remove(at: indexPath.row)
-            favoriteProducts.accept(updatedProducts)
-        }
+    func getLoggedInUserID() -> Int? {
+        return UserDefaultsHelper.shared.getLoggedInUserID()
+    }
+    
+    @objc func addToCartButtonTapped(_ sender: UIButton) {
+        let productIndex = sender.tag
+        let product = favoriteProducts.value[productIndex]
+
+        print("Add to Cart button tapped for product: \(product)")
+    }
         
-        func navigateToProductDetail(product: [String: Any]) {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            if let productDetailVC = storyboard.instantiateViewController(withIdentifier: "ProductDetailViewController") as? ProductDetailViewController {
-                productDetailVC.productId = product["id"] as? Int
-                navigationController?.pushViewController(productDetailVC, animated: true)
-            }
+    func showDeleteConfirmationAlert(productId: Int, customerId: Int, indexPath: IndexPath) {
+        let alert = UIAlertController(title: "Confirm Delete", message: "Are you sure you want to delete this item?", preferredStyle: .alert)
+            
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
+            self.deleteProduct(productId: productId, customerId: customerId, indexPath: indexPath)
         }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            
+        alert.addAction(deleteAction)
+        alert.addAction(cancelAction)
+                
+        present(alert, animated: true, completion: nil)
+    }
+
+    func deleteProduct(productId: Int, customerId: Int, indexPath: IndexPath) {
+        FavoriteCoreData.shared.deleteFromCoreData(productId: productId, customerId: customerId)
+        var updatedProducts = favoriteProducts.value
+        updatedProducts.remove(at: indexPath.row)
+        favoriteProducts.accept(updatedProducts)
+    }
+        
+    func navigateToProductDetail(product: [String: Any]) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let productDetailVC = storyboard.instantiateViewController(withIdentifier: "ProductDetailViewController") as? ProductDetailViewController {
+            productDetailVC.productId = product["id"] as? Int
+            navigationController?.pushViewController(productDetailVC, animated: true)
+        }
+    }
     
     @IBAction func goBack(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
     
-    
-
 }
 
 extension FavoriteViewController {
@@ -115,24 +131,46 @@ extension FavoriteViewController {
         
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         print("Configuring cell for row \(indexPath.row)")
-        let cell = tableView.dequeueReusableCell(withIdentifier: "favcell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CartTableViewCell", for: indexPath) as! CartTableViewCell
         let product = favoriteProducts.value[indexPath.row]
                     
-        cell.textLabel?.text = product["title"] as? String
-        cell.detailTextLabel?.text = product["price"] as? String
-                    
-        if let imageUrlString = product["image"] as? String, let imageUrl = URL(string: imageUrlString) {
-            loadImage(url: imageUrl) { image in
-                DispatchQueue.main.async {
-                    cell.imageView?.image = image
-                    cell.setNeedsLayout()
-                }
-            }
+        if let title = product["title"] as? String,
+           let price = product["price"] as? String,
+           let imageUrlString = product["image"] as? String,
+           let imageUrl = URL(string: imageUrlString) {
+            cell.productNameLabel.text = title
+            cell.productPriceLabel.text = price
+            cell.productImage.kf.setImage(with: imageUrl, placeholder: UIImage(named: "AppIcon"))
         }
-
-        return cell
-    }
+        cell.productQuantityLabel.text = "1"
+        cell.productVarintLabel.text = product["variant"] as? String
         
+        cell.decreaseQuantityBtn.isHidden = true
+        cell.IncreaseQuantityBtn.isHidden = true
+        cell.productQuantityLabel.isHidden = true
+        
+        let addToCartBtn = UIButton(type: .system)
+            addToCartBtn.setTitle("Add To Cart", for: .normal)
+            addToCartBtn.backgroundColor = .black
+            addToCartBtn.setTitleColor(.white, for: .normal)
+            addToCartBtn.layer.cornerRadius = 10
+
+            cell.contentView.addSubview(addToCartBtn)
+
+            addToCartBtn.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                addToCartBtn.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 220),
+                addToCartBtn.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -16),
+                addToCartBtn.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor, constant: -18),
+                addToCartBtn.heightAnchor.constraint(equalToConstant: 40)
+            ])
+
+            addToCartBtn.tag = indexPath.row
+            addToCartBtn.addTarget(self, action: #selector(addToCartButtonTapped(_:)), for: .touchUpInside)
+
+            return cell
+    }
+
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
