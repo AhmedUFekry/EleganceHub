@@ -23,6 +23,8 @@ class ProductDetailViewController: UIViewController {
     
     @IBOutlet weak var addToCartButton: UIButton!
     
+    @IBOutlet weak var favoriteButton: UIButton!
+    
     var colorSelectorView: ColorSelectorView!
         var availableSizes: [String] = []
         var availableColors: [String] = []
@@ -68,6 +70,30 @@ class ProductDetailViewController: UIViewController {
                     }
                 } else {
                     print("Product ID is nil.")
+                }
+            
+            
+            if let productId = productId {
+                    viewModel.getProductDetails(productId: productId)
+                    viewModel.getAvailableVarients(productId: productId) { [weak self] sizeColorMap, colors in
+                        guard let self = self else { return }
+                        
+                        self.sizeColorMap = sizeColorMap
+                        self.availableColors = colors
+                        self.availableSizes = Array(sizeColorMap.keys)
+                        
+                        self.sizeCollectionView.reloadData()
+                        self.setupColorSelectorView()
+                    }
+                    
+                    print("Checking if product is in favorites...")
+                    if let productName = viewModel.observableProduct?.title {
+                        let customerId = UserDefaultsHelper.shared.getLoggedInUserID()
+                        print("User ID: \(customerId)")
+                        let isFavorite = FavoriteCoreData.shared.isProductInFavorites(productId: productId, productName: productName)
+                        print("Product \(productName) with ID \(productId) is favorite: \(isFavorite)")
+                        updateFavoriteButton(isFavorite: isFavorite)
+                    }
                 }
             }
         
@@ -144,29 +170,77 @@ class ProductDetailViewController: UIViewController {
     
    
     @IBAction func addToFavorite(_ sender: Any) {
-        
-        guard let product = viewModel.observableProduct else {
-                print("No product available to add to favorites.")
-                return
-            }
-
-            let favoriteData: [String: Any] = [
-                "id": product.id ?? 0,
-                "customer_id": UserDefaults.standard.integer(forKey: Constants.customerId),
-                "variant_id": product.variants?.first?.id ?? 0,
-                "title": product.title ?? "",
-                "price": product.variants?.first?.price ?? "",
-                "image": product.images?.first?.src ?? ""
-            ]
-
-            FavoriteCoreData.shared.saveToCoreData([favoriteData]) { success, error in
-                if success {
-                    print("Product added to favorites.")
-                } else {
-                    print("Error adding product to favorites: \(error?.localizedDescription ?? "Unknown error")")
-                }
+        toggleFavoriteStatus()
+    }
+            
+    private func toggleFavoriteStatus() {
+        guard let product = getProduct() else {
+            print("No product available to add to favorites.")
+            return
+        }
+                
+        let productId = product.id ?? 0
+        let productName = product.title ?? ""
+        let customerId = getCustomerId()
+            
+        guard let customerId = customerId else {
+            print("Customer ID is nil.")
+            return
+        }
+                
+        let isFavorite = checkIfFavorite(productId: productId, productName: productName)
+                
+        print("Toggling favorite status for product \(productName) with ID \(productId). Currently favorite: \(isFavorite)")
+                
+        if isFavorite {
+            removeFromFavorites(productId: productId, customerId: customerId)
+        } else {
+            addToFavorites(product: product, customerId: customerId)
+        }
+    }
+            
+    private func getProduct() -> Product? {
+        return viewModel.observableProduct
+    }
+            
+    private func getCustomerId() -> Int? {
+        return UserDefaultsHelper.shared.getLoggedInUserID()
+    }
+            
+    private func checkIfFavorite(productId: Int, productName: String) -> Bool {
+        return FavoriteCoreData.shared.isProductInFavorites(productId: productId, productName: productName)
+    }
+            
+    private func removeFromFavorites(productId: Int, customerId: Int) {
+        FavoriteCoreData.shared.deleteFromCoreData(productId: productId, customerId: customerId)
+        updateFavoriteButton(isFavorite: false)
+        print("Product removed from favorites.")
+    }
+            
+    private func addToFavorites(product: Product, customerId: Int) {
+        let favoriteData: [String: Any] = [
+            "id": product.id ?? 0,
+            "customer_id": customerId,
+            "variant_id": product.variants?.first?.id ?? 0,
+            "title": product.title ?? "",
+            "price": product.variants?.first?.price ?? "",
+            "image": product.images?.first?.src ?? ""
+        ]
+            
+        FavoriteCoreData.shared.saveToCoreData([favoriteData]) { success, error in
+                    if success {
+                print("Product added to favorites.")
+                self.updateFavoriteButton(isFavorite: true)
+            } else {
+                print("Error adding product to favorites: \(error?.localizedDescription ?? "Unknown error")")
             }
         }
+    }
+            
+    private func updateFavoriteButton(isFavorite: Bool) {
+        let imageName = isFavorite ? "heart.fill" : "heart"
+        favoriteButton.setImage(UIImage(systemName: imageName), for: .normal)
+    }
     
     @IBAction func goBack(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
@@ -178,56 +252,55 @@ class ProductDetailViewController: UIViewController {
     
     }
 
-    extension ProductDetailViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-        func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            if collectionView == sizeCollectionView {
-                return availableSizes.count
-            } else {
-                return viewModel.observableProduct?.images?.count ?? 0
-            }
+extension ProductDetailViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {        func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if collectionView == sizeCollectionView {
+            return availableSizes.count
+        } else {
+            return viewModel.observableProduct?.images?.count ?? 0
         }
+    }
         
-        func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            if collectionView == sizeCollectionView {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SizeOptionCell", for: indexPath) as! SizeOptionCell
-                cell.sizeLabel.text = availableSizes[indexPath.row]
-                return cell
-            } else {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductImageCell", for: indexPath) as! ProductImageCell
-                if let imageUrlString = viewModel.observableProduct?.images?[indexPath.row].src, let imageUrl = URL(string: imageUrlString) {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if collectionView == sizeCollectionView {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SizeOptionCell", for: indexPath) as! SizeOptionCell
+            cell.sizeLabel.text = availableSizes[indexPath.row]
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductImageCell", for: indexPath) as! ProductImageCell
+            if let imageUrlString = viewModel.observableProduct?.images?[indexPath.row].src, let imageUrl = URL(string: imageUrlString) {
                     cell.productImageView.loadImage(from: imageUrl)
                 }
                 return cell
             }
         }
         
-        func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-            if collectionView == sizeCollectionView {
-                selectedSize = availableSizes[indexPath.row]
-                if let selectedSize = selectedSize, let colorsForSelectedSize = sizeColorMap[selectedSize] {
-                    setupColorSelectorView(filteredColors: colorsForSelectedSize)
-                } else {
-                    setupColorSelectorView()
-                }
-            }
-        }
-        
-        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            if collectionView == sizeCollectionView {
-                return CGSize(width: 50, height: 50)
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == sizeCollectionView {
+            selectedSize = availableSizes[indexPath.row]
+            if let selectedSize = selectedSize, let colorsForSelectedSize = sizeColorMap[selectedSize] {
+                setupColorSelectorView(filteredColors: colorsForSelectedSize)
             } else {
-                return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
-            }
-        }
-        
-        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-            return 1
-        }
-        
-        func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-            if scrollView == ProductImagesCollection {
-                let page = Int(scrollView.contentOffset.x / scrollView.frame.width)
-                imageSlider.currentPage = page
+            setupColorSelectorView()
             }
         }
     }
+        
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if collectionView == sizeCollectionView {
+            return CGSize(width: 50, height: 50)
+        } else {
+            return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+        }
+    }
+        
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 1
+    }
+        
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if scrollView == ProductImagesCollection {
+            let page = Int(scrollView.contentOffset.x / scrollView.frame.width)
+            imageSlider.currentPage = page
+        }
+    }
+}

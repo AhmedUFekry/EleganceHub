@@ -1450,6 +1450,7 @@
                         <outlet property="ProductName" destination="KMa-Pb-ZUm" id="9hk-sI-VTc"/>
                         <outlet property="addToCartButton" destination="6vg-aR-nb2" id="e91-Nd-Jhq"/>
                         <outlet property="colorSelectorContainer" destination="XBv-EN-bfA" id="gdO-HH-iwn"/>
+                        <outlet property="favoriteButton" destination="5mH-Na-ddj" id="aUT-Cg-6Yv"/>
                         <outlet property="imageSlider" destination="C6T-g4-PuK" id="5ys-kc-Qyg"/>
                         <outlet property="productPrice" destination="K1O-oq-n28" id="oQ4-rJ-zpE"/>
                         <outlet property="sizeCollectionView" destination="NIj-cV-po1" id="DBA-tM-hGp"/>
