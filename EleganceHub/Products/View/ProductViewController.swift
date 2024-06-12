@@ -74,4 +74,19 @@ class ProductViewController: UIViewController, UITableViewDelegate, UITableViewD
         return 110
     }
     
+    // MARK: - Table view delegate
+        
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let product = productArray?[indexPath.section] {
+            navigateToProductDetail(product: product)
+        }
+    }
+        
+    func navigateToProductDetail(product: Product) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let productDetailVC = storyboard.instantiateViewController(withIdentifier: "ProductDetailViewController") as? ProductDetailViewController {
+            productDetailVC.productId = product.id
+            navigationController?.pushViewController(productDetailVC, animated: true)
+        }
+    }
 }

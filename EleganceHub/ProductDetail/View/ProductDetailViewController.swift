@@ -25,13 +25,14 @@ class ProductDetailViewController: UIViewController {
     
     var productItem:Product?
     var disposeBag = DisposeBag()
+    @IBOutlet weak var addToCartButton: UIButton!
     
     var colorSelectorView: ColorSelectorView!
         var availableSizes: [String] = []
         var availableColors: [String] = []
         var sizeColorMap: [String: [String]] = [:]
         var selectedSize: String?
-        var productId: Int?  // Static product Id
+        var productId: Int?
         var viewModel: ProductDetailViewModel!
     
         var customerId = 8229959500051

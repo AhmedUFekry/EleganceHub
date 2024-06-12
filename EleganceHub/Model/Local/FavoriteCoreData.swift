@@ -107,28 +107,29 @@ class FavoriteCoreData {
         }
     }
 
-    func deleteFromCoreData(id: Int) {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            return
-        }
-        let managedContext = appDelegate.persistentContainer.viewContext
-        
-        let idNumber = NSDecimalNumber(value: id)
-        
-        let fetchRequest: NSFetchRequest<FavoriteProduct> = FavoriteProduct.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "id == %@", idNumber)
-        
-        do {
-            let existingProducts = try managedContext.fetch(fetchRequest)
-            for product in existingProducts {
-                managedContext.delete(product)
+    func deleteFromCoreData(productId: Int, customerId: Int) {
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+                return
             }
-            try managedContext.save()
-            print("Product with id \(id) deleted from Core Data.")
-        } catch {
-            print("Error deleting product from Core Data: \(error.localizedDescription)")
+            let managedContext = appDelegate.persistentContainer.viewContext
+            
+            let idNumber = NSDecimalNumber(value: productId)
+            let customerIdNumber = NSDecimalNumber(value: customerId)
+            
+            let fetchRequest: NSFetchRequest<FavoriteProduct> = FavoriteProduct.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "id == %@ AND customer_id == %@", idNumber, customerIdNumber)
+            
+            do {
+                let existingProducts = try managedContext.fetch(fetchRequest)
+                for product in existingProducts {
+                    managedContext.delete(product)
+                }
+                try managedContext.save()
+                print("Product with id \(productId) and customer_id \(customerId) deleted from Core Data.")
+            } catch {
+                print("Error deleting product from Core Data: \(error.localizedDescription)")
+            }
         }
-    }
 
     func isProductInFavorites(productId: Int, productName: String) -> Bool {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
