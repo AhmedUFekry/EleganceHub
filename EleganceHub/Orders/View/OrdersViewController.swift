@@ -32,7 +32,7 @@ class OrdersViewController: UIViewController {
                self.orders = self.ordersViewModel.viewModelresult
                self.renderView()
            }
-           ordersViewModel.getOrders(customerId: "8229959500051") //5832201306387 "\(UserDefaultsHelper.shared.getLoggedInUserID())")
+           ordersViewModel.getOrders(customerId: "8199944831251") //5832201306387 "\(UserDefaultsHelper.shared.getLoggedInUserID())")
        }
        
 
@@ -65,9 +65,9 @@ class OrdersViewController: UIViewController {
        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
            let ordersCell = tableView.dequeueReusableCell(withIdentifier: "OrdersCell", for: indexPath) as! OrdersCell
            if let currentOrder = orders?[indexPath.section] {
-               ordersCell.orderIdLabel?.text = "\(currentOrder.id!)"
-               ordersCell.orderDateLabel?.text = currentOrder.email
-               // ordersCell.orderPriceLabel?.text = orders.subtotalPrice
+               ordersCell.orderIdLabel?.text = "\(currentOrder.customer?.id ?? 81254567)"
+               ordersCell.orderDateLabel?.text = currentOrder.createdAt?.split(separator: "T").first.map(String.init)
+               ordersCell.orderPriceLabel?.text = currentOrder.currentTotalPrice
            }
            return ordersCell
        }

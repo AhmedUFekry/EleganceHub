@@ -22,18 +22,25 @@
                         <rect key="frame" x="3" y="3" width="314" height="92"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="KWD-GL-yxy">
-                        <rect key="frame" x="102" y="36" width="67.666666666666686" height="59.333333333333343"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" fixedFrame="YES" text="ADIDAS | CLASSIC BACKPACK | LEGEND INK MULTICOLOUR" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5hk-on-5gW">
+                        <rect key="frame" x="102" y="1" width="218" height="51"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="KWD-GL-yxy">
+                        <rect key="frame" x="102" y="44" width="71" height="51.333333333333343"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XDM-oS-5Xq">
-                                <rect key="frame" x="0.0" y="0.0" width="67.666666666666671" height="20.333333333333332"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="0.0" y="0.0" width="71" height="20.333333333333332"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="$198.5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hCE-wb-tcT">
-                                <rect key="frame" x="0.0" y="41.333333333333329" width="67.666666666666671" height="18"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                <rect key="frame" x="0.0" y="33.333333333333329" width="71" height="18"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -42,28 +49,21 @@
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="adidas" translatesAutoresizingMaskIntoConstraints="NO" id="MBN-Pr-Oxl">
                         <rect key="frame" x="2" y="0.0" width="92" height="98"/>
                     </imageView>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="love" translatesAutoresizingMaskIntoConstraints="NO" id="LEu-Rd-98w">
-                        <rect key="frame" x="292" y="71" width="25" height="25"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="love" translatesAutoresizingMaskIntoConstraints="NO" id="LEu-Rd-98w">
+                        <rect key="frame" x="300" y="2" width="18" height="20"/>
                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" fixedFrame="YES" text="ADIDAS | CLASSIC BACKPACK | LEGEND INK MULTICOLOUR" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5hk-on-5gW">
-                        <rect key="frame" x="102" y="1" width="218" height="43"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="LEu-Rd-98w" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="71" id="0zc-bh-TKH"/>
+                    <constraint firstItem="LEu-Rd-98w" firstAttribute="leading" secondItem="MBN-Pr-Oxl" secondAttribute="trailing" constant="206" id="5lP-CF-J5Y"/>
                     <constraint firstAttribute="bottom" secondItem="vQe-Fz-cjW" secondAttribute="bottom" constant="3" id="EPT-8f-UTt"/>
-                    <constraint firstAttribute="trailing" secondItem="LEu-Rd-98w" secondAttribute="trailing" constant="3" id="NEb-8c-49r"/>
-                    <constraint firstItem="LEu-Rd-98w" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="292" id="OfW-06-aJT"/>
+                    <constraint firstAttribute="trailing" secondItem="LEu-Rd-98w" secondAttribute="trailing" constant="2" id="GIe-FB-0fe"/>
+                    <constraint firstAttribute="bottom" secondItem="LEu-Rd-98w" secondAttribute="bottom" constant="73" id="IG3-54-hJK"/>
                     <constraint firstItem="MBN-Pr-Oxl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="YbX-MT-9mt"/>
-                    <constraint firstAttribute="bottom" secondItem="LEu-Rd-98w" secondAttribute="bottom" constant="2" id="ag6-1s-wCu"/>
                     <constraint firstItem="KWD-GL-yxy" firstAttribute="leading" secondItem="MBN-Pr-Oxl" secondAttribute="trailing" constant="8" id="bDr-d0-ltZ"/>
                     <constraint firstItem="vQe-Fz-cjW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="3" id="bEn-LB-MhG"/>
                     <constraint firstItem="vQe-Fz-cjW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="3" id="bL6-L4-dwR"/>
+                    <constraint firstItem="LEu-Rd-98w" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="dFo-Zs-a7Z"/>
                     <constraint firstAttribute="bottom" secondItem="MBN-Pr-Oxl" secondAttribute="bottom" id="dHt-4f-PGG"/>
                     <constraint firstAttribute="bottom" secondItem="KWD-GL-yxy" secondAttribute="bottom" constant="2.6666666666666714" id="e9k-Yx-EEs"/>
                     <constraint firstItem="MBN-Pr-Oxl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-14" id="fLg-VK-AAq"/>

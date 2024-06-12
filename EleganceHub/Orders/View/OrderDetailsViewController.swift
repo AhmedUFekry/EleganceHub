@@ -29,8 +29,8 @@ class OrderDetailsViewController: UIViewController {
         setupOrder()
     }
     func setupOrder(){
-        orderId.text = "\(String(describing: selctedOrder?.id!))"
-        orderDate.text = selctedOrder?.createdAt
+        orderId.text = "\(String(describing: selctedOrder?.id ?? 1))"
+        orderDate.text = selctedOrder?.createdAt?.split(separator: "T").first.map(String.init)
         orderPrice.text = selctedOrder?.totalPrice
         productsOrderTableView.reloadData()
         activityIndicator.stopAnimating()
@@ -53,14 +53,14 @@ extension OrderDetailsViewController : UITableViewDataSource , UITableViewDelega
         let productsCell = tableView.dequeueReusableCell(withIdentifier: "productOrderCell", for: indexPath) as! ProductsTableViewCell
         if let product = selctedOrder?.lineItems?[indexPath.section] {
             productsCell.ProductTitle?.text = product.title
-            productsCell.productCategory?.text = "Quantity:\(String(describing: product.quantity))"
+            productsCell.productCategory?.text = "Quantity: \(String(describing: product.quantity ?? 2))"
             productsCell.productPrice?.text = product.price
             
-            let myString = product.sku ?? ""
-            let myArray = myString.split(separator: ",")
-            let img = String(myArray[1])
-            KF.url(URL(string: img))
-                .set(to: productsCell.productImage)
+//            let myString = product.sku ?? ""
+//            let myArray = myString.split(separator: ",")
+//            let img = String(myArray[1])
+//            KF.url(URL(string: img))
+//                .set(to: productsCell.productImage)
             
         }
         return productsCell
