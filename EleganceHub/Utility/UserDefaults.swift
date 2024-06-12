@@ -41,6 +41,25 @@ class UserDefaultsHelper:DatabaseServiceProtocol {
         userDefaults.set(false, forKey: "isLoggedIn")
     }
     
+    func setIfDataFound(_ id: Int,key: String) {
+         userDefaults.set(id, forKey: key)
+     }
+     
+     func getDataFound(key:String) -> Int? {
+         let id = userDefaults.integer(forKey: key)
+         print("\(key) \(id)")
+         return id
+         //!= 0 ? id : nil
+     }
+     
+     func clearUserData(key:String) {
+         userDefaults.removeObject(forKey: key)
+     }
+     
+     func isDataFound(key:String) -> Bool {
+         return userDefaults.bool(forKey: key)
+     }
+    
     func saveImage(_ image: UIImage) {
         if let imageData = image.pngData() {
             userDefaults.set(imageData, forKey: "savedImage")
@@ -57,6 +76,7 @@ class UserDefaultsHelper:DatabaseServiceProtocol {
     func clearImageProfile() {
         userDefaults.removeObject(forKey: "savedImage")
     }
+    
 }
 
 

@@ -48,3 +48,10 @@ enum Categories : String{
     case Sale = "484444406035" //   484445126931
 }
 
+enum UserDefaultsConstants: String {
+    case isLoggedIn
+    case loggedInUserID
+    case savedImage
+    case hasDraftOrder
+    case getDraftOrder
+}

@@ -26,7 +26,7 @@ class NetworkCall: NetworkProtocol{
                             
                    do {
                           let discountModel = try JSONDecoder().decode(DiscountModel.self, from: data)
-                          print("Price rules: \(discountModel)")
+                          //print("Price rules: \(discountModel)")
                        completionHandler(.success(discountModel))
                    } catch {
                        completionHandler(.failure(error))
@@ -49,7 +49,7 @@ class NetworkCall: NetworkProtocol{
             case .success(let data):
                 do {
                    let discountResponse = try JSONDecoder().decode(DiscountCodesResponse.self, from: data)
-                   print("Discount Code Response: \(discountResponse)")
+                   //print("Discount Code Response: \(discountResponse)")
                    completionHandler(.success(discountResponse))
                 } catch {
                     completionHandler(.failure(error))

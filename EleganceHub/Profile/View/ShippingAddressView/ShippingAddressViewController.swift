@@ -15,6 +15,9 @@ class ShippingAddressViewController: UIViewController,UpdateLocationDelegate {
     @IBOutlet weak var tableView:UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    var isFromCart:Bool = false
+    var orderID:Int? = nil
+    
     //var customerData:User? = User(id: 8222308237587, first_name: "shimaa", last_name: "shimo", email: "", password: "")
     var customerID:Int?
     
@@ -25,6 +28,7 @@ class ShippingAddressViewController: UIViewController,UpdateLocationDelegate {
         super.viewDidLoad()
         print("viewDidLoad")
         commenInit()
+        setupTableViewBinding()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -32,8 +36,10 @@ class ShippingAddressViewController: UIViewController,UpdateLocationDelegate {
         customerID = UserDefaultsHelper.shared.getLoggedInUserID()
         guard let id = customerID else {return}
         viewModel.getAllAddresses(customerID: id)
-        setupTableViewBinding()
+        
         loadingObserverSetUp()
+        
+        orderID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.getDraftOrder.rawValue)
     }
     
     private func commenInit(){
@@ -46,8 +52,16 @@ class ShippingAddressViewController: UIViewController,UpdateLocationDelegate {
         tableView.register(UINib(nibName: "AddressesTableViewCell", bundle: nil), forCellReuseIdentifier: "AddressesTableViewCell")
         
         tableView.separatorStyle = .none
-        tableView.allowsSelection = false
-        
+        if isFromCart{
+            tableView.allowsSelection = true
+            viewModel.navigateToNextScreen = {
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let viewController =  storyboard.instantiateViewController(withIdentifier: "PaymentViewController") as? PaymentViewController
+                self.navigationController?.pushViewController(viewController!, animated: true)
+            }
+        }else{
+            tableView.allowsSelection = false
+        }
         //tableView.rx.setDelegate(self)
                // .disposed(by: disposeBag)
     }
@@ -80,6 +94,14 @@ class ShippingAddressViewController: UIViewController,UpdateLocationDelegate {
         })
         .disposed(by: disposeBag)
 
+        tableView.rx.itemSelected.subscribe(onNext: {[weak self] indexPath in
+            guard let self = self else {return}
+            print("selected index is \(indexPath)")
+            //let selectedAddress = self.viewModel.addresses.value[indexPath.row]
+            print("selected item \(indexPath.item)")
+            self.confirmAlert(selectedAddressIndex: indexPath.row)
+        }).disposed(by: disposeBag)
+        
         tableView.rx.setDelegate(self).disposed(by: disposeBag)
     }
     private func loadingObserverSetUp(){
@@ -109,6 +131,21 @@ class ShippingAddressViewController: UIViewController,UpdateLocationDelegate {
     func didAddNewAddress() {
         guard let id = self.customerID else {return}
         viewModel.getAllAddresses(customerID: id)
+    }
+    
+    private func confirmAlert(selectedAddressIndex:Int){
+        let alert = UIAlertController(title: "Confirmation", message: "Are you sure you want to shipping to this address?", preferredStyle: .alert)
+        let okBtn = UIAlertAction(title: "Yes", style: .default) { _ in
+            print("Ok btn Tapped")
+            guard let id = self.orderID else {return}
+            if id != 0{
+                self.viewModel.addAddressToOrder(orderID: id, addressIndex:selectedAddressIndex)
+            }
+        }
+        let cancelBtn = UIAlertAction(title: "Cancel", style: .cancel)
+        alert.addAction(okBtn)
+        alert.addAction(cancelBtn)
+        self.present(alert, animated: true)
     }
 }
 

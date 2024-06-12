@@ -27,6 +27,8 @@ class ProductDetailNetworkService: DetailNetworkProtocol {
             }
         }
     }
+    
+    
 }
 
 //        let apiUrl = "https://2f2d859ed1f27082b1497dddfe0771dd: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@mad44-ism-ios1.myshopify.com/admin/api/2024-04/products/9425665655059.json"

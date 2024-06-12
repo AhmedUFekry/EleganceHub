@@ -10,7 +10,7 @@ import Foundation
 
 // MARK: - PostDraftOrderResponse
 struct PostDraftOrderResponse: Codable {
-    let draftOrders: DraftOrder?
+    var draftOrders: DraftOrder?
 
     enum CodingKeys: String, CodingKey {
         case draftOrders = "draft_order"
@@ -36,8 +36,8 @@ struct DraftOrder: Codable {
     let taxExempt: Bool?
     let completedAt: String?
     let name, status: String?
-    let lineItems: [LineItem]?
-    let shippingAddress, billingAddress: Address?
+    var lineItems: [LineItem]?
+    var shippingAddress, billingAddress: Address?
     let invoiceURL: String?
     let appliedDiscount: AppliedDiscount?
     let orderID: Int?
@@ -93,16 +93,16 @@ struct LineItem: Codable {
     let variantTitle: String?
     let productImage: String?
     let vendor: String?
-    let quantity: Int?
+    var quantity: Int?
     let requiresShipping, taxable, giftCard: Bool?
     let fulfillmentService: String?
     let grams: Int?
     let appliedDiscount: Bool?
     let name: String?
     let custom: Bool?
-    let price, adminGraphqlAPIID: String?
-    let properties: [Property]?
-
+    var price, adminGraphqlAPIID: String?
+    var properties: [Property]?
+    
     enum CodingKeys: String, CodingKey {
         case id
         case variantID = "variant_id"
@@ -125,7 +125,7 @@ struct LineItem: Codable {
 // MARK: - Property Of selected Item
 struct Property: Codable {
     let name: String?
-    let value: String?
+    var value: String?
 }
 
 // MARK: - MarketingConsent
@@ -167,5 +167,16 @@ struct Money: Codable {
     enum CodingKeys: String, CodingKey {
         case amount
         case currencyCode = "currency_code"
+    }
+}
+
+extension LineItem {
+    func toDictionary() -> [String: Any] {
+        let encoder = JSONEncoder()
+        guard let data = try? encoder.encode(self),
+              let dictionary = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
+            return [:]
+        }
+        return dictionary
     }
 }

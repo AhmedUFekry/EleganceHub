@@ -14,6 +14,16 @@ class AddressesViewModel:AddressesViewModelProtocol{
     let addresses: PublishSubject<[Address]> = PublishSubject<[Address]>()
     let isLoading: PublishSubject<Bool> = PublishSubject()
     let error: PublishSubject<Error> = PublishSubject()
+    private var addressesItem = [Address]()
+    
+    var navigateToNextScreen:(()->()) = {}
+    var didAddressAdded:Bool?{
+        didSet{
+            self.navigateToNextScreen()
+        }
+    }
+    
+    var networkService:CartNetworkServiceProtocol = CartNetworkService()
     
     var listOfCities: [String]? {
         didSet{
@@ -49,9 +59,7 @@ class AddressesViewModel:AddressesViewModelProtocol{
         let dispatchGroup = DispatchGroup()
         var list: [CountryDataModel] = []
         for code in NSLocale.isoCountryCodes{
-            
             dispatchGroup.enter()
-            
             let id = NSLocale.localeIdentifier(fromComponents: [NSLocale.Key.countryCode.rawValue: code])
             let countryName = NSLocale(localeIdentifier: "en_UK").displayName(forKey: NSLocale.Key.identifier, value: id)
             let locale = NSLocale.init(localeIdentifier: id)
@@ -92,6 +100,7 @@ class AddressesViewModel:AddressesViewModelProtocol{
                 .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .userInitiated))
                 .observe(on: MainScheduler.instance)
                 .subscribe(onNext: { [weak self] addressDataModel in
+                    self?.addressesItem = addressDataModel.addresses ?? []
                     self?.addresses.onNext(addressDataModel.addresses ?? [])
                     self?.isLoading.onNext(false)
                 }, onError: { [weak self] error in
@@ -114,6 +123,33 @@ class AddressesViewModel:AddressesViewModelProtocol{
                 self?.isLoading.onNext(false)
             })
             .disposed(by: disposeBag)
+    }
+    
+    func addAddressToOrder(orderID: Int, addressIndex: Int) {
+        isLoading.onNext(true)
+        networkService.getCustomerOrder(orderID: orderID) {[weak self] orderResponse in
+            guard let self = self else{return}
+            switch orderResponse{
+            case .success(let data):
+                print("getCustomerOrder data response draft order View model response \(data)")
+                var newOrder = PostDraftOrderResponse(draftOrders: data)
+                print("Data new Line Item  \(newOrder.draftOrders?.lineItems?.count)")
+                newOrder.draftOrders?.shippingAddress = self.addressesItem[addressIndex]
+                print("Data added addresses  \(newOrder.draftOrders?.shippingAddress?.address1)")
+                //self.updatedItemToOrder(orderID: orderID,updatedList: newOrder.draftOrders!)
+                self.networkService.addNewLineItemToDraftOrder(orderID: orderID,updatedDraftOrder: newOrder.draftOrders!)
+                    .subscribe(on:ConcurrentDispatchQueueScheduler(qos: .userInitiated))
+                    .subscribe(onError:{ error in
+                        self.error.onNext(error)
+                    }, onCompleted: {
+                        self.isLoading.onNext(false)
+                        print("Complete")
+                        self.didAddressAdded = true
+                    }).disposed(by: self.disposeBag)
+            case .failure(let err):
+                print("Error \(err)")
+            }
+        }
     }
     
 }
