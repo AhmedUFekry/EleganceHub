@@ -52,7 +52,7 @@ class CartViewController: UIViewController {
         countOfItemInCart.layer.cornerRadius = 8
         countOfItemInCart.layer.masksToBounds = true
         cartTableView.separatorStyle = .none
-        
+        cartTableView.allowsSelection = false
         
     }
     
@@ -62,8 +62,21 @@ class CartViewController: UIViewController {
     }
     
     @IBAction func checkoutBtn(_ sender: UIButton) {
-        let viewController =  self.storyboard?.instantiateViewController(withIdentifier: "PaymentViewController") as? PaymentViewController
-        self.navigationController?.pushViewController(viewController!, animated: true)
+        if customerID != nil {
+            if draftOrder != 0{
+                let locationVC = ShippingAddressViewController()
+//                //locationVC.delegate = self
+//                //self.present(locationVC, animated: true)
+                locationVC.isFromCart = true
+                self.navigationController?.pushViewController(locationVC, animated: true)
+//                let viewController =  self.storyboard?.instantiateViewController(withIdentifier: "PaymentViewController") as? PaymentViewController
+//                self.navigationController?.pushViewController(viewController!, animated: true)
+            }else{
+                self.showAlertError(err: "Your cart is Empty add new items to it to continue buying")
+            }
+        }else{
+            self.showAlertError(err: "Please Log in First")
+        }
     }
     
     private func setupTableViewBinding() {
@@ -166,7 +179,7 @@ class CartViewController: UIViewController {
         }.disposed(by: disposeBag)
     }
     private func showAlertError(err:String){
-        Constants.displayAlert(viewController: self,message: err, seconds: 3)
+        Constants.displayAlert(viewController: self,message: err, seconds: 2)
     }
     
    
