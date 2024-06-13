@@ -23,7 +23,21 @@ class ProductsTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
     }
-    
+    func setCellUI(product: LineItem) {
+        
+            ProductTitle?.text = product.title
+            productCategory?.text = "Quantity: \(String(describing: product.quantity ?? 2))"
+            productPrice?.text = product.price
+            
+            let placeholderImage = UIImage(named: "adidas")
+            if let imageURl = product.properties?.first {
+                productImage.kf.setImage(with: URL(string: imageURl.value ?? ""), placeholder: placeholderImage)
+            }else{
+                productImage.image = placeholderImage
+            }
+            
+        
+
+        }
 }

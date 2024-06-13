@@ -56,11 +56,12 @@ extension OrderDetailsViewController : UITableViewDataSource , UITableViewDelega
             productsCell.productCategory?.text = "Quantity: \(String(describing: product.quantity ?? 2))"
             productsCell.productPrice?.text = product.price
             
-//            let myString = product.sku ?? ""
-//            let myArray = myString.split(separator: ",")
-//            let img = String(myArray[1])
-//            KF.url(URL(string: img))
-//                .set(to: productsCell.productImage)
+            let placeholderImage = UIImage(named: "adidas")
+            if let imageURl = product.properties?.first {
+                productsCell.productImage.kf.setImage(with: URL(string: imageURl.value ?? ""), placeholder: placeholderImage)
+            }else{
+                productsCell.productImage.image = placeholderImage
+            }
             
         }
         return productsCell

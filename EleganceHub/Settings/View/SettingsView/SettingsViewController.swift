@@ -11,7 +11,6 @@ import RxCocoa
 
 class SettingsViewController: UIViewController {
     
-    @IBOutlet weak var darkMode: UISwitch!
     
     @IBOutlet weak var userFirstNameTF: UITextField!
     @IBOutlet weak var userEmailTF: UITextField!
@@ -34,7 +33,19 @@ class SettingsViewController: UIViewController {
         
         var loginViewModel: LoginViewModel?
         
-        override func viewDidLoad() {
+    @IBAction func darkModeSwitch(_ sender: UISwitch) {
+        if #available(iOS 13.0, *){
+            let appDelegate = UIApplication.shared.windows.first
+            if (sender as AnyObject).isOn {
+                appDelegate?.overrideUserInterfaceStyle = .dark
+                return
+            }else {
+                appDelegate?.overrideUserInterfaceStyle = .light
+                return
+            }
+        }
+    }
+    override func viewDidLoad() {
             super.viewDidLoad()
 
             uISetUp()

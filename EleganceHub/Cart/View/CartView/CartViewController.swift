@@ -65,8 +65,8 @@ class CartViewController: UIViewController {
         if customerID != nil {
             if draftOrder != 0{
                 let locationVC = ShippingAddressViewController()
-//                //locationVC.delegate = self
-//                //self.present(locationVC, animated: true)
+                //locationVC.delegate = self
+                //self.present(locationVC, animated: true)
                 locationVC.isFromCart = true
                 self.navigationController?.pushViewController(locationVC, animated: true)
 //                let viewController =  self.storyboard?.instantiateViewController(withIdentifier: "PaymentViewController") as? PaymentViewController

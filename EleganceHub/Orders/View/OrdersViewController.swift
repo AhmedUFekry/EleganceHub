@@ -32,10 +32,12 @@ class OrdersViewController: UIViewController {
                self.orders = self.ordersViewModel.viewModelresult
                self.renderView()
            }
-           ordersViewModel.getOrders(customerId: "8199944831251") //5832201306387 "\(UserDefaultsHelper.shared.getLoggedInUserID())")
+           ordersViewModel.getOrders(customerId:  "\(UserDefaultsHelper.shared.getLoggedInUserID()!)")
        }
        
-
+    override func viewDidAppear(_ animated: Bool) {
+        ordersViewModel.getOrders(customerId:  "\(UserDefaultsHelper.shared.getLoggedInUserID()!)")
+    }
        @objc func goBack() {
            self.navigationController?.popViewController(animated: true)
        }

@@ -108,7 +108,7 @@ class CartViewModel:CartViewModelProtocol{
         lineItemsList.onNext(items)
     }
     
-    func updateLatestListItem(orderID:Int){
+    func updateLatestListItem(orderID:Int) {
         networkService.getCustomerOrder(orderID: orderID) { orderResponse in
             switch orderResponse{
             case .success(let data):
