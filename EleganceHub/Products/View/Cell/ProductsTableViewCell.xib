@@ -4,8 +4,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -20,7 +20,7 @@
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vQe-Fz-cjW">
                         <rect key="frame" x="3" y="3" width="314" height="92"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="theme"/>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" fixedFrame="YES" text="ADIDAS | CLASSIC BACKPACK | LEGEND INK MULTICOLOUR" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5hk-on-5gW">
                         <rect key="frame" x="102" y="1" width="218" height="51"/>
@@ -54,6 +54,7 @@
                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </imageView>
                 </subviews>
+                <color key="backgroundColor" name="theme"/>
                 <constraints>
                     <constraint firstItem="LEu-Rd-98w" firstAttribute="leading" secondItem="MBN-Pr-Oxl" secondAttribute="trailing" constant="206" id="5lP-CF-J5Y"/>
                     <constraint firstAttribute="bottom" secondItem="vQe-Fz-cjW" secondAttribute="bottom" constant="3" id="EPT-8f-UTt"/>
@@ -85,8 +86,8 @@
     <resources>
         <image name="adidas" width="225" height="225"/>
         <image name="love" width="20" height="20"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <namedColor name="theme">
+            <color red="0.9588462752525253" green="0.9588462752525253" blue="0.9588462752525253" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
     </resources>
 </document>

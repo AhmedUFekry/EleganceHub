@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -55,7 +56,8 @@
                                 <viewLayoutGuide key="safeArea" id="4TG-ef-fFh"/>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="theme"/>
+                        <color key="tintColor" name="theme"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="PJw-Sb-f59" secondAttribute="trailing" constant="10" id="NTX-L3-sqa"/>
                             <constraint firstAttribute="bottom" secondItem="PJw-Sb-f59" secondAttribute="bottom" constant="8" id="vtA-26-YEW"/>
@@ -96,6 +98,8 @@
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <color key="backgroundColor" name="theme"/>
+                <color key="tintColor" name="theme"/>
                 <constraints>
                     <constraint firstItem="ucf-oV-mkr" firstAttribute="bottom" secondItem="R7l-lD-g7L" secondAttribute="bottom" constant="8" id="5Ao-ZQ-RWo"/>
                     <constraint firstItem="EiZ-de-0Qo" firstAttribute="leading" secondItem="ucf-oV-mkr" secondAttribute="leading" constant="98" id="A0V-Ky-N2y"/>
@@ -132,8 +136,8 @@
         <image name="coupon" width="675" height="371"/>
         <image name="icons8-minus-30" width="30" height="30"/>
         <image name="icons8-plus-30" width="30" height="30"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <namedColor name="theme">
+            <color red="0.9588462752525253" green="0.9588462752525253" blue="0.9588462752525253" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
     </resources>
 </document>

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -40,6 +42,7 @@
                         </constraints>
                     </imageView>
                 </subviews>
+                <color key="backgroundColor" name="theme"/>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="cjt-EW-c67" secondAttribute="trailing" constant="16" id="1Mz-sU-3se"/>
                     <constraint firstItem="kmr-4o-jmd" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Fwg-hF-hFO"/>
@@ -60,5 +63,8 @@
     <resources>
         <image name="continue" width="25" height="25"/>
         <image name="person_info" width="35" height="35"/>
+        <namedColor name="theme">
+            <color red="0.9588462752525253" green="0.9588462752525253" blue="0.9588462752525253" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
     </resources>
 </document>
