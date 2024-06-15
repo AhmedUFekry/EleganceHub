@@ -1513,6 +1513,7 @@
                         <outlet property="adressView" destination="Pzs-3G-MMk" id="eB4-hs-zfz"/>
                         <outlet property="backBtn" destination="Zc3-Jz-Ee8" id="uW2-Oh-tDK"/>
                         <outlet property="cityAddressLabel" destination="eER-81-Dzm" id="IZp-ZA-10i"/>
+                        <outlet property="copunTextField" destination="nF2-sl-73y" id="hwe-9P-T3O"/>
                         <outlet property="countryCallingLabel" destination="ZZ1-MP-PRd" id="gNk-uV-BHD"/>
                         <outlet property="countryLabel" destination="BnP-e5-TQ5" id="2mC-f0-Cld"/>
                         <outlet property="phoneLabel" destination="tyt-Oz-ep8" id="RRL-Rr-YjO"/>
