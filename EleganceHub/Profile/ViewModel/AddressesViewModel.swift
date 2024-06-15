@@ -16,10 +16,10 @@ class AddressesViewModel:AddressesViewModelProtocol{
     let error: PublishSubject<Error> = PublishSubject()
     private var addressesItem = [Address]()
     
-    var navigateToNextScreen:(()->()) = {}
-    var didAddressAdded:Bool?{
+    var navigateToNextScreen:((Address)->()) = {_ in}
+    var didAddressAdded:Address?{
         didSet{
-            self.navigateToNextScreen()
+            self.navigateToNextScreen(didAddressAdded!)
         }
     }
     
@@ -139,12 +139,14 @@ class AddressesViewModel:AddressesViewModelProtocol{
                 //self.updatedItemToOrder(orderID: orderID,updatedList: newOrder.draftOrders!)
                 self.networkService.addNewLineItemToDraftOrder(orderID: orderID,updatedDraftOrder: newOrder.draftOrders!)
                     .subscribe(on:ConcurrentDispatchQueueScheduler(qos: .userInitiated))
-                    .subscribe(onError:{ error in
+                    .subscribe(onNext: { response in
+                        print("Added address is \(response.draftOrders?.shippingAddress)")
+                    },onError:{ error in
                         self.error.onNext(error)
                     }, onCompleted: {
                         self.isLoading.onNext(false)
                         print("Complete")
-                        self.didAddressAdded = true
+                        self.didAddressAdded = self.addressesItem[addressIndex]
                     }).disposed(by: self.disposeBag)
             case .failure(let err):
                 print("Error \(err)")

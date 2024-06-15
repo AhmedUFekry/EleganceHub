@@ -23,5 +23,5 @@ protocol AddressesViewModelProtocol{
     var failureResponse:((_ error:String) -> ()) {get set}
     
     func addAddressToOrder(orderID:Int,addressIndex:Int)
-    var navigateToNextScreen:(()->()) {get set}
+    var navigateToNextScreen:((Address)->()) {get set}
 }

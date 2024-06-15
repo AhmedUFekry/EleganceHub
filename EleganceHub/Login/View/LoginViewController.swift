@@ -125,11 +125,11 @@ class LoginViewController: UIViewController {
                 }
             }
             
-            private func navigateToHome() {
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                if let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarViewController") as? UITabBarController {
-                    tabBarController.modalPresentationStyle = .fullScreen
-                    present(tabBarController, animated: true, completion: nil)
-                }
-            }
+    private func navigateToHome() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarViewController") as? UITabBarController {
+            tabBarController.modalPresentationStyle = .fullScreen
+            present(tabBarController, animated: true, completion: nil)
         }
+    }
+}

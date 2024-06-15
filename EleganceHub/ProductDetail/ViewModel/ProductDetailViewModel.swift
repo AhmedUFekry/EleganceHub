@@ -156,5 +156,6 @@ class ProductDetailViewModel: ProductDetailViewModelProtocol {
 enum MyError: Error {
     case noDraftOrders
     case networkError(String)
+    case errorAtCopuns
 }
 

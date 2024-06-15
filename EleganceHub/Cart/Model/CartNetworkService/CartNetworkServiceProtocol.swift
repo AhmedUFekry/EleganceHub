@@ -15,4 +15,9 @@ protocol CartNetworkServiceProtocol{
     func getDraftOrderForUser(orderID:Int) -> Observable<PostDraftOrderResponse>
     func getAllDraftOrders() -> Observable<DraftOrdersResponse>
     func deleteDraftOrder(orderID:Int) -> Observable<Bool>
+    
+    func checkForCopuns(discountCode:String, completionHandler: @escaping (Result<DiscountCodes, Error>) -> Void)
+    func updateDraftOrder(orderID:Int, draftOrder:DraftOrder) ->Observable<PostDraftOrderResponse>
+    func getPriceRule(priceRuleID:Int, completionHandler: @escaping (Result<PriceRule, Error>) -> Void)
+    
 }
