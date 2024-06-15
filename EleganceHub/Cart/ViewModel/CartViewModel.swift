@@ -12,11 +12,14 @@ import RxRelay
 class CartViewModel:CartViewModelProtocol{
     
     var lineItemsList: PublishSubject<[LineItem]> = PublishSubject<[LineItem]>()
+    var draftOrder: PublishSubject<DraftOrder> = PublishSubject<DraftOrder>()
     var isLoading: BehaviorRelay<Bool> = BehaviorRelay<Bool>(value: false)
+    var isValiedCopoun: BehaviorRelay<Bool> = BehaviorRelay<Bool>(value: false)
     
     var error: PublishSubject<Error> = PublishSubject<Error>()
     
     var networkService:CartNetworkServiceProtocol = CartNetworkService()
+    
     private let disposeBag = DisposeBag()
     private var items = [LineItem]()
     
@@ -28,6 +31,11 @@ class CartViewModel:CartViewModelProtocol{
             .subscribe {[weak self] draftOrdersResponse in
                 self?.isLoading.accept(false)
                 self?.items = draftOrdersResponse.draftOrders?.lineItems ?? []
+                if let draftOrder = draftOrdersResponse.draftOrders {
+                    self?.draftOrder.onNext(draftOrder)
+                }else{
+                    self?.error.onNext(MyError.noDraftOrders)
+                }
                 self?.lineItemsList.onNext(draftOrdersResponse.draftOrders?.lineItems ?? [])
                 //self?.lineItemsList.onCompleted()
             } onError: {[weak self] error in
@@ -97,6 +105,7 @@ class CartViewModel:CartViewModelProtocol{
         print("incrementQuantity q = \(q) and after added is \( items[index].quantity) the all quantity is \(items[index].properties![1].value!)")
         lineItemsList.onNext(items)
     }
+    
     func decremantQuantity(at index: Int){
         guard index < items.count else { return }
         guard let q = items[index].quantity else{return}
@@ -129,4 +138,62 @@ class CartViewModel:CartViewModelProtocol{
             }
         }
     }
+    
+    func checkForCopuns(copunsString: String, draftOrder:DraftOrder) {
+        networkService.checkForCopuns(discountCode: copunsString) { result in
+            switch result{
+                case .success(let response):
+                    DispatchQueue.global(qos: .userInitiated).async {
+                        if let id = response.price_rule_id {
+                            self.networkService.getPriceRule(priceRuleID: id){ response in
+                                switch response{
+                                case .success(let data):
+                                    //print("Price Rule response is \(data.title)")
+                                    
+                                    var value = 1.0
+                                    if let stringValue = data.value, let doubleValue = Double(stringValue) {
+                                        print("Double value: \(doubleValue * -1)")
+                                        value = doubleValue * -1.0
+                                    } else {
+                                        print("Failed to convert optional string to Double")
+                                    }
+                                   let discount = AppliedDiscount(description: nil, value: "\(value)" , title: data.title, amount: nil, valueType: data.value_type)
+                                    //print("Discount \(discount)")
+                                    var newDraftOrder = draftOrder
+                                    newDraftOrder.appliedDiscount = discount
+                                        //print("Discount new dtaft order \(newDraftOrder)")
+                                        //print("Discount dtaft order \(draftOrder)")
+                                    self.updateDraftOrder(orderID: newDraftOrder.id!, draftOrder: newDraftOrder)
+                                case .failure(let error):
+                                    print("Error in priceRule \(error)")
+                                    self.error.onNext(MyError.errorAtCopuns)
+                                }
+                            }
+                        }
+                    }
+                case .failure(let err):
+                    print("responseeeeee error \(err)")
+                self.error.onNext(MyError.errorAtCopuns)
+            }
+        }
+    }
+    
+    func updateDraftOrder(orderID:Int, draftOrder:DraftOrder){
+        networkService.updateDraftOrder(orderID: orderID, draftOrder: draftOrder)
+            .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .userInitiated))
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: {[weak self] draftResponse in
+                guard let order = draftResponse.draftOrders else {
+                    self?.error.onNext(MyError.noDraftOrders)
+                    return
+                }
+                print("Updated draft order \(draftResponse.draftOrders)")
+                self?.isValiedCopoun.accept(true)
+                self?.draftOrder.onNext(order)
+                self?.lineItemsList.onNext(order.lineItems ?? [])
+            }, onError: { [weak self] error in
+                self?.error.onNext(error)
+            }).disposed(by: disposeBag)
+    }
+    
 }

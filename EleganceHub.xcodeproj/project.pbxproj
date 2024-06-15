@@ -24,11 +24,14 @@
 		036C9EA92C0A855300CEEE92 /* CustomAppBarUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036C9EA82C0A855300CEEE92 /* CustomAppBarUIView.swift */; };
 		0383BC4B2C0BD0AA00855384 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0383BC4A2C0BD0A900855384 /* ProfileViewController.swift */; };
 		0383BC502C0BEBE900855384 /* ShippingAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0383BC4E2C0BEBE900855384 /* ShippingAddressViewController.xib */; };
+		038BB8532C1CEE9000E2C7D1 /* PaymentServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038BB8522C1CEE9000E2C7D1 /* PaymentServiceProtocol.swift */; };
+		038BB8552C1CEEF900E2C7D1 /* PaymentNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038BB8542C1CEEF900E2C7D1 /* PaymentNetworkService.swift */; };
+		03A50CEA2C1C4C8900928EE4 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 03A50CE82C1C4C8900928EE4 /* Model.xcdatamodeld */; };
 		03A7F5522C01484000F68AC7 /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A7F5512C01484000F68AC7 /* CartViewController.swift */; };
 		03A7F5552C0164E500F68AC7 /* CartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A7F5532C0164E500F68AC7 /* CartTableViewCell.swift */; };
 		03A7F5562C0164E500F68AC7 /* CartTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03A7F5542C0164E500F68AC7 /* CartTableViewCell.xib */; };
 		03B13AD72C172351006A2234 /* DiscountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B13AD62C172351006A2234 /* DiscountModel.swift */; };
-		03B13ADB2C173164006A2234 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 03B13AD92C173163006A2234 /* Model.xcdatamodeld */; };
+		03B13ADB2C173164006A2234 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		03B68E002C019AAE0054DA74 /* DraftOrderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B68DFF2C019AAE0054DA74 /* DraftOrderModel.swift */; };
 		03B68E052C019DAE0054DA74 /* PaymentMethodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B68E032C019DAE0054DA74 /* PaymentMethodTableViewCell.swift */; };
 		03B68E062C019DAE0054DA74 /* PaymentMethodTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03B68E042C019DAE0054DA74 /* PaymentMethodTableViewCell.xib */; };
@@ -55,6 +58,7 @@
 		03D6C5B72C0C4F9F00254753 /* CountryItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D6C5B62C0C4F9F00254753 /* CountryItemView.swift */; };
 		03DE27142C080C0300E18567 /* NetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DE27132C080C0300E18567 /* NetworkProtocol.swift */; };
 		03DE27162C08207100E18567 /* ViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DE27152C08207100E18567 /* ViewModelProtocol.swift */; };
+		03E84A672C1C896D00D75B5F /* PaymentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E84A662C1C896D00D75B5F /* PaymentViewModel.swift */; };
 		3BC297D75085200E575E3889 /* Pods_EleganceHub_EleganceHubUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5380FBCB266D4065C010708 /* Pods_EleganceHub_EleganceHubUITests.framework */; };
 		78E6C913A67E1D0956C26FF0 /* Pods_EleganceHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C949754F3348588708BF29C /* Pods_EleganceHub.framework */; };
 		7F1BEEDB2C14D71500C5A114 /* SuperCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1BEEDA2C14D71500C5A114 /* SuperCategoryViewController.swift */; };
@@ -85,7 +89,6 @@
 		7F3E46B82C0149340096211E /* ProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3E46B72C0149340096211E /* ProductViewController.swift */; };
 		7F3E46BA2C01E7260096211E /* ProductsCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3E46B92C01E7260096211E /* ProductsCall.swift */; };
 		7FF3BF6C2C163D0A00E7EABC /* OrderDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF3BF6B2C163D0A00E7EABC /* OrderDetailsViewController.swift */; };
-		7FF3BF722C184F8C00E7EABC /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7FF3BF702C184F8C00E7EABC /* Model.xcdatamodeld */; };
 		7FF3BFA92C19C8F900E7EABC /* OrderCheckOutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF3BFA82C19C8F900E7EABC /* OrderCheckOutViewController.swift */; };
 		C88C205D2BFE8CAF00886365 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C205C2BFE8CAF00886365 /* AppDelegate.swift */; };
 		C88C205F2BFE8CAF00886365 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C205E2BFE8CAF00886365 /* SceneDelegate.swift */; };
@@ -164,11 +167,14 @@
 		0383BC4A2C0BD0A900855384 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		0383BC4D2C0BEBE900855384 /* ShippingAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShippingAddressViewController.swift; sourceTree = "<group>"; };
 		0383BC4E2C0BEBE900855384 /* ShippingAddressViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShippingAddressViewController.xib; sourceTree = "<group>"; };
+		038BB8522C1CEE9000E2C7D1 /* PaymentServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentServiceProtocol.swift; sourceTree = "<group>"; };
+		038BB8542C1CEEF900E2C7D1 /* PaymentNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentNetworkService.swift; sourceTree = "<group>"; };
+		038BB8562C1CF80500E2C7D1 /* EleganceHub.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EleganceHub.entitlements; sourceTree = "<group>"; };
+		03A50CE92C1C4C8900928EE4 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		03A7F5512C01484000F68AC7 /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
 		03A7F5532C0164E500F68AC7 /* CartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartTableViewCell.swift; sourceTree = "<group>"; };
 		03A7F5542C0164E500F68AC7 /* CartTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CartTableViewCell.xib; sourceTree = "<group>"; };
 		03B13AD62C172351006A2234 /* DiscountModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiscountModel.swift; path = "EleganceHub/Home/Model/New Group/DiscountModel.swift"; sourceTree = SOURCE_ROOT; };
-		03B13ADA2C173163006A2234 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		03B68DFF2C019AAE0054DA74 /* DraftOrderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftOrderModel.swift; sourceTree = "<group>"; };
 		03B68E032C019DAE0054DA74 /* PaymentMethodTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodTableViewCell.swift; sourceTree = "<group>"; };
 		03B68E042C019DAE0054DA74 /* PaymentMethodTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentMethodTableViewCell.xib; sourceTree = "<group>"; };
@@ -194,6 +200,7 @@
 		03D6C5B62C0C4F9F00254753 /* CountryItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryItemView.swift; sourceTree = "<group>"; };
 		03DE27132C080C0300E18567 /* NetworkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProtocol.swift; sourceTree = "<group>"; };
 		03DE27152C08207100E18567 /* ViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelProtocol.swift; sourceTree = "<group>"; };
+		03E84A662C1C896D00D75B5F /* PaymentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewModel.swift; sourceTree = "<group>"; };
 		0DC1630ABF143E093FFAB7C0 /* Pods_EleganceHubTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EleganceHubTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BE2F76C89CB56A6C91EF8B7 /* Pods-EleganceHubTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EleganceHubTests.debug.xcconfig"; path = "Target Support Files/Pods-EleganceHubTests/Pods-EleganceHubTests.debug.xcconfig"; sourceTree = "<group>"; };
 		3C949754F3348588708BF29C /* Pods_EleganceHub.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EleganceHub.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -225,7 +232,6 @@
 		7F3E46B72C0149340096211E /* ProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductViewController.swift; sourceTree = "<group>"; };
 		7F3E46B92C01E7260096211E /* ProductsCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsCall.swift; sourceTree = "<group>"; };
 		7FF3BF6B2C163D0A00E7EABC /* OrderDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailsViewController.swift; sourceTree = "<group>"; };
-		7FF3BF712C184F8C00E7EABC /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		7FF3BFA82C19C8F900E7EABC /* OrderCheckOutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCheckOutViewController.swift; sourceTree = "<group>"; };
 		8742FAA0010C6E09FF4C59DC /* Pods-EleganceHubTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EleganceHubTests.release.xcconfig"; path = "Target Support Files/Pods-EleganceHubTests/Pods-EleganceHubTests.release.xcconfig"; sourceTree = "<group>"; };
 		8964028234E4E728CF2EA612 /* Pods-EleganceHub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EleganceHub.debug.xcconfig"; path = "Target Support Files/Pods-EleganceHub/Pods-EleganceHub.debug.xcconfig"; sourceTree = "<group>"; };
@@ -380,6 +386,16 @@
 			path = ShippingAddressView;
 			sourceTree = "<group>";
 		};
+		038BB8512C1CE62500E2C7D1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				03B68E092C01A3160054DA74 /* PaymentMethodModel.swift */,
+				038BB8522C1CEE9000E2C7D1 /* PaymentServiceProtocol.swift */,
+				038BB8542C1CEEF900E2C7D1 /* PaymentNetworkService.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		03A7F54D2C01440A00F68AC7 /* Cart */ = {
 			isa = PBXGroup;
 			children = (
@@ -393,8 +409,8 @@
 		03A7F54E2C0147F500F68AC7 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				03B68E022C019D8E0054DA74 /* PaymentView */,
 				03B68E012C019D750054DA74 /* CartView */,
+				7FF3BFA82C19C8F900E7EABC /* OrderCheckOutViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -404,7 +420,6 @@
 			children = (
 				03BAA1372C14811A00A325AB /* CartNetworkService */,
 				03B68DFF2C019AAE0054DA74 /* DraftOrderModel.swift */,
-				03B68E092C01A3160054DA74 /* PaymentMethodModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -543,6 +558,32 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		03E84A632C1C882E00D75B5F /* Payment */ = {
+			isa = PBXGroup;
+			children = (
+				038BB8512C1CE62500E2C7D1 /* Model */,
+				03E84A652C1C892C00D75B5F /* ViewModel */,
+				03E84A642C1C883800D75B5F /* View */,
+			);
+			path = Payment;
+			sourceTree = "<group>";
+		};
+		03E84A642C1C883800D75B5F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				03B68E022C019D8E0054DA74 /* PaymentView */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		03E84A652C1C892C00D75B5F /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				03E84A662C1C896D00D75B5F /* PaymentViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		03F4232D2C0FE8BC00002316 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -652,7 +693,6 @@
 				7F1BEEF12C15137100C5A114 /* Cell */,
 				7F1BEEED2C14F6D700C5A114 /* OrdersViewController.swift */,
 				7FF3BF6B2C163D0A00E7EABC /* OrderDetailsViewController.swift */,
-				7FF3BFA82C19C8F900E7EABC /* OrderCheckOutViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -825,6 +865,8 @@
 		C88C205B2BFE8CAF00886365 /* EleganceHub */ = {
 			isa = PBXGroup;
 			children = (
+				038BB8562C1CF80500E2C7D1 /* EleganceHub.entitlements */,
+				03E84A632C1C882E00D75B5F /* Payment */,
 				D4883C762C15420F00EE6C78 /* Model */,
 				D4883C682C1506C300EE6C78 /* Favorite */,
 				7F1BEEE52C14DD7D00C5A114 /* Orders */,
@@ -847,8 +889,7 @@
 				C88C20672BFE8CB400886365 /* LaunchScreen.storyboard */,
 				C88C206A2BFE8CB400886365 /* Info.plist */,
 				D403E2712C00AA4C00AE9C68 /* GoogleService-Info.plist */,
-
-				7FF3BF702C184F8C00E7EABC /* Model.xcdatamodeld */,
+				03A50CE82C1C4C8900928EE4 /* Model.xcdatamodeld */,
 			);
 			path = EleganceHub;
 			sourceTree = "<group>";
@@ -1355,19 +1396,21 @@
 				7F359E8A2BFE9CFC00D0D733 /* TabBarCorners.swift in Sources */,
 				7F1BEEF02C1507EC00C5A114 /* OrdersService.swift in Sources */,
 				03DE27142C080C0300E18567 /* NetworkProtocol.swift in Sources */,
+				03A50CEA2C1C4C8900928EE4 /* Model.xcdatamodeld in Sources */,
 				03BAA1392C14814200A325AB /* CartNetworkServiceProtocol.swift in Sources */,
 				D4883C5B2C11301700EE6C78 /* ProductDetailViewModel.swift in Sources */,
-				7FF3BF722C184F8C00E7EABC /* Model.xcdatamodeld in Sources */,
 				031F8E002C0C591700BA92CF /* NetworkService.swift in Sources */,
 				03BAA13B2C14815700A325AB /* CartNetworkService.swift in Sources */,
 				031F8E022C0C592600BA92CF /* NetworkServiceProtocol.swift in Sources */,
 				7F3E46B82C0149340096211E /* ProductViewController.swift in Sources */,
+				038BB8532C1CEE9000E2C7D1 /* PaymentServiceProtocol.swift in Sources */,
 				C88C205F2BFE8CAF00886365 /* SceneDelegate.swift in Sources */,
 				7F359E962BFEBD7200D0D733 /* HomeViewController.swift in Sources */,
 				D4883C6E2C15071900EE6C78 /* FavoriteViewController.swift in Sources */,
 				03B68E052C019DAE0054DA74 /* PaymentMethodTableViewCell.swift in Sources */,
 				D4883C572C112A2100EE6C78 /* ColorSelectorView.swift in Sources */,
 				D4883C5D2C11304200EE6C78 /* ProductDetailNetworkService.swift in Sources */,
+				038BB8552C1CEEF900E2C7D1 /* PaymentNetworkService.swift in Sources */,
 				D4F168592C0A603F00551795 /* Variants.swift in Sources */,
 				7F359E982BFF4DC500D0D733 /* CouponsCollectionViewCell.swift in Sources */,
 				D4883C532C11261D00EE6C78 /* SizeOptionCell.swift in Sources */,
@@ -1386,7 +1429,7 @@
 				7F1BEEEE2C14F6D800C5A114 /* OrdersViewController.swift in Sources */,
 				7F1BEEEC2C14E01900C5A114 /* OrdersResponse.swift in Sources */,
 				D478FC682BFF49D700BBA2BB /* WelcomeViewController.swift in Sources */,
-				03B13ADB2C173164006A2234 /* Model.xcdatamodeld in Sources */,
+				03B13ADB2C173164006A2234 /* (null) in Sources */,
 				0383BC4B2C0BD0AA00855384 /* ProfileViewController.swift in Sources */,
 				7F1BEEDB2C14D71500C5A114 /* SuperCategoryViewController.swift in Sources */,
 				036717242C0C171C00BFB9DC /* LocationViewController.swift in Sources */,
@@ -1404,6 +1447,7 @@
 				7F1BEEE22C14D74E00C5A114 /* CategoryViewModel.swift in Sources */,
 				D4F1685F2C0A72CD00551795 /* SearchViewModel.swift in Sources */,
 				D4883C702C1539C300EE6C78 /* FavoriteProduct.swift in Sources */,
+				03E84A672C1C896D00D75B5F /* PaymentViewModel.swift in Sources */,
 				7F3E46A22BFFF3160096211E /* SmartCollections.swift in Sources */,
 				03C396802C0FFD7A00FFADF7 /* SettingCellModelData.swift in Sources */,
 				D478FC682BFF49D700BBA2BB /* WelcomeViewController.swift in Sources */,
@@ -1607,6 +1651,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = EleganceHub/EleganceHub.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = MWZJ3A6CNJ;
@@ -1636,6 +1681,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = EleganceHub/EleganceHub.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = MWZJ3A6CNJ;
@@ -1781,16 +1827,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-
-		7FF3BF702C184F8C00E7EABC /* Model.xcdatamodeld */ = {
+		03A50CE82C1C4C8900928EE4 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				7FF3BF712C184F8C00E7EABC /* Model.xcdatamodel */,
+				03A50CE92C1C4C8900928EE4 /* Model.xcdatamodel */,
 			);
-			currentVersion = 7FF3BF712C184F8C00E7EABC /* Model.xcdatamodel */;
-			name = Model.xcdatamodeld;
-			path = /Users/raneem/Documents/GraduationProject/EleganceHub/EleganceHub/Model.xcdatamodeld;
-
+			currentVersion = 03A50CE92C1C4C8900928EE4 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

@@ -6,9 +6,14 @@
 //
 
 import Foundation
+import RxSwift
+import RxRelay
 
 class OrdersViewModel {
-
+    var disposeBag = DisposeBag()
+    let networkService:CartNetworkServiceProtocol = CartNetworkService()
+    let isCompleteOrder:BehaviorRelay<Bool> = BehaviorRelay<Bool>(value: false)
+    
     var orderService: OrdersServiceProtocol?
     init(orderService: OrdersServiceProtocol) {
         self.orderService = orderService
@@ -38,12 +43,6 @@ class OrdersViewModel {
         }
     }
     
-    func completeDraftOrder(orderID: Int, completion: @escaping (Bool, Error?) -> Void) {
-           orderService?.completeDraftOrder(orderID: orderID) { success, error in
-               completion(success, error)
-           }
-       }
-       
     func getOrderForCustomer(orderID: Int) {
         orderService?.getDraftOrderForUser(orderID: orderID) { [weak self] result, error in
             if let draftResult = result {
@@ -53,4 +52,6 @@ class OrdersViewModel {
             }
         }
     }
+    
+   
 }

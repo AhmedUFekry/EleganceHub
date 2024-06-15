@@ -14,6 +14,8 @@ protocol CartViewModelProtocol{
     var isLoading: BehaviorRelay<Bool> { get set }
     var error: PublishSubject<Error> { get set }
     var lineItemsList: PublishSubject<[LineItem]> {get set}
+    var draftOrder: PublishSubject<DraftOrder>{get set}
+    var isValiedCopoun: BehaviorRelay<Bool> {get set}
     
     //func addToCart(customerID:Int,product: Product,selectedSize:String)
     
@@ -24,4 +26,6 @@ protocol CartViewModelProtocol{
     func decremantQuantity(at index: Int)
     func incrementQuantity(at index: Int)
     func updateLatestListItem(orderID:Int)
+    
+    func checkForCopuns(copunsString:String, draftOrder:DraftOrder)
 }

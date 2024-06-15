@@ -16,24 +16,24 @@ class OrdersViewController: UIViewController {
     var ordersViewModel = OrdersViewModel(orderService: OrdersService())
     var selectedOrder: Order?
 
-       override func viewDidLoad() {
-           super.viewDidLoad()
-           activityIndicator.startAnimating()
-           appBar.lableTitle.text = "Orders"
-           appBar.secoundTrailingIcon.isHidden = true
-           appBar.backBtn.addTarget(self, action: #selector(goBack), for: .touchUpInside)
-           
-           let ordersNibCell = UINib(nibName: "OrdersCell", bundle: nil)
-           ordersTableView.register(ordersNibCell, forCellReuseIdentifier: "OrdersCell")
-           
-           ordersViewModel.bindResultToViewController = {
-               [weak self] in
-               guard let self = self else { return }
-               self.orders = self.ordersViewModel.viewModelresult
-               self.renderView()
-           }
-           ordersViewModel.getOrders(customerId:  "\(UserDefaultsHelper.shared.getLoggedInUserID()!)")
+   override func viewDidLoad() {
+       super.viewDidLoad()
+       activityIndicator.startAnimating()
+       appBar.lableTitle.text = "Orders"
+       appBar.secoundTrailingIcon.isHidden = true
+       appBar.backBtn.addTarget(self, action: #selector(goBack), for: .touchUpInside)
+       
+       let ordersNibCell = UINib(nibName: "OrdersCell", bundle: nil)
+       ordersTableView.register(ordersNibCell, forCellReuseIdentifier: "OrdersCell")
+       
+       ordersViewModel.bindResultToViewController = {
+           [weak self] in
+           guard let self = self else { return }
+           self.orders = self.ordersViewModel.viewModelresult
+           self.renderView()
        }
+       ordersViewModel.getOrders(customerId:  "\(UserDefaultsHelper.shared.getLoggedInUserID()!)")
+   }
        
     override func viewDidAppear(_ animated: Bool) {
         ordersViewModel.getOrders(customerId:  "\(UserDefaultsHelper.shared.getLoggedInUserID()!)")
@@ -49,8 +49,6 @@ class OrdersViewController: UIViewController {
                self.activityIndicator.isHidden = true
            }
        }
-
-       
    }
 
    extension OrdersViewController: UITableViewDelegate, UITableViewDataSource {

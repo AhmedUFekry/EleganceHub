@@ -48,26 +48,42 @@ class ShippingAddressViewController: UIViewController, UpdateLocationDelegate {
         tableView.separatorStyle = .none
         tableView.allowsSelection = isFromCart
         
-        if isFromCart {
+        if isFromCart{
             setupNavigation()
-        }
-    }
-    
-    private func setupNavigation() {
-        tableView.rx.itemSelected
-            .withLatestFrom(viewModel.addresses) { (indexPath, addresses) in
-                return (indexPath, addresses)
-            }
-            .subscribe(onNext: { [weak self] (indexPath, addresses) in
-                guard let self = self else { return }
-                let selectedAddress = addresses[indexPath.row]
+            viewModel.navigateToNextScreen = { selectedAddress in
+                //let selectedAddress = viewModel.addresses[indexPath.row]
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 if let viewController = storyboard.instantiateViewController(withIdentifier: "OrderCheckOutViewController") as? OrderCheckOutViewController {
                     viewController.selectedAddress = selectedAddress
                     self.navigationController?.pushViewController(viewController, animated: true)
                 }
-            })
-            .disposed(by: disposeBag)
+            }
+        }
+    }
+    
+    private func setupNavigation() {
+//        tableView.rx.itemSelected
+//            .withLatestFrom(viewModel.addresses) { (indexPath, addresses) in
+//                return (indexPath, addresses)
+//            }
+//            .subscribe(onNext: { [weak self] (indexPath, addresses) in
+//                guard let self = self else { return }
+//                let selectedAddress = addresses[indexPath.row]
+//                viewModel.addAddressToOrder(orderID: orderID!, addressIndex: indexPath.row)
+//                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//                if let viewController = storyboard.instantiateViewController(withIdentifier: "OrderCheckOutViewController") as? OrderCheckOutViewController {
+//                    viewController.selectedAddress = selectedAddress
+//                    self.navigationController?.pushViewController(viewController, animated: true)
+//                }
+//            })
+//            .disposed(by: disposeBag)
+        tableView.rx.itemSelected.subscribe(onNext: {[weak self] indexPath in
+                    guard let self = self else {return}
+                    print("selected index is \(indexPath)")
+                    //let selectedAddress = self.viewModel.addresses.value[indexPath.row]
+                    print("selected item \(indexPath.item)")
+                    self.confirmAlert(selectedAddressIndex: indexPath.row)
+                }).disposed(by: disposeBag)
     }
     
     @objc func goBack() {
