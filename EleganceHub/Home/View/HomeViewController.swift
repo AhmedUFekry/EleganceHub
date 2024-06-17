@@ -121,7 +121,8 @@ class HomeViewController: UIViewController {
     
     @IBAction func searchBtn(_ sender: UIBarButtonItem) {
         let searchViewController = SearchViewController(nibName: "SearchViewController", bundle: nil)
-            self.navigationController?.pushViewController(searchViewController, animated: true)
+        searchViewController.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(searchViewController, animated: true)
     }
     
     @IBAction func favoriteBtn(_ sender: Any) {

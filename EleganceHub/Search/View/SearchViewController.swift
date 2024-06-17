@@ -10,13 +10,10 @@ import RxSwift
 import RxCocoa
 
 
-class SearchViewController: UIViewController ,UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate{
+class SearchViewController: UIViewController ,UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate{
     
     @IBOutlet weak var txtSearchBar: UISearchBar!
-    
-   
-    @IBOutlet weak var searchTableView: UITableView!
-    
+    @IBOutlet weak var searchCollectionView: UICollectionView!
     @IBOutlet weak var filterByPriceButton: UIButton!
     @IBOutlet weak var filterByLettersButton: UIButton!
     @IBOutlet weak var removeFiltersButton: UIButton!
@@ -25,26 +22,27 @@ class SearchViewController: UIViewController ,UITableViewDelegate, UITableViewDa
     var searchViewModel: SearchViewModel!
     var products: [ProductModel] = []
     var productList: [ProductModel] = []
-    
+    var isPriceFiltered: Bool = false
+    var isLettersFiltered:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        searchTableView.reloadData()
+    
+        searchCollectionView.reloadData()
         configureRoundedButtons()
         setupButtons()
-        self.searchTableView.register(UINib(nibName: "SearchProductCell", bundle: nil), forCellReuseIdentifier: "searchCell")
-        self.searchTableView.delegate = self
-        self.searchTableView.dataSource = self
+                
+        self.searchCollectionView.register(UINib(nibName: "CategoryCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "categoryCell")
+        self.searchCollectionView.delegate = self
+        self.searchCollectionView.dataSource = self
         self.txtSearchBar.delegate = self
-        self.searchTableView.rowHeight = 100
-       
+                
         searchViewModel = SearchViewModel(networkManager: NetworkService())
         searchViewModel.bindResultToViewController = { [weak self] in
             DispatchQueue.main.async {
                 self?.products = self?.searchViewModel.result ?? []
                 self?.productList = self?.products ?? []
-                self?.searchTableView.reloadData()
+                self?.searchCollectionView.reloadData()
             }
         }
         searchViewModel.getItems()
@@ -52,19 +50,18 @@ class SearchViewController: UIViewController ,UITableViewDelegate, UITableViewDa
     }
     
     func configureRoundedButtons() {
-        let buttons: [UIButton] = [filterByPriceButton, filterByLettersButton, removeFiltersButton]
-        buttons.forEach { button in
-            button.layoutIfNeeded()
-            button.layer.cornerRadius = button.bounds.height / 2
-            button.clipsToBounds = true
-            button.layer.borderWidth = 1.0
-            button.layer.borderColor = UIColor.black.cgColor
+            let buttons: [UIButton] = [filterByPriceButton, filterByLettersButton]
+            buttons.forEach { button in
+                button.layoutIfNeeded()
+                button.layer.cornerRadius = button.bounds.height / 2
+                button.clipsToBounds = true
+                button.layer.borderWidth = 1.5
+                button.layer.borderColor = UIColor.black.cgColor
+            }
         }
-    }
 
-    
     func setupButtons() {
-        let buttons: [UIButton] = [filterByPriceButton, filterByLettersButton,removeFiltersButton]
+        let buttons: [UIButton] = [filterByPriceButton, filterByLettersButton]
         buttons.forEach { button in
             button.backgroundColor = .white
             button.setTitleColor(.black, for: .normal)
@@ -72,24 +69,23 @@ class SearchViewController: UIViewController ,UITableViewDelegate, UITableViewDa
             button.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
         }
     }
-        
+            
     @objc func buttonPressed(_ sender: UIButton) {
-        let buttons: [UIButton] = [ filterByPriceButton,  filterByLettersButton]
+        let buttons: [UIButton] = [filterByPriceButton, filterByLettersButton]
         buttons.forEach { button in
             if button == sender {
-                button.backgroundColor = .black
-                button.setTitleColor(.white, for: .normal)
-                button.tintColor = .white
-                button.layer.borderColor = UIColor.black.cgColor
+                if isPriceFiltered || isLettersFiltered{
+                    styleButtonAsActive(button)
+                }
+                else{
+                    styleButtonAsInactive(button)
+                }
             } else {
-                button.backgroundColor = .white
-                button.setTitleColor(.black, for: .normal)
-                button.tintColor = .black
-                button.layer.borderColor = UIColor.black.cgColor
+                styleButtonAsInactive(button)
             }
         }
     }
-    
+        
     func setupSearchBar() {
         txtSearchBar.rx.text.orEmpty
             .distinctUntilChanged()
@@ -98,7 +94,7 @@ class SearchViewController: UIViewController ,UITableViewDelegate, UITableViewDa
             })
             .disposed(by: disposeBag)
     }
-    
+        
     func filterProducts(searchText: String) {
         let lowercaseSearchText = searchText.lowercased()
         
@@ -116,52 +112,110 @@ class SearchViewController: UIViewController ,UITableViewDelegate, UITableViewDa
                 }
             }
         }
-        searchTableView.reloadData()
-    }
-
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return 1
-        }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return products.count
+        searchCollectionView.reloadData()
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "searchCell", for: indexPath) as! SearchProductCell
-                cell.setProductToTableCell(product: products[indexPath.section])
-                
-                cell.layer.masksToBounds = false
-                cell.layer.shadowColor = UIColor.black.cgColor
-                cell.layer.shadowOffset = CGSize(width: 0, height: 2)
-                cell.layer.shadowOpacity = 0.2
-                cell.layer.shadowRadius = 2
-                return cell
-            }
-        
     @IBAction func navigateBack(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func filterByPrice(_ sender: Any) {
-        products = products.sorted(by:  {Float($0.variants?[0].price ?? "") ?? 0 < Float($1.variants?[0].price ?? "") ?? 0})
-        searchTableView.reloadData()
+        isPriceFiltered.toggle()
+        if isPriceFiltered{
+            products = products.sorted(by:  {Float($0.variants?[0].price ?? "") ?? 0 < Float($1.variants?[0].price ?? "") ?? 0})
+        }else{
+            products = productList
+        }
+        searchCollectionView.reloadData()
     }
-    
     
     @IBAction func filterByLetters(_ sender: Any) {
-        products = products.sorted { Utilities.splitName(text: $0.title ?? "", delimiter: " | ") < Utilities.splitName(text: $1.title ?? "", delimiter: " | ") }
-                searchTableView.reloadData()
+        isLettersFiltered.toggle()
+        if isLettersFiltered{
+            products = products.sorted { Utilities.splitName(text: $0.title ?? "", delimiter: " | ") < Utilities.splitName(text: $1.title ?? "", delimiter: " | ") }
+        }else{
+            products = productList
+        }
+        searchCollectionView.reloadData()
     }
     
-    @IBAction func removeAllFilters(_ sender: Any) {
-        products = productList
-        searchTableView.reloadData()
+    func styleButtonAsActive(_ button: UIButton) {
+        button.backgroundColor = .black
+        button.setTitleColor(.white, for: .normal)
+        button.tintColor = .white
+        button.layer.borderColor = UIColor.black.cgColor
     }
-    
-    
+        
+    func styleButtonAsInactive(_ button: UIButton) {
+        button.backgroundColor = .white
+        button.setTitleColor(.black, for: .normal)
+        button.tintColor = .black
+        button.layer.borderColor = UIColor.black.cgColor
+    }
 }
+
+// MARK: - UICollectionViewDelegateFlowLayout
+extension SearchViewController: UICollectionViewDelegateFlowLayout {
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+            return products.count
+        }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "categoryCell", for: indexPath) as! CategoryCollectionViewCell
+        let product = products[indexPath.item]
+
+        let title = Utilities.splitName(text: product.title ?? "No Title", delimiter: " | ")
+        print("Title: \(title)")
+        cell.categoryTitle.text = title
+
+        if let priceString = product.variants?.first?.price, let price = Double(priceString) {
+            let priceText = String(format: "$%.2f", price)
+            print("Price: \(priceText)")
+            cell.categoryType.text = priceText
+        } else {
+            cell.categoryType.text = "No Price"
+        }
+
+        if let imageUrlString = product.image?.src, let imageUrl = URL(string: imageUrlString) {
+            cell.categoryImage.kf.setImage(with: imageUrl)
+        } else {
+            cell.categoryImage.image = nil
+        }
+        
+        cell.categoryPrice.isHidden = true
+
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedProduct = products[indexPath.item]
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let productDetailVC = storyboard.instantiateViewController(withIdentifier: "ProductDetailViewController") as? ProductDetailViewController {
+            productDetailVC.productId = selectedProduct.id
+            self.navigationController?.pushViewController(productDetailVC, animated: true)
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let padding: CGFloat = 16
+        let collectionViewSize = collectionView.frame.size.width - padding * 3
+        
+        let width = collectionViewSize / 2
+        let height = width + 50
+        return CGSize(width: width, height: height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+            return UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+        }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 16
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 16
+    }
+}
+
