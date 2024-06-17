@@ -15,6 +15,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var brandsCollection: UICollectionView!
     @IBOutlet weak var couponsCollection: UICollectionView!
     @IBOutlet weak var cartBtn:UIBarButtonItem!
+    @IBOutlet weak var favBtn: UIBarButtonItem!
     
     private let disposeBag = DisposeBag()
     
@@ -69,6 +70,7 @@ class HomeViewController: UIViewController {
     private func checkIfUserLoggedIn(){
         if(UserDefaultsHelper.shared.isDataFound(key: UserDefaultsConstants.isLoggedIn.rawValue)){
             self.cartBtn.isEnabled = true
+            self.favBtn.isEnabled = true
             guard let customerID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.loggedInUserID.rawValue) else {
                 print("Customer id not found ")
                 return
@@ -78,6 +80,7 @@ class HomeViewController: UIViewController {
             
         }else{
             self.cartBtn.isEnabled = false
+            self.favBtn.isEnabled = false
         }
     }
     

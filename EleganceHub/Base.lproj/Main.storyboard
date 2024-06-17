@@ -555,8 +555,10 @@
                     <navigationItem key="navigationItem" id="tL5-BI-Vlz"/>
                     <connections>
                         <outlet property="activityIndicator" destination="zAY-OT-1F6" id="kFF-5p-QRH"/>
+                        <outlet property="cartBtn" destination="DtM-5O-Beg" id="RS4-4f-TZa"/>
                         <outlet property="categoryCollection" destination="HvR-PE-k50" id="t1I-RR-kxI"/>
                         <outlet property="categorySearchBar" destination="kVi-nT-4Tc" id="yTH-jG-Hxt"/>
+                        <outlet property="favBtn" destination="8eg-aL-gGR" id="V9a-s7-6Mv"/>
                         <outlet property="segmentCategory" destination="qqS-KQ-I3w" id="ptt-V9-b1Y"/>
                     </connections>
                 </viewController>
@@ -1623,8 +1625,33 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="enC-Nx-Yb3">
+                                <rect key="frame" x="16" y="157" width="361" height="210"/>
+                                <color key="backgroundColor" name="theme"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="cpB-jJ-XBJ">
+                                    <size key="itemSize" width="320" height="179"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="CouponsCollectionViewCell" reuseIdentifier="couponsCell" id="dyW-74-d3j" customClass="CouponsCollectionViewCell" customModule="EleganceHub" customModuleProvider="target">
+                                        <rect key="frame" x="20.666666666666668" y="0.0" width="320" height="180"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="R4K-Gj-COO">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                        <size key="customSize" width="320" height="180"/>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="F0p-Yv-Hho" id="Rad-Do-BN2"/>
+                                    <outlet property="delegate" destination="F0p-Yv-Hho" id="ZWT-lJ-WeH"/>
+                                </connections>
+                            </collectionView>
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PaG-1F-tbd">
-                                <rect key="frame" x="-27" y="51" width="389" height="44"/>
+                                <rect key="frame" x="2" y="49" width="389" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <navigationItem title="Home" id="hsS-Tv-6lx">
@@ -1651,31 +1678,6 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="enC-Nx-Yb3">
-                                <rect key="frame" x="16" y="157" width="361" height="210"/>
-                                <color key="backgroundColor" name="theme"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="cpB-jJ-XBJ">
-                                    <size key="itemSize" width="320" height="179"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="CouponsCollectionViewCell" reuseIdentifier="couponsCell" id="dyW-74-d3j" customClass="CouponsCollectionViewCell" customModule="EleganceHub" customModuleProvider="target">
-                                        <rect key="frame" x="20.666666666666668" y="0.0" width="320" height="180"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="R4K-Gj-COO">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </collectionViewCellContentView>
-                                        <size key="customSize" width="320" height="180"/>
-                                    </collectionViewCell>
-                                </cells>
-                                <connections>
-                                    <outlet property="dataSource" destination="F0p-Yv-Hho" id="Rad-Do-BN2"/>
-                                    <outlet property="delegate" destination="F0p-Yv-Hho" id="ZWT-lJ-WeH"/>
-                                </connections>
-                            </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="GHb-AW-C8z"/>
                         <color key="backgroundColor" name="theme"/>
@@ -1703,6 +1705,7 @@
                         <outlet property="brandsCollection" destination="yEn-rn-1O8" id="v2h-Pk-Q0w"/>
                         <outlet property="cartBtn" destination="ijB-BL-cQz" id="UNW-AF-Ttk"/>
                         <outlet property="couponsCollection" destination="enC-Nx-Yb3" id="ECk-vs-vq7"/>
+                        <outlet property="favBtn" destination="XT9-kZ-oaf" id="Auh-zt-EOZ"/>
                     </connections>
                 </viewController>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome," textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zQc-2W-r2i">
