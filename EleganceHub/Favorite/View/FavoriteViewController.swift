@@ -14,6 +14,9 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
     @IBOutlet weak var favoriteTableView: UITableView!
     var favoriteProducts: BehaviorRelay<[[String: Any]]> = BehaviorRelay(value: [])
     let disposeBag = DisposeBag()
+    var viewModel: ProductDetailViewModel!
+    var customerID:Int?
+
     
     // UI elements for empty state
         private var emptyStateImageView: UIImageView!
@@ -22,14 +25,16 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
             
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        viewModel = ProductDetailViewModel(networkManager: ProductDetailNetworkService())
         setupTableView()
         loadFavoriteProducts()
         bindTableView()
         setupTableViewInteractions()
         
         setupEmptyStateUI()
-                updateEmptyStateVisibility()
+        updateEmptyStateVisibility()
+        
+        addToCartObserversFuncs()
     }
     
     private func setupTableView() {
@@ -110,8 +115,22 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
     
     @objc func addToCartButtonTapped(_ sender: UIButton) {
         let productIndex = sender.tag
-        let product = favoriteProducts.value[productIndex]
-
+        let product = favoriteProducts.value[productIndex] as! Product
+        // should be data type of Product
+        if(UserDefaultsHelper.shared.isDataFound(key: UserDefaultsConstants.isLoggedIn.rawValue)){
+            guard let orderID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.getDraftOrder.rawValue) else {
+                return
+            }
+            if(orderID != 0) {
+                print("User has Draft order append items and post it \(orderID)")
+                viewModel.updateCustomerDraftOrder(orderID: orderID, customerID: customerID!, newProduct: product)
+            }else{
+                print("Create draft order user doesnt have one ")
+                viewModel.createNewDraftOrderAndPostNewItem(customerID: customerID!, product: product)
+            }
+        }else{
+            showAlertError(err: "You have to logged in first")
+        }
         print("Add to Cart button tapped for product: \(product)")
     }
         
@@ -148,6 +167,35 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
     
     @IBAction func goBack(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    private func addToCartObserversFuncs(){
+        print("TTTTTTTTTTTTTTT")
+        onErrorObserverSetUp()
+        onResponseObserverSetUp()
+    }
+    private func onErrorObserverSetUp(){
+        viewModel?.error.subscribe{ err in
+            self.showAlertError(err: err.error?.localizedDescription ?? "Error")
+        }.disposed(by: disposeBag)
+    }
+    private func onResponseObserverSetUp(){
+        viewModel?.draftOrder.subscribe(onNext: { [weak self] draftResponse in
+            guard let self = self else { return }
+            //print("productItem.subscribe \(draftResponse)")
+            guard let id = draftResponse.id else {
+                return
+            }
+            UserDefaultsHelper.shared.setIfDataFound(id, key: UserDefaultsConstants.getDraftOrder.rawValue)
+            print("Draft order created \(id)")
+            Constants.displayToast(viewController: self, message: "Product Added To cart Successfully", seconds: 1.0)
+        }, onError: { error in
+            print("Error subscribing to draft order: \(error)")
+        }).disposed(by: disposeBag)
+    }
+    
+    private func showAlertError(err:String){
+        Constants.displayAlert(viewController: self,message: err, seconds: 3)
     }
     
 }

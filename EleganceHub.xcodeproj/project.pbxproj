@@ -43,6 +43,7 @@
 		03BAA1362C147F6200A325AB /* CartViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BAA1352C147F6200A325AB /* CartViewModelProtocol.swift */; };
 		03BAA1392C14814200A325AB /* CartNetworkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BAA1382C14814200A325AB /* CartNetworkServiceProtocol.swift */; };
 		03BAA13B2C14815700A325AB /* CartNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BAA13A2C14815700A325AB /* CartNetworkService.swift */; };
+		03BAEE2B2C21F6E1005877FB /* AboutUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BAEE2A2C21F6E1005877FB /* AboutUsViewController.swift */; };
 		03C3966B2C0FFB8D00FFADF7 /* ShippingAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0383BC4D2C0BEBE900855384 /* ShippingAddressViewController.swift */; };
 		03C396782C0FFC6B00FFADF7 /* ProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03C396722C0FFC6B00FFADF7 /* ProfileTableViewCell.xib */; };
 		03C396792C0FFC6B00FFADF7 /* ProfileImageUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C396742C0FFC6B00FFADF7 /* ProfileImageUIView.swift */; };
@@ -186,6 +187,7 @@
 		03BAA1352C147F6200A325AB /* CartViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewModelProtocol.swift; sourceTree = "<group>"; };
 		03BAA1382C14814200A325AB /* CartNetworkServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartNetworkServiceProtocol.swift; sourceTree = "<group>"; };
 		03BAA13A2C14815700A325AB /* CartNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartNetworkService.swift; sourceTree = "<group>"; };
+		03BAEE2A2C21F6E1005877FB /* AboutUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsViewController.swift; sourceTree = "<group>"; };
 		03C396722C0FFC6B00FFADF7 /* ProfileTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileTableViewCell.xib; sourceTree = "<group>"; };
 		03C396742C0FFC6B00FFADF7 /* ProfileImageUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileImageUIView.swift; sourceTree = "<group>"; };
 		03C396752C0FFC6B00FFADF7 /* ProfileImageUIView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileImageUIView.xib; sourceTree = "<group>"; };
@@ -606,6 +608,7 @@
 			isa = PBXGroup;
 			children = (
 				03C396712C0FFC6B00FFADF7 /* SettingsView */,
+				03BAEE2A2C21F6E1005877FB /* AboutUsViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1403,6 +1406,7 @@
 				D4883C572C112A2100EE6C78 /* ColorSelectorView.swift in Sources */,
 				D4883C5D2C11304200EE6C78 /* ProductDetailNetworkService.swift in Sources */,
 				038BB8552C1CEEF900E2C7D1 /* PaymentNetworkService.swift in Sources */,
+				03BAEE2B2C21F6E1005877FB /* AboutUsViewController.swift in Sources */,
 				D4F168592C0A603F00551795 /* Variants.swift in Sources */,
 				7F359E982BFF4DC500D0D733 /* CouponsCollectionViewCell.swift in Sources */,
 				D4883C532C11261D00EE6C78 /* SizeOptionCell.swift in Sources */,

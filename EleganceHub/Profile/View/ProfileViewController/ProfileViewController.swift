@@ -11,7 +11,7 @@ import RxCocoa
 
 class ProfileViewController: UIViewController {
     let cellData:[SettingCellModelData] = [SettingCellModelData(lableName: "Personal Details", iconName: "person_info", navigationId: "personalDetails"),SettingCellModelData(lableName: "My Orders", iconName: "orders", navigationId: "myOrders"),SettingCellModelData(lableName: "My WishLists", iconName: "fav", navigationId: "fav"),SettingCellModelData(lableName: "Shipping Address", iconName: "shipping", navigationId: "shippingAddress"),
-        SettingCellModelData(lableName: "Currency", iconName: "currency", navigationId: "currency"),SettingCellModelData(lableName: "Settings", iconName: "settings", navigationId: "settings"),
+        SettingCellModelData(lableName: "Currency", iconName: "currency", navigationId: "currency"),
          SettingCellModelData(lableName: "About Us", iconName: "aboutus", navigationId: "aboutUs")]
     
     @IBOutlet weak var customerEmailLabel: UILabel!
@@ -139,7 +139,12 @@ extension ProfileViewController:UITableViewDataSource,UITableViewDelegate{
                 } else {
                     print("Failed to instantiate FavoriteViewController")
                 }
-                
+            case "aboutUs":
+                guard let aboutUsViewController = self.storyboard?.instantiateViewController(withIdentifier: "AboutUsViewController")
+                  else { return
+                    print("Failed to instantiate FavoriteViewController")
+                }
+                navigationController?.pushViewController(aboutUsViewController, animated: true)
             default: break
                 
             }

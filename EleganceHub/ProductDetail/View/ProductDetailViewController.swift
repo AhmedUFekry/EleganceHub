@@ -65,6 +65,10 @@ class ProductDetailViewController: UIViewController {
             DispatchQueue.main.async {
                 self?.updateUI()
             }
+            
+            if let customerID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.loggedInUserID.rawValue){
+                self?.customerID = customerID
+            }
         }
             
         addToCartObserversFuncs()
