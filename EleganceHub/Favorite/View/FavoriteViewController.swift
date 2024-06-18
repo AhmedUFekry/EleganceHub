@@ -18,9 +18,9 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
     var customerID:Int?
 
     
-    // UI elements for empty state
-        private var emptyStateImageView: UIImageView!
-        private var emptyStateLabel: UILabel!
+   
+    private var emptyStateImageView: UIImageView!
+    private var emptyStateLabel: UILabel!
     private var emptyStateSubLabel: UILabel!
             
     override func viewDidLoad() {
@@ -84,12 +84,11 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
             }
             cell.productVarintLabel.text = product["variant"] as? String
             
-            // Hide quantity and buttons in favorite list
+           
             cell.decreaseQuantityBtn.isHidden = true
             cell.IncreaseQuantityBtn.isHidden = true
             cell.productQuantityLabel.isHidden = true
             
-            // Add "Add to Cart" button
             let addToCartBtn = UIButton(type: .system)
             addToCartBtn.setTitle("Add To Cart", for: .normal)
             addToCartBtn.backgroundColor = .black
@@ -109,6 +108,7 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
             addToCartBtn.tag = row
             addToCartBtn.addTarget(self, action: #selector(addToCartButtonTapped(_:)), for: .touchUpInside)
         }
+    
     func getLoggedInUserID() -> Int? {
         return UserDefaultsHelper.shared.getLoggedInUserID()
     }
@@ -202,17 +202,14 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
 
 extension FavoriteViewController {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            let count = favoriteProducts.value.count
-            
-            // Toggle empty state visibility based on product count
-            if count == 0 {
-                favoriteTableView.backgroundView = emptyStateImageView
-            } else {
-                favoriteTableView.backgroundView = nil
-            }
-            
-            return count
+        let count = favoriteProducts.value.count
+        if count == 0 {
+            favoriteTableView.backgroundView = emptyStateImageView
+        } else {
+            favoriteTableView.backgroundView = nil
         }
+        return count
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         print("Configuring cell for row \(indexPath.row)")
         let cell = tableView.dequeueReusableCell(withIdentifier: "CartTableViewCell", for: indexPath) as! CartTableViewCell
@@ -259,14 +256,25 @@ extension FavoriteViewController {
         return true
     }
 
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            let product = favoriteProducts.value[indexPath.row]
-            if let productId = product["id"] as? Int, let customerId = getLoggedInUserID() {
-                showDeleteConfirmationAlert(productId: productId, customerId: customerId, indexPath: indexPath)
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+            let deleteAction = UIContextualAction(style: .destructive, title: "") { (action, view, completionHandler) in
+                if let productId = self.favoriteProducts.value[indexPath.row]["id"] as? Int, let customerId = self.getLoggedInUserID() {
+                    self.showDeleteConfirmationAlert(productId: productId, customerId: customerId, indexPath: indexPath)
+                }
+                completionHandler(true)
             }
+        
+            deleteAction.backgroundColor = .black
+            deleteAction.image = UIImage(systemName: "trash")
+
+            let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+            configuration.performsFirstActionWithFullSwipe = true
+
+            return configuration
         }
-    }
+    
+    
     
     // MARK: - Empty State Handling
         

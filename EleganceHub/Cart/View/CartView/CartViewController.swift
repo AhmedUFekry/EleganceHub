@@ -80,17 +80,6 @@ class CartViewController: UIViewController {
     }
     
     private func setupTableViewBinding() {
-        
-//        viewModel.lineItemsList
-//        /*.asObserver()*/
-//            .bind(to: cartTableView.rx.items(cellIdentifier: "CartTableViewCell", cellType: CartTableViewCell.self)){[weak self] index, item, cell in
-//                guard let self = self else { return }
-//            cell.decreaseQuantityBtn.tag = index
-//            cell.IncreaseQuantityBtn.tag = index
-//            cell.setCellData(order: item)
-//            cell.IncreaseQuantityBtn.addTarget(self, action: #selector(self.increaceQuantityTapped(_:)), for: .touchUpInside)
-//            cell.decreaseQuantityTapped.addTarget(self, action: #selector(self.decreaceQuantityTapped(_:)), for: .touchUpInside)
-//        }.disposed(by: disposeBag)
         viewModel.lineItemsList
             .bind(to: cartTableView.rx.items(cellIdentifier: "CartTableViewCell", cellType: CartTableViewCell.self)){[weak self] index, item, cell in
                 guard let self = self else { return }
@@ -103,9 +92,6 @@ class CartViewController: UIViewController {
                 
             }.disposed(by: disposeBag)
         
-        
-        //cartTableView.rx.itemAccessoryButtonTapped
-        
         cartTableView.rx.itemDeleted
         .withLatestFrom(viewModel.lineItemsList) { (indexPath, orders) in
             return (indexPath, orders)
@@ -115,7 +101,6 @@ class CartViewController: UIViewController {
             if(orders.count <= 1){
                 print("Last Item")
                 self.viewModel.deleteDraftOrder(orderID: self.draftOrder)
-               // self.handleCartEmptyState(isEmpty: true)
             }else{
                 print("not last Item Item")
                 if let orderID = order.id{
