@@ -77,6 +77,18 @@ class UserDefaultsHelper:DatabaseServiceProtocol {
         userDefaults.removeObject(forKey: "savedImage")
     }
     
+    func saveCurrencyToUserDefaults(coin: String) {
+        userDefaults.set(coin, forKey: "coin")
+    }
+ 
+    func getCurrencyFromUserDefaults() -> String {
+        if let rateString = userDefaults.string(forKey: "coin") {
+            return rateString
+        }
+        return "usd"
+    }
+    
+    
 }
 
 

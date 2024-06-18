@@ -15,8 +15,24 @@ class ProductsTableViewCell: UITableViewCell {
     @IBOutlet weak var productImage: UIImageView!
     @IBOutlet weak var ProductTitle: UILabel!
     
+    var currencyViewModel = CurrencyViewModel()
+    var rate : Double?
+    let userCurrency = UserDefaultsHelper.shared.getCurrencyFromUserDefaults().uppercased()
+    var product: ProductModel!
+    
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+            currencyViewModel.rateClosure = {
+                [weak self] rate in
+                DispatchQueue.main.async {
+                    self?.rate = rate
+                }
+            }
+            currencyViewModel.getRate()
+        
      self.backGroundview.applyShadow()
     }
 
@@ -28,7 +44,17 @@ class ProductsTableViewCell: UITableViewCell {
         
             ProductTitle?.text = product.title
             productCategory?.text = "Quantity: \(String(describing: product.quantity ?? 2))"
-            productPrice?.text = product.price
+        
+            guard let rate = self.rate else {
+            productPrice.text = "No Rate"
+            return
+            }
+        
+            let convertedPrice = convertPrice(price: product.price ?? "2", rate: rate)
+            productPrice.text = "\(String(format: "%.2f", convertedPrice)) \(userCurrency)"
+        
+        
+           // productPrice?.text = product.price
             
             let placeholderImage = UIImage(named: "adidas")
             if let imageURl = product.properties?.first {

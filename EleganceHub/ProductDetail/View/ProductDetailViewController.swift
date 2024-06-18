@@ -39,17 +39,26 @@ class ProductDetailViewController: UIViewController {
         var viewModel: ProductDetailViewModel!
     
     var customerID:Int?
-        var selectedSizeItem:String? = "19"
+    var selectedSizeItem:String? = "19"
     
-        //var cartViewModel:CartViewModelProtocol?
+    var currencyViewModel = CurrencyViewModel()
+    var rate : Double!
+    
+    let userCurrency = UserDefaultsHelper.shared.getCurrencyFromUserDefaults().uppercased()
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
-        override func viewDidLoad() {
-            super.viewDidLoad()
-            //cartViewModel = CartViewModel()
-                    
-            sizeCollectionView.delegate = self
-            sizeCollectionView.dataSource = self
-            sizeCollectionView.register(SizeOptionCell.self, forCellWithReuseIdentifier: "SizeOptionCell")
+        currencyViewModel.rateClosure = {
+            [weak self] rate in
+            DispatchQueue.main.async {
+                self?.rate = rate
+            }
+        }
+        currencyViewModel.getRate()
+        
+        sizeCollectionView.delegate = self
+        sizeCollectionView.dataSource = self
+        sizeCollectionView.register(SizeOptionCell.self, forCellWithReuseIdentifier: "SizeOptionCell")
                     
             ProductImagesCollection.delegate = self
             ProductImagesCollection.dataSource = self
@@ -128,9 +137,12 @@ class ProductDetailViewController: UIViewController {
         print("Product Description: \(product.bodyHTML ?? "No description")")
         
         ProductName.text = product.title ?? "No title"
-        productPrice.text = "$\(product.variants?.first?.price ?? "0.00")"
+        //productPrice.text = "$\(product.variants?.first?.price ?? "0.00")"
+        
+        var convertedPrice = convertPrice(price: product.variants?[0].price ?? "2", rate: self.rate)
+        productPrice.text = "\(String(format: "%.2f", convertedPrice)) \(userCurrency)"
+        
         ProductDescription.text = product.bodyHTML ?? "No description"
-                
         ProductImagesCollection.reloadData()
         imageSlider.numberOfPages = product.images?.count ?? 0
     }

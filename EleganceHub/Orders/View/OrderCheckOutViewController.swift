@@ -25,6 +25,10 @@ class OrderCheckOutViewController: UIViewController {
     @IBOutlet weak var backBtn: UIButton!
     @IBOutlet weak var promoCodeView: UIView!
     @IBOutlet weak var adressView: UIView!
+    var currencyViewModel = CurrencyViewModel()
+    var rate : Double!
+    let userCurrency = UserDefaultsHelper.shared.getCurrencyFromUserDefaults().uppercased()
+
     var ordersViewModel = OrdersViewModel(orderService: OrdersService())
     var viewModel: CartViewModelProtocol = CartViewModel()
     var draftOrderID: Int?
@@ -39,8 +43,16 @@ class OrderCheckOutViewController: UIViewController {
                 }
             }
         }
-    override func viewDidLoad() {
-        super.viewDidLoad()
+        override func viewDidLoad() {
+            super.viewDidLoad()
+            
+            currencyViewModel.rateClosure = {
+                [weak self] rate in
+                DispatchQueue.main.async {
+                    self?.rate = rate
+                }
+            }
+            currencyViewModel.getRate()
         
         self.activityIndicator.startAnimating()
         
@@ -83,7 +95,9 @@ class OrderCheckOutViewController: UIViewController {
             self.productItemTableView.reloadData()
             self.activityIndicator.stopAnimating()
             self.activityIndicator.isHidden = true
-            self.totaldraftPriceLabel.text = self.draftOrder?.totalPrice
+            var convertedPrice = convertPrice(price: self.draftOrder?.totalPrice ?? "2", rate: self.rate)
+            self.totaldraftPriceLabel.text = "\(String(format: "%.2f", convertedPrice)) \(self.userCurrency)"
+          //  self.totaldraftPriceLabel.text = self.draftOrder?.totalPrice
             self.streetAddressLabel.text = self.selectedAddress?.address1
             self.cityAddressLabel.text = self.selectedAddress?.city
             self.phoneLabel.text = self.selectedAddress?.phone

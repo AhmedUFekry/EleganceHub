@@ -5,9 +5,13 @@
 //  Created by raneem on 25/05/2024.
 //
 
+
 import Foundation
 
 class ProductsViewModel {
+    
+    
+    
     var vmResult: [Product]? {
         didSet {
             bindResultToViewController()

@@ -17,6 +17,7 @@ class SuperCategoryViewController: UIViewController {
     @IBOutlet weak var categoryCollection: UICollectionView!
     
     let categoryViewModel = CategoryViewModel()
+    let productsViewModel = CurrencyViewModel()
     var categoryProductList: [Product]?
     var filteredList: [Product]?
     var searchList: [Product]?
@@ -24,8 +25,19 @@ class SuperCategoryViewController: UIViewController {
     var isFiltered: Bool = false
     var isSearching: Bool = false
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    var rate : Double!
+       
+      let userCurrency = UserDefaultsHelper.shared.getCurrencyFromUserDefaults().uppercased()
+       override func viewDidLoad() {
+           super.viewDidLoad()
+           
+           productsViewModel.rateClosure = {
+               [weak self] rate in
+               DispatchQueue.main.async {
+                   self?.rate = rate
+               }
+           }
+           productsViewModel.getRate()
         activityIndicator.startAnimating()
 
         loadNib()
@@ -130,8 +142,11 @@ extension SuperCategoryViewController: UICollectionViewDataSource, UICollectionV
         KF.url(URL(string: category?.image?.src ?? "https://cdn.shopify.com/s/files/1/0880/0426/4211/collections/a340ce89e0298e52c438ae79591e3284.jpg?v=1716276581"))
             .set(to: categoryCell.categoryImage)
         categoryCell.categoryType?.text = category?.productType
-        categoryCell.categoryPrice?.text = category?.variants?[0].price
+       // categoryCell.categoryPrice?.text = category?.variants?[0].price
         
+        let convertedPrice = convertPrice(price: category?.variants?[0].price ?? "2", rate: self.rate)
+                       
+        categoryCell.categoryPrice.text = "\(String(format: "%.2f", convertedPrice)) \(userCurrency)"
         return categoryCell
     }
     
