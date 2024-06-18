@@ -16,7 +16,6 @@ class FavoriteProducts : Codable{
     var price: String?
     var image: String?
     
-
 }
 
 //struct FavoriteResponse: Decodable {
