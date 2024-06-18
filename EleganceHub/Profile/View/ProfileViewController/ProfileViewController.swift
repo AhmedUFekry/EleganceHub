@@ -124,6 +124,20 @@ extension ProfileViewController:UITableViewDataSource,UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if(UserDefaultsHelper.shared.isLoggedIn()){
             switch(cellData[indexPath.row].navigationId){
+            case "currency":
+                let alertController = UIAlertController(title: "Select Currency", message: nil, preferredStyle: .actionSheet)
+                let currencies = ["USD", "EGP", "EUR"]
+                for currency in currencies {
+                    let action = UIAlertAction(title: currency, style: .default) { _ in
+                        UserDefaultsHelper.shared.saveCurrencyToUserDefaults(coin: currency)
+                    }
+                    alertController.addAction(action)
+                }
+                
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                alertController.addAction(cancelAction)
+                present(alertController, animated: true, completion: nil)
+                
             case "personalDetails":
                 let viewController =  self.storyboard?.instantiateViewController(withIdentifier: "SettingsViewController") as? SettingsViewController
                 self.navigationController?.pushViewController(viewController!, animated: true)

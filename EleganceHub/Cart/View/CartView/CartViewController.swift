@@ -19,13 +19,18 @@ class CartViewController: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var viewModel:CartViewModelProtocol = CartViewModel()
+    var currencyViewModel = CurrencyViewModel()
     var disposeBag = DisposeBag()
     var customerID:Int?
     var draftOrder:Int!
+    var rate : Double!
+    
+   
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        let userCurrency = UserDefaultsHelper.shared.getCurrencyFromUserDefaults().uppercased()
+        
         customerID = UserDefaultsHelper.shared.getLoggedInUserID()
         guard customerID != nil else{return}
         
@@ -45,6 +50,14 @@ class CartViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        currencyViewModel.rateClosure = {
+            [weak self] rate in
+            DispatchQueue.main.async {
+                self?.rate = rate
+            }
+        }
+        currencyViewModel.getRate()
         let cartNibCell = UINib(nibName: "CartTableViewCell", bundle: nil)
         cartTableView.register(cartNibCell, forCellReuseIdentifier: "CartTableViewCell")
        
@@ -136,6 +149,7 @@ class CartViewController: UIViewController {
                 }
             })
             .subscribe(onNext: { totalPrice in
+                
                 var total = String(format: "%.2f", totalPrice)
                 print("Total price is \(total)")
                 self.totalPriceLabel.text = "$\(total)"

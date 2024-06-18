@@ -14,11 +14,25 @@ class SearchProductCell: UITableViewCell {
     @IBOutlet weak var searchProductTxt: UILabel!
     @IBOutlet weak var searchProductPriceTxt: UILabel!
     //@IBOutlet weak var searchProductRating: UILabel!
-    
+    var currencyViewModel = CurrencyViewModel()
+    var rate : Double?
+    let userCurrency = UserDefaultsHelper.shared.getCurrencyFromUserDefaults().uppercased()
     var product: ProductModel!
+    
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+            currencyViewModel.rateClosure = {
+                [weak self] rate in
+                DispatchQueue.main.async {
+                    self?.rate = rate
+                }
+            }
+            currencyViewModel.getRate()
+        
+        
         setupConstraints()
         setupAppearance()
     }
@@ -37,12 +51,20 @@ class SearchProductCell: UITableViewCell {
                 }
                 
                 searchProductTxt.text = Utilities.splitName(text: product.title ?? "No Title", delimiter: " | ")
-                
-                if let priceString = product.variants?.first?.price, let price = Double(priceString) {
-                    searchProductPriceTxt.text = String(format: "$%.2f", price)
-                } else {
-                    searchProductPriceTxt.text = "No Price"
+        
+                guard let rate = self.rate else {
+                    searchProductPriceTxt.text = "No Rate"
+                    return
                 }
+                
+                let convertedPrice = convertPrice(price: product.variants?[0].price ?? "2", rate: rate)
+                searchProductPriceTxt.text = "\(String(format: "%.2f", convertedPrice)) \(userCurrency)"
+            
+//                if let priceString = product.variants?.first?.price, let price = Double(priceString) {
+//                    searchProductPriceTxt.text = String(format: "$%.2f", price)
+//                } else {
+//                    searchProductPriceTxt.text = "No Price"
+//                }
             
             }
     

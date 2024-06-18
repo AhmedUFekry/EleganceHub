@@ -18,59 +18,77 @@ class OrderDetailsViewController: UIViewController {
     @IBOutlet weak var orderDate: UILabel!
     @IBOutlet weak var orderId: UILabel!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        activityIndicator.startAnimating()
+    var currencyViewModel = CurrencyViewModel()
+        var rate: Double?
         
-        let productsNibCell = UINib(nibName: "ProductsTableViewCell", bundle: nil)
-        productsOrderTableView.register(productsNibCell, forCellReuseIdentifier: "productOrderCell")
+        let userCurrency = UserDefaultsHelper.shared.getCurrencyFromUserDefaults().uppercased()
         
-        orderView.applyShadow()
-        setupOrder()
-    }
-    func setupOrder(){
-        orderId.text = "\(String(describing: selctedOrder?.id ?? 1))"
-        orderDate.text = selctedOrder?.createdAt?.split(separator: "T").first.map(String.init)
-        orderPrice.text = selctedOrder?.totalPrice
-        productsOrderTableView.reloadData()
-        activityIndicator.stopAnimating()
-        activityIndicator.isHidden = true
-    }
-    
-
-}
-
-extension OrderDetailsViewController : UITableViewDataSource , UITableViewDelegate{
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       1
-    }
-    func numberOfSections(in tableView: UITableView) -> Int {
-        let count = selctedOrder?.lineItems?.count ?? 3
-        print("Number of rows: \(count)")
-        return count
-    }
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let productsCell = tableView.dequeueReusableCell(withIdentifier: "productOrderCell", for: indexPath) as! ProductsTableViewCell
-        if let product = selctedOrder?.lineItems?[indexPath.section] {
-            productsCell.ProductTitle?.text = product.title
-            productsCell.productCategory?.text = "Quantity: \(String(describing: product.quantity ?? 2))"
-            productsCell.productPrice?.text = product.price
+        override func viewDidLoad() {
+            super.viewDidLoad()
             
-            let placeholderImage = UIImage(named: "adidas")
-            if let imageURl = product.properties?.first {
-                productsCell.productImage.kf.setImage(with: URL(string: imageURl.value ?? ""), placeholder: placeholderImage)
-            }else{
-                productsCell.productImage.image = placeholderImage
+            currencyViewModel.rateClosure = { [weak self] rate in
+                DispatchQueue.main.async {
+                    self?.rate = rate
+                    self?.setupOrder()
+                }
+            }
+            currencyViewModel.getRate()
+            activityIndicator.startAnimating()
+            
+            let productsNibCell = UINib(nibName: "ProductsTableViewCell", bundle: nil)
+            productsOrderTableView.register(productsNibCell, forCellReuseIdentifier: "productOrderCell")
+            
+            orderView.applyShadow()
+        }
+        
+        func setupOrder() {
+            guard let order = selctedOrder else { return }
+            
+            orderId.text = "\(order.id ?? 1)"
+            orderDate.text = order.createdAt?.split(separator: "T").first.map(String.init)
+            
+            guard let rate = self.rate else {
+                orderPrice.text = "No Rate"
+                return
             }
             
+            let convertedPrice = convertPrice(price: order.totalPrice ?? "2", rate: rate)
+            orderPrice.text = "\(String(format: "%.2f", convertedPrice)) \(userCurrency)"
+            
+            productsOrderTableView.reloadData()
+            activityIndicator.stopAnimating()
+            activityIndicator.isHidden = true
         }
-        return productsCell
     }
 
-
-func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return 110
-}
-    
-    
-}
+    extension OrderDetailsViewController: UITableViewDataSource, UITableViewDelegate {
+        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            return 1
+        }
+        
+        func numberOfSections(in tableView: UITableView) -> Int {
+            return selctedOrder?.lineItems?.count ?? 3
+        }
+        
+        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            let productsCell = tableView.dequeueReusableCell(withIdentifier: "productOrderCell", for: indexPath) as! ProductsTableViewCell
+            
+            if let product = selctedOrder?.lineItems?[indexPath.section] {
+                productsCell.ProductTitle?.text = product.title
+                productsCell.productCategory?.text = "Quantity: \(product.quantity ?? 2)"
+                productsCell.productPrice?.text = product.price
+                
+                let placeholderImage = UIImage(named: "adidas")
+                if let imageURL = product.properties?.first {
+                    productsCell.productImage.kf.setImage(with: URL(string: imageURL.value ?? ""), placeholder: placeholderImage)
+                } else {
+                    productsCell.productImage.image = placeholderImage
+                }
+            }
+            return productsCell
+        }
+        
+        func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+            return 110
+        }
+    }
