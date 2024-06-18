@@ -16,6 +16,10 @@ class SuperCategoryViewController: UIViewController {
     @IBOutlet weak var segmentCategory: UISegmentedControl!
     @IBOutlet weak var categoryCollection: UICollectionView!
     
+    
+    @IBOutlet weak var cartBtn: UIBarButtonItem!
+    @IBOutlet weak var favBtn: UIBarButtonItem!
+    
     let categoryViewModel = CategoryViewModel()
     let productsViewModel = CurrencyViewModel()
     var categoryProductList: [Product]?
@@ -53,6 +57,7 @@ class SuperCategoryViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        checkIfUserLoggedIn()
         self.renderView()
     }
     
@@ -93,6 +98,22 @@ class SuperCategoryViewController: UIViewController {
             print("Failed to instantiate FavoriteViewController")
         }
     }
+    
+    private func checkIfUserLoggedIn(){
+        if(UserDefaultsHelper.shared.isDataFound(key: UserDefaultsConstants.isLoggedIn.rawValue)){
+            self.cartBtn.isEnabled = true
+            self.favBtn.isEnabled = true
+            guard let customerID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.loggedInUserID.rawValue) else {
+                print("Customer id not found ")
+                return
+            }
+            
+        }else{
+            self.cartBtn.isEnabled = false
+            self.favBtn.isEnabled = false
+        }
+    }
+    
     
     func displayFloatingButton() {
         let actionButton = JJFloatingActionButton()

@@ -30,6 +30,31 @@ class Constants {
         tF.layer.addSublayer(bottomBorder)
         tF.layer.masksToBounds = true
     }
+    
+    static func authTextFieldStyle(tF: UITextField) {
+        let bottomBorder = CALayer()
+        bottomBorder.frame = CGRect(x: 0, y: tF.frame.size.height - 0.5, width: tF.frame.size.width, height: 0.5)
+        bottomBorder.backgroundColor = UIColor.black.cgColor
+        tF.layer.addSublayer(bottomBorder)
+        tF.borderStyle = .none
+        tF.backgroundColor = .clear
+        tF.layer.masksToBounds = true
+    }
+    
+    static func addPasswordToggleButton(to textField: UITextField, target: Any, action: Selector) {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(systemName: "eye.slash"), for: .normal)
+        button.setImage(UIImage(systemName: "eye"), for: .selected)
+        button.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        button.contentMode = .center
+        button.addTarget(target, action: action, for: .touchUpInside)
+            
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 35, height: 30))
+        paddingView.addSubview(button)
+        
+        textField.rightView = paddingView
+        textField.rightViewMode = .always
+    }
 
     static func displayAlert(viewController vc:UIViewController,message: String, seconds: Double, completion: (() -> Void)? = nil) {
         let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)

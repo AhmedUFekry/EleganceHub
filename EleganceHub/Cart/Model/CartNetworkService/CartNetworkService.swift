@@ -191,6 +191,96 @@ class CartNetworkService:CartNetworkServiceProtocol{
         }
     }
     
+    func checkForCopuns(discountCode: String, completionHandler: @escaping (Result<DiscountCodes, Error>) -> Void) {
+        let urlString = "\(Constants.storeUrl)/discount_codes/lookup.json?code=\(discountCode)"
+        let headers: HTTPHeaders = [
+            "X-Shopify-Access-Token": Constants.accessTokenKey
+        ]
+        AF.request(urlString, encoding: JSONEncoding.default, headers: headers).responseDecodable(of: ValidationResponse.self) { response in
+            switch response.result{
+                case .success(let data):
+                    print("Validation Response data \(data)")
+                    guard let discount = data.discountCode else {
+                        completionHandler(.failure(MyError.noDraftOrders))
+                        return
+                    }
+                    completionHandler(.success(discount))
+                case .failure(let error):
+                    print("Error at validation \(error.localizedDescription)")
+                    completionHandler(.failure(error))
+            }
+        }
+    }
+    
+    func updateDraftOrder(orderID:Int, draftOrder:DraftOrder) ->Observable<PostDraftOrderResponse>{
+        return Observable.create { observer in
+            print("Order ID \(orderID)")
+            let urlString = "\(Constants.storeUrl)/draft_orders/\(orderID).json"
+            let headers: HTTPHeaders = [
+                "X-Shopify-Access-Token": Constants.accessTokenKey,
+                "Content-Type":"application/json"
+            ]
+            do {
+                let jsonData = try JSONEncoder().encode(draftOrder)
+                let jsonDictionary = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any]
+                    
+               let parameters: [String: Any] = [
+                "draft_order": jsonDictionary!
+               ]
+
+               AF.request(urlString, method: .put, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseData { response in
+                   switch response.result {
+                   case .success(let data):
+                       do {
+                           let draftResponse = try JSONDecoder().decode(PostDraftOrderResponse.self, from: data)
+                           print("Draft Response Updated: \(draftResponse)")
+                           observer.onNext(draftResponse)
+                           observer.onCompleted()
+                       } catch {
+                           print("JSON Decoding Error: \(error)")
+                           observer.onError(error)
+                       }
+                   case .failure(let err):
+                       print("Request Error: \(err)")
+                       observer.onError(err)
+                   }
+               }
+           } catch {
+               print("Error encoding parameters: \(error)")
+               observer.onError(error)
+           }
+            return Disposables.create()
+        }
+    }
+    
+    func getPriceRule(priceRuleID: Int, completionHandler: @escaping (Result<PriceRule, Error>) -> Void) {
+        let urlString = "\(Constants.storeUrl)/price_rules/\(priceRuleID).json"
+        let headers: HTTPHeaders = [
+            "X-Shopify-Access-Token": Constants.accessTokenKey
+        ]
+
+        AF.request(urlString,encoding: JSONEncoding.default, headers: headers).responseData { response in
+            switch response.result{
+            case .success(let data):
+                print("Price Rule network response \(data)")
+                do{
+                    let priceRule = try JSONDecoder().decode(PriceRuleResponse.self, from: data)
+                    print("price rule response \(priceRule)")
+                    guard let modelResponse = priceRule.priceRule else{
+                        completionHandler(.failure(MyError.noDraftOrders))
+                        return
+                    }
+                    completionHandler(.success(modelResponse))
+                }catch{
+                    completionHandler(.failure(MyError.noDraftOrders))
+                }
+            case .failure(let error):
+                print("Error price Rule \(error.localizedDescription)")
+                completionHandler(.failure(error))
+            }
+        }
+    }
+    
 }
     
     

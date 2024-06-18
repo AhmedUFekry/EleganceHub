@@ -39,7 +39,7 @@ struct DraftOrder: Codable {
     var lineItems: [LineItem]?
     var shippingAddress, billingAddress: Address?
     let invoiceURL: String?
-    let appliedDiscount: AppliedDiscount?
+    var appliedDiscount: AppliedDiscount?
     let orderID: Int?
     let shippingLine: ShippingLine?
     let tags: String?

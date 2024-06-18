@@ -3,7 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -49,22 +49,14 @@
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="adidas" translatesAutoresizingMaskIntoConstraints="NO" id="MBN-Pr-Oxl">
                         <rect key="frame" x="2" y="0.0" width="92" height="98"/>
                     </imageView>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="love" translatesAutoresizingMaskIntoConstraints="NO" id="LEu-Rd-98w">
-                        <rect key="frame" x="300" y="2" width="18" height="20"/>
-                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </imageView>
                 </subviews>
                 <color key="backgroundColor" name="theme"/>
                 <constraints>
-                    <constraint firstItem="LEu-Rd-98w" firstAttribute="leading" secondItem="MBN-Pr-Oxl" secondAttribute="trailing" constant="206" id="5lP-CF-J5Y"/>
                     <constraint firstAttribute="bottom" secondItem="vQe-Fz-cjW" secondAttribute="bottom" constant="3" id="EPT-8f-UTt"/>
-                    <constraint firstAttribute="trailing" secondItem="LEu-Rd-98w" secondAttribute="trailing" constant="2" id="GIe-FB-0fe"/>
-                    <constraint firstAttribute="bottom" secondItem="LEu-Rd-98w" secondAttribute="bottom" constant="73" id="IG3-54-hJK"/>
                     <constraint firstItem="MBN-Pr-Oxl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="YbX-MT-9mt"/>
                     <constraint firstItem="KWD-GL-yxy" firstAttribute="leading" secondItem="MBN-Pr-Oxl" secondAttribute="trailing" constant="8" id="bDr-d0-ltZ"/>
                     <constraint firstItem="vQe-Fz-cjW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="3" id="bEn-LB-MhG"/>
                     <constraint firstItem="vQe-Fz-cjW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="3" id="bL6-L4-dwR"/>
-                    <constraint firstItem="LEu-Rd-98w" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="dFo-Zs-a7Z"/>
                     <constraint firstAttribute="bottom" secondItem="MBN-Pr-Oxl" secondAttribute="bottom" id="dHt-4f-PGG"/>
                     <constraint firstAttribute="bottom" secondItem="KWD-GL-yxy" secondAttribute="bottom" constant="2.6666666666666714" id="e9k-Yx-EEs"/>
                     <constraint firstItem="MBN-Pr-Oxl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-14" id="fLg-VK-AAq"/>
@@ -85,9 +77,8 @@
     </objects>
     <resources>
         <image name="adidas" width="225" height="225"/>
-        <image name="love" width="20" height="20"/>
         <namedColor name="theme">
-            <color red="0.9588462752525253" green="0.9588462752525253" blue="0.9588462752525253" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.95899999141693115" green="0.95899999141693115" blue="0.95899999141693115" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
     </resources>
 </document>

@@ -12,7 +12,9 @@ class WelcomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        if UserDefaultsHelper.shared.isLoggedIn() {
+            navigateToHome()
+        }
     }
     
     @IBAction func navigateToHomeAsGuest(_ sender: Any){        
@@ -36,5 +38,19 @@ class WelcomeViewController: UIViewController {
         }
     }
     
-    
+    private func navigateToHome() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarViewController") as? UITabBarController {
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+               let sceneDelegate = windowScene.delegate as? SceneDelegate,
+               let window = sceneDelegate.window {
+                window.rootViewController = tabBarController
+                window.makeKeyAndVisible()
+                
+                // Optional: Add a transition animation
+                let options: UIView.AnimationOptions = .transitionFlipFromRight
+                UIView.transition(with: window, duration: 0.5, options: options, animations: {}, completion: nil)
+            }
+        }
+    }
 }

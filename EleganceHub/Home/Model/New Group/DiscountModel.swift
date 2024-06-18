@@ -22,8 +22,8 @@ struct PriceRule: Codable {
     let starts_at, ends_at: String?
     let created_at, updated_at: String?
     let entitled_product_ids, entitled_variant_ids, entitled_collection_ids, entitled_country_ids: [String]
-    let prerequisite_product_ids, prerequisite_variant_ids, prerequisite_collection_ids, customer_segment_prerequisite_ids: [String]
-    let prerequisite_customer_ids: [String]
+    let prerequisite_product_ids, prerequisite_variant_ids, prerequisite_collection_ids, customer_segment_prerequisite_ids: [Int]
+    let prerequisite_customer_ids: [Int]
     let prerequisite_subtotal_range, prerequisite_quantity_range, prerequisite_shipping_price_range: String?
     let prerequisite_to_entitlement_quantity_ratio: PrerequisiteToEntitlementQuantityRatio?
     let prerequisite_to_entitlement_purchase: PrerequisiteToEntitlementPurchase?
@@ -37,7 +37,7 @@ struct PrerequisiteToEntitlementPurchase: Codable {
 
 // MARK: - PrerequisiteToEntitlementQuantityRatio
 struct PrerequisiteToEntitlementQuantityRatio: Codable {
-    let prerequisite_quantity, entitled_quantity: String?
+    let prerequisite_quantity, entitled_quantity: Int?
 }
 
 // MARK: - DiscountCodesResponse
@@ -56,3 +56,21 @@ struct CouponCellData{
     let imageName:String?
     let codeName:String?
 }
+
+// MARK: - Validation Response
+struct ValidationResponse: Codable {
+    let discountCode: DiscountCodes?
+
+    enum CodingKeys: String, CodingKey {
+        case discountCode = "discount_code"
+    }
+}
+
+struct PriceRuleResponse: Codable {
+    let priceRule: PriceRule?
+
+    enum CodingKeys: String, CodingKey {
+        case priceRule = "price_rule"
+    }
+}
+

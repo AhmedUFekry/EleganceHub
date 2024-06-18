@@ -76,54 +76,78 @@ class ProductDetailViewController: UIViewController {
                 }
             }
                 
-            addToCartObserversFuncs()
+        sizeCollectionView.delegate = self
+        sizeCollectionView.dataSource = self
+        sizeCollectionView.register(SizeOptionCell.self, forCellWithReuseIdentifier: "SizeOptionCell")
+                
+        ProductImagesCollection.delegate = self
+        ProductImagesCollection.dataSource = self
+        ProductImagesCollection.register(ProductImageCell.self, forCellWithReuseIdentifier: "ProductImageCell")
+                
+        if let layout = sizeCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.scrollDirection = .horizontal
+        }
+                
+        let networkManager = ProductDetailNetworkService()
+        viewModel = ProductDetailViewModel(networkManager: networkManager)
+        viewModel.bindingProduct = { [weak self] in
+            DispatchQueue.main.async {
+                self?.updateUI()
+            }
             
-            if let productId = productId {
+            if let customerID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.loggedInUserID.rawValue){
+                self?.customerID = customerID
+            }
+        }
+            
+        addToCartObserversFuncs()
+        
+        if let productId = productId {
+            viewModel.getProductDetails(productId: productId)
+            viewModel.getAvailableVarients(productId: productId) { [weak self] sizeColorMap, colors in
+                guard let self = self else { return }
+                            
+                self.sizeColorMap = sizeColorMap
+                self.availableColors = colors
+                self.availableSizes = Array(sizeColorMap.keys)
+                        
+                self.sizeCollectionView.reloadData()
+                self.setupColorSelectorView()
+            }
+        } else {
+            print("Product ID is nil.")
+        
+        
+        if let productId = productId {
                 viewModel.getProductDetails(productId: productId)
                 viewModel.getAvailableVarients(productId: productId) { [weak self] sizeColorMap, colors in
                     guard let self = self else { return }
-                                
+                    
                     self.sizeColorMap = sizeColorMap
                     self.availableColors = colors
                     self.availableSizes = Array(sizeColorMap.keys)
-                            
+                    
                     self.sizeCollectionView.reloadData()
                     self.setupColorSelectorView()
                 }
-            } else {
-                print("Product ID is nil.")
-            
-            
-            if let productId = productId {
-                    viewModel.getProductDetails(productId: productId)
-                    viewModel.getAvailableVarients(productId: productId) { [weak self] sizeColorMap, colors in
-                        guard let self = self else { return }
-                        
-                        self.sizeColorMap = sizeColorMap
-                        self.availableColors = colors
-                        self.availableSizes = Array(sizeColorMap.keys)
-                        
-                        self.sizeCollectionView.reloadData()
-                        self.setupColorSelectorView()
-                    }
-                    
-                    print("Checking if product is in favorites...")
-                    if let productName = viewModel.observableProduct?.title {
-                        let customerId = UserDefaultsHelper.shared.getLoggedInUserID()
-                        print("User ID: \(customerId)")
-                        let isFavorite = FavoriteCoreData.shared.isProductInFavorites(productId: productId, productName: productName)
-                        print("Product \(productName) with ID \(productId) is favorite: \(isFavorite)")
-                        updateFavoriteButton(isFavorite: isFavorite)
-                    }
+                
+                print("Checking if product is in favorites...")
+                if let productName = viewModel.observableProduct?.title {
+                    let customerId = UserDefaultsHelper.shared.getLoggedInUserID()
+                    print("User ID: \(customerId)")
+                    let isFavorite = FavoriteCoreData.shared.isProductInFavorites(productId: productId, productName: productName)
+                    print("Product \(productName) with ID \(productId) is favorite: \(isFavorite)")
+                    updateFavoriteButton(isFavorite: isFavorite)
                 }
             }
-             
-            //checkIfUserLoggedIn()
-            if let customerID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.loggedInUserID.rawValue){
-                self.customerID = customerID
-            }
-            addToCartObserversFuncs()
         }
+            
+        //checkIfUserLoggedIn()
+        if let customerID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.loggedInUserID.rawValue){
+            self.customerID = customerID
+        }
+        addToCartObserversFuncs()
+    }
 
     private func updateUI() {
         guard let product = viewModel.observableProduct else {
@@ -201,7 +225,19 @@ class ProductDetailViewController: UIViewController {
     }
     
     @IBAction func addToFavorite(_ sender: Any) {
+        guard let customerId = getCustomerId() else {
+            showAlertForGuest()
+            return
+        }
         toggleFavoriteStatus()
+    }
+    
+    private func showAlertForGuest(){
+        let alert = UIAlertController(title: "You re not logged in", message: "You need to log in to perform this action.", preferredStyle: .alert)
+            
+        let okAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
     }
             
     private func toggleFavoriteStatus() {
@@ -218,6 +254,11 @@ class ProductDetailViewController: UIViewController {
             print("Customer ID is nil.")
             return
         }
+        
+        guard let customerId = getCustomerId() else {
+                showAlertForGuest()
+                return
+            }
                 
         let isFavorite = checkIfFavorite(productId: productId, productName: productName)
                 
@@ -271,7 +312,9 @@ class ProductDetailViewController: UIViewController {
     private func updateFavoriteButton(isFavorite: Bool) {
         let imageName = isFavorite ? "heart.fill" : "heart"
         favoriteButton.setImage(UIImage(systemName: imageName), for: .normal)
+        favoriteButton.isEnabled = getCustomerId() != nil
     }
+
     
     @IBAction func goBack(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
