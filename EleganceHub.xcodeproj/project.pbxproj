@@ -1003,7 +1003,6 @@
 			isa = PBXGroup;
 			children = (
 				D4883C6B2C1506E300EE6C78 /* Model */,
-				D4883C6A2C1506D900EE6C78 /* ViewModel */,
 				D4883C692C1506D300EE6C78 /* View */,
 			);
 			path = Favorite;
@@ -1015,13 +1014,6 @@
 				D4883C6D2C15071900EE6C78 /* FavoriteViewController.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		D4883C6A2C1506D900EE6C78 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		D4883C6B2C1506E300EE6C78 /* Model */ = {

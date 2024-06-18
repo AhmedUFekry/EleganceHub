@@ -14,6 +14,11 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
     @IBOutlet weak var favoriteTableView: UITableView!
     var favoriteProducts: BehaviorRelay<[[String: Any]]> = BehaviorRelay(value: [])
     let disposeBag = DisposeBag()
+    
+    // UI elements for empty state
+        private var emptyStateImageView: UIImageView!
+        private var emptyStateLabel: UILabel!
+    private var emptyStateSubLabel: UILabel!
             
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +27,9 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
         loadFavoriteProducts()
         bindTableView()
         setupTableViewInteractions()
+        
+        setupEmptyStateUI()
+                updateEmptyStateVisibility()
     }
     
     private func setupTableView() {
@@ -61,40 +69,41 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
     }
 
     private func configureCell(_ cell: CartTableViewCell, with product: [String: Any], at row: Int) {
-        if let title = product["title"] as? String,
-           let price = product["price"] as? String,
-           let imageUrlString = product["image"] as? String,
-           let imageUrl = URL(string: imageUrlString) {
-            cell.productNameLabel.text = title
-            cell.productPriceLabel.text = price
-            cell.productImage.kf.setImage(with: imageUrl, placeholder: UIImage(named: "AppIcon"))
+            if let title = product["title"] as? String,
+               let price = product["price"] as? String,
+               let imageUrlString = product["image"] as? String,
+               let imageUrl = URL(string: imageUrlString) {
+                cell.productNameLabel.text = title
+                cell.productPriceLabel.text = price
+                cell.productImage.kf.setImage(with: imageUrl, placeholder: UIImage(named: "AppIcon"))
+            }
+            cell.productVarintLabel.text = product["variant"] as? String
+            
+            // Hide quantity and buttons in favorite list
+            cell.decreaseQuantityBtn.isHidden = true
+            cell.IncreaseQuantityBtn.isHidden = true
+            cell.productQuantityLabel.isHidden = true
+            
+            // Add "Add to Cart" button
+            let addToCartBtn = UIButton(type: .system)
+            addToCartBtn.setTitle("Add To Cart", for: .normal)
+            addToCartBtn.backgroundColor = .black
+            addToCartBtn.setTitleColor(.white, for: .normal)
+            addToCartBtn.layer.cornerRadius = 10
+            
+            cell.contentView.addSubview(addToCartBtn)
+            
+            addToCartBtn.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                addToCartBtn.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 220),
+                addToCartBtn.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -16),
+                addToCartBtn.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor, constant: -18),
+                addToCartBtn.heightAnchor.constraint(equalToConstant: 40)
+            ])
+            
+            addToCartBtn.tag = row
+            addToCartBtn.addTarget(self, action: #selector(addToCartButtonTapped(_:)), for: .touchUpInside)
         }
-        cell.productVarintLabel.text = product["variant"] as? String
-        
-        cell.decreaseQuantityBtn.isHidden = true
-        cell.IncreaseQuantityBtn.isHidden = true
-        cell.productQuantityLabel.isHidden = true
-        
-        let addToCartBtn = UIButton(type: .system)
-        addToCartBtn.setTitle("Add To Cart", for: .normal)
-        addToCartBtn.backgroundColor = .black
-        addToCartBtn.setTitleColor(.white, for: .normal)
-        addToCartBtn.layer.cornerRadius = 10
-        
-        cell.contentView.addSubview(addToCartBtn)
-        
-        addToCartBtn.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            addToCartBtn.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 220),
-            addToCartBtn.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -16),
-            addToCartBtn.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor, constant: -18),
-            addToCartBtn.heightAnchor.constraint(equalToConstant: 40)
-        ])
-        
-        addToCartBtn.tag = row
-        addToCartBtn.addTarget(self, action: #selector(addToCartButtonTapped(_:)), for: .touchUpInside)
-    }
-
     func getLoggedInUserID() -> Int? {
         return UserDefaultsHelper.shared.getLoggedInUserID()
     }
@@ -125,6 +134,8 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
         var updatedProducts = favoriteProducts.value
         updatedProducts.remove(at: indexPath.row)
         favoriteProducts.accept(updatedProducts)
+        
+        updateEmptyStateVisibility()
     }
         
     func navigateToProductDetail(product: [String: Any]) {
@@ -143,10 +154,17 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
 
 extension FavoriteViewController {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("Number of rows: \(favoriteProducts.value.count)")
-        return favoriteProducts.value.count
-    }
-        
+            let count = favoriteProducts.value.count
+            
+            // Toggle empty state visibility based on product count
+            if count == 0 {
+                favoriteTableView.backgroundView = emptyStateImageView
+            } else {
+                favoriteTableView.backgroundView = nil
+            }
+            
+            return count
+        }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         print("Configuring cell for row \(indexPath.row)")
         let cell = tableView.dequeueReusableCell(withIdentifier: "CartTableViewCell", for: indexPath) as! CartTableViewCell
@@ -201,4 +219,47 @@ extension FavoriteViewController {
             }
         }
     }
-}
+    
+    // MARK: - Empty State Handling
+        
+    private func setupEmptyStateUI() {
+        emptyStateImageView = UIImageView(image: UIImage(named: "emptybox"))
+        emptyStateImageView.contentMode = .scaleAspectFit
+
+        emptyStateLabel = UILabel()
+        emptyStateLabel.text = "Your Wishlist is empty!"
+        emptyStateLabel.font = UIFont(name: "Palatino", size: 20)
+        emptyStateLabel.textAlignment = .center
+        emptyStateLabel.numberOfLines = 0
+        emptyStateLabel.textColor = .black
+
+        emptyStateSubLabel = UILabel()
+        emptyStateSubLabel.text = "Tab heart button to start saving your favorite items."
+        emptyStateLabel.font = UIFont(name: "Palatino", size: 16)
+        emptyStateSubLabel.textAlignment = .center
+        emptyStateSubLabel.numberOfLines = 0
+        emptyStateSubLabel.textColor = .gray
+        
+        let stackView = UIStackView(arrangedSubviews: [emptyStateImageView, emptyStateLabel,emptyStateSubLabel])
+        stackView.axis = .vertical
+        stackView.spacing = 16.0
+        stackView.alignment = .center
+        
+        favoriteTableView.backgroundView = stackView
+        
+
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            stackView.centerXAnchor.constraint(equalTo: favoriteTableView.centerXAnchor),
+            stackView.centerYAnchor.constraint(equalTo: favoriteTableView.centerYAnchor),
+            stackView.leadingAnchor.constraint(equalTo: favoriteTableView.leadingAnchor, constant: 16),
+            stackView.trailingAnchor.constraint(equalTo: favoriteTableView.trailingAnchor, constant: -16)
+        ])
+    }
+
+        
+        private func updateEmptyStateVisibility() {
+            favoriteTableView.backgroundView?.isHidden = !favoriteProducts.value.isEmpty
+        }
+    }
+
