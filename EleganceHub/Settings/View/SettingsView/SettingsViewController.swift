@@ -23,9 +23,7 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
     var imageString: String?
-        var isEditingTapped: Bool = false
-        
-        //var customerData: User? = User(id: 8229959500051, first_name: "shimaa", last_name: "shimo", email: "", password: "")
+    var isEditingTapped: Bool = false
     var customerID:Int?
     
         let viewModel = SettingsViewModel()
