@@ -10,8 +10,6 @@ import Foundation
 
 class ProductsViewModel {
     
-    
-    
     var vmResult: [Product]? {
         didSet {
             bindResultToViewController()

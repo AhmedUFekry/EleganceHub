@@ -64,6 +64,22 @@ class Constants {
         }
     }
     
+    static func showLoginAlert(on viewController: UIViewController) {
+        let alert = UIAlertController(title: "Login Required", message: "You need to login to access this feature.", preferredStyle: .alert)
+            
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        alert.addAction(UIAlertAction(title: "Login", style: .default, handler: { [weak viewController] _ in
+            guard let viewController = viewController else { return }
+            if let newViewController = viewController.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") {
+                newViewController.hidesBottomBarWhenPushed = true
+                viewController.navigationController?.pushViewController(newViewController, animated: true)
+            }
+        }))
+            
+        viewController.present(alert, animated: true, completion: nil)
+    }
+    
 }
 
 enum Categories : String{

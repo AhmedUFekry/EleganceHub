@@ -80,6 +80,7 @@
     </objects>
     <resources>
         <image name="coupon" width="675" height="371"/>
+        <image name="love" width="20" height="20"/>
         <namedColor name="theme">
             <color red="0.95899999141693115" green="0.95899999141693115" blue="0.95899999141693115" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>

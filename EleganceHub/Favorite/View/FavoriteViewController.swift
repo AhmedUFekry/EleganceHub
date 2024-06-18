@@ -140,7 +140,6 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
         }else{
             showAlertError(err: "You have to logged in first")
         }
-        print("Add to Cart button tapped for product: \(product)")
     }
         
     func showDeleteConfirmationAlert(productId: Int, customerId: Int, indexPath: IndexPath) {
@@ -285,7 +284,7 @@ extension FavoriteViewController {
     
     
     
-    // MARK: - Empty State Handling
+    // MARK: - Empty State
         
     private func setupEmptyStateUI() {
         emptyStateImageView = UIImageView(image: UIImage(named: "emptybox"))
