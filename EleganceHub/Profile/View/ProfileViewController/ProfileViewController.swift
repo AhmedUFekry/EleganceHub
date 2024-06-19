@@ -79,7 +79,6 @@ class ProfileViewController: UIViewController {
             .subscribe(onNext: { [weak self] response in
                 guard let self = self else { return }
                 if let response = response.customer {
-                    Constants.displayToast(viewController: self, message: "data downloaded Successfully", seconds: 2.0)
                     self.updateUI(user: response)
                 }
             })

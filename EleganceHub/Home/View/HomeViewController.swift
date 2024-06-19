@@ -16,13 +16,14 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var couponsCollection: UICollectionView!
     @IBOutlet weak var cartBtn:UIBarButtonItem!
     @IBOutlet weak var favBtn: UIBarButtonItem!
+    var badgeLabel:UILabel = UILabel()
     
     private let disposeBag = DisposeBag()
     
     var homeViewModel = HomeViewModel()
     var smartCollections : SmartCollections?
-    var couponsList : [DiscountCodes]? = []
-    var couponsImage : [String] = ["discount_1","discount_2","discount_3","discount_4"]
+    var couponsList : [Coupon]? = []
+    var couponsImage : [String] = ["10","20","30","40","50","70","sale1"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -165,12 +166,11 @@ extension HomeViewController: UICollectionViewDataSource,UICollectionViewDelegat
             let couponsCell = collectionView.dequeueReusableCell(withReuseIdentifier: "couponsCell", for: indexPath) as! CouponsCollectionViewCell
             if(!couponsList!.isEmpty){
                 print("!couponsList!.isEmpty")
-                couponsCell.couponsLabel.text = couponsList![indexPath.row].code
-                couponsCell.codeLabel.text = "Coupons code: \(couponsList?[indexPath.row].code ?? "")"
+                //couponsCell.couponsLabel.isHidden = true
+                couponsCell.codeLabel.text = "Coupons code: \(couponsList?[indexPath.row].discountCode.code ?? "")"
                 if(indexPath.row < couponsImage.count){
                     //var index = 0
-                    couponsCell.couponsImage.image = UIImage(named: couponsImage[indexPath.row])
-                 //   index += 1
+                    couponsCell.couponsImage.image = UIImage(named:setBackGround(discountValue: couponsList?[indexPath.row].priceRule ?? 0) )
                 }else{
                     couponsCell.couponsImage.image = UIImage(named: couponsImage[3])
                 }
@@ -178,16 +178,80 @@ extension HomeViewController: UICollectionViewDataSource,UICollectionViewDelegat
             return couponsCell
         }
     }
+    func setBackGround(discountValue:Int) -> String{
+        switch discountValue{
+        case 10:
+            return "10"
+        case 20:
+            return "20"
+        default:
+            return "sale1"
+        }
+    
+    }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let brand = smartCollections?.smartCollections[indexPath.row]
-        if let ProductViewController = storyboard?.instantiateViewController(withIdentifier: "ProductViewController") as? ProductViewController {
-            if collectionView == brandsCollection {
-                ProductViewController.brandsId = brand?.id
-                navigationController?.pushViewController(ProductViewController, animated: true)
+        if collectionView == brandsCollection{
+            let brand = smartCollections?.smartCollections[indexPath.row]
+            if let ProductViewController = storyboard?.instantiateViewController(withIdentifier: "ProductViewController") as? ProductViewController {
+                if collectionView == brandsCollection {
+                    ProductViewController.brandsId = brand?.id
+                    navigationController?.pushViewController(ProductViewController, animated: true)
+                }
+            }
+        }else{
+            guard let cell = couponsCollection.cellForItem(at: indexPath) as? CouponsCollectionViewCell else {return}
+            if let coppiedText = couponsList?[indexPath.row].discountCode.code {
+                UIPasteboard.general.string = coppiedText
+                Constants.displayToast(viewController: self, message: "The content has been copied to the clipboard.", seconds: 1.0)
             }
         }
+        couponsCollection.deselectItem(at: indexPath, animated: true)
     }
+    
+    func setupBadgeLabel(on button: UIButton) {
+            badgeLabel.backgroundColor = .red
+            badgeLabel.textColor = .white
+            badgeLabel.font = .systemFont(ofSize: 12)
+            badgeLabel.textAlignment = .center
+            badgeLabel.layer.cornerRadius = 10
+            badgeLabel.clipsToBounds = true
+            badgeLabel.translatesAutoresizingMaskIntoConstraints = false
+            badgeLabel.isHidden = true
+            button.addSubview(badgeLabel)
+            
+            NSLayoutConstraint.activate([
+                badgeLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 20),
+                badgeLabel.heightAnchor.constraint(equalToConstant: 20),
+                badgeLabel.topAnchor.constraint(equalTo: button.topAnchor, constant: -5),
+                badgeLabel.trailingAnchor.constraint(equalTo: button.trailingAnchor, constant: 5)
+            ])
+        }
 }
 
- 
+
+ /*
+  func setupBadgeLabel(on button: UIButton) {
+          badgeLabel.backgroundColor = .red
+          badgeLabel.textColor = .white
+          badgeLabel.font = .systemFont(ofSize: 12)
+          badgeLabel.textAlignment = .center
+          badgeLabel.layer.cornerRadius = 10
+          badgeLabel.clipsToBounds = true
+          badgeLabel.translatesAutoresizingMaskIntoConstraints = false
+          badgeLabel.isHidden = true
+          button.addSubview(badgeLabel)
+          
+          NSLayoutConstraint.activate([
+              badgeLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 20),
+              badgeLabel.heightAnchor.constraint(equalToConstant: 20),
+              badgeLabel.topAnchor.constraint(equalTo: button.topAnchor, constant: -5),
+              badgeLabel.trailingAnchor.constraint(equalTo: button.trailingAnchor, constant: 5)
+          ])
+      }
+
+      func updateBadge() {
+             badgeLabel.text = "\(cartItemCount)"
+             badgeLabel.isHidden = cartItemCount == 0
+         }
+  */

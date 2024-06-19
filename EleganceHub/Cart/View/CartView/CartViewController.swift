@@ -176,10 +176,13 @@ class CartViewController: UIViewController {
     private func handleCartEmptyState(isEmpty: Bool) {
         if isEmpty {
             print("Cart is empty")
-            let emptyLabel = UILabel(frame: self.cartTableView.bounds)
-            emptyLabel.text = "Your cart is empty."
-            emptyLabel.textAlignment = .center
-            self.cartTableView.backgroundView = emptyLabel
+            //let emptyLabel = UILabel(frame: self.cartTableView.bounds)
+            if let emptyImage = UIImage(named: "emptycart") {
+               let imageView = UIImageView(image: emptyImage)
+                imageView.contentMode = .center
+               imageView.frame = self.cartTableView.bounds
+               self.cartTableView.backgroundView = imageView
+           }
             UserDefaultsHelper.shared.clearUserData(key: UserDefaultsConstants.getDraftOrder.rawValue)
             draftOrder = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.getDraftOrder.rawValue)
             print("draft order is removed \(UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.getDraftOrder.rawValue)) draft order \(draftOrder )")

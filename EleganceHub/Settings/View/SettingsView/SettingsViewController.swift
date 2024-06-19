@@ -131,7 +131,7 @@ class SettingsViewController: UIViewController {
                     if let response = response.customer {
                         // self.customerData = response.customer
                         if (self.isEditing) {
-                            Constants.displayToast(viewController: self, message: "Updated Successfully", seconds: 2.0)
+//                            Constants.displayToast(viewController: self, message: "Updated Successfully", seconds: 2.0)
                         } else {
                             Constants.displayToast(viewController: self, message: "data downloaded Successfully", seconds: 2.0)
                         }
