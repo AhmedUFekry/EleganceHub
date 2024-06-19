@@ -25,11 +25,11 @@ final class ProductDetailNetworkServiceTest: XCTestCase {
     }
 
     func testGetProductDetailsSuccess() {
-        let expectation = self.expectation(description: "Fetch product details succeeded")
+        let expectation = self.expectation(description: "fetching product details succeeded")
                 let testProductId = 12345
         
                 networkService?.getProductDetails(productId: testProductId) { productResponse in
-                    XCTAssertNotNil(productResponse, "ProductResponse should not be nil")
+                    XCTAssertNotNil(productResponse, "product response should not be nil")
                     expectation.fulfill()
             }
             
