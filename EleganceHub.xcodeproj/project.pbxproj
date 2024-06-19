@@ -57,6 +57,11 @@
 		03C396892C10022900FFADF7 /* AddressesViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C396872C10022900FFADF7 /* AddressesViewModelProtocol.swift */; };
 		03C3968B2C10023800FFADF7 /* AddressDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C3968A2C10023800FFADF7 /* AddressDataModel.swift */; };
 		03C3968D2C10115600FFADF7 /* UpdateLocationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C3968C2C10115600FFADF7 /* UpdateLocationDelegate.swift */; };
+		03CDC3EC2C231E930002F22F /* ProfileNetworkServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CDC3EB2C231E930002F22F /* ProfileNetworkServiceTest.swift */; };
+		03CDC3EE2C232FCE0002F22F /* SettingsNetworkServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CDC3ED2C232FCE0002F22F /* SettingsNetworkServiceTest.swift */; };
+		03CDC3F02C2334D30002F22F /* PaymentNetworkServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CDC3EF2C2334D30002F22F /* PaymentNetworkServiceTest.swift */; };
+		03CDC3F22C2339FC0002F22F /* CartNetworkServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CDC3F12C2339FC0002F22F /* CartNetworkServiceTest.swift */; };
+		03CDC3F42C2350E70002F22F /* HomeNetworkTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CDC3F32C2350E70002F22F /* HomeNetworkTest.swift */; };
 		03D6C5B72C0C4F9F00254753 /* CountryItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D6C5B62C0C4F9F00254753 /* CountryItemView.swift */; };
 		03DE27142C080C0300E18567 /* NetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DE27132C080C0300E18567 /* NetworkProtocol.swift */; };
 		03DE27162C08207100E18567 /* ViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DE27152C08207100E18567 /* ViewModelProtocol.swift */; };
@@ -206,6 +211,11 @@
 		03C396872C10022900FFADF7 /* AddressesViewModelProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressesViewModelProtocol.swift; sourceTree = "<group>"; };
 		03C3968A2C10023800FFADF7 /* AddressDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressDataModel.swift; sourceTree = "<group>"; };
 		03C3968C2C10115600FFADF7 /* UpdateLocationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateLocationDelegate.swift; sourceTree = "<group>"; };
+		03CDC3EB2C231E930002F22F /* ProfileNetworkServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNetworkServiceTest.swift; sourceTree = "<group>"; };
+		03CDC3ED2C232FCE0002F22F /* SettingsNetworkServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNetworkServiceTest.swift; sourceTree = "<group>"; };
+		03CDC3EF2C2334D30002F22F /* PaymentNetworkServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentNetworkServiceTest.swift; sourceTree = "<group>"; };
+		03CDC3F12C2339FC0002F22F /* CartNetworkServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartNetworkServiceTest.swift; sourceTree = "<group>"; };
+		03CDC3F32C2350E70002F22F /* HomeNetworkTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNetworkTest.swift; sourceTree = "<group>"; };
 		03D6C5B62C0C4F9F00254753 /* CountryItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryItemView.swift; sourceTree = "<group>"; };
 		03DE27132C080C0300E18567 /* NetworkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProtocol.swift; sourceTree = "<group>"; };
 		03DE27152C08207100E18567 /* ViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelProtocol.swift; sourceTree = "<group>"; };
@@ -957,6 +967,11 @@
 			isa = PBXGroup;
 			children = (
 				C88C20732BFE8CB600886365 /* EleganceHubTests.swift */,
+				03CDC3EB2C231E930002F22F /* ProfileNetworkServiceTest.swift */,
+				03CDC3ED2C232FCE0002F22F /* SettingsNetworkServiceTest.swift */,
+				03CDC3EF2C2334D30002F22F /* PaymentNetworkServiceTest.swift */,
+				03CDC3F12C2339FC0002F22F /* CartNetworkServiceTest.swift */,
+				03CDC3F32C2350E70002F22F /* HomeNetworkTest.swift */,
 			);
 			path = EleganceHubTests;
 			sourceTree = "<group>";
@@ -1535,7 +1550,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03CDC3EE2C232FCE0002F22F /* SettingsNetworkServiceTest.swift in Sources */,
+				03CDC3EC2C231E930002F22F /* ProfileNetworkServiceTest.swift in Sources */,
 				C88C20742BFE8CB600886365 /* EleganceHubTests.swift in Sources */,
+				03CDC3F42C2350E70002F22F /* HomeNetworkTest.swift in Sources */,
+				03CDC3F02C2334D30002F22F /* PaymentNetworkServiceTest.swift in Sources */,
+				03CDC3F22C2339FC0002F22F /* CartNetworkServiceTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

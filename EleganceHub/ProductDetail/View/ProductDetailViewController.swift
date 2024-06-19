@@ -206,7 +206,7 @@ class ProductDetailViewController: UIViewController {
     
     @IBAction func addToFavorite(_ sender: Any) {
         guard let customerId = getCustomerId() else {
-            showAlertForGuest()
+            Constants.showLoginAlert(on: self)
             return
         }
         toggleFavoriteStatus()

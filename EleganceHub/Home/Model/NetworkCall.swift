@@ -37,7 +37,7 @@ class NetworkCall: NetworkProtocol{
            }
     }
     
-    static func getDiscountCodes(discountId:String, completionHandler: @escaping (Result<DiscountCodesResponse, Error>) -> Void) {
+    static func getDiscountCodes(discountId:Int, completionHandler: @escaping (Result<DiscountCodesResponse, Error>) -> Void) {
         let urlString = "\(Constants.storeUrl)/price_rules/\(discountId)/discount_codes.json"
         
         let headers: HTTPHeaders = [
