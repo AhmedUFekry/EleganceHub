@@ -53,5 +53,18 @@ class OrdersViewModel {
         }
     }
     
+    
+    var bindingOrderDelete: (() -> ()) = {}
+    var observableDeleteOrder: Int!{
+        didSet{
+            bindingOrderDelete()
+        }
+    }
+    func deleteOrder(orderId: Int) {
+        orderService?.deleteOrder(orderID: orderId){ order in
+            self.observableDeleteOrder = order
+            
+        }
+    }
    
 }

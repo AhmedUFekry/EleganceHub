@@ -17,7 +17,11 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
     var viewModel: ProductDetailViewModel!
     var customerID:Int?
 
+    var currencyViewModel = CurrencyViewModel()
+    var rate : Double?
     
+    let userCurrency = UserDefaultsHelper.shared.getCurrencyFromUserDefaults().uppercased()
+
    
     private var emptyStateImageView: UIImageView!
     private var emptyStateLabel: UILabel!
@@ -25,6 +29,14 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
             
     override func viewDidLoad() {
         super.viewDidLoad()
+        currencyViewModel.rateClosure = {
+            [weak self] rate in
+            DispatchQueue.main.async {
+                self?.rate = rate
+            }
+        }
+        currencyViewModel.getRate()
+        
         viewModel = ProductDetailViewModel(networkManager: ProductDetailNetworkService())
         setupTableView()
         loadFavoriteProducts()
@@ -79,7 +91,10 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
                let imageUrlString = product["image"] as? String,
                let imageUrl = URL(string: imageUrlString) {
                 cell.productNameLabel.text = title
-                cell.productPriceLabel.text = price
+               // cell.productPriceLabel.text = price
+                var convertedPrice = convertPrice(price: price, rate: self.rate ?? 3.3)
+                cell.productPriceLabel.text = "\(String(format: "%.2f", convertedPrice)) \(userCurrency)"
+                
                 cell.productImage.kf.setImage(with: imageUrl, placeholder: UIImage(named: "AppIcon"))
             }
             cell.productVarintLabel.text = product["variant"] as? String

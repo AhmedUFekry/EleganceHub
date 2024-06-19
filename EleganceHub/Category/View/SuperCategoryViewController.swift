@@ -25,23 +25,16 @@ class SuperCategoryViewController: UIViewController {
     var categoryProductList: [Product]?
     var filteredList: [Product]?
     var searchList: [Product]?
-    
+    var userCurrency:String?
     var isFiltered: Bool = false
     var isSearching: Bool = false
 
     var rate : Double!
        
-      let userCurrency = UserDefaultsHelper.shared.getCurrencyFromUserDefaults().uppercased()
+      
        override func viewDidLoad() {
            super.viewDidLoad()
            
-           productsViewModel.rateClosure = {
-               [weak self] rate in
-               DispatchQueue.main.async {
-                   self?.rate = rate
-               }
-           }
-           productsViewModel.getRate()
         activityIndicator.startAnimating()
 
         loadNib()
@@ -59,6 +52,14 @@ class SuperCategoryViewController: UIViewController {
         super.viewDidAppear(animated)
         checkIfUserLoggedIn()
         self.renderView()
+        userCurrency = UserDefaultsHelper.shared.getCurrencyFromUserDefaults().uppercased()
+        productsViewModel.rateClosure = {
+            [weak self] rate in
+            DispatchQueue.main.async {
+                self?.rate = rate
+            }
+        }
+        productsViewModel.getRate()
     }
     
     func loadNib() {
@@ -167,7 +168,7 @@ extension SuperCategoryViewController: UICollectionViewDataSource, UICollectionV
         
         let convertedPrice = convertPrice(price: category?.variants?[0].price ?? "2", rate: self.rate)
                        
-        categoryCell.categoryPrice.text = "\(String(format: "%.2f", convertedPrice)) \(userCurrency)"
+        categoryCell.categoryPrice.text = "\(String(format: "%.2f", convertedPrice)) \(userCurrency!)"
         return categoryCell
     }
     

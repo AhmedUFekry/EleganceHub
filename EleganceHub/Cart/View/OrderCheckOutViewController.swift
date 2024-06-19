@@ -32,6 +32,9 @@ class OrderCheckOutViewController: UIViewController {
     var viewModel:CartViewModelProtocol = CartViewModel()
     
     var draftOrderID: Int?
+    var currencyViewModel = CurrencyViewModel()
+    var rate : Double!
+    let userCurrency = UserDefaultsHelper.shared.getCurrencyFromUserDefaults().uppercased()
     
     @IBAction func placeOrderButton(_ sender: UIButton) {
         //let storyBoard = UIStoryboard(name: "Main", bundle: <#T##Bundle?#>)
@@ -45,11 +48,23 @@ class OrderCheckOutViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        currencyViewModel.rateClosure = {
+            [weak self] rate in
+            DispatchQueue.main.async {
+                self?.rate = rate
+                self?.renderView()
+            }
+        }
+        currencyViewModel.getRate()
         self.activityIndicator.startAnimating()
         
         setupUI()
         fetchDraftOrder()
         
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        fetchDraftOrder()
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -131,7 +146,8 @@ class OrderCheckOutViewController: UIViewController {
     func renderView() {
         DispatchQueue.main.async {
             self.productItemTableView.reloadData()
-            self.totaldraftPriceLabel.text = self.draftOrder?.subtotalPrice
+            var convertedPrice = convertPrice(price: self.draftOrder?.totalPrice ?? "2", rate: self.rate)
+            self.totaldraftPriceLabel.text = "\(String(format: "%.2f", convertedPrice)) \(self.userCurrency)"
             self.streetAddressLabel.text = self.draftOrder?.shippingAddress?.address1
             self.cityAddressLabel.text = self.draftOrder?.shippingAddress?.city
             self.phoneLabel.text = self.draftOrder?.shippingAddress?.phone

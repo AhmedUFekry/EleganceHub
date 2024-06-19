@@ -53,11 +53,11 @@ class SearchProductCell: UITableViewCell {
                 searchProductTxt.text = Utilities.splitName(text: product.title ?? "No Title", delimiter: " | ")
         
                 guard let rate = self.rate else {
-                    searchProductPriceTxt.text = "No Rate"
+                    searchProductPriceTxt.text = "550.4"
                     return
                 }
                 
-                let convertedPrice = convertPrice(price: product.variants?[0].price ?? "2", rate: rate)
+                let convertedPrice = convertPrice(price: product.variants?.first?.price ?? "2", rate: rate)
                 searchProductPriceTxt.text = "\(String(format: "%.2f", convertedPrice)) \(userCurrency)"
             
 //                if let priceString = product.variants?.first?.price, let price = Double(priceString) {

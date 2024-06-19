@@ -910,12 +910,9 @@
 		C88C205B2BFE8CAF00886365 /* EleganceHub */ = {
 			isa = PBXGroup;
 			children = (
-
 				7F5E5A332C1D1720003E4AAD /* Currency */,
-
 				038BB8562C1CF80500E2C7D1 /* EleganceHub.entitlements */,
 				03E84A632C1C882E00D75B5F /* Payment */,
-
 				D4883C762C15420F00EE6C78 /* Model */,
 				D4883C682C1506C300EE6C78 /* Favorite */,
 				7F1BEEE52C14DD7D00C5A114 /* Orders */,

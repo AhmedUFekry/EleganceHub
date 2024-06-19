@@ -23,7 +23,7 @@ class ProductDetailViewController: UIViewController {
     
     @IBOutlet weak var ProductDescription: UILabel!
     @IBOutlet weak var addToCartBtn: UIButton!
-    
+    let networkManager = ProductDetailNetworkService()
     var productItem:Product?
     var disposeBag = DisposeBag()
     @IBOutlet weak var addToCartButton: UIButton!
@@ -31,12 +31,12 @@ class ProductDetailViewController: UIViewController {
     @IBOutlet weak var favoriteButton: UIButton!
     
     var colorSelectorView: ColorSelectorView!
-        var availableSizes: [String] = []
-        var availableColors: [String] = []
-        var sizeColorMap: [String: [String]] = [:]
-        var selectedSize: String?
-        var productId: Int?
-        var viewModel: ProductDetailViewModel!
+    var availableSizes: [String] = []
+    var availableColors: [String] = []
+    var sizeColorMap: [String: [String]] = [:]
+    var selectedSize: String?
+    var productId: Int?
+    var viewModel: ProductDetailViewModel!
     
     var customerID:Int?
     var selectedSizeItem:String? = "19"
@@ -59,36 +59,34 @@ class ProductDetailViewController: UIViewController {
         sizeCollectionView.delegate = self
         sizeCollectionView.dataSource = self
         sizeCollectionView.register(SizeOptionCell.self, forCellWithReuseIdentifier: "SizeOptionCell")
-                    
-            ProductImagesCollection.delegate = self
-            ProductImagesCollection.dataSource = self
-            ProductImagesCollection.register(ProductImageCell.self, forCellWithReuseIdentifier: "ProductImageCell")
-                    
-            if let layout = sizeCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-                layout.scrollDirection = .horizontal
-            }
-                    
-            let networkManager = ProductDetailNetworkService()
-            viewModel = ProductDetailViewModel(networkManager: networkManager)
-            viewModel.bindingProduct = { [weak self] in
-                DispatchQueue.main.async {
-                    self?.updateUI()
-                }
-            }
-                
-        sizeCollectionView.delegate = self
-        sizeCollectionView.dataSource = self
-        sizeCollectionView.register(SizeOptionCell.self, forCellWithReuseIdentifier: "SizeOptionCell")
-                
+        
         ProductImagesCollection.delegate = self
         ProductImagesCollection.dataSource = self
         ProductImagesCollection.register(ProductImageCell.self, forCellWithReuseIdentifier: "ProductImageCell")
-                
+        
         if let layout = sizeCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
         }
-                
-        let networkManager = ProductDetailNetworkService()
+        
+        viewModel = ProductDetailViewModel(networkManager: networkManager)
+        viewModel.bindingProduct = { [weak self] in
+            DispatchQueue.main.async {
+                self?.updateUI()
+            }
+        }
+        
+        sizeCollectionView.delegate = self
+        sizeCollectionView.dataSource = self
+        sizeCollectionView.register(SizeOptionCell.self, forCellWithReuseIdentifier: "SizeOptionCell")
+        
+        ProductImagesCollection.delegate = self
+        ProductImagesCollection.dataSource = self
+        ProductImagesCollection.register(ProductImageCell.self, forCellWithReuseIdentifier: "ProductImageCell")
+        
+        if let layout = sizeCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.scrollDirection = .horizontal
+        }
+        
         viewModel = ProductDetailViewModel(networkManager: networkManager)
         viewModel.bindingProduct = { [weak self] in
             DispatchQueue.main.async {
@@ -99,26 +97,26 @@ class ProductDetailViewController: UIViewController {
                 self?.customerID = customerID
             }
         }
-            
+        
         addToCartObserversFuncs()
         
         if let productId = productId {
             viewModel.getProductDetails(productId: productId)
             viewModel.getAvailableVarients(productId: productId) { [weak self] sizeColorMap, colors in
                 guard let self = self else { return }
-                            
+                
                 self.sizeColorMap = sizeColorMap
                 self.availableColors = colors
                 self.availableSizes = Array(sizeColorMap.keys)
-                        
+                
                 self.sizeCollectionView.reloadData()
                 self.setupColorSelectorView()
             }
         } else {
             print("Product ID is nil.")
-        
-        
-        if let productId = productId {
+            
+            
+            if let productId = productId {
                 viewModel.getProductDetails(productId: productId)
                 viewModel.getAvailableVarients(productId: productId) { [weak self] sizeColorMap, colors in
                     guard let self = self else { return }
@@ -141,14 +139,14 @@ class ProductDetailViewController: UIViewController {
                 }
             }
         }
-            
+        
         //checkIfUserLoggedIn()
         if let customerID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.loggedInUserID.rawValue){
             self.customerID = customerID
         }
         addToCartObserversFuncs()
     }
-
+    
     private func updateUI() {
         guard let product = viewModel.observableProduct else {
             print("Observable product is nil.")
@@ -173,24 +171,24 @@ class ProductDetailViewController: UIViewController {
     
     private func setupColorSelectorView(filteredColors: [String]? = nil) {
         colorSelectorView?.removeFromSuperview()
-
+        
         if let filteredColors = filteredColors {
             let dynamicColors: [UIColor] = filteredColors.map { color in
                 return colorToUIColor(color)
-        }
-
+            }
+            
             colorSelectorView = ColorSelectorView(colors: dynamicColors)
         } else {
             let dynamicColors: [UIColor] = availableColors.map { color in
                 return colorToUIColor(color)
             }
-
+            
             colorSelectorView = ColorSelectorView(colors: dynamicColors)
         }
-
+        
         colorSelectorView.translatesAutoresizingMaskIntoConstraints = false
         colorSelectorContainer.addSubview(colorSelectorView)
-
+        
         NSLayoutConstraint.activate([
             colorSelectorView.leadingAnchor.constraint(equalTo: colorSelectorContainer.leadingAnchor),
             colorSelectorView.trailingAnchor.constraint(equalTo: colorSelectorContainer.trailingAnchor),
@@ -198,7 +196,7 @@ class ProductDetailViewController: UIViewController {
             colorSelectorView.bottomAnchor.constraint(equalTo: colorSelectorContainer.bottomAnchor)
         ])
     }
-
+    
     private func colorToUIColor(_ color: String) -> UIColor {
         switch color.lowercased() {
         case "black":
@@ -234,61 +232,61 @@ class ProductDetailViewController: UIViewController {
     
     private func showAlertForGuest(){
         let alert = UIAlertController(title: "You re not logged in", message: "You need to log in to perform this action.", preferredStyle: .alert)
-            
+        
         let okAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
         alert.addAction(okAction)
         present(alert, animated: true, completion: nil)
     }
-            
+    
     private func toggleFavoriteStatus() {
         guard let product = getProduct() else {
             print("No product available to add to favorites.")
             return
         }
-                
+        
         let productId = product.id ?? 0
         let productName = product.title ?? ""
         let customerId = getCustomerId()
-            
+        
         guard let customerId = customerId else {
             print("Customer ID is nil.")
             return
         }
         
         guard let customerId = getCustomerId() else {
-                showAlertForGuest()
-                return
-            }
-                
+            showAlertForGuest()
+            return
+        }
+        
         let isFavorite = checkIfFavorite(productId: productId, productName: productName)
-                
+        
         print("Toggling favorite status for product \(productName) with ID \(productId). Currently favorite: \(isFavorite)")
-                
+        
         if isFavorite {
             removeFromFavorites(productId: productId, customerId: customerId)
         } else {
             addToFavorites(product: product, customerId: customerId)
         }
     }
-            
+    
     private func getProduct() -> Product? {
         return viewModel.observableProduct
     }
-            
+    
     private func getCustomerId() -> Int? {
         return UserDefaultsHelper.shared.getLoggedInUserID()
     }
-            
+    
     private func checkIfFavorite(productId: Int, productName: String) -> Bool {
         return FavoriteCoreData.shared.isProductInFavorites(productId: productId, productName: productName)
     }
-            
+    
     private func removeFromFavorites(productId: Int, customerId: Int) {
         FavoriteCoreData.shared.deleteFromCoreData(productId: productId, customerId: customerId)
         updateFavoriteButton(isFavorite: false)
         print("Product removed from favorites.")
     }
-            
+    
     private func addToFavorites(product: Product, customerId: Int) {
         let favoriteData: [String: Any] = [
             "id": product.id ?? 0,
@@ -298,9 +296,9 @@ class ProductDetailViewController: UIViewController {
             "price": product.variants?.first?.price ?? "",
             "image": product.images?.first?.src ?? ""
         ]
-            
+        
         FavoriteCoreData.shared.saveToCoreData([favoriteData]) { success, error in
-                    if success {
+            if success {
                 print("Product added to favorites.")
                 self.updateFavoriteButton(isFavorite: true)
             } else {
@@ -308,13 +306,13 @@ class ProductDetailViewController: UIViewController {
             }
         }
     }
-            
+    
     private func updateFavoriteButton(isFavorite: Bool) {
         let imageName = isFavorite ? "heart.fill" : "heart"
         favoriteButton.setImage(UIImage(systemName: imageName), for: .normal)
         favoriteButton.isEnabled = getCustomerId() != nil
     }
-
+    
     
     @IBAction func goBack(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
@@ -372,13 +370,13 @@ class ProductDetailViewController: UIViewController {
 }
 
 extension ProductDetailViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {        func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == sizeCollectionView {
-            return availableSizes.count
-        } else {
-            return viewModel.observableProduct?.images?.count ?? 0
-        }
+    if collectionView == sizeCollectionView {
+        return availableSizes.count
+    } else {
+        return viewModel.observableProduct?.images?.count ?? 0
     }
-        
+}
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == sizeCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SizeOptionCell", for: indexPath) as! SizeOptionCell
@@ -387,23 +385,23 @@ extension ProductDetailViewController: UICollectionViewDataSource, UICollectionV
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductImageCell", for: indexPath) as! ProductImageCell
             if let imageUrlString = viewModel.observableProduct?.images?[indexPath.row].src, let imageUrl = URL(string: imageUrlString) {
-                    cell.productImageView.loadImage(from: imageUrl)
-                }
-                return cell
+                cell.productImageView.loadImage(from: imageUrl)
             }
+            return cell
         }
-        
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == sizeCollectionView {
             selectedSize = availableSizes[indexPath.row]
             if let selectedSize = selectedSize, let colorsForSelectedSize = sizeColorMap[selectedSize] {
                 setupColorSelectorView(filteredColors: colorsForSelectedSize)
             } else {
-            setupColorSelectorView()
+                setupColorSelectorView()
             }
         }
     }
-        
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == sizeCollectionView {
             return CGSize(width: 50, height: 50)
@@ -411,11 +409,11 @@ extension ProductDetailViewController: UICollectionViewDataSource, UICollectionV
             return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
         }
     }
-        
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 1
     }
-        
+    
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if scrollView == ProductImagesCollection {
             let page = Int(scrollView.contentOffset.x / scrollView.frame.width)

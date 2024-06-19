@@ -50,6 +50,7 @@ class OrderCheckOutViewController: UIViewController {
                 [weak self] rate in
                 DispatchQueue.main.async {
                     self?.rate = rate
+                    self?.renderView()
                 }
             }
             currencyViewModel.getRate()
@@ -95,6 +96,7 @@ class OrderCheckOutViewController: UIViewController {
             self.productItemTableView.reloadData()
             self.activityIndicator.stopAnimating()
             self.activityIndicator.isHidden = true
+            
             var convertedPrice = convertPrice(price: self.draftOrder?.totalPrice ?? "2", rate: self.rate)
             self.totaldraftPriceLabel.text = "\(String(format: "%.2f", convertedPrice)) \(self.userCurrency)"
           //  self.totaldraftPriceLabel.text = self.draftOrder?.totalPrice

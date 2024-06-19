@@ -46,7 +46,7 @@ class ProductsTableViewCell: UITableViewCell {
             productCategory?.text = "Quantity: \(String(describing: product.quantity ?? 2))"
         
             guard let rate = self.rate else {
-            productPrice.text = "No Rate"
+            productPrice.text = "1543 EGP"
             return
             }
         
