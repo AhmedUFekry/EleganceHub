@@ -22,29 +22,24 @@ class FavoriteCoreData {
         }
         
         let managedContext = appDelegate.persistentContainer.viewContext
-    
-        guard let userId = UserDefaultsHelper.shared.getLoggedInUserID() else {
-            completion(false, NSError(domain: "UserIDNotFound", code: -1, userInfo: nil))
-            return
-        }
-        
-        let customerIdNumber = NSDecimalNumber(value: userId)
-        
+
         for productData in dataArray {
-            guard let id = productData["id"] as? Int,
+            guard let productId = productData["id"] as? Int,
                   let variant_id = productData["variant_id"] as? Int,
                   let title = productData["title"] as? String,
                   let price = productData["price"] as? String,
-                  let image = productData["image"] as? String else {
+                  let image = productData["image"] as? String,
+                  let inventory_quantity = productData["inventory_quantity"] as? Int,
+                  let product_type = productData["product_type"] as? String else {
                 continue
             }
             
             print("Data to be saved: \(productData)")
             
-            let idNumber = NSDecimalNumber(value: id)
+            let idNumber = NSDecimalNumber(value: productId)
             
             let fetchRequest: NSFetchRequest<FavoriteProduct> = FavoriteProduct.fetchRequest()
-            fetchRequest.predicate = NSPredicate(format: "id == %@ AND customer_id == %@", idNumber, customerIdNumber)
+            fetchRequest.predicate = NSPredicate(format: "id == %@", idNumber)
                         
             do {
                 let existingProducts = try managedContext.fetch(fetchRequest)
@@ -52,16 +47,18 @@ class FavoriteCoreData {
                 if existingProducts.isEmpty {
                     let newProduct = FavoriteProduct(context: managedContext)
                     newProduct.id = idNumber
-                    newProduct.customer_id = customerIdNumber
+                    newProduct.customer_id = NSDecimalNumber(value: UserDefaultsHelper.shared.getLoggedInUserID() ?? 0)
                     newProduct.variant_id = NSDecimalNumber(value: variant_id)
                     newProduct.title = title
-                    newProduct.price = price
+                    newProduct.price = price 
                     newProduct.image = image
+                    newProduct.inventory_quantity = NSDecimalNumber(value: inventory_quantity)
+                    newProduct.product_type = product_type
                     
                     try managedContext.save()
-                    print("Product with id \(id) saved to Core Data.")
+                    print("Product with id \(productId) saved to Core Data.")
                 } else {
-                    print("Product with id \(id) already exists in Core Data. Skipping save.")
+                    print("Product with id \(productId) already exists in Core Data. Skipping save.")
                 }
             } catch {
                 completion(false, error)
@@ -80,6 +77,8 @@ class FavoriteCoreData {
         
         let userIdNumber = NSDecimalNumber(value: userId)
         
+        print("Customer ID Number: \(userIdNumber)")
+        
         let fetchRequest: NSFetchRequest<FavoriteProduct> = FavoriteProduct.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "customer_id == %@", userIdNumber)
         
@@ -87,19 +86,21 @@ class FavoriteCoreData {
         
         do {
             let results = try managedContext.fetch(fetchRequest)
+            print("Fetched products count: \(results.count)")
             let favoriteProducts = results.map { product in
-                let favoriteProductDict: [String: Any] = [
+                // Map to dictionary format
+                return [
                     "id": Int(truncating: product.id ?? 0),
                     "customer_id": Int(truncating: product.customer_id ?? 0),
                     "variant_id": Int(truncating: product.variant_id ?? 0),
                     "title": product.title ?? "",
-                    "price": product.price ?? "",
-                    "image": product.image ?? ""
+                    "price": product.price ?? "", // Convert NSDecimalNumber to String
+                    "image": product.image ?? "",
+                    "inventory_quantity": Int(truncating: product.inventory_quantity ?? 0),
+                    "product_type": product.product_type ?? ""
                 ]
-                print("Fetched product: \(favoriteProductDict)")
-                return favoriteProductDict
             }
-            print("Fetched products count: \(favoriteProducts.count)")
+            print("Fetched Products: \(favoriteProducts)")
             return favoriteProducts
         } catch {
             print("Error fetching data from Core Data: \(error.localizedDescription)")
@@ -108,28 +109,28 @@ class FavoriteCoreData {
     }
 
     func deleteFromCoreData(productId: Int, customerId: Int) {
-            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-                return
-            }
-            let managedContext = appDelegate.persistentContainer.viewContext
-            
-            let idNumber = NSDecimalNumber(value: productId)
-            let customerIdNumber = NSDecimalNumber(value: customerId)
-            
-            let fetchRequest: NSFetchRequest<FavoriteProduct> = FavoriteProduct.fetchRequest()
-            fetchRequest.predicate = NSPredicate(format: "id == %@ AND customer_id == %@", idNumber, customerIdNumber)
-            
-            do {
-                let existingProducts = try managedContext.fetch(fetchRequest)
-                for product in existingProducts {
-                    managedContext.delete(product)
-                }
-                try managedContext.save()
-                print("Product with id \(productId) and customer_id \(customerId) deleted from Core Data.")
-            } catch {
-                print("Error deleting product from Core Data: \(error.localizedDescription)")
-            }
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
         }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        let idNumber = NSDecimalNumber(value: productId)
+        let customerIdNumber = NSDecimalNumber(value: customerId)
+        
+        let fetchRequest: NSFetchRequest<FavoriteProduct> = FavoriteProduct.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %@ AND customer_id == %@", idNumber, customerIdNumber)
+        
+        do {
+            let existingProducts = try managedContext.fetch(fetchRequest)
+            for product in existingProducts {
+                managedContext.delete(product)
+            }
+            try managedContext.save()
+            print("Product with id \(productId) and customer_id \(customerId) deleted from Core Data.")
+        } catch {
+            print("Error deleting product from Core Data: \(error.localizedDescription)")
+        }
+    }
 
     func isProductInFavorites(productId: Int, productName: String) -> Bool {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {

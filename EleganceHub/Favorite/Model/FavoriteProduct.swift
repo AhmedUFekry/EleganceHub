@@ -15,13 +15,8 @@ class FavoriteProducts : Codable{
     var title: String?
     var price: String?
     var image: String?
-    
+    var inventory_quantity: Int?
+    var product_type: String?
 }
-
-//struct FavoriteResponse: Decodable {
-//    let success: Int?
-//    let result: [FavoriteProducts]?
-//
-//}
 
 

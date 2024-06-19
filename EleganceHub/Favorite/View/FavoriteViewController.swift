@@ -95,16 +95,15 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
             if let title = product["title"] as? String,
                let price = product["price"] as? String,
                let imageUrlString = product["image"] as? String,
+               let productType = product["product_type"] as? String,
                let imageUrl = URL(string: imageUrlString) {
                 cell.productNameLabel.text = title
-               // cell.productPriceLabel.text = price
+               cell.productVarintLabel.text = productType
                 var convertedPrice = convertPrice(price: price, rate: self.rate ?? 3.3)
                 cell.productPriceLabel.text = "\(String(format: "%.2f", convertedPrice)) \(userCurrency)"
                 
                 cell.productImage.kf.setImage(with: imageUrl, placeholder: UIImage(named: "AppIcon"))
             }
-            cell.productVarintLabel.text = product["variant"] as? String
-            
            
             cell.decreaseQuantityBtn.isHidden = true
             cell.IncreaseQuantityBtn.isHidden = true
@@ -234,26 +233,27 @@ extension FavoriteViewController {
         return count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("Configuring cell for row \(indexPath.row)")
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CartTableViewCell", for: indexPath) as! CartTableViewCell
-        let product = favoriteProducts.value[indexPath.row]
-                    
-        if let title = product["title"] as? String,
-           let price = product["price"] as? String,
-           let imageUrlString = product["image"] as? String,
-           let imageUrl = URL(string: imageUrlString) {
-            cell.productNameLabel.text = title
-            cell.productPriceLabel.text = price
-            cell.productImage.kf.setImage(with: imageUrl, placeholder: UIImage(named: "AppIcon"))
-        }
-        cell.productQuantityLabel.text = "1"
-        cell.productVarintLabel.text = product["variant"] as? String
-        
-        cell.decreaseQuantityBtn.isHidden = true
-        cell.IncreaseQuantityBtn.isHidden = true
-        cell.productQuantityLabel.isHidden = true
-        
-        let addToCartBtn = UIButton(type: .system)
+            print("Configuring cell for row \(indexPath.row)")
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CartTableViewCell", for: indexPath) as! CartTableViewCell
+            let product = favoriteProducts.value[indexPath.row]
+
+            if let title = product["title"] as? String,
+               let price = product["price"] as? String,
+               let imageUrlString = product["image"] as? String,
+               let imageUrl = URL(string: imageUrlString) {
+                cell.productNameLabel.text = title
+                let convertedPrice = convertPrice(price: price, rate: self.rate ?? 3.3)
+                cell.productPriceLabel.text = "\(String(format: "%.2f", convertedPrice)) \(userCurrency)"
+                cell.productImage.kf.setImage(with: imageUrl, placeholder: UIImage(named: "AppIcon"))
+            }
+            cell.productQuantityLabel.text = "1"
+            cell.productVarintLabel.text = product["variant"] as? String
+
+            cell.decreaseQuantityBtn.isHidden = true
+            cell.IncreaseQuantityBtn.isHidden = true
+            cell.productQuantityLabel.isHidden = true
+
+            let addToCartBtn = UIButton(type: .system)
             addToCartBtn.setTitle("Add To Cart", for: .normal)
             addToCartBtn.backgroundColor = .black
             addToCartBtn.setTitleColor(.white, for: .normal)
@@ -273,7 +273,7 @@ extension FavoriteViewController {
             addToCartBtn.addTarget(self, action: #selector(addToCartButtonTapped(_:)), for: .touchUpInside)
 
             return cell
-    }
+        }
 
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
@@ -299,7 +299,7 @@ extension FavoriteViewController {
     
     
     
-    // MARK: - Empty State
+    // MARK: - empty case
         
     private func setupEmptyStateUI() {
         emptyStateImageView = UIImageView(image: UIImage(named: "emptybox"))
@@ -336,9 +336,8 @@ extension FavoriteViewController {
         ])
     }
 
-        
-        private func updateEmptyStateVisibility() {
-            favoriteTableView.backgroundView?.isHidden = !favoriteProducts.value.isEmpty
-        }
+    private func updateEmptyStateVisibility() {
+        favoriteTableView.backgroundView?.isHidden = !favoriteProducts.value.isEmpty
     }
+}
 

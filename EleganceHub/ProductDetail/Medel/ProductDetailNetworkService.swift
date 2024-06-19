@@ -19,7 +19,6 @@ class ProductDetailNetworkService: DetailNetworkProtocol {
             switch response.result {
             case .success(let data):
                 print("Data retrieved successfully:")
-                //print(data)
                 handler(data)
             case .failure(let error):
                 print("Error: \(error)")
