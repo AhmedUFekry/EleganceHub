@@ -53,7 +53,7 @@ class HomeViewModel: ViewModelProtocol {
                 let dispatchGroup = DispatchGroup()
                 for priceRule in success.price_rules{
                     dispatchGroup.enter()
-                    NetworkCall.getDiscountCodes(discountId: "\(priceRule.id!)") { result in
+                    NetworkCall.getDiscountCodes(discountId: priceRule.id!) { result in
                         switch result{
                             case .success(let couponsResponse):
                             //print("getDiscountCodes \(couponsResponse)")
