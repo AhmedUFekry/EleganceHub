@@ -4,7 +4,9 @@
         <attribute name="customer_id" optional="YES" attributeType="Decimal" defaultValueString="0"/>
         <attribute name="id" optional="YES" attributeType="Decimal" defaultValueString="0"/>
         <attribute name="image" optional="YES" attributeType="String"/>
+        <attribute name="inventory_quantity" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
         <attribute name="price" optional="YES" attributeType="String"/>
+        <attribute name="product_type" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <attribute name="variant_id" optional="YES" attributeType="Decimal" defaultValueString="0"/>
     </entity>

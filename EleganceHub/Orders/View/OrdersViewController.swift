@@ -8,6 +8,7 @@
 import UIKit
 
 class OrdersViewController: UIViewController {
+    @IBOutlet weak var placeHolderLabel: UILabel!
     
     @IBOutlet weak var placeHolder: UIImageView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -82,9 +83,12 @@ class OrdersViewController: UIViewController {
             if let orders = self.orders, orders.isEmpty {
                 self.ordersTableView.isHidden = true
                 self.placeHolder.isHidden = false
+                self.placeHolderLabel.isHidden = false
             } else {
                 self.ordersTableView.isHidden = false
                 self.placeHolder.isHidden = true
+                self.placeHolderLabel.isHidden = true
+
             }
         }
     }

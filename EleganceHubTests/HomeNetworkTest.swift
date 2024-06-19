@@ -16,6 +16,20 @@ final class HomeNetworkTest:XCTestCase{
     override func tearDownWithError() throws {
     }
     
+    func testGetBrands(){
+        let brandsExpectation = expectation(description:"waiting for api")
+        RemoteDataSource.shared.getBrands(complationhandler:{result,error in
+            if let error = error {
+                XCTFail("API call failed with error: \(error.localizedDescription)")
+            }else {
+                XCTAssertNotNil(result?.smartCollections)
+                brandsExpectation.fulfill() // done
+            }
+            
+        })
+        waitForExpectations(timeout: 25)
+    }
+    
     func testGetPriceRulesSuccess(){
         let expectation = self.expectation(description: "Fetch AllPrice rule succeeds")
         

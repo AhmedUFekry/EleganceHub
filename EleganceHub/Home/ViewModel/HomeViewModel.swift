@@ -39,11 +39,10 @@ class HomeViewModel: ViewModelProtocol {
     var failureIngetData:((_ err: String) -> ()) = {err in }
 
     func getBrandsFromModel() {
-        NetworkCall.getBrands(complationhandler:{ result, error in 
+        RemoteDataSource.shared.getBrands(complationhandler:{ result, error in
             if let result = result {
                 self.vmResult = result
             }else{
-                print("ya lahwyyy ")
                 self.failureIngetData(error?.localizedDescription ?? "Failed")
             }
         }
@@ -55,7 +54,6 @@ class HomeViewModel: ViewModelProtocol {
         NetworkCall.getPriceRules { [self] response in
             switch response {
             case .success(let success):
-                print("price rule Id \(success.price_rules[0].id)")
                 var couponsList: [DiscountCodes] = []
                 var coupons:[Coupon] = []
                 let dispatchGroup = DispatchGroup()

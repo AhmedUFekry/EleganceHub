@@ -121,8 +121,7 @@ class ProductDetailViewController: UIViewController {
                 }
             }
         }
-        
-        //checkIfUserLoggedIn()
+    
         if let customerID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.loggedInUserID.rawValue){
             self.customerID = customerID
         }
@@ -206,48 +205,45 @@ class ProductDetailViewController: UIViewController {
     
     @IBAction func addToFavorite(_ sender: Any) {
         guard let customerId = getCustomerId() else {
-            Constants.showLoginAlert(on: self)
-            return
+                Constants.showLoginAlert(on: self)
+                return
+            }
+            
+            guard let product = getProduct() else {
+                print("No product available to add to favorites.")
+                return
+            }
+            
+            addToFavorites(product: product, customerId: customerId)
         }
-        toggleFavoriteStatus()
-    }
-    
-    private func showAlertForGuest(){
-        let alert = UIAlertController(title: "You re not logged in", message: "You need to log in to perform this action.", preferredStyle: .alert)
-        
-        let okAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
-        alert.addAction(okAction)
-        present(alert, animated: true, completion: nil)
-    }
-    
-    private func toggleFavoriteStatus() {
-        guard let product = getProduct() else {
-            print("No product available to add to favorites.")
-            return
-        }
-        
+
+    private func addToFavorites(product: Product, customerId: Int) {
         let productId = product.id ?? 0
         let productName = product.title ?? ""
-        let customerId = getCustomerId()
         
-        guard let customerId = customerId else {
-            print("Customer ID is nil.")
+
+        if checkIfFavorite(productId: productId, productName: productName) {
+            print("Product \(productName) with ID \(productId) is already in favorites.")
             return
         }
         
-        guard let customerId = getCustomerId() else {
-            showAlertForGuest()
-            return
-        }
+        let productData: [String: Any] = [
+            "id": productId,
+            "variant_id": product.variants?.first?.id ?? 0,
+            "title": productName,
+            "price": product.variants?.first?.price ?? "",
+            "image": product.images?.first?.src ?? "",
+            "inventory_quantity": product.variants?.first?.inventory_quantity ?? 0,
+            "product_type": product.productType ?? ""
+        ]
         
-        let isFavorite = checkIfFavorite(productId: productId, productName: productName)
-        
-        print("Toggling favorite status for product \(productName) with ID \(productId). Currently favorite: \(isFavorite)")
-        
-        if isFavorite {
-            removeFromFavorites(productId: productId, customerId: customerId)
-        } else {
-            addToFavorites(product: product, customerId: customerId)
+        FavoriteCoreData.shared.saveToCoreData([productData]) { success, error in
+            if let error = error {
+                print("Error saving product to favorites: \(error.localizedDescription)")
+               
+            } else if success {
+                print("Product \(productName) with ID \(productId) saved to favorites.")
+            }
         }
     }
     
@@ -269,26 +265,7 @@ class ProductDetailViewController: UIViewController {
         print("Product removed from favorites.")
     }
     
-    private func addToFavorites(product: Product, customerId: Int) {
-        let favoriteData: [String: Any] = [
-            "id": product.id ?? 0,
-            "customer_id": customerId,
-            "variant_id": product.variants?.first?.id ?? 0,
-            "title": product.title ?? "",
-            "price": product.variants?.first?.price ?? "",
-            "image": product.images?.first?.src ?? ""
-        ]
-        
-        FavoriteCoreData.shared.saveToCoreData([favoriteData]) { success, error in
-            if success {
-                print("Product added to favorites.")
-                self.updateFavoriteButton(isFavorite: true)
-            } else {
-                print("Error adding product to favorites: \(error?.localizedDescription ?? "Unknown error")")
-            }
-        }
-    }
-    
+
     private func updateFavoriteButton(isFavorite: Bool) {
         let imageName = isFavorite ? "heart.fill" : "heart"
         favoriteButton.setImage(UIImage(systemName: imageName), for: .normal)
@@ -322,7 +299,6 @@ class ProductDetailViewController: UIViewController {
     
     
     private func addToCartObserversFuncs(){
-        print("TTTTTTTTTTTTTTT")
         onErrorObserverSetUp()
         onResponseObserverSetUp()
     }
