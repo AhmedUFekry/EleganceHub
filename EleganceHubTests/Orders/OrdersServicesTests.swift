@@ -35,19 +35,22 @@ final class OrdersServicesTests: XCTestCase {
         })
         waitForExpectations(timeout: 10)
     }
-    func testGetDraftOrders(){
-        let brandsExpectation = expectation(description:"waiting for api")
+    
+    func testGetDraftOrdersForUser(){
+        let draftExpectation = expectation(description:"waiting for api")
         ordersService.getDraftOrderForUser(orderID: 1157792760083, completionHandler:{ draftOrders,error in
             if let error = error {
                 XCTFail("API call failed with error: \(error.localizedDescription)")
             }else {
                 XCTAssertNotNil(draftOrders?.draftOrders)
                // XCTAssertEqual(draftOrders?.draftOrders.count,1)
-                brandsExpectation.fulfill()
+                draftExpectation.fulfill()
             }
         })
         waitForExpectations(timeout: 10)
     }
+    
+    
     
     //  func testDeleteOrder() {
     //            let expectation = self.expectation(description: "waiting for api")

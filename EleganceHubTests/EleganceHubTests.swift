@@ -10,14 +10,11 @@ import XCTest
 
 final class EleganceHubTests: XCTestCase {
     
-    var ordersService: OrdersService!
     
     override func setUpWithError() throws {
-        ordersService = OrdersService()
     }
     
     override func tearDownWithError() throws {
-        ordersService = nil
     }
 
 

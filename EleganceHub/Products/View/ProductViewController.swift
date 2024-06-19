@@ -9,9 +9,12 @@ import UIKit
 import Kingfisher
 
 class ProductViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    @IBOutlet weak var brandName: UILabel!
     
     @IBOutlet weak var productsTableView: UITableView!
     var brandsId: Int?
+    var brandsName: String?
+
     var productArray: [Product]?
     var productsViewModel = ProductsViewModel()
     var currencyViewModel = CurrencyViewModel()
@@ -41,7 +44,7 @@ class ProductViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         productsViewModel.getProductsFromModel(collectionId: brandsId ?? 484442308883)
-        
+        brandName.text = brandsName
         
     }
     

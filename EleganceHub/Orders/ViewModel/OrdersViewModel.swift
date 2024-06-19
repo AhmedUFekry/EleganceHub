@@ -33,6 +33,13 @@ class OrdersViewModel {
         }
     }
     
+    var bindingOrderDelete: (() -> ()) = {}
+    var observableDeleteOrder: Int!{
+        didSet{
+            bindingOrderDelete()
+        }
+    }
+    
     func getOrders(customerId: String) {
         orderService?.getOrders(customerId: customerId) { [weak self] result, error in
             if let result = result {
@@ -53,13 +60,6 @@ class OrdersViewModel {
         }
     }
     
-    
-    var bindingOrderDelete: (() -> ()) = {}
-    var observableDeleteOrder: Int!{
-        didSet{
-            bindingOrderDelete()
-        }
-    }
     func deleteOrder(orderId: Int) {
         orderService?.deleteOrder(orderID: orderId){ order in
             self.observableDeleteOrder = order

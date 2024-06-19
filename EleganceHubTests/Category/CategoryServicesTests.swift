@@ -47,6 +47,7 @@ final class CategoryServicesTests: XCTestCase {
         })
         waitForExpectations(timeout: 10)
     }
+    
     func testGetKidsCategory(){
         let brandsExpectation = expectation(description:"waiting for api")
         RemoteDataSource.shared.getCategoryProducts(collectionId: "484444340499", completionHandler: { products,error in
@@ -61,6 +62,7 @@ final class CategoryServicesTests: XCTestCase {
         })
         waitForExpectations(timeout: 10)
     }
+    
     func testGetSaleCategory(){
         let brandsExpectation = expectation(description:"waiting for api")
         RemoteDataSource.shared.getCategoryProducts(collectionId: "484444406035", completionHandler: { products,error in

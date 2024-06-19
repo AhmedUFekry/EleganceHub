@@ -184,6 +184,8 @@ extension HomeViewController: UICollectionViewDataSource,UICollectionViewDelegat
         if let ProductViewController = storyboard?.instantiateViewController(withIdentifier: "ProductViewController") as? ProductViewController {
             if collectionView == brandsCollection {
                 ProductViewController.brandsId = brand?.id
+                ProductViewController.brandsName = brand?.title
+
                 navigationController?.pushViewController(ProductViewController, animated: true)
             }
         }
