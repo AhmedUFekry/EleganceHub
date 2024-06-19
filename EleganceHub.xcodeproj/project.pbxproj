@@ -932,8 +932,8 @@
 		7FA5CEE22C238D9F00017321 /* Category */ = {
 			isa = PBXGroup;
 			children = (
-				7FA5CED72C235C7200017321 /* CategoryServicesTests.swift */,
 				7FA5CEE32C238F4000017321 /* CategoryViewModelTests.swift */,
+				7FA5CED72C235C7200017321 /* CategoryServicesTests.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1016,9 +1016,6 @@
 				03CDC3EF2C2334D30002F22F /* PaymentNetworkServiceTest.swift */,
 				03CDC3F12C2339FC0002F22F /* CartNetworkServiceTest.swift */,
 				03CDC3F32C2350E70002F22F /* HomeNetworkTest.swift */,
-				7FA5CED52C235AD800017321 /* OrdersServicesTests.swift */,
-				7FA5CED72C235C7200017321 /* CategoryServicesTests.swift */,
-				7FA5CED92C235DEA00017321 /* ProductBrandServicesTests.swift */,
 				D4B260C72C2384410083DB88 /* ProductDetailNetworkServiceTest.swift */,
 				D48E6A452C238E3D00ACE5CF /* SignUpNetworkServiceTests.swift */,
 			);
