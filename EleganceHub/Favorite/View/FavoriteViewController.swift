@@ -16,6 +16,7 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
     let disposeBag = DisposeBag()
     var viewModel: ProductDetailViewModel!
     var customerID:Int?
+    var product: Product?
 
     var currencyViewModel = CurrencyViewModel()
     var rate : Double?
@@ -47,6 +48,11 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
         updateEmptyStateVisibility()
         
         addToCartObserversFuncs()
+        
+        viewModel.bindingProduct = { [weak self] in
+            self?.product = self?.viewModel.observableProduct
+        }
+            
     }
     
     private func setupTableView() {
@@ -130,7 +136,10 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
     
     @objc func addToCartButtonTapped(_ sender: UIButton) {
         let productIndex = sender.tag
-        let product = favoriteProducts.value[productIndex] as! Product
+        let product = favoriteProducts.value[productIndex] as? FavoriteProducts
+        
+        self.viewModel.getProductDetails(productId: product?.id ?? 0)
+        guard let productDetails = self.product else {return}
         // should be data type of Product
         if(UserDefaultsHelper.shared.isDataFound(key: UserDefaultsConstants.isLoggedIn.rawValue)){
             guard let orderID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.getDraftOrder.rawValue) else {
@@ -138,15 +147,14 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
             }
             if(orderID != 0) {
                 print("User has Draft order append items and post it \(orderID)")
-                viewModel.updateCustomerDraftOrder(orderID: orderID, customerID: customerID!, newProduct: product)
+                viewModel.updateCustomerDraftOrder(orderID: orderID, customerID: customerID!, newProduct: productDetails)
             }else{
                 print("Create draft order user doesnt have one ")
-                viewModel.createNewDraftOrderAndPostNewItem(customerID: customerID!, product: product)
+                viewModel.createNewDraftOrderAndPostNewItem(customerID: customerID!, product: productDetails)
             }
         }else{
             showAlertError(err: "You have to logged in first")
         }
-        print("Add to Cart button tapped for product: \(product)")
     }
         
     func showDeleteConfirmationAlert(productId: Int, customerId: Int, indexPath: IndexPath) {
@@ -291,7 +299,7 @@ extension FavoriteViewController {
     
     
     
-    // MARK: - Empty State Handling
+    // MARK: - Empty State
         
     private func setupEmptyStateUI() {
         emptyStateImageView = UIImageView(image: UIImage(named: "emptybox"))

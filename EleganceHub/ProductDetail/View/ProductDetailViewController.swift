@@ -59,39 +59,41 @@ class ProductDetailViewController: UIViewController {
         sizeCollectionView.delegate = self
         sizeCollectionView.dataSource = self
         sizeCollectionView.register(SizeOptionCell.self, forCellWithReuseIdentifier: "SizeOptionCell")
-        
-        ProductImagesCollection.delegate = self
-        ProductImagesCollection.dataSource = self
-        ProductImagesCollection.register(ProductImageCell.self, forCellWithReuseIdentifier: "ProductImageCell")
-        
-        if let layout = sizeCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.scrollDirection = .horizontal
-        }
-        
-        viewModel = ProductDetailViewModel(networkManager: networkManager)
-        viewModel.bindingProduct = { [weak self] in
-            DispatchQueue.main.async {
-                self?.updateUI()
+                    
+            ProductImagesCollection.delegate = self
+            ProductImagesCollection.dataSource = self
+            ProductImagesCollection.register(ProductImageCell.self, forCellWithReuseIdentifier: "ProductImageCell")
+                    
+            if let layout = sizeCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+                layout.scrollDirection = .horizontal
             }
-        }
-        
-        sizeCollectionView.delegate = self
-        sizeCollectionView.dataSource = self
-        sizeCollectionView.register(SizeOptionCell.self, forCellWithReuseIdentifier: "SizeOptionCell")
-        
-        ProductImagesCollection.delegate = self
-        ProductImagesCollection.dataSource = self
-        ProductImagesCollection.register(ProductImageCell.self, forCellWithReuseIdentifier: "ProductImageCell")
-        
-        if let layout = sizeCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.scrollDirection = .horizontal
-        }
-        
-        viewModel = ProductDetailViewModel(networkManager: networkManager)
-        viewModel.bindingProduct = { [weak self] in
-            DispatchQueue.main.async {
-                self?.updateUI()
-            }
+                    
+            let networkManager = ProductDetailNetworkService()
+            viewModel = ProductDetailViewModel(networkManager: networkManager)
+            viewModel.bindingProduct = { [weak self] in
+                DispatchQueue.main.async {
+                    self?.updateUI()
+                }
+          //  }
+                
+//        sizeCollectionView.delegate = self
+//        sizeCollectionView.dataSource = self
+//        sizeCollectionView.register(SizeOptionCell.self, forCellWithReuseIdentifier: "SizeOptionCell")
+//                
+//        ProductImagesCollection.delegate = self
+//        ProductImagesCollection.dataSource = self
+//        ProductImagesCollection.register(ProductImageCell.self, forCellWithReuseIdentifier: "ProductImageCell")
+//                
+//        if let layout = sizeCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+//            layout.scrollDirection = .horizontal
+//        }
+//                
+//        let networkManager = ProductDetailNetworkService()
+//        viewModel = ProductDetailViewModel(networkManager: networkManager)
+//        viewModel.bindingProduct = { [weak self] in
+//            DispatchQueue.main.async {
+//                self?.updateUI()
+//            }
             
             if let customerID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.loggedInUserID.rawValue){
                 self?.customerID = customerID

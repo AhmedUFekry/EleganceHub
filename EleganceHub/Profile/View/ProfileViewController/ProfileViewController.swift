@@ -165,7 +165,7 @@ extension ProfileViewController:UITableViewDataSource,UITableViewDelegate{
             settingTableView.deselectRow(at: indexPath, animated: true)
         }else{
             settingTableView.deselectRow(at: indexPath, animated: true)
-            Constants.displayAlert(viewController: self,message: "Please Log in or Sigh up", seconds: 3)
+            Constants.showLoginAlert(on: self)
         }
     }
     

@@ -110,11 +110,16 @@ class SuperCategoryViewController: UIViewController {
             }
             
         }else{
-            self.cartBtn.isEnabled = false
-            self.favBtn.isEnabled = false
+            self.cartBtn.isEnabled = true
+            self.favBtn.isEnabled = true
+            self.cartBtn.action = #selector(onButtonSelected)
+            self.favBtn.action = #selector(onButtonSelected)
         }
     }
     
+    @objc private func onButtonSelected() {
+        Constants.showLoginAlert(on: self)
+    }
     
     func displayFloatingButton() {
         let actionButton = JJFloatingActionButton()

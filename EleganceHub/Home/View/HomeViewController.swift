@@ -68,22 +68,27 @@ class HomeViewController: UIViewController {
     }
         
     private func checkIfUserLoggedIn(){
-        if(UserDefaultsHelper.shared.isDataFound(key: UserDefaultsConstants.isLoggedIn.rawValue)){
-            self.cartBtn.isEnabled = true
-            self.favBtn.isEnabled = true
-            guard let customerID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.loggedInUserID.rawValue) else {
-                print("Customer id not found ")
-                return
+            if(UserDefaultsHelper.shared.isDataFound(key: UserDefaultsConstants.isLoggedIn.rawValue)){
+                self.cartBtn.isEnabled = true
+                self.favBtn.isEnabled = true
+                guard let customerID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.loggedInUserID.rawValue) else {
+                    print("Customer id not found")
+                    return
+                }
+                homeViewModel.checkIfUserHasDraftOrder(customerID: customerID)
+                print("Customer id found \(customerID)")
+            } else {
+                self.cartBtn.isEnabled = true
+                self.favBtn.isEnabled = true
+                self.cartBtn.action = #selector(onButtonSelected)
+                self.favBtn.action = #selector(onButtonSelected)
             }
-            homeViewModel.checkIfUserHasDraftOrder(customerID: customerID)
-            print("Customer id found \(customerID)")
-            
-        }else{
-            self.cartBtn.isEnabled = false
-            self.favBtn.isEnabled = false
         }
+        
+    @objc private func onButtonSelected() {
+        Constants.showLoginAlert(on: self)
     }
-    
+
     func renderView(){
         DispatchQueue.main.async {
             self.brandsCollection.reloadData()
