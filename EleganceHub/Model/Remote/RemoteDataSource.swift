@@ -15,148 +15,103 @@ class RemoteDataSource : RemoteDataSourceProtocol {
     
     private init() {}
     
-    func fetchConversionRate(coinStr: String, completion: @escaping (Double?) -> Void) {
+    
+    func getProducts(collectionId: Int, completionHandler: @escaping (ProductResponse?, Error?) -> Void) {
+        let urlString = "\(Constants.storeUrl)products.json?collection_id=\(collectionId)&\(Constants.accessToken)"
+        guard let url = URL(string: urlString) else {
+            print("Invalid URL: \(urlString)")
+            return
+        }
+                
+        let request = URLRequest(url: url)
+        let session = URLSession(configuration: .default)
         
-        let urlStr = "https://v6.exchangerate-api.com/v6/f0c99b265f25de45353fe2bc/latest/USD"
-            guard let url = URL(string: urlStr) else {
-                completion(nil)
-                print("Invalid URL")
+        let task = session.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Error fetching products: \(error.localizedDescription)")
+                completionHandler(nil, error)
                 return
             }
             
-            let session = URLSession(configuration: .default)
-            let task = session.dataTask(with: url) { data, response, error in
-                if let error = error {
-                    completion(nil)
-                    print("fetchConversionRate error: \(error.localizedDescription)")
-                    return
-                }
-                
-                guard let data = data else {
-                    completion(nil)
-                    print("fetchConversionRate error: No data")
-                    return
-                }
-                
-                print("Received data: \(String(data: data, encoding: .utf8) ?? "N/A")")
-                
-                do {
-                    let jsonDecoder = JSONDecoder()
-                    
-                    let decodedData = try jsonDecoder.decode(CurrencyModel.self, from: data)
-                    print(decodedData)
-                    if let rate = decodedData.conversionRates[coinStr] {
-                        print("rate, ",rate)
-                        completion(rate)
-                    } else {
-                        completion(nil)
-                        print("fetchConversionRate error: Rate not found for \(coinStr)")
-                    }
-                } catch {
-                    completion(nil)
-                    print("fetchConversionRate error: \(error.localizedDescription)")
-                }
+            guard let data = data else {
+                print("No data received")
+                completionHandler(nil, NSError(domain: "NoDataError", code: -1, userInfo: nil))
+                return
             }
-            task.resume()
+            
+            do {
+                let result = try JSONDecoder().decode(ProductResponse.self, from: data)
+                completionHandler(result, nil)
+            } catch let decodingError {
+                print("JSON Decoding Error: \(decodingError.localizedDescription)")
+                completionHandler(nil, decodingError)
+            }
         }
+        
+        task.resume()
+    }
+    
+    func getBrands(complationhandler: @escaping (SmartCollections?,Error?) -> Void) {
+        let url = URL(string: "\(Constants.storeUrl)smart_collections.json?since_id=482865238&\(Constants.accessToken)")
+        
+        guard let newUrl = url else {return}
+        
+        let request = URLRequest(url: newUrl)
+        
+        let session = URLSession(configuration: .default)
+      
+        let task = session.dataTask(with: request) { (data, response, error) in
+            guard let data = data else {return}
+            
+            do {
+                let result = try JSONDecoder().decode(SmartCollections.self, from:data)
+                complationhandler(result,nil)
+                }catch let error {
+                    print(error.localizedDescription)
+                    complationhandler(nil,error)
+            }
+        }
+        
+        task.resume()
+    }
     
     
-//    func getProducts(collectionId: Int, completionHandler: @escaping (ProductResponse?, (any Error)?) -> Void) {
-//        <#code#>
-//    }
-//    
-//    func getProductDetails(productId: Int, handler: @escaping (ProductResponse?) -> Void) {
-//        <#code#>
-//    }
-//    
-//    func getBrands(complationhandler: @escaping (SmartCollections?, (any Error)?) -> Void) {
-//        <#code#>
-//    }
-//    
-//    func getPriceRules(completionHandler: @escaping (Result<DiscountModel, any Error>) -> Void) {
-//        <#code#>
-//    }
-//    
-//    func getDiscountCodes(discountId: String, completionHandler: @escaping (Result<DiscountCodesResponse, any Error>) -> Void) {
-//        <#code#>
-//    }
-//    
-//    func getOrders(customerId: String, completionHandler: @escaping (OrderResponse?, (any Error)?) -> Void) {
-//        <#code#>
-//    }
-//    
-//    func getDraftOrderForUser(orderID: Int, completionHandler: @escaping (PostDraftOrderResponse?, (any Error)?) -> Void) {
-//        <#code#>
-//    }
-//    
-//    func completeDraftOrder(orderID: Int, completion: @escaping (Bool, (any Error)?) -> Void) {
-//        <#code#>
-//    }
-//    
-//    func getCategoryProducts(collectionId: String, completionHandler: @escaping (ProductResponse?, (any Error)?) -> Void) {
-//        <#code#>
-//    }
-//    
-//    func updateUserData(customerID: Int, firstName: String?, lastName: String?, email: String?, phone: String?) -> RxSwift.Observable<CustomerResponse> {
-//        <#code#>
-//    }
-//    
-//    func getUserInfo(customerID: Int) -> RxSwift.Observable<CustomerResponse> {
-//        <#code#>
-//    }
-//    
-//    static func fetchCities(country: String, completionHandler: @escaping (Result<CitiesResponse, any Error>) -> Void) {
-//        <#code#>
-//    }
-//    
-//    static func postNewAddress(customerID: Int, addressData: AddressData, completionHandler: @escaping (Result<PostAddressResponse, any Error>) -> Void) {
-//        <#code#>
-//    }
-//    
-//    static func getAllAddresses(customerID: Int) -> RxSwift.Observable<AddressDataModel> {
-//        <#code#>
-//    }
-//    
-//    static func removeAddress(customerID: Int, addressID: Int) -> RxSwift.Observable<Void> {
-//        <#code#>
-//    }
-//    
-//    func getProducts(parameters: Alamofire.Parameters, handler: @escaping (ProductsResponse?) -> Void) {
-//        <#code#>
-//    }
-//    
-//    func getUsers(parameters: Alamofire.Parameters, handler: @escaping (UserResponse?) -> Void) {
-//        <#code#>
-//    }
-//    
-//    func postItemToCartNewProduct(customerID: Int, product: Product) -> RxSwift.Observable<PostDraftOrderResponse> {
-//        <#code#>
-//    }
-//    
-//    func getCustomerOrder(orderID: Int, completionHandler: @escaping (Result<DraftOrder, any Error>) -> Void) {
-//        <#code#>
-//    }
-//    
-//    func addNewLineItemToDraftOrder(orderID: Int, updatedDraftOrder: DraftOrder) -> RxSwift.Observable<PostDraftOrderResponse> {
-//        <#code#>
-//    }
-//    
-//    func getDraftOrderForUser(orderID: Int) -> RxSwift.Observable<PostDraftOrderResponse> {
-//        <#code#>
-//    }
-//    
-//    func getAllDraftOrders() -> RxSwift.Observable<DraftOrdersResponse> {
-//        <#code#>
-//    }
-//    
-//    func deleteDraftOrder(orderID: Int) -> RxSwift.Observable<Bool> {
-//        <#code#>
-//    }
-//    
-//    func userRegister(newUser: User, completion: @escaping (Int) -> Void) {
-//        <#code#>
-//    }
-//    
-//    
+    func getCategoryProducts(collectionId: String, completionHandler: @escaping (ProductResponse?, Error?) -> Void) {
+        let urlString = "\(Constants.storeUrl)products.json?collection_id=\(collectionId)&\(Constants.accessToken)"
+        print("getCategoryProducts URL: \(urlString)")
+        guard let url = URL(string: urlString) else {
+            print("Invalid URL: \(urlString)")
+            return
+        }
+                
+        let request = URLRequest(url: url)
+        let session = URLSession(configuration: .default)
+        
+        let task = session.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Error fetching products: \(error.localizedDescription)")
+                completionHandler(nil, error)
+                return
+            }
+            
+            guard let data = data else {
+                print("No data received")
+                completionHandler(nil, NSError(domain: "NoDataError", code: -1, userInfo: nil))
+                return
+            }
+            
+            do {
+                let result = try JSONDecoder().decode(ProductResponse.self, from: data)
+                completionHandler(result, nil)
+            } catch let decodingError {
+                print("JSON Decoding Error: \(decodingError.localizedDescription)")
+                completionHandler(nil, decodingError)
+            }
+        }
+        
+        task.resume()
+    }
+    
+
 }
 

@@ -18,7 +18,7 @@ class ProductsViewModel {
     var bindResultToViewController: (() -> ()) = {}
     
     func getProductsFromModel(collectionId:Int) {
-        ProductsCall.getProducts(collectionId: collectionId) {[weak self] result, error in
+        RemoteDataSource.shared.getProducts(collectionId: collectionId) {[weak self] result, error in
             if let result = result {
                 self?.vmResult = result.products
             }else {

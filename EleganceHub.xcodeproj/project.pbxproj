@@ -94,6 +94,7 @@
 		7F5E5A362C1D1745003E4AAD /* CurrencyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F5E5A352C1D1745003E4AAD /* CurrencyResponse.swift */; };
 		7F5E5A3A2C1D177A003E4AAD /* RemoteDataSourceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F5E5A382C1D1779003E4AAD /* RemoteDataSourceProtocol.swift */; };
 		7F5E5A3B2C1D177A003E4AAD /* RemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F5E5A392C1D177A003E4AAD /* RemoteDataSource.swift */; };
+		7FA5CED22C2322D400017321 /* CurrencyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA5CED12C2322D400017321 /* CurrencyService.swift */; };
 		7FF3BF6C2C163D0A00E7EABC /* OrderDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF3BF6B2C163D0A00E7EABC /* OrderDetailsViewController.swift */; };
 		7FF3BFA92C19C8F900E7EABC /* OrderCheckOutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF3BFA82C19C8F900E7EABC /* OrderCheckOutViewController.swift */; };
 		C88C205D2BFE8CAF00886365 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C205C2BFE8CAF00886365 /* AppDelegate.swift */; };
@@ -243,6 +244,7 @@
 		7F5E5A352C1D1745003E4AAD /* CurrencyResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyResponse.swift; sourceTree = "<group>"; };
 		7F5E5A382C1D1779003E4AAD /* RemoteDataSourceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteDataSourceProtocol.swift; sourceTree = "<group>"; };
 		7F5E5A392C1D177A003E4AAD /* RemoteDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteDataSource.swift; sourceTree = "<group>"; };
+		7FA5CED12C2322D400017321 /* CurrencyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyService.swift; sourceTree = "<group>"; };
 		7FF3BF6B2C163D0A00E7EABC /* OrderDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailsViewController.swift; sourceTree = "<group>"; };
 		7FF3BFA82C19C8F900E7EABC /* OrderCheckOutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCheckOutViewController.swift; sourceTree = "<group>"; };
 		8742FAA0010C6E09FF4C59DC /* Pods-EleganceHubTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EleganceHubTests.release.xcconfig"; path = "Target Support Files/Pods-EleganceHubTests/Pods-EleganceHubTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -871,6 +873,7 @@
 			isa = PBXGroup;
 			children = (
 				7F5E5A352C1D1745003E4AAD /* CurrencyResponse.swift */,
+				7FA5CED12C2322D400017321 /* CurrencyService.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1489,6 +1492,7 @@
 				033CEBA52C105F01003B9DA9 /* CustomerDataModel.swift in Sources */,
 				7F3E46AF2C0129910096211E /* ProductsTableViewCell.swift in Sources */,
 				7F1BEEEA2C14E00600C5A114 /* OrdersViewModel.swift in Sources */,
+				7FA5CED22C2322D400017321 /* CurrencyService.swift in Sources */,
 				7F5E5A362C1D1745003E4AAD /* CurrencyResponse.swift in Sources */,
 				7F1BEEE22C14D74E00C5A114 /* CategoryViewModel.swift in Sources */,
 				D4F1685F2C0A72CD00551795 /* SearchViewModel.swift in Sources */,

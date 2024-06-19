@@ -18,7 +18,7 @@ class CategoryViewModel {
     
     
     func getCategoryProducts(category: Categories){
-        CategoryCall.getCategoryProducts(collectionId: category.rawValue) {[weak self] result, error in if let result = result {
+        RemoteDataSource.shared.getCategoryProducts(collectionId: category.rawValue) {[weak self] result, error in if let result = result {
             self?.categoryResult = result.products
             }else {
                 print("Error fetching products:\(error?.localizedDescription ?? "Unknown error")")

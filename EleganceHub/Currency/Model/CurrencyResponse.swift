@@ -51,7 +51,7 @@ func getPrice( completion: @escaping (Double) -> Void) {
         return
     }
  
-    RemoteDataSource.shared.fetchConversionRate(coinStr: coin) {
+    CurrencyService.fetchConversionRate(coinStr: coin) {
     rateRes in
        guard let rate = rateRes else {
            completion(0.0)
