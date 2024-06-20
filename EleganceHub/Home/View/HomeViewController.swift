@@ -78,9 +78,17 @@ class HomeViewController: UIViewController {
         loadFavoriteProducts()
 
         showCountOnCartData()
+        applySavedTheme()
         
     }
     
+    private func applySavedTheme() {
+        if #available(iOS 13.0, *) {
+            let appDelegate = UIApplication.shared.windows.first
+            let isDarkMode = UserDefaultsHelper.shared.isDarkMode()
+            appDelegate?.overrideUserInterfaceStyle = isDarkMode ? .dark : .light
+        }
+    }
     private func setUpUI(){
         let searchIcon = UIImage(systemName: "magnifyingglass")?.withTintColor(.black, renderingMode: .alwaysOriginal)
         let cartIcon = UIImage(systemName: "cart.circle")?.withTintColor(.black, renderingMode: .alwaysOriginal)

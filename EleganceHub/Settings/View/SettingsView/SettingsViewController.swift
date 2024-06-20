@@ -11,6 +11,7 @@ import RxCocoa
 
 class SettingsViewController: UIViewController {
     
+    @IBOutlet weak var switchDarkToggle: UISwitch!
     
     @IBOutlet weak var userFirstNameTF: UITextField!
     @IBOutlet weak var userEmailTF: UITextField!
@@ -33,22 +34,30 @@ class SettingsViewController: UIViewController {
     var loginViewModel: LoginViewModel?
         
     @IBAction func darkModeSwitch(_ sender: UISwitch) {
-        if #available(iOS 13.0, *){
-            let appDelegate = UIApplication.shared.windows.first
-            if (sender as AnyObject).isOn {
-                appDelegate?.overrideUserInterfaceStyle = .dark
-                return
-            }else {
-                appDelegate?.overrideUserInterfaceStyle = .light
-                return
-            }
-        }
-    }
+        if #available(iOS 13.0, *) {
+                   let appDelegate = UIApplication.shared.windows.first
+                   if sender.isOn {
+                       UserDefaultsHelper.shared.setDarkMode(true)
+                       appDelegate?.overrideUserInterfaceStyle = .dark
+                   } else {
+                       UserDefaultsHelper.shared.setDarkMode(false)
+                       appDelegate?.overrideUserInterfaceStyle = .light
+                   }
+               }
+           }
+
+           private func setupDarkModeSwitch() {
+               switchDarkToggle.isOn = UserDefaultsHelper.shared.isDarkMode()
+           }
+
+         
+       
     override func viewDidLoad() {
         super.viewDidLoad()
 
         uISetUp()
         bindViewModel()
+        setupDarkModeSwitch()
         
         customerID = UserDefaultsHelper.shared.getLoggedInUserID()
         
@@ -59,7 +68,12 @@ class SettingsViewController: UIViewController {
         
         loginViewModel = LoginViewModel(service: NetworkService())
     }
-        
+    
+    override func viewWillAppear(_ animated: Bool) {
+        //applySavedTheme()
+
+    }
+    
         private func uISetUp() {
             Constants.textFieldStyle(tF: userFirstNameTF)
             Constants.textFieldStyle(tF: userEmailTF)

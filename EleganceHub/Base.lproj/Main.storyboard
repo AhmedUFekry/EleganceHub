@@ -1039,6 +1039,7 @@
                         <outlet property="appBarView" destination="8De-aM-bz8" id="BJ2-vt-5Xd"/>
                         <outlet property="logOutBtn" destination="YCG-qi-hHR" id="fla-4w-sd2"/>
                         <outlet property="profileImageView" destination="wMc-jE-i55" id="gnh-ln-wqV"/>
+                        <outlet property="switchDarkToggle" destination="7h7-Zd-0IM" id="Sz7-gV-Ttc"/>
                         <outlet property="uiViewStyle" destination="3gf-sf-kSI" id="o8R-wX-Qda"/>
                         <outlet property="userEmailTF" destination="t6x-oc-g8V" id="Lg4-K0-O85"/>
                         <outlet property="userFirstNameTF" destination="zLu-fa-VWm" id="Zia-AF-Qfd"/>

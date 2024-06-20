@@ -87,8 +87,19 @@ class UserDefaultsHelper:DatabaseServiceProtocol {
         }
         return "usd"
     }
+    func clearCurrency() {
+        userDefaults.set(false, forKey: "coin")
+    }
     
-    
+    func setDarkMode(_ loggedIn: Bool) {
+        userDefaults.set(loggedIn, forKey: "isDarkMode")
+    }
+    func isDarkMode() -> Bool {
+        return userDefaults.bool(forKey: "isDarkMode")
+    }
+    func clearDarkModey() {
+        userDefaults.set(false, forKey: "isDarkMode")
+    }
 }
 
 

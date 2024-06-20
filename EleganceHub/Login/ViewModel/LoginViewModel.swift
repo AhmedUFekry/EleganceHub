@@ -57,6 +57,9 @@ class LoginViewModel {
             UserDefaultsHelper.shared.clearLoggedInUserID()
             UserDefaultsHelper.shared.clearLoggedIn()
             UserDefaultsHelper.shared.clearImageProfile()
+            UserDefaultsHelper.shared.clearCurrency()
+            UserDefaultsHelper.shared.clearDarkModey()
+
             UserDefaultsHelper.shared.clearUserData(key: UserDefaultsConstants.getDraftOrder.rawValue)
             
             do {
