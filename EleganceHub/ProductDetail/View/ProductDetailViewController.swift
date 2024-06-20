@@ -343,6 +343,13 @@ class ProductDetailViewController: UIViewController {
     private func showAlertError(err:String){
         Constants.displayAlert(viewController: self,message: err, seconds: 3)
     }
+    
+    
+    @IBAction func navigateToReviews(_ sender: Any) {
+        if let reviewViewController = storyboard?.instantiateViewController(identifier: "ReviewViewController") as? ReviewViewController{
+            navigationController?.pushViewController(reviewViewController, animated: true)
+        }
+    }
 }
 
 extension ProductDetailViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {

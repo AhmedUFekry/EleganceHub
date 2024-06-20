@@ -16,9 +16,9 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     
     var loginViewModel: LoginViewModel?
-        
+    
     private var signUpLabel: UILabel!
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         loginViewModel = LoginViewModel(service: NetworkService())
@@ -38,7 +38,7 @@ class LoginViewController: UIViewController {
     
     @IBAction func logToAccount(_ sender: Any) {
         guard let email = mailTxt.text, !email.isEmpty,
-                let password = passTxt.text, !password.isEmpty else {
+              let password = passTxt.text, !password.isEmpty else {
             displayToast(message: "Please fill all fields", seconds: 2.0)
             return
         }
@@ -67,15 +67,15 @@ class LoginViewController: UIViewController {
             }
         }
     }
-        
+    
     @IBAction func navigateToPreScreen(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
-        
+    
     private func displayToast(message: String, seconds: Double) {
         Constants.displayAlert(viewController: self, message: message, seconds: seconds)
     }
-        
+    
     private func navigateToHome() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarViewController") as? UITabBarController {
@@ -83,7 +83,7 @@ class LoginViewController: UIViewController {
             present(tabBarController, animated: true, completion: nil)
         }
     }
-    }
+}
 
 // MARK: - UI Setup
 
