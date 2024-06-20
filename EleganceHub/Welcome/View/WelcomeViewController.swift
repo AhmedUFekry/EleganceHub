@@ -47,7 +47,6 @@ class WelcomeViewController: UIViewController {
                 window.rootViewController = tabBarController
                 window.makeKeyAndVisible()
                 
-                // Optional: Add a transition animation
                 let options: UIView.AnimationOptions = .transitionFlipFromRight
                 UIView.transition(with: window, duration: 0.5, options: options, animations: {}, completion: nil)
             }

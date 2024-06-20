@@ -134,6 +134,10 @@
 		D4883C722C153E6600EE6C78 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4883C712C153E6600EE6C78 /* CoreData.framework */; };
 		D4883C7A2C1543D600EE6C78 /* FavoriteCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4883C792C1543D600EE6C78 /* FavoriteCoreData.swift */; };
 		D48E6A462C238E3D00ACE5CF /* SignUpNetworkServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48E6A452C238E3D00ACE5CF /* SignUpNetworkServiceTests.swift */; };
+		D48E6A4D2C23A4F100ACE5CF /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48E6A4C2C23A4F100ACE5CF /* ReviewViewController.swift */; };
+		D48E6A4F2C23A55100ACE5CF /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48E6A4E2C23A55100ACE5CF /* Review.swift */; };
+		D48E6A512C23A56D00ACE5CF /* ReviewList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48E6A502C23A56D00ACE5CF /* ReviewList.swift */; };
+		D48E6A532C23A6C700ACE5CF /* ReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48E6A522C23A6C700ACE5CF /* ReviewViewModel.swift */; };
 		D49953032C0B3EDF004A1DAB /* SearchProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49953012C0B3EDF004A1DAB /* SearchProductCell.swift */; };
 		D49953042C0B3EDF004A1DAB /* SearchProductCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D49953022C0B3EDF004A1DAB /* SearchProductCell.xib */; };
 		D49953062C0BCADE004A1DAB /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49953052C0BCADE004A1DAB /* Utilities.swift */; };
@@ -304,6 +308,10 @@
 		D4883C712C153E6600EE6C78 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		D4883C792C1543D600EE6C78 /* FavoriteCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCoreData.swift; sourceTree = "<group>"; };
 		D48E6A452C238E3D00ACE5CF /* SignUpNetworkServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpNetworkServiceTests.swift; sourceTree = "<group>"; };
+		D48E6A4C2C23A4F100ACE5CF /* ReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
+		D48E6A4E2C23A55100ACE5CF /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
+		D48E6A502C23A56D00ACE5CF /* ReviewList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewList.swift; sourceTree = "<group>"; };
+		D48E6A522C23A6C700ACE5CF /* ReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewModel.swift; sourceTree = "<group>"; };
 		D49953012C0B3EDF004A1DAB /* SearchProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchProductCell.swift; sourceTree = "<group>"; };
 		D49953022C0B3EDF004A1DAB /* SearchProductCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchProductCell.xib; sourceTree = "<group>"; };
 		D49953052C0BCADE004A1DAB /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
@@ -974,6 +982,7 @@
 		C88C205B2BFE8CAF00886365 /* EleganceHub */ = {
 			isa = PBXGroup;
 			children = (
+				D48E6A472C23A4AA00ACE5CF /* reviews */,
 				7F5E5A332C1D1720003E4AAD /* Currency */,
 				038BB8562C1CF80500E2C7D1 /* EleganceHub.entitlements */,
 				03E84A632C1C882E00D75B5F /* Payment */,
@@ -1160,6 +1169,41 @@
 				D4883C792C1543D600EE6C78 /* FavoriteCoreData.swift */,
 			);
 			path = Local;
+			sourceTree = "<group>";
+		};
+		D48E6A472C23A4AA00ACE5CF /* reviews */ = {
+			isa = PBXGroup;
+			children = (
+				D48E6A4B2C23A4DA00ACE5CF /* Model */,
+				D48E6A4A2C23A4D100ACE5CF /* ViewModel */,
+				D48E6A482C23A4B200ACE5CF /* View */,
+			);
+			path = reviews;
+			sourceTree = "<group>";
+		};
+		D48E6A482C23A4B200ACE5CF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D48E6A4C2C23A4F100ACE5CF /* ReviewViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D48E6A4A2C23A4D100ACE5CF /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D48E6A522C23A6C700ACE5CF /* ReviewViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		D48E6A4B2C23A4DA00ACE5CF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D48E6A4E2C23A55100ACE5CF /* Review.swift */,
+				D48E6A502C23A56D00ACE5CF /* ReviewList.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		D4B17FBD2C07A64900A8F9D3 /* ViewModel */ = {
@@ -1509,6 +1553,7 @@
 				031F8E022C0C592600BA92CF /* NetworkServiceProtocol.swift in Sources */,
 				7F3E46B82C0149340096211E /* ProductViewController.swift in Sources */,
 				038BB8532C1CEE9000E2C7D1 /* PaymentServiceProtocol.swift in Sources */,
+				D48E6A532C23A6C700ACE5CF /* ReviewViewModel.swift in Sources */,
 				C88C205F2BFE8CAF00886365 /* SceneDelegate.swift in Sources */,
 				7F359E962BFEBD7200D0D733 /* HomeViewController.swift in Sources */,
 				D4883C6E2C15071900EE6C78 /* FavoriteViewController.swift in Sources */,
@@ -1538,6 +1583,7 @@
 				7F1BEEEC2C14E01900C5A114 /* OrdersResponse.swift in Sources */,
 				D478FC682BFF49D700BBA2BB /* WelcomeViewController.swift in Sources */,
 				03B13ADB2C173164006A2234 /* (null) in Sources */,
+				D48E6A4D2C23A4F100ACE5CF /* ReviewViewController.swift in Sources */,
 				0383BC4B2C0BD0AA00855384 /* ProfileViewController.swift in Sources */,
 				7F1BEEDB2C14D71500C5A114 /* SuperCategoryViewController.swift in Sources */,
 				036717242C0C171C00BFB9DC /* LocationViewController.swift in Sources */,
@@ -1548,6 +1594,7 @@
 				D4883C552C11264A00EE6C78 /* ProductDetailViewController.swift in Sources */,
 				03BAA1312C14304400A325AB /* DatabaseServiceProtocol.swift in Sources */,
 				0351A1B12C15BBD4009D1FF8 /* CustomerDataProtocol.swift in Sources */,
+				D48E6A4F2C23A55100ACE5CF /* Review.swift in Sources */,
 				03C3968B2C10023800FFADF7 /* AddressDataModel.swift in Sources */,
 				033CEBA52C105F01003B9DA9 /* CustomerDataModel.swift in Sources */,
 				7F3E46AF2C0129910096211E /* ProductsTableViewCell.swift in Sources */,
@@ -1587,6 +1634,7 @@
 				7FF3BFA92C19C8F900E7EABC /* OrderCheckOutViewController.swift in Sources */,
 				03BAA12F2C14302E00A325AB /* DatabaseService.swift in Sources */,
 				D403E27A2C00F47700AE9C68 /* LoginViewController.swift in Sources */,
+				D48E6A512C23A56D00ACE5CF /* ReviewList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
