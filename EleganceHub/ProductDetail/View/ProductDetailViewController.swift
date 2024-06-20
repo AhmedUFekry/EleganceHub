@@ -45,42 +45,15 @@ class ProductDetailViewController: UIViewController {
     var rate : Double!
     
     let userCurrency = UserDefaultsHelper.shared.getCurrencyFromUserDefaults().uppercased()
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        currencyViewModel.rateClosure = {
-            [weak self] rate in
-            DispatchQueue.main.async {
-                self?.rate = rate
-            }
-        }
-        currencyViewModel.getRate()
-        
-        sizeCollectionView.delegate = self
-        sizeCollectionView.dataSource = self
-        sizeCollectionView.register(SizeOptionCell.self, forCellWithReuseIdentifier: "SizeOptionCell")
-                    
-            ProductImagesCollection.delegate = self
-            ProductImagesCollection.dataSource = self
-            ProductImagesCollection.register(ProductImageCell.self, forCellWithReuseIdentifier: "ProductImageCell")
-                    
-            if let layout = sizeCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-                layout.scrollDirection = .horizontal
-            }
-                    
-            let networkManager = ProductDetailNetworkService()
-            viewModel = ProductDetailViewModel(networkManager: networkManager)
-            viewModel.bindingProduct = { [weak self] in
-                DispatchQueue.main.async {
-                    self?.updateUI()
-                }
-            
-            if let customerID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.loggedInUserID.rawValue){
-                self?.customerID = customerID
-            }
-        }
-        
-        addToCartObserversFuncs()
+        setupCurrencyViewModel()
+        setupCollectionView()
+        setupViewModel()
         
         if let productId = productId {
             viewModel.getProductDetails(productId: productId)
@@ -93,39 +66,54 @@ class ProductDetailViewController: UIViewController {
                 
                 self.sizeCollectionView.reloadData()
                 self.setupColorSelectorView()
+                self.checkFavoriteStatus()
             }
         } else {
             print("Product ID is nil.")
-            
-            
-            if let productId = productId {
-                viewModel.getProductDetails(productId: productId)
-                viewModel.getAvailableVarients(productId: productId) { [weak self] sizeColorMap, colors in
-                    guard let self = self else { return }
-                    
-                    self.sizeColorMap = sizeColorMap
-                    self.availableColors = colors
-                    self.availableSizes = Array(sizeColorMap.keys)
-                    
-                    self.sizeCollectionView.reloadData()
-                    self.setupColorSelectorView()
-                }
-                
-                print("Checking if product is in favorites...")
-                if let productName = viewModel.observableProduct?.title {
-                    let customerId = UserDefaultsHelper.shared.getLoggedInUserID()
-                    print("User ID: \(customerId)")
-                    let isFavorite = FavoriteCoreData.shared.isProductInFavorites(productId: productId, productName: productName)
-                    print("Product \(productName) with ID \(productId) is favorite: \(isFavorite)")
-                    updateFavoriteButton(isFavorite: isFavorite)
-                }
-            }
         }
-    
-        if let customerID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.loggedInUserID.rawValue){
+        
+        addToCartObserversFuncs()
+        
+        if let customerID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.loggedInUserID.rawValue) {
             self.customerID = customerID
         }
-        addToCartObserversFuncs()
+    }
+    
+    private func setupCurrencyViewModel() {
+        currencyViewModel.rateClosure = { [weak self] rate in
+            DispatchQueue.main.async {
+                self?.rate = rate
+            }
+        }
+        currencyViewModel.getRate()
+    }
+    
+    private func setupCollectionView() {
+        sizeCollectionView.delegate = self
+        sizeCollectionView.dataSource = self
+        sizeCollectionView.register(SizeOptionCell.self, forCellWithReuseIdentifier: "SizeOptionCell")
+        
+        ProductImagesCollection.delegate = self
+        ProductImagesCollection.dataSource = self
+        ProductImagesCollection.register(ProductImageCell.self, forCellWithReuseIdentifier: "ProductImageCell")
+        
+        if let layout = sizeCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.scrollDirection = .horizontal
+        }
+    }
+    
+    private func setupViewModel() {
+        let networkManager = ProductDetailNetworkService()
+        viewModel = ProductDetailViewModel(networkManager: networkManager)
+        viewModel.bindingProduct = { [weak self] in
+            DispatchQueue.main.async {
+                self?.updateUI()
+            }
+        }
+    }
+    
+    private func checkIfFavorite(productId: Int, productName: String) -> Bool {
+        return FavoriteCoreData.shared.isProductInFavorites(productId: productId, productName: productName)
     }
     
     private func updateUI() {
@@ -140,33 +128,27 @@ class ProductDetailViewController: UIViewController {
         print("Product Description: \(product.bodyHTML ?? "No description")")
         
         ProductName.text = product.title ?? "No title"
-        //productPrice.text = "$\(product.variants?.first?.price ?? "0.00")"
         
-        var convertedPrice = convertPrice(price: product.variants?[0].price ?? "2", rate: self.rate)
+        var convertedPrice = convertPrice(price: product.variants?.first?.price ?? "2", rate: self.rate)
         productPrice.text = "\(String(format: "%.2f", convertedPrice)) \(userCurrency)"
         
         ProductDescription.text = product.bodyHTML ?? "No description"
         ProductImagesCollection.reloadData()
         imageSlider.numberOfPages = product.images?.count ?? 0
+        
+        // Check favorite status whenever product details are updated
+        checkFavoriteStatus()
     }
     
     private func setupColorSelectorView(filteredColors: [String]? = nil) {
         colorSelectorView?.removeFromSuperview()
         
-        if let filteredColors = filteredColors {
-            let dynamicColors: [UIColor] = filteredColors.map { color in
-                return colorToUIColor(color)
-            }
-            
-            colorSelectorView = ColorSelectorView(colors: dynamicColors)
-        } else {
-            let dynamicColors: [UIColor] = availableColors.map { color in
-                return colorToUIColor(color)
-            }
-            
-            colorSelectorView = ColorSelectorView(colors: dynamicColors)
+        let colorsToUse = filteredColors ?? availableColors
+        let dynamicColors: [UIColor] = colorsToUse.map { color in
+            return colorToUIColor(color)
         }
         
+        colorSelectorView = ColorSelectorView(colors: dynamicColors)
         colorSelectorView.translatesAutoresizingMaskIntoConstraints = false
         colorSelectorContainer.addSubview(colorSelectorView)
         
@@ -203,25 +185,30 @@ class ProductDetailViewController: UIViewController {
         }
     }
     
+    
     @IBAction func addToFavorite(_ sender: Any) {
+        
         guard let customerId = getCustomerId() else {
-                Constants.showLoginAlert(on: self)
-                return
-            }
-            
-            guard let product = getProduct() else {
-                print("No product available to add to favorites.")
-                return
-            }
-            
+            Constants.showLoginAlert(on: self)
+            return
+        }
+        
+        guard let product = getProduct() else {
+            print("No product available to add to favorites.")
+            return
+        }
+        
+        if checkIfFavorite(productId: product.id ?? 0, productName: product.title ?? "") {
+            removeFromFavorites(productId: product.id ?? 0, customerId: customerId)
+        } else {
             addToFavorites(product: product, customerId: customerId)
         }
-
+    }
+    
     private func addToFavorites(product: Product, customerId: Int) {
         let productId = product.id ?? 0
         let productName = product.title ?? ""
         
-
         if checkIfFavorite(productId: productId, productName: productName) {
             print("Product \(productName) with ID \(productId) is already in favorites.")
             return
@@ -237,12 +224,12 @@ class ProductDetailViewController: UIViewController {
             "product_type": product.productType ?? ""
         ]
         
-        FavoriteCoreData.shared.saveToCoreData([productData]) { success, error in
+        FavoriteCoreData.shared.saveToCoreData([productData]) { [self] success, error in
             if let error = error {
                 print("Error saving product to favorites: \(error.localizedDescription)")
-               
             } else if success {
                 print("Product \(productName) with ID \(productId) saved to favorites.")
+                updateFavoriteButton(isFavorite: true)
             }
         }
     }
@@ -255,17 +242,12 @@ class ProductDetailViewController: UIViewController {
         return UserDefaultsHelper.shared.getLoggedInUserID()
     }
     
-    private func checkIfFavorite(productId: Int, productName: String) -> Bool {
-        return FavoriteCoreData.shared.isProductInFavorites(productId: productId, productName: productName)
-    }
-    
     private func removeFromFavorites(productId: Int, customerId: Int) {
         FavoriteCoreData.shared.deleteFromCoreData(productId: productId, customerId: customerId)
         updateFavoriteButton(isFavorite: false)
         print("Product removed from favorites.")
     }
     
-
     private func updateFavoriteButton(isFavorite: Bool) {
         let imageName = isFavorite ? "heart.fill" : "heart"
         favoriteButton.setImage(UIImage(systemName: imageName), for: .normal)
@@ -334,13 +316,14 @@ class ProductDetailViewController: UIViewController {
     }
 }
 
-extension ProductDetailViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {        func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    if collectionView == sizeCollectionView {
-        return availableSizes.count
-    } else {
-        return viewModel.observableProduct?.images?.count ?? 0
+extension ProductDetailViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if collectionView == sizeCollectionView {
+            return availableSizes.count
+        } else {
+            return viewModel.observableProduct?.images?.count ?? 0
+        }
     }
-}
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == sizeCollectionView {
@@ -383,6 +366,13 @@ extension ProductDetailViewController: UICollectionViewDataSource, UICollectionV
         if scrollView == ProductImagesCollection {
             let page = Int(scrollView.contentOffset.x / scrollView.frame.width)
             imageSlider.currentPage = page
+        }
+    }
+    
+    private func checkFavoriteStatus() {
+        if let productId = productId, let productName = viewModel.observableProduct?.title {
+            let isFavorite = FavoriteCoreData.shared.isProductInFavorites(productId: productId, productName: productName)
+            updateFavoriteButton(isFavorite: isFavorite)
         }
     }
 }

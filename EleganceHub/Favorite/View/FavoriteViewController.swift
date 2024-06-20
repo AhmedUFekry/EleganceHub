@@ -52,8 +52,12 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
         viewModel.bindingProduct = { [weak self] in
             self?.product = self?.viewModel.observableProduct
         }
-            
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        favoriteTableView.reloadData()
+    }
+    
     
     private func setupTableView() {
         favoriteTableView.register(UINib(nibName: "CartTableViewCell", bundle: nil), forCellReuseIdentifier: "CartTableViewCell")
@@ -69,6 +73,7 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
             print("User ID not found.")
         }
     }
+    
 
     private func bindTableView() {
         favoriteProducts.bind(to: favoriteTableView.rx.items(cellIdentifier: "CartTableViewCell", cellType: CartTableViewCell.self)) { [weak self] row, product, cell in
