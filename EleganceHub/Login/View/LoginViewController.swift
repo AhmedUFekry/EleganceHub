@@ -73,7 +73,7 @@ class LoginViewController: UIViewController {
     }
         
     private func displayToast(message: String, seconds: Double) {
-        Constants.displayToast(viewController: self, message: message, seconds: seconds)
+        Constants.displayAlert(viewController: self, message: message, seconds: seconds)
     }
         
     private func navigateToHome() {

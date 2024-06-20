@@ -126,17 +126,13 @@ class ShippingAddressViewController: UIViewController, UpdateLocationDelegate {
     }
     
     private func confirmAlert(selectedAddressIndex: Int) {
-        let alert = UIAlertController(title: "Confirmation", message: "Are you sure you want to ship to this address?", preferredStyle: .alert)
-        let okBtn = UIAlertAction(title: "Yes", style: .default) { _ in
+        Constants.showAlertWithAction(on: self, title: "Confirmation", message: "Are you sure you want to ship to this address?", isTwoBtn: true, firstBtnTitle: "NO", actionBtnTitle: "Yes"){ _ in
             guard let id = self.orderID else { return }
             if id != 0 {
                 self.viewModel.addAddressToOrder(orderID: id, addressIndex: selectedAddressIndex)
             }
         }
-        let cancelBtn = UIAlertAction(title: "Cancel", style: .cancel)
-        alert.addAction(okBtn)
-        alert.addAction(cancelBtn)
-        self.present(alert, animated: true)
+        
     }
     private func handleCartEmptyState(isEmpty: Bool) {
         if isEmpty {

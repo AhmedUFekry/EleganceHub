@@ -26,9 +26,7 @@ class ProductDetailViewController: UIViewController {
     let networkManager = ProductDetailNetworkService()
     var productItem:Product?
     var disposeBag = DisposeBag()
-    @IBOutlet weak var addToCartButton: UIButton!
-    
-    @IBOutlet weak var favoriteButton: UIButton!
+    @IBOutlet weak var appBarView: CustomAppBarUIView!
     
     var colorSelectorView: ColorSelectorView!
     var availableSizes: [String] = []
@@ -55,25 +53,14 @@ class ProductDetailViewController: UIViewController {
             }
         }
         currencyViewModel.getRate()
-        
-        sizeCollectionView.delegate = self
-        sizeCollectionView.dataSource = self
-        sizeCollectionView.register(SizeOptionCell.self, forCellWithReuseIdentifier: "SizeOptionCell")
+        setUpUI()
                     
-            ProductImagesCollection.delegate = self
-            ProductImagesCollection.dataSource = self
-            ProductImagesCollection.register(ProductImageCell.self, forCellWithReuseIdentifier: "ProductImageCell")
-                    
-            if let layout = sizeCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-                layout.scrollDirection = .horizontal
+        let networkManager = ProductDetailNetworkService()
+        viewModel = ProductDetailViewModel(networkManager: networkManager)
+        viewModel.bindingProduct = { [weak self] in
+            DispatchQueue.main.async {
+                self?.updateUI()
             }
-                    
-            let networkManager = ProductDetailNetworkService()
-            viewModel = ProductDetailViewModel(networkManager: networkManager)
-            viewModel.bindingProduct = { [weak self] in
-                DispatchQueue.main.async {
-                    self?.updateUI()
-                }
             
             if let customerID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.loggedInUserID.rawValue){
                 self?.customerID = customerID
@@ -126,6 +113,26 @@ class ProductDetailViewController: UIViewController {
             self.customerID = customerID
         }
         addToCartObserversFuncs()
+    }
+    private func setUpUI(){
+        sizeCollectionView.delegate = self
+        sizeCollectionView.dataSource = self
+        sizeCollectionView.register(SizeOptionCell.self, forCellWithReuseIdentifier: "SizeOptionCell")
+                
+        ProductImagesCollection.delegate = self
+        ProductImagesCollection.dataSource = self
+        ProductImagesCollection.register(ProductImageCell.self, forCellWithReuseIdentifier: "ProductImageCell")
+                
+        if let layout = sizeCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.scrollDirection = .horizontal
+        }
+        self.appBarView.secoundTrailingIcon.isHidden = true
+        self.appBarView.trailingIcon.setImage(UIImage(named: "fav"), for: .normal)
+        self.appBarView.lableTitle.text = "Product Details"
+        
+        self.appBarView.trailingIcon.addTarget(self, action: #selector(onFavouriteTapped), for: .touchUpInside)
+        self.appBarView.backBtn.addTarget(self, action: #selector(bakBtnTapped), for: .touchUpInside)
+        
     }
     
     private func updateUI() {
@@ -203,25 +210,34 @@ class ProductDetailViewController: UIViewController {
         }
     }
     
-    @IBAction func addToFavorite(_ sender: Any) {
+    @objc func onFavouriteTapped() {
         guard let customerId = getCustomerId() else {
-                Constants.showLoginAlert(on: self)
-                return
+            Constants.showAlertWithAction(on: self, title: "Login Required", message: "You need to login to access this feature.", isTwoBtn: true, firstBtnTitle: "Cancel", actionBtnTitle: "Login") { [weak self] _ in
+                guard let viewController = self else { return }
+                if let newViewController = viewController.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") {
+                    newViewController.hidesBottomBarWhenPushed = true
+                    viewController.navigationController?.pushViewController(newViewController, animated: true)
+                }
             }
-            
-            guard let product = getProduct() else {
-                print("No product available to add to favorites.")
-                return
-            }
-            
-            addToFavorites(product: product, customerId: customerId)
+            return
         }
+            
+        guard let product = getProduct() else {
+            print("No product available to add to favorites.")
+            return
+        }
+        
+        addToFavorites(product: product, customerId: customerId)
+    }
+    
+    @objc func bakBtnTapped(){
+        self.navigationController?.popViewController(animated: true)
+    }
+    
 
     private func addToFavorites(product: Product, customerId: Int) {
         let productId = product.id ?? 0
         let productName = product.title ?? ""
-        
-
         if checkIfFavorite(productId: productId, productName: productName) {
             print("Product \(productName) with ID \(productId) is already in favorites.")
             return
@@ -268,14 +284,10 @@ class ProductDetailViewController: UIViewController {
 
     private func updateFavoriteButton(isFavorite: Bool) {
         let imageName = isFavorite ? "heart.fill" : "heart"
-        favoriteButton.setImage(UIImage(systemName: imageName), for: .normal)
-        favoriteButton.isEnabled = getCustomerId() != nil
+        self.appBarView.trailingIcon.setImage(UIImage(systemName: imageName), for: .normal)
+        self.appBarView.trailingIcon.isEnabled = getCustomerId() != nil
     }
     
-    
-    @IBAction func goBack(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
-    }
     
     @IBAction func addToCartBtn(_ sender: UIButton) {
         if(UserDefaultsHelper.shared.isDataFound(key: UserDefaultsConstants.isLoggedIn.rawValue)){
@@ -293,7 +305,13 @@ class ProductDetailViewController: UIViewController {
                 viewModel.createNewDraftOrderAndPostNewItem(customerID: customerID!, product: productItem)
             }
         }else{
-            showAlertError(err: "You have to logged in first")
+            Constants.showAlertWithAction(on: self, title: "Login Required", message: "You need to login to access this feature.", isTwoBtn: true, firstBtnTitle: "Cancel", actionBtnTitle: "Login") { [weak self] _ in
+                guard let viewController = self else { return }
+                if let newViewController = viewController.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") {
+                    newViewController.hidesBottomBarWhenPushed = true
+                    viewController.navigationController?.pushViewController(newViewController, animated: true)
+                }
+            }
         }
     }
     
@@ -316,7 +334,7 @@ class ProductDetailViewController: UIViewController {
             }
             UserDefaultsHelper.shared.setIfDataFound(id, key: UserDefaultsConstants.getDraftOrder.rawValue)
             print("Draft order created \(id)")
-            Constants.displayToast(viewController: self, message: "Product Added To cart Successfully", seconds: 1.0)
+            Constants.displayAlert(viewController: self, message: "Product Added To cart Successfully", seconds: 1.0)
         }, onError: { error in
             print("Error subscribing to draft order: \(error)")
         }).disposed(by: disposeBag)
@@ -327,7 +345,9 @@ class ProductDetailViewController: UIViewController {
     }
 }
 
-extension ProductDetailViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {        func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+extension ProductDetailViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     if collectionView == sizeCollectionView {
         return availableSizes.count
     } else {

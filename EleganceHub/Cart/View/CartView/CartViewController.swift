@@ -11,6 +11,8 @@ class CartViewController: UIViewController {
     @IBOutlet weak var cartTableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    private let itemDeletedSubject = PublishSubject<IndexPath>()
+    
     var viewModel: CartViewModelProtocol = CartViewModel()
     var currencyViewModel = CurrencyViewModel()
     var disposeBag = DisposeBag()
@@ -94,7 +96,7 @@ class CartViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
-        cartTableView.rx.itemDeleted
+        itemDeletedSubject
             .withLatestFrom(viewModel.lineItemsList) { (indexPath, orders) in
                 return (indexPath, orders)
             }.subscribe(onNext: { [weak self] (indexPath, orders) in
@@ -112,6 +114,8 @@ class CartViewController: UIViewController {
                 }
             })
             .disposed(by: disposeBag)
+        
+        cartTableView.rx.setDelegate(self).disposed(by: disposeBag)
     }
     
     private func bindDataToView() {
@@ -176,7 +180,6 @@ class CartViewController: UIViewController {
     private func handleCartEmptyState(isEmpty: Bool) {
         if isEmpty {
             print("Cart is empty")
-            //let emptyLabel = UILabel(frame: self.cartTableView.bounds)
             if let emptyImage = UIImage(named: "emptycart") {
                let imageView = UIImageView(image: emptyImage)
                 imageView.contentMode = .center
@@ -221,5 +224,40 @@ class CartViewController: UIViewController {
         cartTableView.delegate = nil
         print("viewWillDisappear")
         self.viewModel.updateLatestListItem(orderID: draftOrder)
+    }
+}
+
+extension CartViewController:UITableViewDelegate{
+
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "") { action, view, completionHandler in
+            self.showDeleteConfirmationAlert { confirmed in
+                if confirmed {
+                    self.deleteItem(at: indexPath)
+                }
+                completionHandler(confirmed)
+            }
+        }
+        
+        deleteAction.backgroundColor = .black
+        deleteAction.image = UIImage(systemName: "trash")
+        
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        configuration.performsFirstActionWithFullSwipe = true
+        
+        return configuration
+    }
+    
+    func showDeleteConfirmationAlert(completion: @escaping (Bool) -> Void) {
+        Constants.showAlertWithAction(on: self, title: "Confirm Delete", message: "Are you sure you want to delete this item?", isTwoBtn: true, firstBtnTitle: "Cancel", actionBtnTitle: "Delete", style: .destructive) { confirmed in
+            completion(true)
+        }
+    }
+    private func deleteItem(at indexPath: IndexPath) {
+        itemDeletedSubject.onNext(indexPath)
     }
 }
