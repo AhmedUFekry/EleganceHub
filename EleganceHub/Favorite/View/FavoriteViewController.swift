@@ -27,6 +27,8 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
     private var emptyStateImageView: UIImageView!
     private var emptyStateLabel: UILabel!
     private var emptyStateSubLabel: UILabel!
+    
+    static let favoriteUpdated = PublishSubject<Void>()
             
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,8 +54,19 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
         viewModel.bindingProduct = { [weak self] in
             self?.product = self?.viewModel.observableProduct
         }
+        // Subscribe to favorite updates
+                FavoriteViewController.favoriteUpdated
+                    .subscribe(onNext: { [weak self] in
+                        self?.loadFavoriteProducts()
+                        self?.favoriteTableView.reloadData()
+                    })
+                    .disposed(by: disposeBag)
+            }
             
-    }
+            override func viewWillAppear(_ animated: Bool) {
+                super.viewWillAppear(animated)
+                favoriteTableView.reloadData()
+            }
     
     private func setupTableView() {
         favoriteTableView.register(UINib(nibName: "CartTableViewCell", bundle: nil), forCellReuseIdentifier: "CartTableViewCell")
@@ -69,6 +82,7 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
             print("User ID not found.")
         }
     }
+    
 
     private func bindTableView() {
         favoriteProducts.bind(to: favoriteTableView.rx.items(cellIdentifier: "CartTableViewCell", cellType: CartTableViewCell.self)) { [weak self] row, product, cell in
