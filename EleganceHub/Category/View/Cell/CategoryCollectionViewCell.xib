@@ -39,31 +39,23 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="love" translatesAutoresizingMaskIntoConstraints="NO" id="nfR-le-h9j">
-                        <rect key="frame" x="144" y="6" width="25" height="25"/>
-                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </imageView>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <color key="tintColor" name="theme"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="wxc-EZ-MZ1" secondAttribute="trailing" id="0LO-zf-dRC"/>
-                <constraint firstItem="i7N-hE-NTt" firstAttribute="top" secondItem="nfR-le-h9j" secondAttribute="bottom" constant="131" id="2V0-pH-kUX"/>
                 <constraint firstItem="QbW-JH-hLJ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="3A1-X1-bOe"/>
                 <constraint firstAttribute="trailing" secondItem="i7N-hE-NTt" secondAttribute="trailing" id="4ZP-Z6-swA"/>
                 <constraint firstItem="QbW-JH-hLJ" firstAttribute="top" secondItem="i7N-hE-NTt" secondAttribute="bottom" constant="1.3300000000000001" id="7m5-9Q-BlX"/>
                 <constraint firstItem="eK1-ij-m9T" firstAttribute="top" secondItem="i7N-hE-NTt" secondAttribute="bottom" constant="20" id="Dn9-Ub-96Q"/>
-                <constraint firstItem="nfR-le-h9j" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="6" id="ILL-LH-z5Q"/>
                 <constraint firstItem="eK1-ij-m9T" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="P6q-bz-QVj"/>
                 <constraint firstAttribute="trailing" secondItem="eK1-ij-m9T" secondAttribute="trailing" id="Y4u-7O-pHq"/>
                 <constraint firstItem="wxc-EZ-MZ1" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="bOp-ag-GBu"/>
                 <constraint firstAttribute="bottom" secondItem="wxc-EZ-MZ1" secondAttribute="bottom" constant="82" id="dAn-c1-35P"/>
-                <constraint firstItem="nfR-le-h9j" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="144" id="gh6-hl-etL"/>
                 <constraint firstItem="i7N-hE-NTt" firstAttribute="top" secondItem="wxc-EZ-MZ1" secondAttribute="bottom" constant="2" id="hsl-7b-HEu"/>
                 <constraint firstAttribute="bottom" secondItem="QbW-JH-hLJ" secondAttribute="bottom" constant="24" id="iHa-BR-khO"/>
                 <constraint firstItem="wxc-EZ-MZ1" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="mnD-ez-jry"/>
-                <constraint firstAttribute="trailing" secondItem="nfR-le-h9j" secondAttribute="trailing" constant="6" id="msA-e6-o1x"/>
                 <constraint firstAttribute="trailing" secondItem="QbW-JH-hLJ" secondAttribute="trailing" id="unt-kQ-xMI"/>
                 <constraint firstAttribute="bottom" secondItem="eK1-ij-m9T" secondAttribute="bottom" constant="4" id="vLH-Iy-OVn"/>
                 <constraint firstItem="i7N-hE-NTt" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="wMo-vy-la7"/>
@@ -80,9 +72,8 @@
     </objects>
     <resources>
         <image name="coupon" width="675" height="371"/>
-        <image name="love" width="20" height="20"/>
         <namedColor name="theme">
-            <color red="0.95899999141693115" green="0.95899999141693115" blue="0.95899999141693115" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
     </resources>
 </document>

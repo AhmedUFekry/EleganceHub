@@ -175,7 +175,6 @@ class ProductDetailViewController: UIViewController {
         ProductImagesCollection.reloadData()
         imageSlider.numberOfPages = product.images?.count ?? 0
         
-        // Check favorite status whenever product details are updated
         checkFavoriteStatus()
     }
     
