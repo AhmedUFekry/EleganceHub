@@ -3,7 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -21,8 +21,8 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ucf-oV-mkr">
                         <rect key="frame" x="8" y="8" width="304" height="96"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="center" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="PJw-Sb-f59">
-                                <rect key="frame" x="205.33333333333334" y="60" width="88.666666666666657" height="28"/>
+                            <stackView opaque="NO" contentMode="center" distribution="fillProportionally" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="PJw-Sb-f59">
+                                <rect key="frame" x="189" y="60" width="105" height="28"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ks-Z2-yFY">
                                         <rect key="frame" x="0.0" y="0.0" width="28" height="28"/>
@@ -33,18 +33,15 @@
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="icons8-minus-30"/>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="natural" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" id="1YQ-E8-NJL">
-                                        <rect key="frame" x="40.5" y="1.3333333333333286" width="12" height="25.333333333333332"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" adjustsFontSizeToFit="NO" id="1YQ-E8-NJL">
+                                        <rect key="frame" x="42" y="1" width="19" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="12" id="rz9-f8-hpb"/>
-                                        </constraints>
                                         <fontDescription key="fontDescription" name="Palatino-Roman" family="Palatino" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cu5-dn-zT7">
-                                        <rect key="frame" x="60.666666666666657" y="0.0" width="28" height="28"/>
+                                        <rect key="frame" x="77" y="0.0" width="28" height="28"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="28" id="G1o-Mb-MJS"/>
                                             <constraint firstAttribute="width" constant="28" id="WXU-9b-GZo"/>
@@ -137,7 +134,7 @@
         <image name="icons8-minus-30" width="30" height="30"/>
         <image name="icons8-plus-30" width="30" height="30"/>
         <namedColor name="theme">
-            <color red="0.9588462752525253" green="0.9588462752525253" blue="0.9588462752525253" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
     </resources>
 </document>
