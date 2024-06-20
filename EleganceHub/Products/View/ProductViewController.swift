@@ -9,6 +9,7 @@ import UIKit
 import Kingfisher
 
 class ProductViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    @IBOutlet weak var appBar: CustomAppBarUIView!
     @IBOutlet weak var brandName: UILabel!
     
     @IBOutlet weak var productsTableView: UITableView!
@@ -23,7 +24,9 @@ class ProductViewController: UIViewController, UITableViewDelegate, UITableViewD
     let userCurrency = UserDefaultsHelper.shared.getCurrencyFromUserDefaults().uppercased()
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        appBar.lableTitle.text = brandsName
+        appBar.secoundTrailingIcon.isHidden = true
+        appBar.backBtn.addTarget(self, action: #selector(goBack), for: .touchUpInside)
         currencyViewModel.rateClosure = {
             [weak self] rate in
             DispatchQueue.main.async {
@@ -44,7 +47,7 @@ class ProductViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         productsViewModel.getProductsFromModel(collectionId: brandsId ?? 484442308883)
-        brandName.text = brandsName
+        //brandName.text = brandsName
         
     }
     
@@ -54,7 +57,9 @@ class ProductViewController: UIViewController, UITableViewDelegate, UITableViewD
             self.productsTableView.reloadData()
         }
     }
-    
+    @objc func goBack() {
+               self.navigationController?.popViewController(animated: true)
+           }
     
     
     // MARK: - Table view data source

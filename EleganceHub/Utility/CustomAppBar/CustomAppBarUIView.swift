@@ -16,6 +16,7 @@ class CustomAppBarUIView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.commenInit()
+        
     }
     
     required init?(coder: NSCoder) {
@@ -30,6 +31,17 @@ class CustomAppBarUIView: UIView {
             contentView.frame = self.bounds
             contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         }
-    }
+        applyShadow()
+            }
+    private func applyShadow() {
+            self.layer.shadowColor = UIColor.gray.cgColor
+            self.layer.shadowOpacity = 0.5
+            self.layer.shadowOffset = CGSize(width: 0, height: 4)
+            self.layer.shadowRadius = 4
+            self.layer.masksToBounds = false
 
-}
+           
+            let shadowPath = UIBezierPath(rect: CGRect(x: 0, y: self.bounds.height - self.layer.shadowRadius, width: self.bounds.width, height: self.layer.shadowRadius))
+            self.layer.shadowPath = shadowPath.cgPath
+        }
+    }

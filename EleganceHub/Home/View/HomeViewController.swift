@@ -183,7 +183,7 @@ class HomeViewController: UIViewController {
         //let itemHeight = (view.frame.height / 2) - 15
         let height = ((brandsLayout.collectionView?.frame.height) ?? 300 / 2) - 15
         print("Highttttt \(brandsLayout.collectionView?.frame.height)")
-        brandsLayout.itemSize = CGSize(width: itemWidth, height: 160)
+        brandsLayout.itemSize = CGSize(width: itemWidth, height: 150)
         
         brandsCollection.collectionViewLayout = brandsLayout
     }
@@ -298,6 +298,8 @@ extension HomeViewController: UICollectionViewDataSource,UICollectionViewDelegat
             if let ProductViewController = storyboard?.instantiateViewController(withIdentifier: "ProductViewController") as? ProductViewController {
                 if collectionView == brandsCollection {
                     ProductViewController.brandsId = brand?.id
+                    ProductViewController.brandsName = brand?.title
+
                     navigationController?.pushViewController(ProductViewController, animated: true)
                 }
             }
