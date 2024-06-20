@@ -54,14 +54,19 @@ class LoginViewController: UIViewController {
                     switch result {
                     case .success(let customers):
                         if let filteredCustomer = customers.first(where: { $0.email == email }) {
-                            if let customerID = filteredCustomer.id {
+                            if let customerID = filteredCustomer.id, customerID != -1 {
                                 UserDefaultsHelper.shared.setLoggedInUserID(customerID)
                                 UserDefaultsHelper.shared.setLoggedIn(true)
+                                self.navigateToHome()
+                            } else {
+                                self.displayToast(message: "Invalid account details", seconds: 2.0)
                             }
+                        } else {
+                            self.displayToast(message: "Account does not exist in our system", seconds: 2.0)
                         }
-                        self.navigateToHome()
                     case .failure(let error):
                         print("Error fetching customers: \(error.localizedDescription)")
+                        self.displayToast(message: "Error fetching customer data", seconds: 2.0)
                     }
                 })
             }

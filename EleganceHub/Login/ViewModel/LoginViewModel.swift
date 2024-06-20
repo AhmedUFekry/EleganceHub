@@ -59,7 +59,6 @@ class LoginViewModel {
             UserDefaultsHelper.shared.clearImageProfile()
             UserDefaultsHelper.shared.clearUserData(key: UserDefaultsConstants.getDraftOrder.rawValue)
             
-            // Optionally, sign out from Firebase Auth
             do {
                 try Auth.auth().signOut()
             } catch let signOutError as NSError {
