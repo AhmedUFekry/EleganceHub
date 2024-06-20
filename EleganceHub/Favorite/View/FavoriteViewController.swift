@@ -158,9 +158,10 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
            let productType = product["product_type"] as? String,
            let imageUrl = URL(string: imageUrlString),
            let productID = product["id"] as? Int
-           ,let inventoryID = product["inventoryID"] as? Int,
-        let quantity = product["quantity"] as? Int{
-            productData = Product(id: nil, title: title, bodyHTML: nil, vendor: nil, productType: nil, handle: nil, status: nil, publishedScope: nil, tags: nil, variants: [Variant(id: inventoryID, productID: productID, title: nil, price: price, sku: nil, position: nil, weight: nil, inventory_quantity: quantity)], images: nil, image: ProductImage(id: nil, productID: productID, position: nil, width: nil, height: nil, src: imageUrlString))
+           ,let inventoryID = product["variant_id"] as? Int,
+        let quantity = product["inventory_quantity"] as? Int{
+            productData = Product(id: productID, title: title, bodyHTML: nil, vendor: nil, productType: productType, handle: nil, status: nil, publishedScope: nil, tags: nil, variants: [Variant(id: inventoryID, productID: productID, title: nil, price: price, sku: nil, position: nil, weight: nil, inventory_quantity: quantity)], images: nil, image: ProductImage(id: nil, productID: productID, position: nil, width: nil, height: nil, src: imageUrlString))
+            print("Data \(productID) ====================")
         }
         
         guard let productDetails = productData else {return}
@@ -169,6 +170,8 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
             guard let orderID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.getDraftOrder.rawValue) else {
                 return
             }
+            customerID = UserDefaultsHelper.shared.getLoggedInUserID()
+            guard customerID != nil else { return }
             if(orderID != 0) {
                 print("User has Draft order append items and post it \(orderID)")
                 viewModel.updateCustomerDraftOrder(orderID: orderID, customerID: customerID!, newProduct: productDetails)

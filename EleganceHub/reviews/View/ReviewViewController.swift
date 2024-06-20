@@ -32,6 +32,8 @@ class ReviewViewController: UIViewController ,UITableViewDelegate, UITableViewDa
         
         let nib = UINib(nibName: "CartTableViewCell", bundle: nil)
         tableViewReview.register(nib, forCellReuseIdentifier: "CartTableViewCell")
+        
+        customAppBar.trailingIcon.setImage(UIImage(systemName: "arrowshape.up.circle.fill"), for: .normal)
     }
 
     private func setupCustomAppBar() {

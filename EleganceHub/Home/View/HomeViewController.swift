@@ -84,8 +84,8 @@ class HomeViewController: UIViewController {
     
     private func setUpUI(){
         self.appBarView.backBtn.setImage(UIImage(named: "searchDark"), for: .normal)
-        self.appBarView.secoundTrailingIcon.setImage(UIImage(named: "icons8-cart-35"), for: .normal)
-        self.appBarView.trailingIcon.setImage(UIImage(named: "fav"), for: .normal)
+        self.appBarView.secoundTrailingIcon.setImage(UIImage(systemName:  "cart.circle"), for: .normal)
+        self.appBarView.trailingIcon.setImage(UIImage(systemName:"heart.circle"), for: .normal)
         
         self.appBarView.backBtn.addTarget(self, action: #selector(onSearchTapped), for: .touchUpInside)
         self.appBarView.lableTitle.text = "Home"
