@@ -246,6 +246,7 @@ class ProductDetailViewController: UIViewController {
         FavoriteCoreData.shared.deleteFromCoreData(productId: productId, customerId: customerId)
         updateFavoriteButton(isFavorite: false)
         print("Product removed from favorites.")
+        FavoriteViewController.favoriteUpdated.onNext(())
     }
     
     private func updateFavoriteButton(isFavorite: Bool) {
