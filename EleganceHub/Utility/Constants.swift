@@ -14,14 +14,6 @@ class Constants {
     static let accessToken = "access_token=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"
     static let accessTokenKey = "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"
     static let customerId = "customerId"
-    
-    static func displayToast(viewController vc:UIViewController,message msg: String, seconds sec: Double) {
-            let alert = UIAlertController(title: nil, message: msg, preferredStyle: .alert)
-            vc.present(alert, animated: true)
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + sec) {
-                alert.dismiss(animated: true)
-            }
-        }
 
     static func textFieldStyle(tF:UITextField){
         let bottomBorder = CALayer()
@@ -64,20 +56,21 @@ class Constants {
         }
     }
     
-    static func showLoginAlert(on viewController: UIViewController) {
-        let alert = UIAlertController(title: "Login Required", message: "You need to login to access this feature.", preferredStyle: .alert)
-            
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        
-        alert.addAction(UIAlertAction(title: "Login", style: .default, handler: { [weak viewController] _ in
-            guard let viewController = viewController else { return }
-            if let newViewController = viewController.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") {
-                newViewController.hidesBottomBarWhenPushed = true
-                viewController.navigationController?.pushViewController(newViewController, animated: true)
-            }
-        }))
-            
+   
+    static func showAlertWithAction(on viewController:UIViewController,title:String?,message:String,isTwoBtn:Bool=false,firstBtnTitle:String="Cancel",actionBtnTitle:String,style:UIAlertAction.Style? = .default,handler:((UIAlertAction) -> Void)? = nil){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        if(isTwoBtn){
+            let firstBtn = UIAlertAction(title: firstBtnTitle, style: .cancel, handler: nil)
+            firstBtn.setValue(UIColor.black, forKey: "titleTextColor")
+            alert.addAction(firstBtn)
+        }
+        let secondBtn = UIAlertAction(title: actionBtnTitle, style: style!, handler:handler)
+        if(style != .destructive){
+            secondBtn.setValue(UIColor.black, forKey: "titleTextColor")
+        }
+        alert.addAction(secondBtn)
         viewController.present(alert, animated: true, completion: nil)
+
     }
     
 }

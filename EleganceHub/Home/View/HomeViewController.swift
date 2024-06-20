@@ -14,18 +14,30 @@ class HomeViewController: UIViewController {
 
     @IBOutlet weak var brandsCollection: UICollectionView!
     @IBOutlet weak var couponsCollection: UICollectionView!
-    @IBOutlet weak var cartBtn:UIBarButtonItem!
-    @IBOutlet weak var favBtn: UIBarButtonItem!
+    @IBOutlet weak var appBarView: CustomAppBarUIView!
+    @IBOutlet weak var pageControl: UIPageControl!
+
+
+    var cartCountLabel:UILabel = UILabel()
+    var favCountLabel:UILabel = UILabel()
     
+    var timer: Timer?
+    var currentIndex = 0
+    
+    var favoriteProducts: BehaviorRelay<[[String: Any]]> = BehaviorRelay(value: [])
     private let disposeBag = DisposeBag()
     
     var homeViewModel = HomeViewModel()
+    var cartViewModel: CartViewModelProtocol = CartViewModel()
+
     var smartCollections : SmartCollections?
-    var couponsList : [DiscountCodes]? = []
-    var couponsImage : [String] = ["discount_1","discount_2","discount_3","discount_4"]
+    var couponsList : [Coupon]? = []
+    var couponsImage : [String] = ["10","20","30","40","50","70","sale1"]
+    var draftOrder:Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpUI()
         
         homeViewModel.bindResultToViewController = { [weak self] in
             guard let self = self else {return}
@@ -36,22 +48,48 @@ class HomeViewController: UIViewController {
         homeViewModel.bindCouponsToViewController = {[weak self] in
             guard let self = self else {return}
             self.couponsList = self.homeViewModel.couponsResult!
+            self.pageControl.numberOfPages = self.couponsList?.count ?? 1
+
             self.renderView()
         }
         
         homeViewModel.failureIngetData = { faildMsg in
-            Constants.displayToast(viewController: self, message: faildMsg, seconds: 2.2)
+            Constants.displayAlert(viewController: self, message: faildMsg, seconds: 2.2)
         }
 
         homeViewModel.getBrandsFromModel()
         homeViewModel.getCouponsFromModel()
         setupCollectionView()
         orderDraft()
+        
+        pageControl.currentPage = currentIndex
+        startAutoScrolling()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         checkIfUserLoggedIn()
+        setupBadgeLabel(on:appBarView.secoundTrailingIcon,badgeLabel: cartCountLabel)
+        setupBadgeLabel(on:appBarView.trailingIcon,badgeLabel: favCountLabel)
+        
+        draftOrder = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.getDraftOrder.rawValue)
+        if draftOrder != 0 {
+            cartViewModel.getDraftOrderForUser(orderID: draftOrder!)
+        }
+        loadFavoriteProducts()
+
+        showCountOnCartData()
+        
+    }
+    
+    private func setUpUI(){
+        self.appBarView.backBtn.setImage(UIImage(named: "searchDark"), for: .normal)
+        self.appBarView.secoundTrailingIcon.setImage(UIImage(named: "icons8-cart-35"), for: .normal)
+        self.appBarView.trailingIcon.setImage(UIImage(named: "fav"), for: .normal)
+        
+        self.appBarView.backBtn.addTarget(self, action: #selector(onSearchTapped), for: .touchUpInside)
+        self.appBarView.lableTitle.text = "Home"
+        
     }
     
     private func orderDraft(){
@@ -69,24 +107,30 @@ class HomeViewController: UIViewController {
         
     private func checkIfUserLoggedIn(){
             if(UserDefaultsHelper.shared.isDataFound(key: UserDefaultsConstants.isLoggedIn.rawValue)){
-                self.cartBtn.isEnabled = true
-                self.favBtn.isEnabled = true
+                
                 guard let customerID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.loggedInUserID.rawValue) else {
                     print("Customer id not found")
                     return
                 }
                 homeViewModel.checkIfUserHasDraftOrder(customerID: customerID)
                 print("Customer id found \(customerID)")
+                self.self.appBarView.secoundTrailingIcon.addTarget(self, action: #selector(onCartTapped), for: .touchUpInside)
+                self.self.appBarView.trailingIcon.addTarget(self, action: #selector(onFavouriteTapped), for: .touchUpInside)
             } else {
-                self.cartBtn.isEnabled = true
-                self.favBtn.isEnabled = true
-                self.cartBtn.action = #selector(onButtonSelected)
-                self.favBtn.action = #selector(onButtonSelected)
+                
+                self.self.appBarView.secoundTrailingIcon.addTarget(self, action: #selector(onButtonSelected), for: .touchUpInside)
+                self.self.appBarView.trailingIcon.addTarget(self, action: #selector(onButtonSelected), for: .touchUpInside)
             }
         }
         
     @objc private func onButtonSelected() {
-        Constants.showLoginAlert(on: self)
+        Constants.showAlertWithAction(on: self, title: "Login Required", message: "You need to login to access this feature.", isTwoBtn: true, firstBtnTitle: "Cancel", actionBtnTitle: "Login") { [weak self] _ in
+            guard let viewController = self else { return }
+            if let newViewController = viewController.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") {
+                newViewController.hidesBottomBarWhenPushed = true
+                viewController.navigationController?.pushViewController(newViewController, animated: true)
+            }
+        }
     }
 
     func renderView(){
@@ -94,6 +138,28 @@ class HomeViewController: UIViewController {
             self.brandsCollection.reloadData()
             self.couponsCollection.reloadData()
         }
+    }
+    @objc private func onCartTapped(){
+        print("cartBtn \(couponsList?.count ?? 0)")
+        if let viewController = self.storyboard?.instantiateViewController(withIdentifier: "CartViewController") as? CartViewController {
+            print("cartBtn CartViewController")
+                self.navigationController?.pushViewController(viewController, animated: true)
+            } else {
+                print("Failed to instantiate CartViewController")
+            }
+    }
+    
+    @objc private func onFavouriteTapped(){
+        if let favoriteViewController = storyboard?.instantiateViewController(withIdentifier: "FavoriteViewController") as? FavoriteViewController {
+                navigationController?.pushViewController(favoriteViewController, animated: true)
+        } else {
+            print("Failed to instantiate FavoriteViewController")
+        }
+    }
+    @objc private func onSearchTapped(){
+        let searchViewController = SearchViewController(nibName: "SearchViewController", bundle: nil)
+        searchViewController.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(searchViewController, animated: true)
     }
     
     private func setupCollectionView() {
@@ -116,32 +182,54 @@ class HomeViewController: UIViewController {
         brandsCollection.collectionViewLayout = brandsLayout
     }
     
-
-    @IBAction func cartBtn(_ sender: UIBarButtonItem) {
-        print("cartBtn \(couponsList?.count ?? 0)")
-        if let viewController = self.storyboard?.instantiateViewController(withIdentifier: "CartViewController") as? CartViewController {
-            print("cartBtn CartViewController")
-                self.navigationController?.pushViewController(viewController, animated: true)
-            } else {
-                print("Failed to instantiate CartViewController")
-            }
+    private func showCountOnCartData() {
+        cartViewModel.lineItemsList
+            .map{ $0.count }
+            .distinctUntilChanged()
+            .subscribe(onNext: { [weak self] count in
+                guard let self = self else { return }
+                self.cartCountLabel.isHidden = count == 0
+                if count > 0 {
+                    self.cartCountLabel.text = "\(count)"
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        favoriteProducts.map{ $0.count }
+            .distinctUntilChanged()
+            .subscribe(onNext: { [weak self] count in
+                guard let self = self else { return }
+                self.favCountLabel.isHidden = count == 0
+                if count > 0 {
+                    self.favCountLabel.text = "\(count)"
+                }
+                print("Fav count \(count)")
+            })
+            .disposed(by: disposeBag)
     }
     
-    @IBAction func searchBtn(_ sender: UIBarButtonItem) {
-        let searchViewController = SearchViewController(nibName: "SearchViewController", bundle: nil)
-        searchViewController.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(searchViewController, animated: true)
-    }
+    func startAutoScrolling() {
+           timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(scrollToNextItem), userInfo: nil, repeats: true)
+       }
     
-    @IBAction func favoriteBtn(_ sender: Any) {
-        if let favoriteViewController = storyboard?.instantiateViewController(withIdentifier: "FavoriteViewController") as? FavoriteViewController {
-                navigationController?.pushViewController(favoriteViewController, animated: true)
-        } else {
-            print("Failed to instantiate FavoriteViewController")
+    @objc func scrollToNextItem() {
+        let itemCount = couponsCollection.numberOfItems(inSection: 0)
+        if itemCount == 0 { return }
+        
+        currentIndex += 1
+        if currentIndex >= itemCount {
+            currentIndex = 0
         }
+        
+        let indexPath = IndexPath(item: currentIndex, section: 0)
+        couponsCollection.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
     }
+    
+    deinit {
+       timer?.invalidate()
+   }
 }
-extension HomeViewController: UICollectionViewDataSource,UICollectionViewDelegate {
+extension HomeViewController: UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if(collectionView == couponsCollection){
@@ -165,12 +253,11 @@ extension HomeViewController: UICollectionViewDataSource,UICollectionViewDelegat
             let couponsCell = collectionView.dequeueReusableCell(withReuseIdentifier: "couponsCell", for: indexPath) as! CouponsCollectionViewCell
             if(!couponsList!.isEmpty){
                 print("!couponsList!.isEmpty")
-                couponsCell.couponsLabel.text = couponsList![indexPath.row].code
-                couponsCell.codeLabel.text = "Coupons code: \(couponsList?[indexPath.row].code ?? "")"
+                //couponsCell.couponsLabel.isHidden = true
+                couponsCell.codeLabel.text = "Coupons code: \(couponsList?[indexPath.row].discountCode.code ?? "")"
                 if(indexPath.row < couponsImage.count){
                     //var index = 0
-                    couponsCell.couponsImage.image = UIImage(named: couponsImage[indexPath.row])
-                 //   index += 1
+                    couponsCell.couponsImage.image = UIImage(named:setBackGround(discountValue: couponsList?[indexPath.row].priceRule ?? 0) )
                 }else{
                     couponsCell.couponsImage.image = UIImage(named: couponsImage[3])
                 }
@@ -178,18 +265,97 @@ extension HomeViewController: UICollectionViewDataSource,UICollectionViewDelegat
             return couponsCell
         }
     }
+    
+    func setBackGround(discountValue:Int) -> String{
+        switch discountValue{
+        case 10:
+            return "10"
+        case 20:
+            return "20"
+        case 30:
+            return "30"
+        case 40:
+            return "40"
+        case 50:
+            return "50"
+        case 70:
+            return "70"
+        default:
+            return "sale1"
+        }
+    
+    }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let brand = smartCollections?.smartCollections[indexPath.row]
-        if let ProductViewController = storyboard?.instantiateViewController(withIdentifier: "ProductViewController") as? ProductViewController {
-            if collectionView == brandsCollection {
-                ProductViewController.brandsId = brand?.id
-                ProductViewController.brandsName = brand?.title
-
-                navigationController?.pushViewController(ProductViewController, animated: true)
+        if collectionView == brandsCollection{
+            let brand = smartCollections?.smartCollections[indexPath.row]
+            if let ProductViewController = storyboard?.instantiateViewController(withIdentifier: "ProductViewController") as? ProductViewController {
+                if collectionView == brandsCollection {
+                    ProductViewController.brandsId = brand?.id
+                    navigationController?.pushViewController(ProductViewController, animated: true)
+                }
             }
+        }else{
+            guard let cell = couponsCollection.cellForItem(at: indexPath) as? CouponsCollectionViewCell else {return}
+            if let coppiedText = couponsList?[indexPath.row].discountCode.code {
+                UIPasteboard.general.string = coppiedText
+                Constants.displayAlert(viewController: self, message: "The content has been copied to the clipboard.", seconds: 1.0)
+            }
+        }
+        couponsCollection.deselectItem(at: indexPath, animated: true)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if collectionView == couponsCollection {
+               return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height)
+        }
+        return CGSize(width: 180, height: 180)
+    }
+    
+    func setupBadgeLabel(on button: UIButton, badgeLabel:UILabel) {
+        badgeLabel.backgroundColor = .red
+        badgeLabel.textColor = .white
+        badgeLabel.font = .systemFont(ofSize: 16)
+        badgeLabel.textAlignment = .center
+        badgeLabel.layer.cornerRadius = 10
+        badgeLabel.clipsToBounds = true
+        badgeLabel.translatesAutoresizingMaskIntoConstraints = false
+        badgeLabel.isHidden = true
+        //badgeLabel.text = "10"
+        button.addSubview(badgeLabel)
+        
+        NSLayoutConstraint.activate([
+            badgeLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 20),
+            badgeLabel.heightAnchor.constraint(equalToConstant: 20),
+            badgeLabel.topAnchor.constraint(equalTo: button.topAnchor, constant: -5),
+            badgeLabel.trailingAnchor.constraint(equalTo: button.trailingAnchor, constant: 5)
+        ])
+    }
+    
+    func getLoggedInUserID() -> Int? {
+        return UserDefaultsHelper.shared.getLoggedInUserID()
+    }
+    private func loadFavoriteProducts() {
+        if let userId = getLoggedInUserID() {
+            let fetchedProducts = FavoriteCoreData.shared.fetchFavoritesByUserId(userId: userId) ?? []
+            favoriteProducts.accept(fetchedProducts)
+            print("Fetched Products: \(fetchedProducts)")
+        } else {
+            print("User ID not found.")
+        }
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if scrollView == couponsCollection {
+            let page = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
+            pageControl.currentPage = page
+        }
+    }
+    
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        if scrollView == couponsCollection {
+            let page = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
+            pageControl.currentPage = page
         }
     }
 }
-
- 

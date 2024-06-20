@@ -23,6 +23,7 @@ class ProfileViewController: UIViewController {
     
     @IBOutlet weak var personImage:UIImageView!
     var customerID:Int?
+    var customerData:Customer?
     
     var viewModel:CustomerDataProtocol?
     var disposeBag = DisposeBag()
@@ -31,6 +32,10 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         commenInit()
         viewModel = SettingsViewModel()
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         checkForUser()
     }
     
@@ -79,8 +84,8 @@ class ProfileViewController: UIViewController {
             .subscribe(onNext: { [weak self] response in
                 guard let self = self else { return }
                 if let response = response.customer {
-                    Constants.displayToast(viewController: self, message: "data downloaded Successfully", seconds: 2.0)
                     self.updateUI(user: response)
+                    self.customerData = response
                 }
             })
             .disposed(by: disposeBag)
@@ -110,7 +115,6 @@ extension ProfileViewController:UITableViewDataSource,UITableViewDelegate{
         return cellData.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //let cell = tableView.dequeueReusableCell(withIdentifier: "CartTableViewCell", for: indexPath) as! CartTableViewCell
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileTableViewCell", for: indexPath) as! ProfileTableViewCell
             cell.cellIcon.image = UIImage(named: cellData[indexPath.row].iconName)
             cell.cellLable.text = cellData[indexPath.row].lableName
@@ -122,7 +126,7 @@ extension ProfileViewController:UITableViewDataSource,UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if(UserDefaultsHelper.shared.isLoggedIn()){
+        if(UserDefaultsHelper.shared.isDataFound(key: UserDefaultsConstants.isLoggedIn.rawValue)){
             switch(cellData[indexPath.row].navigationId){
             case "currency":
                 let alertController = UIAlertController(title: "Select Currency", message: nil, preferredStyle: .actionSheet)
@@ -140,7 +144,11 @@ extension ProfileViewController:UITableViewDataSource,UITableViewDelegate{
                 
             case "personalDetails":
                 let viewController =  self.storyboard?.instantiateViewController(withIdentifier: "SettingsViewController") as? SettingsViewController
-                self.navigationController?.pushViewController(viewController!, animated: true)
+                guard let vc = viewController else {return}
+                if let customer = self.customerData {
+                    vc.customerData = customer
+                }
+                self.navigationController?.pushViewController(vc, animated: true)
             case "shippingAddress":
                 self.navigationController?.pushViewController(ShippingAddressViewController(), animated: true)
             case "myOrders":
@@ -165,10 +173,24 @@ extension ProfileViewController:UITableViewDataSource,UITableViewDelegate{
             settingTableView.deselectRow(at: indexPath, animated: true)
         }else{
             settingTableView.deselectRow(at: indexPath, animated: true)
-            Constants.showLoginAlert(on: self)
+            switch(cellData[indexPath.row].navigationId){
+                case "aboutUs":
+                    guard let aboutUsViewController = self.storyboard?.instantiateViewController(withIdentifier: "AboutUsViewController")
+                    else { return
+                        print("Failed to instantiate FavoriteViewController")
+                    }
+                    navigationController?.pushViewController(aboutUsViewController, animated: true)
+                default:
+                    Constants.showAlertWithAction(on: self, title: "Login Required", message: "You need to login to access this feature.", isTwoBtn: true, firstBtnTitle: "Cancel", actionBtnTitle: "Login") { [weak self] _ in
+                        guard let viewController = self else { return }
+                        if let newViewController = viewController.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") {
+                            newViewController.hidesBottomBarWhenPushed = true
+                            viewController.navigationController?.pushViewController(newViewController, animated: true)
+                        }
+                    }
+            }
         }
     }
-    
 }
 
 

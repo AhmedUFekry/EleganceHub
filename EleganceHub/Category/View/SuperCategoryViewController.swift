@@ -118,7 +118,13 @@ class SuperCategoryViewController: UIViewController {
     }
     
     @objc private func onButtonSelected() {
-        Constants.showLoginAlert(on: self)
+        Constants.showAlertWithAction(on: self, title: "Login Required", message: "You need to login to access this feature.", isTwoBtn: true, firstBtnTitle: "Cancel", actionBtnTitle: "Login") { [weak self] _ in
+            guard let viewController = self else { return }
+            if let newViewController = viewController.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") {
+                newViewController.hidesBottomBarWhenPushed = true
+                viewController.navigationController?.pushViewController(newViewController, animated: true)
+            }
+        }
     }
     
     func displayFloatingButton() {

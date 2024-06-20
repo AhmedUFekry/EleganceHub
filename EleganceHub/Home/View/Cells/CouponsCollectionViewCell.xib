@@ -16,41 +16,37 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="discount_1" translatesAutoresizingMaskIntoConstraints="NO" id="tIE-KC-Gfm">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="discount_1" translatesAutoresizingMaskIntoConstraints="NO" id="tIE-KC-Gfm">
+                        <rect key="frame" x="4" y="4" width="312" height="172"/>
+                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sale Up To 50%" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EKe-Jg-TFq">
-                        <rect key="frame" x="60" y="42.666666666666664" width="200" height="94.666666666666686"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.75" colorSpace="custom" customColorSpace="sRGB"/>
-                        <fontDescription key="fontDescription" name="Palatino-Roman" family="Palatino" pointSize="43"/>
-                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coupons code:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EEf-z1-0Sn">
-                        <rect key="frame" x="16" y="156" width="132" height="20"/>
+                        <rect key="frame" x="16" y="148" width="132" height="20"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.75668941270436674" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="AMD-x6-XqK"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="Palatino-Roman" family="Palatino" pointSize="20"/>
-                        <nil key="textColor"/>
+                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to copy the code" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EKe-Jg-TFq">
+                        <rect key="frame" x="16" y="12" width="164" height="20"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.75" colorSpace="custom" customColorSpace="sRGB"/>
+                        <fontDescription key="fontDescription" name="Palatino-Roman" family="Palatino" pointSize="18"/>
+                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="EKe-Jg-TFq" firstAttribute="centerX" secondItem="tIE-KC-Gfm" secondAttribute="centerX" id="0Sg-Ve-Ara"/>
-                    <constraint firstItem="tIE-KC-Gfm" firstAttribute="leading" secondItem="naH-Zo-jb1" secondAttribute="leading" id="4Zm-Mh-dOO"/>
-                    <constraint firstAttribute="trailing" secondItem="tIE-KC-Gfm" secondAttribute="trailing" id="5EZ-Yh-MYE"/>
-                    <constraint firstItem="tIE-KC-Gfm" firstAttribute="top" secondItem="naH-Zo-jb1" secondAttribute="top" id="Gfy-Yg-ndy"/>
-                    <constraint firstAttribute="trailing" secondItem="EKe-Jg-TFq" secondAttribute="trailing" constant="60" id="TQn-M5-qKK"/>
-                    <constraint firstItem="EKe-Jg-TFq" firstAttribute="centerX" secondItem="naH-Zo-jb1" secondAttribute="centerX" id="X0n-Nb-VpN"/>
-                    <constraint firstItem="EKe-Jg-TFq" firstAttribute="centerY" secondItem="naH-Zo-jb1" secondAttribute="centerY" id="Y0k-fd-zKC"/>
-                    <constraint firstAttribute="bottom" secondItem="EEf-z1-0Sn" secondAttribute="bottom" constant="4" id="cxs-h6-ZHM"/>
-                    <constraint firstItem="EEf-z1-0Sn" firstAttribute="top" secondItem="tIE-KC-Gfm" secondAttribute="bottom" constant="-24" id="d6p-5t-p7V"/>
-                    <constraint firstAttribute="bottom" secondItem="tIE-KC-Gfm" secondAttribute="bottom" id="dDn-Tf-IWg"/>
-                    <constraint firstItem="EKe-Jg-TFq" firstAttribute="leading" secondItem="naH-Zo-jb1" secondAttribute="leading" constant="60" id="fxl-1h-h8d"/>
+                    <constraint firstAttribute="trailing" secondItem="tIE-KC-Gfm" secondAttribute="trailing" constant="4" id="9u2-Cn-NtY"/>
+                    <constraint firstAttribute="bottom" secondItem="EEf-z1-0Sn" secondAttribute="bottom" constant="12" id="YHK-a5-TCo"/>
+                    <constraint firstAttribute="bottom" secondItem="tIE-KC-Gfm" secondAttribute="bottom" constant="4" id="bId-hC-JeM"/>
+                    <constraint firstItem="tIE-KC-Gfm" firstAttribute="leading" secondItem="naH-Zo-jb1" secondAttribute="leading" constant="4" id="d76-4d-chh"/>
+                    <constraint firstItem="EKe-Jg-TFq" firstAttribute="leading" secondItem="naH-Zo-jb1" secondAttribute="leading" constant="16" id="g7B-Tj-Acs"/>
+                    <constraint firstItem="EKe-Jg-TFq" firstAttribute="top" secondItem="naH-Zo-jb1" secondAttribute="top" constant="12" id="hv5-c3-ue8"/>
                     <constraint firstItem="EEf-z1-0Sn" firstAttribute="leading" secondItem="naH-Zo-jb1" secondAttribute="leading" constant="16" id="jUx-xI-WJb"/>
-                    <constraint firstItem="EKe-Jg-TFq" firstAttribute="centerY" secondItem="tIE-KC-Gfm" secondAttribute="centerY" id="tyV-2S-WJx"/>
+                    <constraint firstItem="tIE-KC-Gfm" firstAttribute="top" secondItem="naH-Zo-jb1" secondAttribute="top" constant="4" id="nFu-4P-jmi"/>
                 </constraints>
             </collectionViewCellContentView>
             <connections>

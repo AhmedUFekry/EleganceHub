@@ -62,21 +62,7 @@ class ShippingAddressViewController: UIViewController, UpdateLocationDelegate {
     }
     
     private func setupNavigation() {
-//        tableView.rx.itemSelected
-//            .withLatestFrom(viewModel.addresses) { (indexPath, addresses) in
-//                return (indexPath, addresses)
-//            }
-//            .subscribe(onNext: { [weak self] (indexPath, addresses) in
-//                guard let self = self else { return }
-//                let selectedAddress = addresses[indexPath.row]
-//                viewModel.addAddressToOrder(orderID: orderID!, addressIndex: indexPath.row)
-//                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//                if let viewController = storyboard.instantiateViewController(withIdentifier: "OrderCheckOutViewController") as? OrderCheckOutViewController {
-//                    viewController.selectedAddress = selectedAddress
-//                    self.navigationController?.pushViewController(viewController, animated: true)
-//                }
-//            })
-//            .disposed(by: disposeBag)
+
         tableView.rx.itemSelected.subscribe(onNext: {[weak self] indexPath in
                     guard let self = self else {return}
                     print("selected index is \(indexPath)")
@@ -120,6 +106,8 @@ class ShippingAddressViewController: UIViewController, UpdateLocationDelegate {
         viewModel.isLoading.subscribe { isloading in
             self.showActivityIndicator(isloading)
         }.disposed(by: disposeBag)
+        handleEmptyState()
+
     }
     
     private func showActivityIndicator(_ show: Bool) {
@@ -138,19 +126,39 @@ class ShippingAddressViewController: UIViewController, UpdateLocationDelegate {
     }
     
     private func confirmAlert(selectedAddressIndex: Int) {
-        let alert = UIAlertController(title: "Confirmation", message: "Are you sure you want to ship to this address?", preferredStyle: .alert)
-        let okBtn = UIAlertAction(title: "Yes", style: .default) { _ in
+        Constants.showAlertWithAction(on: self, title: "Confirmation", message: "Are you sure you want to ship to this address?", isTwoBtn: true, firstBtnTitle: "NO", actionBtnTitle: "Yes"){ _ in
             guard let id = self.orderID else { return }
             if id != 0 {
                 self.viewModel.addAddressToOrder(orderID: id, addressIndex: selectedAddressIndex)
             }
         }
-        let cancelBtn = UIAlertAction(title: "Cancel", style: .cancel)
-        alert.addAction(okBtn)
-        alert.addAction(cancelBtn)
-        self.present(alert, animated: true)
+        
+    }
+    private func handleCartEmptyState(isEmpty: Bool) {
+        if isEmpty {
+            print("Cart is empty")
+            //let emptyLabel = UILabel(frame: self.cartTableView.bounds)
+            if let emptyImage = UIImage(named: "emptybox") {
+               let imageView = UIImageView(image: emptyImage)
+                imageView.contentMode = .center
+               imageView.frame = self.tableView.bounds
+               self.tableView.backgroundView = imageView
+           }
+        } else {
+            self.tableView.backgroundView = nil
+        }
+    }
+    
+    private func handleEmptyState() {
+        viewModel.addresses
+            .map { $0.isEmpty }
+            .subscribe(onNext: { [weak self] isEmpty in
+              self?.handleCartEmptyState(isEmpty: isEmpty)
+            })
+            .disposed(by: disposeBag)
     }
 }
+   
 
 extension ShippingAddressViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

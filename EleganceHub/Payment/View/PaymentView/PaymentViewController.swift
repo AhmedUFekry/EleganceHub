@@ -16,7 +16,7 @@ class PaymentViewController: UIViewController {
     @IBOutlet weak var appBarView: CustomAppBarUIView!
     
     
-    let paymentList:[PaymentMethodModel] = [PaymentMethodModel(paymentMethod: "Credit Card", imageName: "CreditCard",id:PaymentMethod.creditCart),PaymentMethodModel(paymentMethod: "Apple Pay", imageName: "applePayDark",id:PaymentMethod.applePay),PaymentMethodModel(paymentMethod: "Paypal", imageName: "Paypal",id:PaymentMethod.payPal),PaymentMethodModel(paymentMethod: "Cash on delivery", imageName: "cashOnDelivery",id:PaymentMethod.cash)]
+    let paymentList:[PaymentMethodModel] = [/*PaymentMethodModel(paymentMethod: "Credit Card", imageName: "CreditCard",id:PaymentMethod.creditCart),*/PaymentMethodModel(paymentMethod: "Apple Pay", imageName: "applePayDark",id:PaymentMethod.applePay),/*PaymentMethodModel(paymentMethod: "Paypal", imageName: "Paypal",id:PaymentMethod.payPal),*/PaymentMethodModel(paymentMethod: "Cash on delivery", imageName: "cashOnDelivery",id:PaymentMethod.cash)]
     
     var selectedMethod:PaymentMethodModel?
     var viewModel = PaymentViewModel(networkService: PaymentNetworkService())
@@ -24,6 +24,7 @@ class PaymentViewController: UIViewController {
     var orderID:Int?
     var draftOrder:DraftOrder?
     let disposeBag = DisposeBag()
+    let userCurrency = UserDefaultsHelper.shared.getCurrencyFromUserDefaults().uppercased()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,35 +60,30 @@ class PaymentViewController: UIViewController {
     }
    
     private func confirmAlert(paymentWay:PaymentMethod) {
-        let alert = UIAlertController(title: "Confirmation", message: "Are you sure you want to choose to pay in \(paymentWay)?", preferredStyle: .alert)
-         orderID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.getDraftOrder.rawValue)
-        guard let id = orderID else {
-            self.showAlert(msg: "Failed to containue to pay")
-            return
-        }
-        let okBtn = UIAlertAction(title: "Yes", style: .default) { _ in
+        orderID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.getDraftOrder.rawValue)
+       guard let id = orderID else {
+           self.showAlert(msg: "Failed to containue to pay")
+           return
+       }
+        Constants.showAlertWithAction(on: self, title: "Confirmation", message: "Are you sure you want to choose to pay in \(paymentWay)?", isTwoBtn: true, firstBtnTitle: "No", actionBtnTitle: "Yes"){ _ in
             switch paymentWay{
-                case PaymentMethod.cash:
-                    self.CompleteOrder(id: id)
-                case PaymentMethod.payPal:
-                    print("\(paymentWay)")
-                case PaymentMethod.applePay:
-                    print("\(paymentWay)")
+            case PaymentMethod.cash:
+                self.CompleteOrder(id: id)
+            case PaymentMethod.payPal:
+                print("\(paymentWay)")
+            case PaymentMethod.applePay:
+                print("\(paymentWay)")
                 self.startApplePay()
-                case PaymentMethod.creditCart:
-                    print("\(paymentWay)")
+            case PaymentMethod.creditCart:
+                print("\(paymentWay)")
             }
         }
-        let cancelBtn = UIAlertAction(title: "Cancel", style: .cancel)
-        alert.addAction(okBtn)
-        alert.addAction(cancelBtn)
-        self.present(alert, animated: true)
     }
     private func CompleteOrder(id:Int){
         if id != 0{
             self.viewModel.completeDraftOrder(orderID: id)
         }else{
-            Constants.displayToast(viewController: self, message: "Error Can't complete your order", seconds: 2.0)
+            Constants.displayAlert(viewController: self, message: "Error Can't complete your order", seconds: 2.0)
         }
     }
     
@@ -98,7 +94,9 @@ class PaymentViewController: UIViewController {
                 UserDefaultsHelper.shared.clearUserData(key: UserDefaultsConstants.getDraftOrder.rawValue)
                 print("IsComplete \(UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.getDraftOrder.rawValue))")
                 }
-                self.navigateToHome()
+                Constants.showAlertWithAction(on: self, title: "Information", message: "Payment Done Successfully!", actionBtnTitle: "OK"){ _ in
+                    self.navigateToHome()
+                }
             } else {
                 print("Failed to complete draft order: Unknown error")
                 self.showAlert(msg: "Failed at payment please try again later")
@@ -143,7 +141,7 @@ class PaymentViewController: UIViewController {
             paymentRequest.supportedNetworks = [.visa, .masterCard, .amex]
             paymentRequest.merchantCapabilities = .capability3DS
             paymentRequest.countryCode = draftOrder?.shippingAddress?.countryCode ?? "EGP"
-            paymentRequest.currencyCode = draftOrder?.currency ?? "EGP"
+            paymentRequest.currencyCode = self.userCurrency
             
             let totalAmount = calculateTotalAmount()
             let summaryItem = PKPaymentSummaryItem(label: "Total", amount: NSDecimalNumber(decimal: totalAmount))
@@ -202,21 +200,20 @@ extension PaymentViewController:UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? PaymentMethodTableViewCell{
             cell.contentView.backgroundColor = UIColor.black
-            if(indexPath.row == 1){
+            selectedMethod = paymentList[indexPath.row]
+            if selectedMethod?.id == PaymentMethod.applePay{
                 cell.paymentMethodImage.image = UIImage(named: "applePayLight")
             }
             cell.paymentMethodLabel.textColor = UIColor.white
         }
-        selectedMethod = paymentList[indexPath.row]
-//        tableView.deselectRow(at: indexPath, animated: true)
     }
 
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? PaymentMethodTableViewCell{
             cell.contentView.backgroundColor = UIColor.white
             cell.paymentMethodLabel.textColor = UIColor.black
-            if(indexPath.row == 1){
-               
+            selectedMethod = paymentList[indexPath.row]
+            if selectedMethod?.id == PaymentMethod.applePay{
                 cell.paymentMethodImage.image = UIImage(named: "applePayDark")
             }
 

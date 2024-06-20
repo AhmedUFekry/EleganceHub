@@ -74,3 +74,7 @@ struct PriceRuleResponse: Codable {
     }
 }
 
+struct Coupon {
+    let priceRule: Int
+    let discountCode: DiscountCodes
+}

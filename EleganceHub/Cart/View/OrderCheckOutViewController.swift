@@ -101,7 +101,7 @@ class OrderCheckOutViewController: UIViewController {
                 self.renderView()
             }, onError: { [weak self] error in
                 guard let self = self else { return }
-                Constants.displayToast(viewController: self, message: error.localizedDescription, seconds: 2.0)
+                Constants.displayAlert(viewController: self, message: error.localizedDescription, seconds: 2.0)
             }).disposed(by: disposeBag)
         
         viewModel.isValiedCopoun.subscribe{ isValied in
@@ -166,7 +166,7 @@ class OrderCheckOutViewController: UIViewController {
         if let code = self.copunTextField.text {
             viewModel.checkForCopuns(copunsString: code, draftOrder: draftOrder!)
         }else{
-            Constants.displayToast(viewController: self, message: "There is no Code", seconds: 2.0)
+            Constants.displayAlert(viewController: self, message: "There is no Code", seconds: 2.0)
         }
     }
 }

@@ -13,7 +13,14 @@ class HomeViewModel: ViewModelProtocol {
     private let disposeBag = DisposeBag()
     private let cartNetworkService:CartNetworkServiceProtocol = CartNetworkService()
    
-    var couponsResult: [DiscountCodes]?{
+//    var couponsResult: [DiscountCodes]?{
+//        didSet{
+//            bindCouponsToViewController()
+//            print("couponsResult did called \(couponsResult?.count)")
+//        }
+//    }
+
+    var couponsResult: [Coupon]?{
         didSet{
             bindCouponsToViewController()
             print("couponsResult did called \(couponsResult?.count)")
@@ -48,6 +55,7 @@ class HomeViewModel: ViewModelProtocol {
             switch response {
             case .success(let success):
                 var couponsList: [DiscountCodes] = []
+                var coupons:[Coupon] = []
                 let dispatchGroup = DispatchGroup()
                 for priceRule in success.price_rules{
                     dispatchGroup.enter()
@@ -55,8 +63,12 @@ class HomeViewModel: ViewModelProtocol {
                         switch result{
                             case .success(let couponsResponse):
                             //print("getDiscountCodes \(couponsResponse)")
+                            
                             if let firstDiscountCode = couponsResponse.discount_codes.first {
                                 couponsList.append(firstDiscountCode)
+                                let priceRuleValue = Double(priceRule.value ?? "0")
+                                let discount = (priceRuleValue ?? 0 ) * -1
+                                coupons.append(Coupon(priceRule: Int(discount), discountCode: firstDiscountCode))
                             }
                             case .failure(let err):
                                 print("Error home \(err)")
@@ -65,7 +77,8 @@ class HomeViewModel: ViewModelProtocol {
                     }
                     dispatchGroup.notify(queue: .main) {
                         //print("All discount codes fetched: \(couponsList)")
-                        self.couponsResult = couponsList
+                        //self.couponsResult = couponsList
+                        self.couponsResult = coupons
                     }
                 }
             case .failure(let failure):

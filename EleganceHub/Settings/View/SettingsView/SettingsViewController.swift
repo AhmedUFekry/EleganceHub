@@ -25,11 +25,12 @@ class SettingsViewController: UIViewController {
     var imageString: String?
     var isEditingTapped: Bool = false
     var customerID:Int?
+    var customerData:Customer?
     
-        let viewModel = SettingsViewModel()
-        let disposeBag = DisposeBag()
-        
-        var loginViewModel: LoginViewModel?
+    let viewModel = SettingsViewModel()
+    let disposeBag = DisposeBag()
+    
+    var loginViewModel: LoginViewModel?
         
     @IBAction func darkModeSwitch(_ sender: UISwitch) {
         if #available(iOS 13.0, *){
@@ -44,20 +45,20 @@ class SettingsViewController: UIViewController {
         }
     }
     override func viewDidLoad() {
-            super.viewDidLoad()
+        super.viewDidLoad()
 
-            uISetUp()
-            bindViewModel()
-            
-            customerID = UserDefaultsHelper.shared.getLoggedInUserID()
-            
-            viewModel.loadImage()
-            if let savedImage = viewModel.savedImage {
-                profileImageView.profileImage.image = savedImage
-            }
-            
-            loginViewModel = LoginViewModel(service: NetworkService())
+        uISetUp()
+        bindViewModel()
+        
+        customerID = UserDefaultsHelper.shared.getLoggedInUserID()
+        
+        viewModel.loadImage()
+        if let savedImage = viewModel.savedImage {
+            profileImageView.profileImage.image = savedImage
         }
+        
+        loginViewModel = LoginViewModel(service: NetworkService())
+    }
         
         private func uISetUp() {
             Constants.textFieldStyle(tF: userFirstNameTF)
@@ -117,29 +118,31 @@ class SettingsViewController: UIViewController {
             profileImageView.uploadLabel.text = isEnable ? "Upload image" : ""
         }
         
-        private func bindViewModel() {
-            loadingObserverSetUp()
-            onErrorObserverSetUp()
-            
+    private func bindViewModel() {
+        loadingObserverSetUp()
+        onErrorObserverSetUp()
+        if let customerData = self.customerData{
+            self.updateUI(with: customerData)
+        }else{
             if let id = UserDefaultsHelper.shared.getLoggedInUserID(){
                 viewModel.loadUSerData(customerID: id)
             }
-            
-            viewModel.customerResponse
-                .subscribe(onNext: { [weak self] response in
-                    guard let self = self else { return }
-                    if let response = response.customer {
-                        // self.customerData = response.customer
-                        if (self.isEditing) {
-                            Constants.displayToast(viewController: self, message: "Updated Successfully", seconds: 2.0)
-                        } else {
-                            Constants.displayToast(viewController: self, message: "data downloaded Successfully", seconds: 2.0)
-                        }
-                        self.updateUI(with: response)
-                    }
-                })
-                .disposed(by: disposeBag)
         }
+        
+        viewModel.customerResponse
+            .subscribe(onNext: { [weak self] response in
+                guard let self = self else { return }
+                if let response = response.customer {
+                    // self.customerData = response.customer
+                    if (self.isEditing) {
+                        Constants.displayAlert(viewController: self, message: "Updated Successfully", seconds: 2.0)
+                    }
+                    self.customerData = response
+                    self.updateUI(with: response)
+                }
+            })
+            .disposed(by: disposeBag)
+    }
         
     
     

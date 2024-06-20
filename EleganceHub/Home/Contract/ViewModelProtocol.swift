@@ -12,7 +12,8 @@ protocol ViewModelProtocol{
     var bindResultToViewController: (() -> ()) {get set}
     func getBrandsFromModel()
     
-    var couponsResult: [DiscountCodes]? {get set}
+    //var couponsResult: [DiscountCodes]? {get set}
+    var couponsResult: [Coupon]? {get set}
     var bindCouponsToViewController: (() -> ()) {get set}
     func getCouponsFromModel()
     
