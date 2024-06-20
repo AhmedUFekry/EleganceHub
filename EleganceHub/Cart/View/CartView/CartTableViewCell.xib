@@ -21,8 +21,8 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ucf-oV-mkr">
                         <rect key="frame" x="8" y="8" width="304" height="96"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="center" distribution="fillProportionally" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="PJw-Sb-f59">
-                                <rect key="frame" x="189" y="60" width="105" height="28"/>
+                            <stackView opaque="NO" contentMode="center" distribution="fillProportionally" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="PJw-Sb-f59">
+                                <rect key="frame" x="197.33333333333334" y="60" width="96.666666666666657" height="28"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ks-Z2-yFY">
                                         <rect key="frame" x="0.0" y="0.0" width="28" height="28"/>
@@ -33,15 +33,15 @@
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="icons8-minus-30"/>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" adjustsFontSizeToFit="NO" id="1YQ-E8-NJL">
-                                        <rect key="frame" x="42" y="1" width="19" height="25"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" adjustsFontSizeToFit="NO" id="1YQ-E8-NJL">
+                                        <rect key="frame" x="37.5" y="1" width="19" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="Palatino-Roman" family="Palatino" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cu5-dn-zT7">
-                                        <rect key="frame" x="77" y="0.0" width="28" height="28"/>
+                                        <rect key="frame" x="68.666666666666657" y="0.0" width="28" height="28"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="28" id="G1o-Mb-MJS"/>
                                             <constraint firstAttribute="width" constant="28" id="WXU-9b-GZo"/>
