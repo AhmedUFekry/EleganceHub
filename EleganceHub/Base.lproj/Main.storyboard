@@ -488,27 +488,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" id="Aba-fZ-x7R">
-                                <rect key="frame" x="-23" y="52" width="404" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <items>
-                                    <navigationItem title="Category" id="Mnp-7V-qhQ">
-                                        <rightBarButtonItems>
-                                            <barButtonItem title="Item" image="heart.circle" catalog="system" id="8eg-aL-gGR">
-                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <connections>
-                                                    <action selector="favoriteBtn:" destination="T80-uh-czD" id="EDd-dk-gL4"/>
-                                                </connections>
-                                            </barButtonItem>
-                                            <barButtonItem title="Item" image="cart.circle" catalog="system" id="DtM-5O-Beg">
-                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </barButtonItem>
-                                        </rightBarButtonItems>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="kVi-nT-4Tc">
-                                <rect key="frame" x="16" y="96" width="361" height="56"/>
+                                <rect key="frame" x="16" y="113" width="361" height="56"/>
                                 <color key="barTintColor" name="theme"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
@@ -516,7 +497,7 @@
                                 </connections>
                             </searchBar>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="qqS-KQ-I3w">
-                                <rect key="frame" x="16" y="147" width="361" height="32"/>
+                                <rect key="frame" x="16" y="177" width="361" height="32"/>
                                 <segments>
                                     <segment title="Women"/>
                                     <segment title="Men"/>
@@ -529,7 +510,7 @@
                                 </connections>
                             </segmentedControl>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="HvR-PE-k50">
-                                <rect key="frame" x="16" y="199" width="361" height="636"/>
+                                <rect key="frame" x="16" y="224" width="361" height="545"/>
                                 <color key="backgroundColor" name="theme"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="h4w-tu-Rkk">
                                     <size key="itemSize" width="175" height="236"/>
@@ -558,20 +539,30 @@
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lUZ-JE-wgu" customClass="CustomAppBarUIView" customModule="EleganceHub" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="59" width="393" height="50"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Z5D-NZ-Bal"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="SHl-1Z-9TQ"/>
                         <color key="backgroundColor" name="theme"/>
                         <constraints>
                             <constraint firstItem="zAY-OT-1F6" firstAttribute="centerX" secondItem="SHl-1Z-9TQ" secondAttribute="centerX" id="4je-o5-Zwf"/>
                             <constraint firstItem="SHl-1Z-9TQ" firstAttribute="trailing" secondItem="qqS-KQ-I3w" secondAttribute="trailing" constant="16" id="Cs5-lt-muI"/>
-                            <constraint firstItem="kVi-nT-4Tc" firstAttribute="top" secondItem="SHl-1Z-9TQ" secondAttribute="top" constant="37" id="Hod-Cs-Wm2"/>
-                            <constraint firstItem="HvR-PE-k50" firstAttribute="top" secondItem="SHl-1Z-9TQ" secondAttribute="top" constant="140" id="M2S-vp-OtV"/>
+                            <constraint firstItem="lUZ-JE-wgu" firstAttribute="trailing" secondItem="SHl-1Z-9TQ" secondAttribute="trailing" id="D5T-7C-bi4"/>
+                            <constraint firstItem="kVi-nT-4Tc" firstAttribute="top" secondItem="lUZ-JE-wgu" secondAttribute="bottom" constant="4" id="Hod-Cs-Wm2"/>
+                            <constraint firstItem="HvR-PE-k50" firstAttribute="top" secondItem="qqS-KQ-I3w" secondAttribute="bottom" constant="16" id="M2S-vp-OtV"/>
                             <constraint firstItem="SHl-1Z-9TQ" firstAttribute="trailing" secondItem="HvR-PE-k50" secondAttribute="trailing" constant="16" id="PHf-8S-cGJ"/>
-                            <constraint firstItem="HvR-PE-k50" firstAttribute="top" secondItem="qqS-KQ-I3w" secondAttribute="bottom" constant="21" id="Wax-5D-Cwf"/>
+                            <constraint firstItem="lUZ-JE-wgu" firstAttribute="top" secondItem="SHl-1Z-9TQ" secondAttribute="top" id="RQe-74-686"/>
+                            <constraint firstItem="lUZ-JE-wgu" firstAttribute="leading" secondItem="SHl-1Z-9TQ" secondAttribute="leading" id="SLL-gu-lXf"/>
+                            <constraint firstItem="qqS-KQ-I3w" firstAttribute="top" secondItem="kVi-nT-4Tc" secondAttribute="bottom" constant="8" id="Zft-j3-M2S"/>
                             <constraint firstItem="SHl-1Z-9TQ" firstAttribute="trailing" secondItem="kVi-nT-4Tc" secondAttribute="trailing" constant="16" id="ada-wo-Bxr"/>
+                            <constraint firstItem="HvR-PE-k50" firstAttribute="bottom" secondItem="SHl-1Z-9TQ" secondAttribute="bottom" id="drw-H6-AX5"/>
                             <constraint firstItem="qqS-KQ-I3w" firstAttribute="leading" secondItem="kVi-nT-4Tc" secondAttribute="leading" id="l0C-vm-dZ4"/>
                             <constraint firstItem="HvR-PE-k50" firstAttribute="leading" secondItem="SHl-1Z-9TQ" secondAttribute="leading" constant="16" id="lCm-kF-5kg"/>
-                            <constraint firstItem="HvR-PE-k50" firstAttribute="bottom" secondItem="SHl-1Z-9TQ" secondAttribute="bottom" constant="66" id="qQ3-xB-bVL"/>
                             <constraint firstItem="zAY-OT-1F6" firstAttribute="centerY" secondItem="SHl-1Z-9TQ" secondAttribute="centerY" id="rDU-pb-zYz"/>
                             <constraint firstItem="kVi-nT-4Tc" firstAttribute="leading" secondItem="SHl-1Z-9TQ" secondAttribute="leading" constant="16" id="rsJ-dz-1W1"/>
                         </constraints>
@@ -579,16 +570,15 @@
                     <navigationItem key="navigationItem" id="tL5-BI-Vlz"/>
                     <connections>
                         <outlet property="activityIndicator" destination="zAY-OT-1F6" id="kFF-5p-QRH"/>
-                        <outlet property="cartBtn" destination="DtM-5O-Beg" id="RS4-4f-TZa"/>
+                        <outlet property="appBarView" destination="lUZ-JE-wgu" id="pTN-yK-uOC"/>
                         <outlet property="categoryCollection" destination="HvR-PE-k50" id="t1I-RR-kxI"/>
                         <outlet property="categorySearchBar" destination="kVi-nT-4Tc" id="yTH-jG-Hxt"/>
-                        <outlet property="favBtn" destination="8eg-aL-gGR" id="V9a-s7-6Mv"/>
                         <outlet property="segmentCategory" destination="qqS-KQ-I3w" id="ptt-V9-b1Y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zb8-PC-dde" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5497" y="1263"/>
+            <point key="canvasLocation" x="5496.9465648854957" y="1262.6760563380283"/>
         </scene>
         <!--Payment View Controller-->
         <scene sceneID="4Ec-aA-Wf6">
@@ -1597,7 +1587,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yEn-rn-1O8">
-                                <rect key="frame" x="16" y="462" width="361" height="307"/>
+                                <rect key="frame" x="16" y="454" width="361" height="315"/>
                                 <color key="backgroundColor" name="theme"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="p0L-k9-e3k">
                                     <size key="itemSize" width="166" height="166"/>
@@ -1634,7 +1624,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Brands " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uu2-8F-cLX">
-                                <rect key="frame" x="16" y="415" width="120" height="31"/>
+                                <rect key="frame" x="16" y="407" width="120" height="31"/>
                                 <fontDescription key="fontDescription" name="Palatino-Bold" family="Palatino" pointSize="28"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1703,7 +1693,7 @@
                             <constraint firstItem="yEn-rn-1O8" firstAttribute="top" secondItem="uu2-8F-cLX" secondAttribute="bottom" constant="16" id="rO2-Te-Pib"/>
                             <constraint firstItem="GHb-AW-C8z" firstAttribute="trailing" secondItem="enC-Nx-Yb3" secondAttribute="trailing" constant="16" id="u23-Xn-MtR"/>
                             <constraint firstItem="nxt-3f-TYd" firstAttribute="leading" secondItem="GHb-AW-C8z" secondAttribute="leading" constant="16" id="vn7-Le-bNB"/>
-                            <constraint firstItem="uu2-8F-cLX" firstAttribute="top" secondItem="6vh-1Q-u7X" secondAttribute="bottom" constant="16" id="vxf-wc-BFb"/>
+                            <constraint firstItem="uu2-8F-cLX" firstAttribute="top" secondItem="6vh-1Q-u7X" secondAttribute="bottom" constant="8" id="vxf-wc-BFb"/>
                             <constraint firstItem="enC-Nx-Yb3" firstAttribute="height" secondItem="ffH-e3-4bK" secondAttribute="height" multiplier="0.2" id="wSt-15-56t"/>
                             <constraint firstItem="GHb-AW-C8z" firstAttribute="bottom" secondItem="yEn-rn-1O8" secondAttribute="bottom" id="xEe-cH-tL6"/>
                         </constraints>
@@ -2127,7 +2117,7 @@
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="S5f-AA-Cit">
                                 <rect key="frame" x="16" y="363" width="361" height="455"/>
-                                <string key="text">Welcome to ElegunceHub!
+                                <mutableString key="text">Welcome to ElegunceHub!
 
 Our Story
 ElegunceHub is the creation of Aya Hany, Shima Same, Raneem Ashraf, and Ahmed Fekry as part of our graduation project at ITI. We are passionate about bringing an innovative e-commerce solution to everyone.
@@ -2143,7 +2133,7 @@ For questions or support, contact us at [insert contact information].
 
 Thank you for choosing ElegunceHub. Happy shopping!
 
-</string>
+</mutableString>
                                 <fontDescription key="fontDescription" name="Palatino-Roman" family="Palatino" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -2253,12 +2243,10 @@ Thank you for choosing ElegunceHub. Happy shopping!
     </scenes>
     <resources>
         <image name="back" width="35" height="35"/>
-        <image name="cart.circle" catalog="system" width="128" height="123"/>
         <image name="cart.fill" catalog="system" width="128" height="102"/>
         <image name="darkmode" width="30" height="30"/>
         <image name="discount" width="512" height="512"/>
         <image name="emptybox" width="256" height="256"/>
-        <image name="heart.circle" catalog="system" width="128" height="123"/>
         <image name="home" width="128" height="128"/>
         <image name="homekit" catalog="system" width="128" height="104"/>
         <image name="icons8-forward-button-50" width="35" height="35"/>

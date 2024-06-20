@@ -56,9 +56,7 @@ class HomeViewController: UIViewController {
         homeViewModel.failureIngetData = { faildMsg in
             Constants.displayAlert(viewController: self, message: faildMsg, seconds: 2.2)
         }
-
-        homeViewModel.getBrandsFromModel()
-        homeViewModel.getCouponsFromModel()
+       
         setupCollectionView()
         orderDraft()
         
@@ -67,7 +65,8 @@ class HomeViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        homeViewModel.getBrandsFromModel()
+        homeViewModel.getCouponsFromModel()
         checkIfUserLoggedIn()
         setupBadgeLabel(on:appBarView.secoundTrailingIcon,badgeLabel: cartCountLabel)
         setupBadgeLabel(on:appBarView.trailingIcon,badgeLabel: favCountLabel)
@@ -86,8 +85,6 @@ class HomeViewController: UIViewController {
         let searchIcon = UIImage(systemName: "magnifyingglass")?.withTintColor(.black, renderingMode: .alwaysOriginal)
         let cartIcon = UIImage(systemName: "cart.circle")?.withTintColor(.black, renderingMode: .alwaysOriginal)
         let heartIcon = UIImage(systemName: "heart.circle")?.withTintColor(.black, renderingMode: .alwaysOriginal)
-
-
         self.appBarView.backBtn.setImage(searchIcon, for: .normal)
         
         self.appBarView.secoundTrailingIcon.setImage(cartIcon, for: .normal)
@@ -95,7 +92,6 @@ class HomeViewController: UIViewController {
         
         self.appBarView.backBtn.addTarget(self, action: #selector(onSearchTapped), for: .touchUpInside)
         self.appBarView.lableTitle.text = "Home"
-        
     }
     
     private func orderDraft(){
@@ -183,8 +179,12 @@ class HomeViewController: UIViewController {
         
         let brandsLayout = UICollectionViewFlowLayout()
         brandsLayout.scrollDirection = .horizontal
-        let itemWidth = (view.frame.width / 2) - 15
-        brandsLayout.itemSize = CGSize(width: itemWidth, height: itemWidth)
+        let itemWidth = (view.frame.width / 2) - 16
+        //let itemHeight = (view.frame.height / 2) - 15
+        let height = ((brandsLayout.collectionView?.frame.height) ?? 300 / 2) - 15
+        print("Highttttt \(brandsLayout.collectionView?.frame.height)")
+        brandsLayout.itemSize = CGSize(width: itemWidth, height: 160)
+        
         brandsCollection.collectionViewLayout = brandsLayout
     }
     
@@ -275,11 +275,11 @@ extension HomeViewController: UICollectionViewDataSource,UICollectionViewDelegat
     func setBackGround(discountValue:Int) -> String{
         switch discountValue{
         case 10:
-            return "10"
+            return "101"
         case 20:
-            return "20"
+            return "201"
         case 30:
-            return "30"
+            return "301"
         case 40:
             return "40"
         case 50:
@@ -311,12 +311,12 @@ extension HomeViewController: UICollectionViewDataSource,UICollectionViewDelegat
         couponsCollection.deselectItem(at: indexPath, animated: true)
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if collectionView == couponsCollection {
-               return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height)
-        }
-        return CGSize(width: 180, height: 180)
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        if collectionView == couponsCollection {
+//               return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height)
+//        }
+//        return CGSize(width: 180, height: 120)
+//    }
     
     func setupBadgeLabel(on button: UIButton, badgeLabel:UILabel) {
         badgeLabel.backgroundColor = .red

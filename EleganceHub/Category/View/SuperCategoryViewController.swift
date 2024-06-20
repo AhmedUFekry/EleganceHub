@@ -8,6 +8,9 @@
 import UIKit
 import Kingfisher
 import JJFloatingActionButton
+import RxSwift
+import RxCocoa
+
 
 class SuperCategoryViewController: UIViewController {
     
@@ -15,10 +18,9 @@ class SuperCategoryViewController: UIViewController {
     @IBOutlet weak var categorySearchBar: UISearchBar!
     @IBOutlet weak var segmentCategory: UISegmentedControl!
     @IBOutlet weak var categoryCollection: UICollectionView!
+    @IBOutlet weak var appBarView: CustomAppBarUIView!
     
-    
-    @IBOutlet weak var cartBtn: UIBarButtonItem!
-    @IBOutlet weak var favBtn: UIBarButtonItem!
+    var favoriteProducts: BehaviorRelay<[[String: Any]]> = BehaviorRelay(value: [])
     
     let categoryViewModel = CategoryViewModel()
     let productsViewModel = CurrencyViewModel()
@@ -28,9 +30,16 @@ class SuperCategoryViewController: UIViewController {
     var userCurrency:String?
     var isFiltered: Bool = false
     var isSearching: Bool = false
+    private let disposeBag = DisposeBag()
 
     var rate : Double!
-       
+    var draftOrder:Int?
+    
+    var homeViewModel = HomeViewModel()
+    var cartViewModel: CartViewModelProtocol = CartViewModel()
+
+    var cartCountLabel:UILabel = UILabel()
+    var favCountLabel:UILabel = UILabel()
       
        override func viewDidLoad() {
            super.viewDidLoad()
@@ -44,8 +53,11 @@ class SuperCategoryViewController: UIViewController {
             self.categoryProductList = self.categoryViewModel.categoryResult
             self.renderView()
         }
+           setUpUI()
         displayFloatingButton()
         categoryViewModel.getCategoryProducts(category: .Women)
+       setupBadgeLabel(on:appBarView.secoundTrailingIcon,badgeLabel: cartCountLabel)
+       setupBadgeLabel(on:appBarView.trailingIcon,badgeLabel: favCountLabel)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -60,6 +72,75 @@ class SuperCategoryViewController: UIViewController {
             }
         }
         productsViewModel.getRate()
+        
+        
+        draftOrder = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.getDraftOrder.rawValue)
+        if draftOrder != 0 {
+            cartViewModel.getDraftOrderForUser(orderID: draftOrder!)
+        }
+        loadFavoriteProducts()
+
+        showCountOnCartData()
+    }
+    private func setUpUI(){
+        let searchIcon = UIImage(systemName: "magnifyingglass")?.withTintColor(.black, renderingMode: .alwaysOriginal)
+        let cartIcon = UIImage(systemName: "cart.circle")?.withTintColor(.black, renderingMode: .alwaysOriginal)
+        let heartIcon = UIImage(systemName: "heart.circle")?.withTintColor(.black, renderingMode: .alwaysOriginal)
+        self.appBarView.backBtn.isHidden = true
+        
+        self.appBarView.secoundTrailingIcon.setImage(cartIcon, for: .normal)
+        self.appBarView.trailingIcon.setImage(heartIcon, for: .normal)
+        
+        self.appBarView.lableTitle.text = "Category"
+    }
+    
+    @objc private func onButtonSelected() {
+        Constants.showAlertWithAction(on: self, title: "Login Required", message: "You need to login to access this feature.", isTwoBtn: true, firstBtnTitle: "Cancel", actionBtnTitle: "Login") { [weak self] _ in
+            guard let viewController = self else { return }
+            if let newViewController = viewController.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") {
+                newViewController.hidesBottomBarWhenPushed = true
+                viewController.navigationController?.pushViewController(newViewController, animated: true)
+            }
+        }
+    }
+    
+    func getLoggedInUserID() -> Int? {
+        return UserDefaultsHelper.shared.getLoggedInUserID()
+    }
+    
+    private func loadFavoriteProducts() {
+        if let userId = getLoggedInUserID() {
+            let fetchedProducts = FavoriteCoreData.shared.fetchFavoritesByUserId(userId: userId) ?? []
+            favoriteProducts.accept(fetchedProducts)
+            print("Fetched Products: \(fetchedProducts)")
+        } else {
+            print("User ID not found.")
+        }
+    }
+    private func showCountOnCartData() {
+        cartViewModel.lineItemsList
+            .map{ $0.count }
+            .distinctUntilChanged()
+            .subscribe(onNext: { [weak self] count in
+                guard let self = self else { return }
+                self.cartCountLabel.isHidden = count == 0
+                if count > 0 {
+                    self.cartCountLabel.text = "\(count)"
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        favoriteProducts.map{ $0.count }
+            .distinctUntilChanged()
+            .subscribe(onNext: { [weak self] count in
+                guard let self = self else { return }
+                self.favCountLabel.isHidden = count == 0
+                if count > 0 {
+                    self.favCountLabel.text = "\(count)"
+                }
+                print("Fav count \(count)")
+            })
+            .disposed(by: disposeBag)
     }
     
     func loadNib() {
@@ -91,8 +172,7 @@ class SuperCategoryViewController: UIViewController {
         categoryCollection.reloadData()
     }
     
-    
-    @IBAction func favoriteBtn(_ sender: Any) {
+    @objc private func onFavouriteTapped(){
         if let favoriteViewController = storyboard?.instantiateViewController(withIdentifier: "FavoriteViewController") as? FavoriteViewController {
                 navigationController?.pushViewController(favoriteViewController, animated: true)
         } else {
@@ -102,28 +182,27 @@ class SuperCategoryViewController: UIViewController {
     
     private func checkIfUserLoggedIn(){
         if(UserDefaultsHelper.shared.isDataFound(key: UserDefaultsConstants.isLoggedIn.rawValue)){
-            self.cartBtn.isEnabled = true
-            self.favBtn.isEnabled = true
+            
             guard let customerID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.loggedInUserID.rawValue) else {
-                print("Customer id not found ")
+                print("Customer id not found")
                 return
             }
-            
-        }else{
-            self.cartBtn.isEnabled = true
-            self.favBtn.isEnabled = true
-            self.cartBtn.action = #selector(onButtonSelected)
-            self.favBtn.action = #selector(onButtonSelected)
+            homeViewModel.checkIfUserHasDraftOrder(customerID: customerID)
+            print("Customer id found \(customerID)")
+            self.self.appBarView.secoundTrailingIcon.addTarget(self, action: #selector(onCartTapped), for: .touchUpInside)
+            self.self.appBarView.trailingIcon.addTarget(self, action: #selector(onFavouriteTapped), for: .touchUpInside)
+        } else {
+            self.self.appBarView.secoundTrailingIcon.addTarget(self, action: #selector(onButtonSelected), for: .touchUpInside)
+            self.self.appBarView.trailingIcon.addTarget(self, action: #selector(onButtonSelected), for: .touchUpInside)
         }
     }
     
-    @objc private func onButtonSelected() {
-        Constants.showAlertWithAction(on: self, title: "Login Required", message: "You need to login to access this feature.", isTwoBtn: true, firstBtnTitle: "Cancel", actionBtnTitle: "Login") { [weak self] _ in
-            guard let viewController = self else { return }
-            if let newViewController = viewController.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") {
-                newViewController.hidesBottomBarWhenPushed = true
-                viewController.navigationController?.pushViewController(newViewController, animated: true)
-            }
+    @objc private func onCartTapped(){
+        if let viewController = self.storyboard?.instantiateViewController(withIdentifier: "CartViewController") as? CartViewController {
+            print("cartBtn CartViewController")
+            self.navigationController?.pushViewController(viewController, animated: true)
+        } else {
+            print("Failed to instantiate CartViewController")
         }
     }
     
@@ -237,6 +316,27 @@ extension SuperCategoryViewController: UISearchBarDelegate {
         searchList = nil
         renderView()
     }
+    
+    func setupBadgeLabel(on button: UIButton, badgeLabel:UILabel) {
+        badgeLabel.backgroundColor = .red
+        badgeLabel.textColor = .white
+        badgeLabel.font = .systemFont(ofSize: 16)
+        badgeLabel.textAlignment = .center
+        badgeLabel.layer.cornerRadius = 10
+        badgeLabel.clipsToBounds = true
+        badgeLabel.translatesAutoresizingMaskIntoConstraints = false
+        badgeLabel.isHidden = true
+        //badgeLabel.text = "10"
+        button.addSubview(badgeLabel)
+        
+        NSLayoutConstraint.activate([
+            badgeLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 20),
+            badgeLabel.heightAnchor.constraint(equalToConstant: 20),
+            badgeLabel.topAnchor.constraint(equalTo: button.topAnchor, constant: -5),
+            badgeLabel.trailingAnchor.constraint(equalTo: button.trailingAnchor, constant: 5)
+        ])
+    }
+    
 }
 
 
