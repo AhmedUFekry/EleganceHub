@@ -140,4 +140,17 @@ final class CartNetworkServiceTest:XCTestCase{
         waitForExpectations(timeout: 5, handler: nil)
     }
     
+    func testDeleteDraftOrderSuccess(){
+        let expectation = self.expectation(description: "Fetch Delete Draft Order succeeds")
+        networkService?.deleteDraftOrder(orderID: 1 )
+            .subscribe(onNext: { response in
+                XCTAssertTrue(response)
+                expectation.fulfill()
+        },onError: { error in
+            XCTFail("Expected success, got failure")
+
+        })
+        waitForExpectations(timeout: 5, handler: nil)
+    }
+    
 }
