@@ -126,28 +126,31 @@ class OrdersViewController: UIViewController {
         func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
             return 150
         }
-        
+        func showDeleteConfirmationAlert(completion: @escaping (Bool) -> Void) {
+            Constants.showAlertWithAction(on: self, title: "Confirm Delete", message: "Are you sure you want to delete this item?", isTwoBtn: true, firstBtnTitle: "Cancel", actionBtnTitle: "Delete", style: .destructive) { confirmed in
+                completion(true)
+            }
+        }
         func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+            
             let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (action, view, completionHandler) in
                 guard let self = self else { return }
-                let alert = UIAlertController(title: "Warning", message: "Do you want to delete this order?", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "", style: .destructive, handler: { _ in
-                    guard let orderId = self.orders?[indexPath.section].id else { return }
-                    self.deleteOrder(orderId: orderId)
-                    self.orders?.remove(at: indexPath.section)
-                    self.ordersTableView.performBatchUpdates({
-                        self.ordersTableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
-                    }, completion: { finished in
-                        self.ordersTableView.reloadData()
-                        self.isFavEmpty()
-                    })
-                    completionHandler(true)
-                }))
-                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
-                    completionHandler(false)
-                }))
-                self.present(alert, animated: true)
+                self.showDeleteConfirmationAlert { confirmed in
+                    if confirmed {
+                        guard let orderId = self.orders?[indexPath.section].id else { return }
+                            self.deleteOrder(orderId: orderId)
+                            self.orders?.remove(at: indexPath.section)
+                            self.ordersTableView.performBatchUpdates({
+                                self.ordersTableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
+                            }, completion: { finished in
+                                self.ordersTableView.reloadData()
+                                self.isFavEmpty()
+                            })
+                    }
+                    completionHandler(confirmed)
+                }
             }
+        
             deleteAction.backgroundColor = .black
             deleteAction.image = UIImage(systemName: "trash")
 

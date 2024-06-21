@@ -141,6 +141,10 @@ class SignUpViewController: UIViewController {
         let phoneTest = NSPredicate(format: "SELF MATCHES %@", phoneRegex)
         return phoneTest.evaluate(with: phone)
     }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        setTextFieldStyle()
+    }
 }
 
     // MARK: - UI Setup Extension
@@ -151,12 +155,16 @@ extension SignUpViewController {
         styleSignUpButton()
         setupLoginLabel()
         setupPasswordFields()
-        Constants.authTextFieldStyle(tF: fNameTxt)
-        Constants.authTextFieldStyle(tF: lNameTxt)
-        Constants.authTextFieldStyle(tF: phoneTxt)
-        Constants.authTextFieldStyle(tF: emailTxt)
-        Constants.authTextFieldStyle(tF: passwordTxt)
-        Constants.authTextFieldStyle(tF: confirmPasswordTxt)
+        setTextFieldStyle()
+    }
+    
+    private func setTextFieldStyle(){
+        Constants.textFieldStyle(tF: fNameTxt)
+        Constants.textFieldStyle(tF: lNameTxt)
+        Constants.textFieldStyle(tF: phoneTxt)
+        Constants.textFieldStyle(tF: emailTxt)
+        Constants.textFieldStyle(tF: passwordTxt)
+        Constants.textFieldStyle(tF: confirmPasswordTxt)
     }
     
     private func styleSignUpButton() {

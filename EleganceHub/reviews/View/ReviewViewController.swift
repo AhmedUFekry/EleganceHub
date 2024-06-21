@@ -33,11 +33,11 @@ class ReviewViewController: UIViewController ,UITableViewDelegate, UITableViewDa
         let nib = UINib(nibName: "CartTableViewCell", bundle: nil)
         tableViewReview.register(nib, forCellReuseIdentifier: "CartTableViewCell")
         
-        customAppBar.trailingIcon.setImage(UIImage(systemName: "arrowshape.up.circle.fill"), for: .normal)
+        customAppBar.trailingIcon.setImage(UIImage(systemName: "arrow.up.circle.fill"), for: .normal)
     }
 
     private func setupCustomAppBar() {
-        customAppBar = CustomAppBarUIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 60))
+        customAppBar = CustomAppBarUIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 50))
         view.addSubview(customAppBar)
         
         customAppBar.translatesAutoresizingMaskIntoConstraints = false
@@ -60,19 +60,19 @@ class ReviewViewController: UIViewController ,UITableViewDelegate, UITableViewDa
         updateTrailingIcon()
         if showAllReviews {
             displayedReviews = allReviews
-            customAppBar.trailingIcon.setImage(UIImage(systemName: "arrowshape.up.circle.fill"), for: .normal)
+            customAppBar.trailingIcon.setImage(UIImage(systemName: "arrow.up.circle.fill"), for: .normal)
         } else {
             displayedReviews = initialReviews
-            customAppBar.trailingIcon.setImage(UIImage(systemName: "arrowshape.down.circle.fill"), for: .normal)
+            customAppBar.trailingIcon.setImage(UIImage(systemName: "arrow.down.circle.fill"), for: .normal)
         }
         tableViewReview.reloadData()
     }
     
     private func updateTrailingIcon() {
         if showAllReviews {
-            customAppBar.trailingIcon.setImage(UIImage(systemName: "arrowshape.up.circle.fill"), for: .normal)
+            customAppBar.trailingIcon.setImage(UIImage(systemName: "arrow.up.circle.fill"), for: .normal)
         } else {
-            customAppBar.trailingIcon.setImage(UIImage(systemName: "arrowshape.down.circle.fill"), for: .normal)
+            customAppBar.trailingIcon.setImage(UIImage(systemName: "arrow.down.circle.fill"), for: .normal)
         }
     }
     
