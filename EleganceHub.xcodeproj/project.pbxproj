@@ -97,7 +97,8 @@
 		7F3E46B82C0149340096211E /* ProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3E46B72C0149340096211E /* ProductViewController.swift */; };
 		7F3E46BA2C01E7260096211E /* ProductsCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3E46B92C01E7260096211E /* ProductsCall.swift */; };
 		7F58DF8E2C23B742002DEEF7 /* ProductsDetailsViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F58DF8D2C23B742002DEEF7 /* ProductsDetailsViewModelTest.swift */; };
-		7F58DF912C24DB14002DEEF7 /* MockCategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F58DF902C24DB14002DEEF7 /* MockCategoryService.swift */; };
+		7F58DF912C24DB14002DEEF7 /* MockCategoryServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F58DF902C24DB14002DEEF7 /* MockCategoryServiceTests.swift */; };
+		7F58DF932C24F64E002DEEF7 /* MockCategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F58DF922C24F64E002DEEF7 /* MockCategoryService.swift */; };
 		7F5E5A362C1D1745003E4AAD /* CurrencyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F5E5A352C1D1745003E4AAD /* CurrencyResponse.swift */; };
 		7F5E5A3A2C1D177A003E4AAD /* RemoteDataSourceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F5E5A382C1D1779003E4AAD /* RemoteDataSourceProtocol.swift */; };
 		7F5E5A3B2C1D177A003E4AAD /* RemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F5E5A392C1D177A003E4AAD /* RemoteDataSource.swift */; };
@@ -266,7 +267,8 @@
 		7F3E46B72C0149340096211E /* ProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductViewController.swift; sourceTree = "<group>"; };
 		7F3E46B92C01E7260096211E /* ProductsCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsCall.swift; sourceTree = "<group>"; };
 		7F58DF8D2C23B742002DEEF7 /* ProductsDetailsViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsDetailsViewModelTest.swift; sourceTree = "<group>"; };
-		7F58DF902C24DB14002DEEF7 /* MockCategoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCategoryService.swift; sourceTree = "<group>"; };
+		7F58DF902C24DB14002DEEF7 /* MockCategoryServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCategoryServiceTests.swift; sourceTree = "<group>"; };
+		7F58DF922C24F64E002DEEF7 /* MockCategoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCategoryService.swift; sourceTree = "<group>"; };
 		7F5E5A352C1D1745003E4AAD /* CurrencyResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyResponse.swift; sourceTree = "<group>"; };
 		7F5E5A382C1D1779003E4AAD /* RemoteDataSourceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteDataSourceProtocol.swift; sourceTree = "<group>"; };
 		7F5E5A392C1D177A003E4AAD /* RemoteDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteDataSource.swift; sourceTree = "<group>"; };
@@ -957,7 +959,8 @@
 			children = (
 				7FA5CEE32C238F4000017321 /* CategoryViewModelTests.swift */,
 				7FA5CED72C235C7200017321 /* CategoryServicesTests.swift */,
-				7F58DF902C24DB14002DEEF7 /* MockCategoryService.swift */,
+				7F58DF902C24DB14002DEEF7 /* MockCategoryServiceTests.swift */,
+				7F58DF922C24F64E002DEEF7 /* MockCategoryService.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1678,6 +1681,7 @@
 				03CDC3EE2C232FCE0002F22F /* SettingsNetworkServiceTest.swift in Sources */,
 				7FA5CEE12C238B3800017321 /* ProductsViewModelTests.swift in Sources */,
 				D48E6A462C238E3D00ACE5CF /* SignUpNetworkServiceTests.swift in Sources */,
+				7F58DF932C24F64E002DEEF7 /* MockCategoryService.swift in Sources */,
 				03CDC3EC2C231E930002F22F /* ProfileNetworkServiceTest.swift in Sources */,
 				7FA5CEDA2C235DEA00017321 /* ProductBrandServicesTests.swift in Sources */,
 				7FA5CEE42C238F4000017321 /* CategoryViewModelTests.swift in Sources */,
@@ -1689,7 +1693,7 @@
 				D4B260C82C2384410083DB88 /* ProductDetailNetworkServiceTest.swift in Sources */,
 				03CDC3F02C2334D30002F22F /* PaymentNetworkServiceTest.swift in Sources */,
 				03CDC3F22C2339FC0002F22F /* CartNetworkServiceTest.swift in Sources */,
-				7F58DF912C24DB14002DEEF7 /* MockCategoryService.swift in Sources */,
+				7F58DF912C24DB14002DEEF7 /* MockCategoryServiceTests.swift in Sources */,
 				7FA5CEDE2C23689100017321 /* OrdersViewModelTests.swift in Sources */,
 				7F58DF8E2C23B742002DEEF7 /* ProductsDetailsViewModelTest.swift in Sources */,
 			);
