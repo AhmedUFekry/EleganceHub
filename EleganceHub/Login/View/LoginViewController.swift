@@ -62,7 +62,9 @@ class LoginViewController: UIViewController {
                                 self.displayToast(message: "Invalid account details", seconds: 2.0)
                             }
                         } else {
-                            self.displayToast(message: "Account does not exist in our system", seconds: 2.0)
+                            self.displayToast(message: "Account does not exist in the system", seconds: 2.0)
+                            self.mailTxt.text = ""
+                            self.passTxt.text = ""
                         }
                     case .failure(let error):
                         print("Error fetching customers: \(error.localizedDescription)")
@@ -91,7 +93,6 @@ class LoginViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        // Ensure the bottom border is updated if the text field's frame changes
         Constants.textFieldStyle(tF: mailTxt)
         Constants.textFieldStyle(tF: passTxt)
     }

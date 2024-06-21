@@ -56,7 +56,7 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
         viewModel.bindingProduct = { [weak self] in
             self?.product = self?.viewModel.observableProduct
         }
-        // Subscribe to favorite updates
+
         FavoriteViewController.favoriteUpdated
             .subscribe(onNext: { [weak self] in
                 self?.loadFavoriteProducts()
@@ -221,7 +221,6 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
     }
 
     private func addToCartObserversFuncs(){
-        print("TTTTTTTTTTTTTTT")
         onErrorObserverSetUp()
         onResponseObserverSetUp()
     }

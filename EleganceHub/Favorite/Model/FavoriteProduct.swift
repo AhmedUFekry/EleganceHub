@@ -18,5 +18,3 @@ class FavoriteProducts : Codable{
     var inventory_quantity: Int?
     var product_type: String?
 }
-
-

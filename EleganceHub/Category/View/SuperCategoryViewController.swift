@@ -60,8 +60,8 @@ class SuperCategoryViewController: UIViewController {
        setupBadgeLabel(on:appBarView.trailingIcon,badgeLabel: favCountLabel)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         checkIfUserLoggedIn()
         self.renderView()
         userCurrency = UserDefaultsHelper.shared.getCurrencyFromUserDefaults().uppercased()
