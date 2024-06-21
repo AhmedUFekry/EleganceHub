@@ -15,10 +15,10 @@ class CouponsCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        //contentView.frame.height = view?.layer
 //        contentView.layer.borderWidth = 2.0
 //        contentView.layer.cornerRadius = 10.0
-//        contentView.clipsToBounds = true
+        //contentView.clipsToBounds = true
 //        contentView.layer.borderColor = UIColor.black.cgColor
     }
 }

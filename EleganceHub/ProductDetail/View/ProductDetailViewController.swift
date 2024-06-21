@@ -147,7 +147,8 @@ class ProductDetailViewController: UIViewController {
             layout.scrollDirection = .horizontal
         }
         self.appBarView.secoundTrailingIcon.isHidden = true
-        self.appBarView.trailingIcon.setImage(UIImage(named: "fav"), for: .normal)
+//        let image = UIImage(systemName: imageName)?.withTintColor(UIColor(named: "btnColor") ?? .black, renderingMode: .alwaysOriginal)
+//        self.appBarView.trailingIcon.setImage(UIImage(named: "fav"), for: .normal)
         self.appBarView.lableTitle.text = "Product Details"
         
         self.appBarView.trailingIcon.addTarget(self, action: #selector(onFavouriteTapped), for: .touchUpInside)
@@ -297,7 +298,8 @@ class ProductDetailViewController: UIViewController {
     
     private func updateFavoriteButton(isFavorite: Bool) {
         let imageName = isFavorite ? "heart.fill" : "heart"
-        self.appBarView.trailingIcon.setImage(UIImage(systemName: imageName), for: .normal)
+        let image = UIImage(systemName: imageName)?.withTintColor(UIColor(named: "btnColor") ?? .black, renderingMode: .alwaysOriginal)
+        self.appBarView.trailingIcon.setImage(image, for: .normal)
         self.appBarView.trailingIcon.isEnabled = getCustomerId() != nil
     }
     

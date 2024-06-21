@@ -118,42 +118,43 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
     }
 
     private func configureCell(_ cell: CartTableViewCell, with product: [String: Any], at row: Int) {
-            if let title = product["title"] as? String,
-               let price = product["price"] as? String,
-               let imageUrlString = product["image"] as? String,
-               let productType = product["product_type"] as? String,
-               let imageUrl = URL(string: imageUrlString) {
-                cell.productNameLabel.text = title
-               cell.productVarintLabel.text = productType
-                var convertedPrice = convertPrice(price: price, rate: self.rate ?? 3.3)
-                cell.productPriceLabel.text = "\(String(format: "%.2f", convertedPrice)) \(userCurrency)"
-                
-                cell.productImage.kf.setImage(with: imageUrl, placeholder: UIImage(named: "AppIcon"))
-            }
-           
-            cell.decreaseQuantityBtn.isHidden = true
-            cell.IncreaseQuantityBtn.isHidden = true
-            cell.productQuantityLabel.isHidden = true
+        if let title = product["title"] as? String,
+           let price = product["price"] as? String,
+           let imageUrlString = product["image"] as? String,
+           let productType = product["product_type"] as? String,
+           let imageUrl = URL(string: imageUrlString) {
+            cell.productNameLabel.text = title
+            cell.productVarintLabel.text = productType
+            var convertedPrice = convertPrice(price: price, rate: self.rate ?? 3.3)
+            cell.productPriceLabel.text = "\(String(format: "%.2f", convertedPrice)) \(userCurrency)"
             
-            let addToCartBtn = UIButton(type: .system)
-            addToCartBtn.setTitle("Add To Cart", for: .normal)
-            addToCartBtn.backgroundColor = .black
-            addToCartBtn.setTitleColor(.white, for: .normal)
-            addToCartBtn.layer.cornerRadius = 10
-            
-            cell.contentView.addSubview(addToCartBtn)
-            
-            addToCartBtn.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                addToCartBtn.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 220),
-                addToCartBtn.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -16),
-                addToCartBtn.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor, constant: -18),
-                addToCartBtn.heightAnchor.constraint(equalToConstant: 40)
-            ])
-            
-            addToCartBtn.tag = row
-            addToCartBtn.addTarget(self, action: #selector(addToCartButtonTapped(_:)), for: .touchUpInside)
+            cell.productImage.kf.setImage(with: imageUrl, placeholder: UIImage(named: "AppIcon"))
         }
+        
+        cell.decreaseQuantityBtn.isHidden = true
+        cell.IncreaseQuantityBtn.isHidden = true
+        cell.productQuantityLabel.isHidden = true
+        
+        let addToCartBtn = UIButton(type: .system)
+        addToCartBtn.setImage(UIImage(systemName: "cart.fill"), for: .normal)
+        addToCartBtn.setTitle("Add To Cart", for: .normal)
+        addToCartBtn.backgroundColor = UIColor(named: "btnColor") ?? .black
+        //addToCartBtn.setTitleColor(.white, for: .normal)
+        addToCartBtn.layer.cornerRadius = 10
+        
+        cell.contentView.addSubview(addToCartBtn)
+        
+        addToCartBtn.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            addToCartBtn.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 220),
+            addToCartBtn.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -16),
+            addToCartBtn.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor, constant: -18),
+            addToCartBtn.heightAnchor.constraint(equalToConstant: 40)
+        ])
+        
+        addToCartBtn.tag = row
+        addToCartBtn.addTarget(self, action: #selector(addToCartButtonTapped(_:)), for: .touchUpInside)
+    }
     
     func getLoggedInUserID() -> Int? {
         return UserDefaultsHelper.shared.getLoggedInUserID()
@@ -197,17 +198,9 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
     }
         
     func showDeleteConfirmationAlert(productId: Int, customerId: Int, indexPath: IndexPath) {
-        let alert = UIAlertController(title: "Confirm Delete", message: "Are you sure you want to delete this item?", preferredStyle: .alert)
-            
-        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
+        Constants.showAlertWithAction(on: self, title: "Confirm Delete", message: "Are you sure you want to delete this item?", isTwoBtn: true, firstBtnTitle: "Cancel", actionBtnTitle: "Delete", style: .destructive) { _ in
             self.deleteProduct(productId: productId, customerId: customerId, indexPath: indexPath)
         }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-            
-        alert.addAction(deleteAction)
-        alert.addAction(cancelAction)
-                
-        present(alert, animated: true, completion: nil)
     }
 
     func deleteProduct(productId: Int, customerId: Int, indexPath: IndexPath) {
@@ -324,8 +317,10 @@ extension FavoriteViewController {
             completionHandler(true)
         }
         
-        deleteAction.backgroundColor = .black
-        deleteAction.image = UIImage(systemName: "trash")
+        deleteAction.backgroundColor = UIColor(named: "btnColor") ?? .black
+        
+        let trashIcon = UIImage(systemName: "trash")?.withTintColor(UIColor(named: "theme") ?? .black, renderingMode: .alwaysOriginal)
+        deleteAction.image = trashIcon
         
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
         configuration.performsFirstActionWithFullSwipe = true

@@ -90,9 +90,9 @@ class HomeViewController: UIViewController {
         }
     }
     private func setUpUI(){
-        let searchIcon = UIImage(systemName: "magnifyingglass")?.withTintColor(.black, renderingMode: .alwaysOriginal)
-        let cartIcon = UIImage(systemName: "cart.circle")?.withTintColor(.black, renderingMode: .alwaysOriginal)
-        let heartIcon = UIImage(systemName: "heart.circle")?.withTintColor(.black, renderingMode: .alwaysOriginal)
+        let searchIcon = UIImage(systemName: "magnifyingglass")?.withTintColor(UIColor(named: "btnColor") ?? .black, renderingMode: .alwaysOriginal)
+        let cartIcon = UIImage(systemName: "cart.circle")?.withTintColor(UIColor(named: "btnColor") ?? .black, renderingMode: .alwaysOriginal)
+        let heartIcon = UIImage(systemName: "heart.circle")?.withTintColor(UIColor(named: "btnColor") ?? .black, renderingMode: .alwaysOriginal)
         self.appBarView.backBtn.setImage(searchIcon, for: .normal)
         
         self.appBarView.secoundTrailingIcon.setImage(cartIcon, for: .normal)
@@ -116,22 +116,22 @@ class HomeViewController: UIViewController {
     }
         
     private func checkIfUserLoggedIn(){
-            if(UserDefaultsHelper.shared.isDataFound(key: UserDefaultsConstants.isLoggedIn.rawValue)){
-                
-                guard let customerID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.loggedInUserID.rawValue) else {
-                    print("Customer id not found")
-                    return
-                }
-                homeViewModel.checkIfUserHasDraftOrder(customerID: customerID)
-                print("Customer id found \(customerID)")
-                self.self.appBarView.secoundTrailingIcon.addTarget(self, action: #selector(onCartTapped), for: .touchUpInside)
-                self.self.appBarView.trailingIcon.addTarget(self, action: #selector(onFavouriteTapped), for: .touchUpInside)
-            } else {
-                
-                self.self.appBarView.secoundTrailingIcon.addTarget(self, action: #selector(onButtonSelected), for: .touchUpInside)
-                self.self.appBarView.trailingIcon.addTarget(self, action: #selector(onButtonSelected), for: .touchUpInside)
+        if(UserDefaultsHelper.shared.isDataFound(key: UserDefaultsConstants.isLoggedIn.rawValue)){
+            
+            guard let customerID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.loggedInUserID.rawValue) else {
+                print("Customer id not found")
+                return
             }
+            homeViewModel.checkIfUserHasDraftOrder(customerID: customerID)
+            print("Customer id found \(customerID)")
+            self.self.appBarView.secoundTrailingIcon.addTarget(self, action: #selector(onCartTapped), for: .touchUpInside)
+            self.self.appBarView.trailingIcon.addTarget(self, action: #selector(onFavouriteTapped), for: .touchUpInside)
+        } else {
+            
+            self.self.appBarView.secoundTrailingIcon.addTarget(self, action: #selector(onButtonSelected), for: .touchUpInside)
+            self.self.appBarView.trailingIcon.addTarget(self, action: #selector(onButtonSelected), for: .touchUpInside)
         }
+    }
         
     @objc private func onButtonSelected() {
         Constants.showAlertWithAction(on: self, title: "Login Required", message: "You need to login to access this feature.", isTwoBtn: true, firstBtnTitle: "Cancel", actionBtnTitle: "Login") { [weak self] _ in
@@ -182,18 +182,31 @@ class HomeViewController: UIViewController {
         
         let couponsLayout = UICollectionViewFlowLayout()
         couponsLayout.scrollDirection = .horizontal
-        couponsLayout.itemSize = CGSize(width: view.frame.width, height: 180)
+        couponsLayout.itemSize = CGSize(width: couponsCollection.frame.width + 4, height: couponsCollection.frame.height + 4)
         couponsCollection.collectionViewLayout = couponsLayout
+        couponsCollection.layer.borderWidth = 2.0
+        couponsCollection.layer.cornerRadius = 10
+        couponsCollection.layer.borderColor = UIColor(named: "btnColor")?.cgColor ?? UIColor.black.cgColor
         
         let brandsLayout = UICollectionViewFlowLayout()
         brandsLayout.scrollDirection = .horizontal
-        let itemWidth = (view.frame.width / 2) - 16
-        //let itemHeight = (view.frame.height / 2) - 15
-        let height = ((brandsLayout.collectionView?.frame.height) ?? 300 / 2) - 15
-        print("Highttttt \(brandsLayout.collectionView?.frame.height)")
-        brandsLayout.itemSize = CGSize(width: itemWidth, height: 150)
+        let itemWidth = (brandsCollection.frame.width / 2) - 16
+        let itemHeight = (brandsCollection.frame.height / 4)
+       
+        brandsLayout.itemSize = CGSize(width: (brandsCollection.frame.width / 2) - 16, height: (brandsCollection.frame.height / 3))
         
         brandsCollection.collectionViewLayout = brandsLayout
+    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if let layout = couponsCollection.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.itemSize = CGSize(width: couponsCollection.frame.width + 4, height: couponsCollection.frame.height + 4)
+            layout.invalidateLayout()
+        }
+        if let brandLayout = brandsCollection.collectionViewLayout as? UICollectionViewFlowLayout{
+            brandLayout.itemSize =  CGSize(width: (brandsCollection.frame.width / 2) - 16, height: (brandsCollection.frame.height / 3))
+            brandLayout.invalidateLayout()
+        }
     }
     
     private func showCountOnCartData() {

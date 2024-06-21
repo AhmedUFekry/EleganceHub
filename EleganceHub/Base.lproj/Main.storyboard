@@ -3,6 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -45,7 +46,8 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Login">
                                     <fontDescription key="titleFontDescription" name="Palatino-Roman" family="Palatino" pointSize="20"/>
-                                    <color key="baseBackgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="baseForegroundColor" systemColor="systemBackgroundColor"/>
+                                    <color key="baseBackgroundColor" name="btnColor"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="NavigateToLoginView:" destination="Tii-hD-sS5" eventType="touchUpInside" id="LyS-F0-jWg"/>
@@ -174,7 +176,8 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Register" titleAlignment="center">
                                     <fontDescription key="titleFontDescription" name="Palatino-Roman" family="Palatino" pointSize="20"/>
-                                    <color key="baseBackgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="baseForegroundColor" systemColor="systemBackgroundColor"/>
+                                    <color key="baseBackgroundColor" name="btnColor"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="signUp:" destination="ZuI-Wr-C2G" eventType="touchUpInside" id="bka-Ja-v85"/>
@@ -192,8 +195,11 @@
                                     <constraint firstAttribute="height" constant="35" id="EN2-2v-YAR"/>
                                     <constraint firstAttribute="width" constant="35" id="VPx-DW-hce"/>
                                 </constraints>
+                                <color key="tintColor" name="btnColor"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="back"/>
+                                <buttonConfiguration key="configuration" style="plain">
+                                    <imageReference key="image" image="back" symbolScale="large"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="backBtn:" destination="voJ-NR-9B7" eventType="touchUpInside" id="vuy-WR-5kT"/>
                                     <action selector="navigateToPreScreen:" destination="ZuI-Wr-C2G" eventType="touchUpInside" id="gix-dZ-Fgg"/>
@@ -367,8 +373,11 @@
                                     <constraint firstAttribute="width" constant="35" id="4ZU-jw-rrU"/>
                                     <constraint firstAttribute="height" constant="35" id="ByM-G4-hxj"/>
                                 </constraints>
+                                <color key="tintColor" name="btnColor"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="back"/>
+                                <buttonConfiguration key="configuration" style="plain">
+                                    <imageReference key="image" image="back" symbolScale="large"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="backBtn:" destination="voJ-NR-9B7" eventType="touchUpInside" id="pdJ-Zi-oKd"/>
                                     <action selector="navigateToPreScreen:" destination="5T0-xX-GU0" eventType="touchUpInside" id="4iV-ZL-Grk"/>
@@ -389,7 +398,8 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Log in">
                                     <fontDescription key="titleFontDescription" name="Palatino-Roman" family="Palatino" pointSize="20"/>
-                                    <color key="baseBackgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="baseForegroundColor" systemColor="systemBackgroundColor"/>
+                                    <color key="baseBackgroundColor" name="btnColor"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="logToAccount:" destination="5T0-xX-GU0" eventType="touchUpInside" id="gaX-Fj-4xq"/>
@@ -647,17 +657,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Yvb-NH-tcD">
-                                <rect key="frame" x="0.0" y="175" width="392.66666666666669" height="442"/>
+                                <rect key="frame" x="0.0" y="175" width="393" height="442"/>
                                 <color key="backgroundColor" name="theme"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="442" id="fZR-Er-v3f"/>
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PaymentMethodTableViewCell" id="FBb-Gc-LPU" customClass="PaymentMethodTableViewCell" customModule="EleganceHub" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="392.66666666666669" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FBb-Gc-LPU" id="kTh-Ae-kmr">
-                                            <rect key="frame" x="0.0" y="0.0" width="392.66666666666669" height="43.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" name="theme"/>
@@ -670,22 +680,23 @@
                                 <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5OX-FB-par">
-                                <rect key="frame" x="16" y="678" width="360.66666666666669" height="55"/>
+                                <rect key="frame" x="16" y="678" width="361" height="55"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="Av4-WV-fke"/>
-                                    <constraint firstAttribute="width" constant="362" id="iNm-Tr-lUJ"/>
                                 </constraints>
                                 <color key="tintColor" name="theme"/>
-                                <buttonConfiguration key="configuration" style="filled" image="icons8-forward-button-50" imagePlacement="trailing" title="Continue to Payment" imagePadding="60">
-                                    <fontDescription key="titleFontDescription" name="Palatino-Roman" family="Palatino" pointSize="24"/>
-                                    <color key="baseBackgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <buttonConfiguration key="configuration" style="filled" imagePlacement="trailing" title="Continue to Payment" imagePadding="60">
+                                    <imageReference key="image" image="icons8-forward-button-50" symbolScale="large"/>
+                                    <fontDescription key="titleFontDescription" name="Palatino-Roman" family="Palatino" pointSize="20"/>
+                                    <color key="baseForegroundColor" systemColor="systemBackgroundColor"/>
+                                    <color key="baseBackgroundColor" name="btnColor"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="countinueToPaymentTapped:" destination="ewJ-6n-2xn" eventType="touchUpInside" id="IIK-h9-5wo"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment Options" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CFa-UH-GNk">
-                                <rect key="frame" x="16" y="125" width="202" height="34"/>
+                                <rect key="frame" x="16" y="125" width="202.33333333333334" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="202" id="G6Q-YL-aod"/>
                                     <constraint firstAttribute="height" constant="34" id="tnt-fI-pj6"/>
@@ -695,7 +706,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hk9-QK-wcd" customClass="CustomAppBarUIView" customModule="EleganceHub" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="59" width="392.66666666666669" height="50"/>
+                                <rect key="frame" x="0.0" y="59" width="393" height="50"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="KNx-vl-Rsi"/>
@@ -786,6 +797,7 @@
                                     <constraint firstAttribute="height" constant="35" id="NCP-N7-D3y"/>
                                     <constraint firstAttribute="width" constant="35" id="oF9-AR-W0k"/>
                                 </constraints>
+                                <color key="tintColor" name="btnColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="back"/>
                                 <connections>
@@ -818,10 +830,11 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="d00-4P-LAQ"/>
                                 </constraints>
-                                <color key="tintColor" systemColor="labelColor"/>
+                                <color key="tintColor" name="btnColor"/>
                                 <buttonConfiguration key="configuration" style="filled" image="icons8-forward-button-50" imagePlacement="trailing" title="Proceed to Checkout" imagePadding="60">
-                                    <fontDescription key="titleFontDescription" name="Palatino-Roman" family="Palatino" pointSize="24"/>
-                                    <color key="baseBackgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <fontDescription key="titleFontDescription" name="Palatino-Roman" family="Palatino" pointSize="20"/>
+                                    <color key="baseForegroundColor" systemColor="systemBackgroundColor"/>
+                                    <color key="baseBackgroundColor" name="btnColor"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="checkoutBtn:" destination="voJ-NR-9B7" eventType="touchUpInside" id="zlt-51-NiS"/>
@@ -997,10 +1010,11 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="KNf-OP-vvi"/>
                                 </constraints>
-                                <color key="tintColor" systemColor="labelColor"/>
+                                <color key="tintColor" name="btnColor"/>
                                 <buttonConfiguration key="configuration" style="filled" image="icons8-log-out-25" imagePlacement="leading" title="Log Out" imagePadding="16" titleAlignment="center">
                                     <fontDescription key="titleFontDescription" name="Palatino-Roman" family="Palatino" pointSize="20"/>
-                                    <color key="baseBackgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="baseForegroundColor" name="theme"/>
+                                    <color key="baseBackgroundColor" name="btnColor"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="checkoutBtn:" destination="voJ-NR-9B7" eventType="touchUpInside" id="2Ze-7d-LKi"/>
@@ -1488,9 +1502,10 @@
                                     <constraint firstAttribute="width" constant="35" id="0fc-Wh-cEi"/>
                                     <constraint firstAttribute="height" constant="35" id="nVh-Kr-77C"/>
                                 </constraints>
+                                <color key="tintColor" name="btnColor"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="back">
-                                    <color key="baseForegroundColor" name="theme"/>
+                                <buttonConfiguration key="configuration" style="plain">
+                                    <imageReference key="image" image="back" symbolScale="large"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="backBtn:" destination="voJ-NR-9B7" eventType="touchUpInside" id="8Ua-qc-AY0"/>
@@ -1687,7 +1702,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Our Elegance Hub App" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qR9-02-dbH">
                                 <rect key="frame" x="16" y="160" width="256.66666666666669" height="26.666666666666657"/>
                                 <fontDescription key="fontDescription" name="Palatino-Bold" family="Palatino" pointSize="24"/>
-                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="textColor" systemColor="secondaryLabelColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Brands " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uu2-8F-cLX">
@@ -1732,7 +1747,7 @@
                                 <rect key="frame" x="138.66666666666666" y="373" width="115.66666666666666" height="26"/>
                                 <color key="backgroundColor" name="theme"/>
                                 <color key="tintColor" name="theme"/>
-                                <color key="pageIndicatorTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="pageIndicatorTintColor" name="btnColor"/>
                                 <color key="currentPageIndicatorTintColor" systemColor="systemGray4Color"/>
                             </pageControl>
                         </subviews>
@@ -1976,7 +1991,7 @@
                                 <rect key="frame" x="138.66666666666666" y="397" width="115.66666666666666" height="26"/>
                                 <color key="backgroundColor" name="theme"/>
                                 <color key="tintColor" name="theme"/>
-                                <color key="pageIndicatorTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="pageIndicatorTintColor" name="btnColor"/>
                                 <color key="currentPageIndicatorTintColor" systemColor="systemGray4Color"/>
                             </pageControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="price" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K1O-oq-n28">

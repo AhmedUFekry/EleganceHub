@@ -8,6 +8,7 @@
 import UIKit
 
 class SizeOptionCell: UICollectionViewCell {
+    let isDarkMode = UserDefaultsHelper.shared.isDarkMode()
     let sizeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -17,8 +18,14 @@ class SizeOptionCell: UICollectionViewCell {
     
     override var isSelected: Bool {
         didSet {
-            contentView.backgroundColor = isSelected ? .black : .clear
-            sizeLabel.textColor = isSelected ? .white : .black
+            contentView.backgroundColor = isSelected ? UIColor(named: "btnColor") ?? .black : .clear
+            
+            if isDarkMode{
+                sizeLabel.textColor = isSelected ? .black : .white
+               
+            }else{
+                sizeLabel.textColor = isSelected ? .white : .black
+            }
         }
     }
     
@@ -32,11 +39,12 @@ class SizeOptionCell: UICollectionViewCell {
         setupViews()
     }
     
+    
     private func setupViews() {
         contentView.addSubview(sizeLabel)
         contentView.layer.cornerRadius = contentView.frame.size.height / 2
         contentView.layer.borderWidth = 1
-        contentView.layer.borderColor = UIColor.black.cgColor
+        contentView.layer.borderColor = UIColor(named: "btnColor")?.cgColor ?? UIColor.black.cgColor
         contentView.backgroundColor = .clear
         
         NSLayoutConstraint.activate([

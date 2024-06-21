@@ -18,7 +18,7 @@ class Constants {
     static func textFieldStyle(tF:UITextField){
         let bottomBorder = CALayer()
         bottomBorder.frame = CGRect(x: 0, y: tF.frame.size.height - 0.5, width: tF.frame.size.width, height: 0.5)
-        bottomBorder.backgroundColor = UIColor.black.cgColor
+        bottomBorder.backgroundColor = UIColor(named: "btnColor")?.cgColor ?? UIColor.black.cgColor
         tF.layer.addSublayer(bottomBorder)
         tF.borderStyle = .none
         tF.backgroundColor = .clear
@@ -53,12 +53,12 @@ class Constants {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         if(isTwoBtn){
             let firstBtn = UIAlertAction(title: firstBtnTitle, style: .cancel, handler: nil)
-            firstBtn.setValue(UIColor.black, forKey: "titleTextColor")
+            firstBtn.setValue(UIColor(named: "btnColor") ?? UIColor.black, forKey: "titleTextColor")
             alert.addAction(firstBtn)
         }
         let secondBtn = UIAlertAction(title: actionBtnTitle, style: style!, handler:handler)
         if(style != .destructive){
-            secondBtn.setValue(UIColor.black, forKey: "titleTextColor")
+            secondBtn.setValue(UIColor(named: "btnColor") ?? UIColor.black, forKey: "titleTextColor")
         }
         alert.addAction(secondBtn)
         viewController.present(alert, animated: true, completion: nil)

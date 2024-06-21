@@ -35,20 +35,20 @@ class SettingsViewController: UIViewController {
         
     @IBAction func darkModeSwitch(_ sender: UISwitch) {
         if #available(iOS 13.0, *) {
-                   let appDelegate = UIApplication.shared.windows.first
-                   if sender.isOn {
-                       UserDefaultsHelper.shared.setDarkMode(true)
-                       appDelegate?.overrideUserInterfaceStyle = .dark
-                   } else {
-                       UserDefaultsHelper.shared.setDarkMode(false)
-                       appDelegate?.overrideUserInterfaceStyle = .light
-                   }
-               }
-           }
+            let appDelegate = UIApplication.shared.windows.first
+            if sender.isOn {
+                UserDefaultsHelper.shared.setDarkMode(true)
+                appDelegate?.overrideUserInterfaceStyle = .dark
+            } else {
+                UserDefaultsHelper.shared.setDarkMode(false)
+                appDelegate?.overrideUserInterfaceStyle = .light
+            }
+        }
+    }
 
-           private func setupDarkModeSwitch() {
-               switchDarkToggle.isOn = UserDefaultsHelper.shared.isDarkMode()
-           }
+    private func setupDarkModeSwitch() {
+        switchDarkToggle.isOn = UserDefaultsHelper.shared.isDarkMode()
+    }
 
          
        

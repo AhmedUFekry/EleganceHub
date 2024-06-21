@@ -244,8 +244,10 @@ extension CartViewController:UITableViewDelegate{
             }
         }
         
-        deleteAction.backgroundColor = .black
-        deleteAction.image = UIImage(systemName: "trash")
+        deleteAction.backgroundColor = UIColor(named: "btnColor") ?? .black
+        
+        let trashIcon = UIImage(systemName: "trash")?.withTintColor(UIColor(named: "theme") ?? .black, renderingMode: .alwaysOriginal)
+        deleteAction.image = trashIcon
         
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
         configuration.performsFirstActionWithFullSwipe = true

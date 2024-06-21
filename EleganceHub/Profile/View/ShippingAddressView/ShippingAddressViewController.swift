@@ -62,14 +62,14 @@ class ShippingAddressViewController: UIViewController, UpdateLocationDelegate {
     }
     
     private func setupNavigation() {
-
+        
         tableView.rx.itemSelected.subscribe(onNext: {[weak self] indexPath in
-                    guard let self = self else {return}
-                    print("selected index is \(indexPath)")
-                    //let selectedAddress = self.viewModel.addresses.value[indexPath.row]
-                    print("selected item \(indexPath.item)")
-                    self.confirmAlert(selectedAddressIndex: indexPath.row)
-                }).disposed(by: disposeBag)
+            guard let self = self else {return}
+            print("selected index is \(indexPath)")
+            //let selectedAddress = self.viewModel.addresses.value[indexPath.row]
+            print("selected item \(indexPath.item)")
+            self.confirmAlert(selectedAddressIndex: indexPath.row)
+        }).disposed(by: disposeBag)
     }
     
     @objc func goBack() {

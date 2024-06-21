@@ -83,9 +83,8 @@ class SuperCategoryViewController: UIViewController {
         showCountOnCartData()
     }
     private func setUpUI(){
-        let searchIcon = UIImage(systemName: "magnifyingglass")?.withTintColor(.black, renderingMode: .alwaysOriginal)
-        let cartIcon = UIImage(systemName: "cart.circle")?.withTintColor(.black, renderingMode: .alwaysOriginal)
-        let heartIcon = UIImage(systemName: "heart.circle")?.withTintColor(.black, renderingMode: .alwaysOriginal)
+        let cartIcon = UIImage(systemName: "cart.circle")?.withTintColor(UIColor(named: "btnColor") ?? .black, renderingMode: .alwaysOriginal)
+        let heartIcon = UIImage(systemName: "heart.circle")?.withTintColor(UIColor(named: "btnColor") ?? .black, renderingMode: .alwaysOriginal)
         self.appBarView.backBtn.isHidden = true
         
         self.appBarView.secoundTrailingIcon.setImage(cartIcon, for: .normal)
