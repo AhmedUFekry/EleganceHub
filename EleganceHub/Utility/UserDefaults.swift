@@ -82,10 +82,10 @@ class UserDefaultsHelper:DatabaseServiceProtocol {
     }
  
     func getCurrencyFromUserDefaults() -> String {
-        if let rateString = userDefaults.string(forKey: "coin") {
+        if let rateString = userDefaults.string(forKey: "coin"), rateString != "0" {
             return rateString
-        }else{
-            return "usd"
+        } else {
+            return "USD"
         }
     }
     func clearCurrency() {
