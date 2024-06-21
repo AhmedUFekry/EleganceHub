@@ -12,6 +12,8 @@ import RxCocoa
 class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableViewDataSource{
 
     @IBOutlet weak var favoriteTableView: UITableView!
+    @IBOutlet weak var appBarView: CustomAppBarUIView!
+
     var favoriteProducts: BehaviorRelay<[[String: Any]]> = BehaviorRelay(value: [])
     let disposeBag = DisposeBag()
     var viewModel: ProductDetailViewModel!
@@ -55,22 +57,32 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
             self?.product = self?.viewModel.observableProduct
         }
         // Subscribe to favorite updates
-                FavoriteViewController.favoriteUpdated
-                    .subscribe(onNext: { [weak self] in
-                        self?.loadFavoriteProducts()
-                        self?.favoriteTableView.reloadData()
-                    })
-                    .disposed(by: disposeBag)
-            }
+        FavoriteViewController.favoriteUpdated
+            .subscribe(onNext: { [weak self] in
+                self?.loadFavoriteProducts()
+                self?.favoriteTableView.reloadData()
+            })
+            .disposed(by: disposeBag)
+        
+        
+    }
             
-            override func viewWillAppear(_ animated: Bool) {
-                super.viewWillAppear(animated)
-                favoriteTableView.reloadData()
-            }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        favoriteTableView.reloadData()
+    }
     
     private func setupTableView() {
         favoriteTableView.register(UINib(nibName: "CartTableViewCell", bundle: nil), forCellReuseIdentifier: "CartTableViewCell")
         favoriteTableView.rx.setDelegate(self).disposed(by: disposeBag)
+        self.appBarView.backBtn.addTarget(self, action: #selector(backBtnTapped), for: .touchUpInside)
+        self.appBarView.lableTitle.text = "My WishLists"
+        self.appBarView.trailingIcon.isHidden = true
+        self.appBarView.secoundTrailingIcon.isHidden = true
+    }
+    
+    @objc func backBtnTapped() {
+        self.navigationController?.popViewController(animated: true)
     }
 
     private func loadFavoriteProducts() {
@@ -214,11 +226,7 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
             navigationController?.pushViewController(productDetailVC, animated: true)
         }
     }
-    
-    @IBAction func goBack(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
-    }
-    
+
     private func addToCartObserversFuncs(){
         print("TTTTTTTTTTTTTTT")
         onErrorObserverSetUp()

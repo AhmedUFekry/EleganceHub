@@ -135,10 +135,13 @@ extension ProfileViewController:UITableViewDataSource,UITableViewDelegate{
                     let action = UIAlertAction(title: currency, style: .default) { _ in
                         UserDefaultsHelper.shared.saveCurrencyToUserDefaults(coin: currency)
                     }
+                    action.setValue(UIColor.black, forKey: "titleTextColor")
                     alertController.addAction(action)
                 }
                 
                 let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                cancelAction.setValue(UIColor.black, forKey: "titleTextColor")
+
                 alertController.addAction(cancelAction)
                 present(alertController, animated: true, completion: nil)
                 

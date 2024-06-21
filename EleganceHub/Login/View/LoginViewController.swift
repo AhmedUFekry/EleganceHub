@@ -88,6 +88,13 @@ class LoginViewController: UIViewController {
             present(tabBarController, animated: true, completion: nil)
         }
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        // Ensure the bottom border is updated if the text field's frame changes
+        Constants.textFieldStyle(tF: mailTxt)
+        Constants.textFieldStyle(tF: passTxt)
+    }
 }
 
 // MARK: - UI Setup
@@ -95,12 +102,12 @@ class LoginViewController: UIViewController {
 extension LoginViewController {
     
     private func setupTextFields() {
-        Constants.authTextFieldStyle(tF: mailTxt)
-        Constants.authTextFieldStyle(tF: passTxt)
+        Constants.textFieldStyle(tF: mailTxt)
+        Constants.textFieldStyle(tF: passTxt)
         passTxt.isSecureTextEntry = true
         Constants.addPasswordToggleButton(to: passTxt, target: self, action: #selector(togglePasswordVisibility(_:)))
     }
-    
+   
     private func setupLoginButton() {
         loginButton.layer.cornerRadius = 10
         loginButton.backgroundColor = .black
@@ -149,5 +156,7 @@ extension LoginViewController {
         sender.isSelected.toggle()
         passTxt.isSecureTextEntry = !sender.isSelected
     }
+    
+    
     
 }
