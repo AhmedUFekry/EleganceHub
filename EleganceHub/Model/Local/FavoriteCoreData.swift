@@ -94,7 +94,7 @@ class FavoriteCoreData {
                     "customer_id": Int(truncating: product.customer_id ?? 0),
                     "variant_id": Int(truncating: product.variant_id ?? 0),
                     "title": product.title ?? "",
-                    "price": product.price ?? "", // Convert NSDecimalNumber to String
+                    "price": product.price ?? "",
                     "image": product.image ?? "",
                     "inventory_quantity": Int(truncating: product.inventory_quantity ?? 0),
                     "product_type": product.product_type ?? ""
@@ -139,9 +139,14 @@ class FavoriteCoreData {
         let managedContext = appDelegate.persistentContainer.viewContext
         
         let productIdNumber = NSDecimalNumber(value: productId)
+        guard let customerId = UserDefaultsHelper.shared.getLoggedInUserID() else {
+            print("No logged in user ID found.")
+            return false
+        }
+        let customerIdNumber = NSDecimalNumber(value: customerId)
         
         let fetchRequest: NSFetchRequest<FavoriteProduct> = FavoriteProduct.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "title == %@ AND id == %@", productName, productIdNumber)
+        fetchRequest.predicate = NSPredicate(format: "title == %@ AND id == %@ AND customer_id == %@", productName, productIdNumber, customerIdNumber)
         
         do {
             let existingProducts = try managedContext.fetch(fetchRequest)
@@ -151,5 +156,4 @@ class FavoriteCoreData {
             return false
         }
     }
-    
 }

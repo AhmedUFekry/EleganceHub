@@ -93,7 +93,6 @@ class LoginViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        // Ensure the bottom border is updated if the text field's frame changes
         Constants.textFieldStyle(tF: mailTxt)
         Constants.textFieldStyle(tF: passTxt)
     }

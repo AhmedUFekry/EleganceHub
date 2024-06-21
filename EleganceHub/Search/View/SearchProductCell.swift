@@ -60,12 +60,6 @@ class SearchProductCell: UITableViewCell {
                 let convertedPrice = convertPrice(price: product.variants?.first?.price ?? "2", rate: rate)
                 searchProductPriceTxt.text = "\(String(format: "%.2f", convertedPrice)) \(userCurrency)"
             
-//                if let priceString = product.variants?.first?.price, let price = Double(priceString) {
-//                    searchProductPriceTxt.text = String(format: "$%.2f", price)
-//                } else {
-//                    searchProductPriceTxt.text = "No Price"
-//                }
-            
             }
     
     private func setupConstraints() {

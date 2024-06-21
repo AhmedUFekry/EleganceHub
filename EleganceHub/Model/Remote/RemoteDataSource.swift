@@ -22,7 +22,7 @@ class RemoteDataSource : RemoteDataSourceProtocol {
             print("Invalid URL: \(urlString)")
             return
         }
-                
+        
         let request = URLRequest(url: url)
         let session = URLSession(configuration: .default)
         
@@ -59,16 +59,16 @@ class RemoteDataSource : RemoteDataSourceProtocol {
         let request = URLRequest(url: newUrl)
         
         let session = URLSession(configuration: .default)
-      
+        
         let task = session.dataTask(with: request) { (data, response, error) in
             guard let data = data else {return}
             
             do {
                 let result = try JSONDecoder().decode(SmartCollections.self, from:data)
                 complationhandler(result,nil)
-                }catch let error {
-                    print(error.localizedDescription)
-                    complationhandler(nil,error)
+            }catch let error {
+                print(error.localizedDescription)
+                complationhandler(nil,error)
             }
         }
         
@@ -83,7 +83,7 @@ class RemoteDataSource : RemoteDataSourceProtocol {
             print("Invalid URL: \(urlString)")
             return
         }
-                
+        
         let request = URLRequest(url: url)
         let session = URLSession(configuration: .default)
         
@@ -111,7 +111,5 @@ class RemoteDataSource : RemoteDataSourceProtocol {
         
         task.resume()
     }
-    
-
 }
 

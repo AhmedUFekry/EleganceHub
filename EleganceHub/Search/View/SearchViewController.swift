@@ -183,15 +183,6 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
         var convertedPrice = convertPrice(price: product.variants?[0].price ?? "2", rate: self.rate ?? 3824.33)
         cell.categoryType.text = "\(String(format: "%.2f", convertedPrice)) \(userCurrency)"
                 
-        
-        
-//        if let priceString = product.variants?.first?.price, let price = Double(priceString) {
-//            let priceText = String(format: "$%.2f", price)
-//            print("Price: \(priceText)")
-//            cell.categoryType.text = priceText
-//        } else {
-//            cell.categoryType.text = "No Price"
-//        }
 
         if let imageUrlString = product.image?.src, let imageUrl = URL(string: imageUrlString) {
             cell.categoryImage.kf.setImage(with: imageUrl)
