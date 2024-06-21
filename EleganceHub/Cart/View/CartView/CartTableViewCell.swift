@@ -22,7 +22,7 @@ class CartTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         productImage.layer.cornerRadius = 10
-        setupShadow()
+        viewContainer.applyShadow()
 //        productNameLabel.adjustsFontSizeToFitWidth = true // bool
 //        productNameLabel.minimumScaleFactor = 0.5
     }
@@ -34,14 +34,6 @@ class CartTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    private func setupShadow() {
-        viewContainer.layer.shadowColor = UIColor.black.cgColor
-        viewContainer.layer.shadowOpacity = 0.5
-        viewContainer.layer.shadowOffset = CGSize(width: 0, height: 2)
-        viewContainer.layer.shadowRadius = 4
-        viewContainer.layer.cornerRadius = 10
-        
-    }
     
     func setCellData(order:LineItem){
         let price = (Double(order.price ?? "1.0") ?? 1) * Double(order.quantity ?? 1)

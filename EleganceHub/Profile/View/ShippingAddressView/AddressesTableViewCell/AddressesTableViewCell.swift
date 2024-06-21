@@ -19,11 +19,7 @@ class AddressesTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        viewContent.layer.shadowColor = UIColor.black.cgColor
-        viewContent.layer.shadowOpacity = 0.5
-        viewContent.layer.shadowOffset = CGSize(width: 0, height: 2)
-        viewContent.layer.shadowRadius = 4
-        viewContent.layer.cornerRadius = 10
+        viewContent.applyShadow()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

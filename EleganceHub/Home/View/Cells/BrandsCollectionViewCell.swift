@@ -18,7 +18,7 @@ class BrandsCollectionViewCell: UICollectionViewCell {
         brandImage.layer.borderWidth = 2.0
         brandImage.layer.cornerRadius = 10.0
         brandImage.clipsToBounds = true
-        brandImage.layer.borderColor = UIColor.gray.cgColor//UIColor(named: "btnColor")?.cgColor ?? UIColor.black.cgColor
+        brandImage.layer.borderColor = UIColor.secondaryLabel.cgColor//UIColor(named: "btnColor")?.cgColor ?? UIColor.black.cgColor
     }
 }
 

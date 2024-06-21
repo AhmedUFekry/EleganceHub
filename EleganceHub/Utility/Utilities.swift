@@ -25,9 +25,9 @@ class Utilities {
     
 }
 extension UIView {
-    func applyShadow(color: UIColor = .black,
+    func applyShadow(color: UIColor = UIColor.secondaryLabel,
                      opacity: Float = 0.5,
-                     offset: CGSize = CGSize(width: 0, height: 2),
+                     offset: CGSize = CGSize(width: 0, height: 1),
                      radius: CGFloat = 4,
                      cornerRadius: CGFloat = 10) {
         self.layer.shadowColor = color.cgColor

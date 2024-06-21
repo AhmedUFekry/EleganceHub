@@ -37,7 +37,6 @@ class OrderCheckOutViewController: UIViewController {
     let userCurrency = UserDefaultsHelper.shared.getCurrencyFromUserDefaults().uppercased()
     
     @IBAction func placeOrderButton(_ sender: UIButton) {
-        //let storyBoard = UIStoryboard(name: "Main", bundle: <#T##Bundle?#>)
         let vc = (self.storyboard?.instantiateViewController(identifier: "PaymentViewController"))! as PaymentViewController
         //vc.draftOrder = self.draftOrder
         vc.draftOrder = self.draftOrder
@@ -60,8 +59,8 @@ class OrderCheckOutViewController: UIViewController {
         
         setupUI()
         fetchDraftOrder()
-        
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         fetchDraftOrder()
 
@@ -72,6 +71,16 @@ class OrderCheckOutViewController: UIViewController {
         observeOnResponse()
         loadingObserverSetUp()
         onErrorObserverSetUp()
+        
+        let isDarkMode = UserDefaultsHelper.shared.isDarkMode()
+        if isDarkMode{
+            backBtn.setImage(UIImage(named: "backLight"), for: .normal)
+        }else{
+            backBtn.setImage(UIImage(named: "back"), for: .normal)
+        }
+        adressView.applyShadow()
+        promoCodeView.applyShadow()
+        
     }
  
     private func setupUI() {
@@ -80,8 +89,8 @@ class OrderCheckOutViewController: UIViewController {
         productItemTableView.delegate = self
         productItemTableView.dataSource = self
         productItemTableView.allowsSelection = false
-        adressView.applyShadow()
-        promoCodeView.applyShadow()
+        productItemTableView.separatorStyle = .none
+        
         backBtn.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
     }
     
@@ -189,6 +198,7 @@ extension OrderCheckOutViewController: UITableViewDelegate, UITableViewDataSourc
         }
         return productsCell
     }
+    
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 110

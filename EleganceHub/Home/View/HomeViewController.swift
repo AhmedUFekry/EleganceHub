@@ -17,6 +17,8 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var appBarView: CustomAppBarUIView!
     @IBOutlet weak var pageControl: UIPageControl!
 
+    let numberOfRows: CGFloat = 2
+    let spacing: CGFloat = 8
 
     var cartCountLabel:UILabel = UILabel()
     var favCountLabel:UILabel = UILabel()
@@ -186,14 +188,14 @@ class HomeViewController: UIViewController {
         couponsCollection.collectionViewLayout = couponsLayout
         couponsCollection.layer.borderWidth = 2.0
         couponsCollection.layer.cornerRadius = 10
-        couponsCollection.layer.borderColor = UIColor(named: "btnColor")?.cgColor ?? UIColor.black.cgColor
+        couponsCollection.layer.borderColor = UIColor.secondaryLabel.cgColor
         
         let brandsLayout = UICollectionViewFlowLayout()
         brandsLayout.scrollDirection = .horizontal
-        let itemWidth = (brandsCollection.frame.width / 2) - 16
-        let itemHeight = (brandsCollection.frame.height / 4)
-       
-        brandsLayout.itemSize = CGSize(width: (brandsCollection.frame.width / 2) - 16, height: (brandsCollection.frame.height / 3))
+
+        let itemWidth = (brandsCollection.frame.width / 2) - (spacing * 2)
+        let itemHeight = (brandsCollection.frame.height / numberOfRows) - spacing
+        brandsLayout.itemSize = CGSize(width: itemWidth, height: itemHeight)
         
         brandsCollection.collectionViewLayout = brandsLayout
     }
@@ -204,7 +206,7 @@ class HomeViewController: UIViewController {
             layout.invalidateLayout()
         }
         if let brandLayout = brandsCollection.collectionViewLayout as? UICollectionViewFlowLayout{
-            brandLayout.itemSize =  CGSize(width: (brandsCollection.frame.width / 2) - 16, height: (brandsCollection.frame.height / 3))
+            brandLayout.itemSize =  CGSize(width: (brandsCollection.frame.width / 2) - (spacing * 2), height: (brandsCollection.frame.height / numberOfRows) - spacing)
             brandLayout.invalidateLayout()
         }
     }

@@ -604,8 +604,8 @@
                             </collectionView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="zAY-OT-1F6">
                                 <rect key="frame" x="178" y="395.66666666666669" width="37" height="37"/>
-                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" name="btnColor"/>
+                                <color key="color" name="btnColor"/>
                             </activityIndicatorView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lUZ-JE-wgu" customClass="CustomAppBarUIView" customModule="EleganceHub" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="59" width="393" height="50"/>
@@ -656,7 +656,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Yvb-NH-tcD">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Yvb-NH-tcD">
                                 <rect key="frame" x="0.0" y="175" width="393" height="442"/>
                                 <color key="backgroundColor" name="theme"/>
                                 <constraints>
@@ -676,8 +676,8 @@
                             </tableView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="a5Q-sn-dmg">
                                 <rect key="frame" x="178" y="407.66666666666669" width="37" height="37"/>
-                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" name="btnColor"/>
+                                <color key="color" name="btnColor"/>
                             </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5OX-FB-par">
                                 <rect key="frame" x="16" y="678" width="361" height="55"/>
@@ -686,7 +686,7 @@
                                 </constraints>
                                 <color key="tintColor" name="theme"/>
                                 <buttonConfiguration key="configuration" style="filled" imagePlacement="trailing" title="Continue to Payment" imagePadding="60">
-                                    <imageReference key="image" image="icons8-forward-button-50" symbolScale="large"/>
+                                    <imageReference key="image" image="forward-button" symbolScale="large"/>
                                     <fontDescription key="titleFontDescription" name="Palatino-Roman" family="Palatino" pointSize="20"/>
                                     <color key="baseForegroundColor" systemColor="systemBackgroundColor"/>
                                     <color key="baseBackgroundColor" name="btnColor"/>
@@ -822,7 +822,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total(0 item):" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2vH-oP-orL">
                                 <rect key="frame" x="16" y="626.66666666666663" width="154" height="33.666666666666629"/>
                                 <fontDescription key="fontDescription" name="Palatino-Bold" family="Palatino" pointSize="24"/>
-                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="textColor" systemColor="secondaryLabelColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TUj-CS-pLx">
@@ -831,7 +831,7 @@
                                     <constraint firstAttribute="height" constant="55" id="d00-4P-LAQ"/>
                                 </constraints>
                                 <color key="tintColor" name="btnColor"/>
-                                <buttonConfiguration key="configuration" style="filled" image="icons8-forward-button-50" imagePlacement="trailing" title="Proceed to Checkout" imagePadding="60">
+                                <buttonConfiguration key="configuration" style="filled" image="forward-button" imagePlacement="trailing" title="Proceed to Checkout" imagePadding="60">
                                     <fontDescription key="titleFontDescription" name="Palatino-Roman" family="Palatino" pointSize="20"/>
                                     <color key="baseForegroundColor" systemColor="systemBackgroundColor"/>
                                     <color key="baseBackgroundColor" name="btnColor"/>
@@ -848,13 +848,13 @@
                                     <constraint firstAttribute="width" constant="16" id="u8s-9U-4U2"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Palatino-Roman" family="Palatino" pointSize="14"/>
-                                <color key="textColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="2GX-NW-DFj">
                                 <rect key="frame" x="178" y="407.66666666666669" width="37" height="37"/>
-                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" name="btnColor"/>
+                                <color key="color" name="btnColor"/>
                             </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="mFQ-LM-cHw"/>
@@ -890,7 +890,10 @@
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="2GX-NW-DFj" id="0KI-aJ-WDK"/>
+                        <outlet property="backBtn" destination="2Yr-o2-mFW" id="QMV-CI-WA2"/>
+                        <outlet property="cartIcon" destination="PcZ-8Z-hds" id="r3I-X3-jok"/>
                         <outlet property="cartTableView" destination="iM9-f9-1oE" id="vqK-9q-6xu"/>
+                        <outlet property="checkOutBtn" destination="TUj-CS-pLx" id="9FY-WO-bgP"/>
                         <outlet property="countOfItemInCart" destination="v6S-QS-9VP" id="Gi3-yJ-EZl"/>
                         <outlet property="totalItemPrice" destination="2vH-oP-orL" id="I3s-c5-Wpg"/>
                         <outlet property="totalPriceLabel" destination="2SW-Uf-l0t" id="EcJ-aO-MPR"/>
@@ -1058,8 +1061,8 @@
                             </textField>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="Wx4-13-ooQ">
                                 <rect key="frame" x="178" y="407.66666666666669" width="37" height="37"/>
-                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" name="btnColor"/>
+                                <color key="color" name="btnColor"/>
                             </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Vfi-7o-ehz"/>
@@ -1148,6 +1151,7 @@
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="wg9-Dc-F1f">
                                 <rect key="frame" x="16" y="165" width="361" height="622"/>
+                                <color key="backgroundColor" name="theme"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OrdersCell" id="AyX-5Y-JPh">
                                         <rect key="frame" x="0.0" y="50" width="361" height="43.666667938232422"/>
@@ -1544,7 +1548,7 @@
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8UP-Ll-FcC">
                                         <rect key="frame" x="264.33333333333331" y="25.666666666666632" width="100" height="36.333333333333343"/>
-                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" name="btnColor"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Validate">
                                             <fontDescription key="titleFontDescription" name="Palatino-Bold" family="Palatino" pointSize="20"/>
@@ -2335,9 +2339,9 @@ Thank you for choosing ElegunceHub. Happy shopping!
         <image name="darkmode" width="30" height="30"/>
         <image name="discount" width="512" height="512"/>
         <image name="emptybox" width="256" height="256"/>
+        <image name="forward-button" width="35" height="35"/>
         <image name="home" width="128" height="128"/>
         <image name="homekit" catalog="system" width="128" height="104"/>
-        <image name="icons8-forward-button-50" width="35" height="35"/>
         <image name="icons8-log-out-25" width="25" height="25"/>
         <image name="logo1" width="499" height="500"/>
         <image name="person" width="50" height="50"/>

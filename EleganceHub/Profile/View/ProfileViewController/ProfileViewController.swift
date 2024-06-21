@@ -48,7 +48,7 @@ class ProfileViewController: UIViewController {
         settingTableView.separatorStyle = .none
         
         setUpViewStyle(uiViewStyle: tableUIView)
-        setupShadow()
+        personUIView.applyShadow()
         self.personImage.layer.cornerRadius = 10
     }
     
@@ -57,14 +57,6 @@ class ProfileViewController: UIViewController {
         uiViewStyle.layer.cornerRadius = 10
         uiViewStyle.layer.borderColor = UIColor.gray.cgColor
     }
-    private func setupShadow() {
-        personUIView.layer.shadowColor = UIColor.black.cgColor
-        personUIView.layer.shadowOpacity = 0.5
-        personUIView.layer.shadowOffset = CGSize(width: 0, height: 2)
-        personUIView.layer.shadowRadius = 4
-        personUIView.layer.cornerRadius = 10
-    }
-
     
     private func checkForUser(){
         bindUserData()

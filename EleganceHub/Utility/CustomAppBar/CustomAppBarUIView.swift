@@ -12,7 +12,7 @@ class CustomAppBarUIView: UIView {
     @IBOutlet weak var trailingIcon: UIButton!
     @IBOutlet weak var secoundTrailingIcon: UIButton!
     @IBOutlet weak var lableTitle: UILabel!
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.commenInit()
@@ -32,16 +32,27 @@ class CustomAppBarUIView: UIView {
             contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         }
         applyShadow()
-            }
+        //setUpBtnsThemes()
+    }
     private func applyShadow() {
-            self.layer.shadowColor = UIColor.gray.cgColor
-            self.layer.shadowOpacity = 0.5
-            self.layer.shadowOffset = CGSize(width: 0, height: 4)
-            self.layer.shadowRadius = 4
-            self.layer.masksToBounds = false
-
-           
-            let shadowPath = UIBezierPath(rect: CGRect(x: 0, y: self.bounds.height - self.layer.shadowRadius, width: self.bounds.width, height: self.layer.shadowRadius))
-            self.layer.shadowPath = shadowPath.cgPath
+        self.layer.shadowColor = UIColor.gray.cgColor
+        self.layer.shadowOpacity = 0.5
+        self.layer.shadowOffset = CGSize(width: 0, height: 4)
+        self.layer.shadowRadius = 4
+        self.layer.masksToBounds = false
+        
+        
+        let shadowPath = UIBezierPath(rect: CGRect(x: 0, y: self.bounds.height - self.layer.shadowRadius, width: self.bounds.width, height: self.layer.shadowRadius))
+        self.layer.shadowPath = shadowPath.cgPath
+    }
+    
+    func setUpBtnsThemes(){
+        let isDarkMode = UserDefaultsHelper.shared.isDarkMode()
+        if isDarkMode{
+            backBtn.setImage(UIImage(named: "backLight"), for: .normal)
+            
+        }else{
+            backBtn.setImage(UIImage(named: "back"), for: .normal)
         }
     }
+}

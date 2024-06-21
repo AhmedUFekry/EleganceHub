@@ -14,6 +14,7 @@ class PaymentViewController: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var appBarView: CustomAppBarUIView!
+    let isDarkMode = UserDefaultsHelper.shared.isDarkMode()
     
     
     let paymentList:[PaymentMethodModel] = [/*PaymentMethodModel(paymentMethod: "Credit Card", imageName: "CreditCard",id:PaymentMethod.creditCart),*/PaymentMethodModel(paymentMethod: "Apple Pay", imageName: "applePayDark",id:PaymentMethod.applePay),/*PaymentMethodModel(paymentMethod: "Paypal", imageName: "Paypal",id:PaymentMethod.payPal),*/PaymentMethodModel(paymentMethod: "Cash on delivery", imageName: "cashOnDelivery",id:PaymentMethod.cash)]
@@ -42,6 +43,7 @@ class PaymentViewController: UIViewController {
         appBarView.secoundTrailingIcon.isHidden = true
         observeOnOrder()
         loadingObserverSetUp()
+        appBarView.setUpBtnsThemes()
     }
     @objc func backButtonTapped(){
         self.navigationController?.popViewController(animated: true)
@@ -189,7 +191,11 @@ extension PaymentViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PaymentMethodTableViewCell", for: indexPath) as! PaymentMethodTableViewCell
         let payment = paymentList[indexPath.row]
-        cell.paymentMethodImage.image = UIImage(named: payment.imageName)
+        if payment.id == PaymentMethod.applePay {
+            cell.paymentMethodImage.image = isDarkMode ? UIImage(named: "applePayLight") : UIImage(named: payment.imageName)
+        }else{
+            cell.paymentMethodImage.image = UIImage(named: payment.imageName)
+        }
         cell.paymentMethodLabel.text = payment.paymentMethod
         return cell
     }
@@ -199,22 +205,24 @@ extension PaymentViewController:UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? PaymentMethodTableViewCell{
-            cell.contentView.backgroundColor = UIColor.black
+            cell.contentView.backgroundColor = UIColor(named: "btnColor") ?? UIColor.black
+            
             selectedMethod = paymentList[indexPath.row]
             if selectedMethod?.id == PaymentMethod.applePay{
-                cell.paymentMethodImage.image = UIImage(named: "applePayLight")
+                //cell.paymentMethodImage.image = UIImage(named: "applePayLight")
+                cell.paymentMethodImage.image = isDarkMode ? UIImage(named: selectedMethod!.imageName) : UIImage(named: "applePayLight")
             }
-            cell.paymentMethodLabel.textColor = UIColor.white
+            cell.paymentMethodLabel.textColor = UIColor(named: "theme") ?? UIColor.white
         }
     }
 
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? PaymentMethodTableViewCell{
-            cell.contentView.backgroundColor = UIColor.white
-            cell.paymentMethodLabel.textColor = UIColor.black
+            cell.contentView.backgroundColor = UIColor(named: "theme") ?? UIColor.white
+            cell.paymentMethodLabel.textColor = UIColor(named: "btnColor") ?? UIColor.black
             selectedMethod = paymentList[indexPath.row]
             if selectedMethod?.id == PaymentMethod.applePay{
-                cell.paymentMethodImage.image = UIImage(named: "applePayDark")
+                cell.paymentMethodImage.image = isDarkMode ? UIImage(named: "applePayLight") : UIImage(named: selectedMethod!.imageName)
             }
 
         }

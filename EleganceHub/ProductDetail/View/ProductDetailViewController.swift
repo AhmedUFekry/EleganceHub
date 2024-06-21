@@ -97,6 +97,11 @@ class ProductDetailViewController: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        appBarView.setUpBtnsThemes()
+    }
+    
     private func setupCurrencyViewModel() {
         currencyViewModel.rateClosure = { [weak self] rate in
             DispatchQueue.main.async {

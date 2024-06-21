@@ -3,6 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -88,14 +89,15 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M8d-za-0kz">
-                    <rect key="frame" x="16" y="365" width="361" height="49"/>
+                    <rect key="frame" x="16" y="363" width="361" height="50"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="49" id="Fnl-dc-LYE"/>
+                        <constraint firstAttribute="height" constant="50" id="Fnl-dc-LYE"/>
                     </constraints>
                     <color key="tintColor" systemColor="labelColor"/>
                     <buttonConfiguration key="configuration" style="filled" title="Add Location" titleAlignment="center">
                         <fontDescription key="titleFontDescription" name="Palatino-Roman" family="Palatino" pointSize="24"/>
-                        <color key="baseBackgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="baseForegroundColor" name="theme"/>
+                        <color key="baseBackgroundColor" name="btnColor"/>
                     </buttonConfiguration>
                     <connections>
                         <action selector="addLocationBtn:" destination="-1" eventType="touchUpInside" id="Kwp-pn-Ac6"/>
@@ -112,7 +114,7 @@
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qUT-AO-PoE">
                             <rect key="frame" x="98.333333333333343" y="0.0" width="98.333333333333343" height="38"/>
-                            <color key="tintColor" systemColor="labelColor"/>
+                            <color key="tintColor" name="btnColor"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" image="chevron.down.circle.fill" catalog="system"/>
                             <connections>
@@ -128,7 +130,7 @@
                             <integer key="value" value="1"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor = UIColor.gray.cgColor">
-                            <color key="value" systemColor="opaqueSeparatorColor"/>
+                            <color key="value" systemColor="secondaryLabelColor"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </stackView>
@@ -149,7 +151,7 @@
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O7s-Ph-x08">
                             <rect key="frame" x="176" y="0.0" width="88" height="38"/>
-                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" name="btnColor"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" image="chevron.down.circle.fill" catalog="system"/>
                             <connections>
@@ -168,7 +170,7 @@
                             <integer key="value" value="1"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor = UIColor.gray.cgColor">
-                            <color key="value" systemColor="opaqueSeparatorColor"/>
+                            <color key="value" systemColor="secondaryLabelColor"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </stackView>
@@ -181,15 +183,15 @@
                     <textInputTraits key="textInputTraits"/>
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ppK-vY-7WH">
-                    <rect key="frame" x="16" y="438" width="361" height="49"/>
+                    <rect key="frame" x="16" y="437" width="361" height="50"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="49" id="czj-Tm-swb"/>
+                        <constraint firstAttribute="height" constant="50" id="czj-Tm-swb"/>
                     </constraints>
                     <color key="tintColor" systemColor="labelColor"/>
                     <buttonConfiguration key="configuration" style="filled" title="Cancel" titleAlignment="center">
                         <fontDescription key="titleFontDescription" name="Palatino-Roman" family="Palatino" pointSize="24"/>
-                        <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="baseBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="baseForegroundColor" systemColor="labelColor"/>
+                        <color key="baseBackgroundColor" name="theme"/>
                     </buttonConfiguration>
                     <connections>
                         <action selector="cancelBtnTapped:" destination="-1" eventType="touchUpInside" id="emA-NB-x0X"/>
@@ -244,11 +246,17 @@
     </objects>
     <resources>
         <image name="chevron.down.circle.fill" catalog="system" width="128" height="123"/>
+        <namedColor name="btnColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </namedColor>
+        <namedColor name="theme">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
-        <systemColor name="opaqueSeparatorColor">
-            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -10,6 +10,10 @@ class CartViewController: UIViewController {
     @IBOutlet weak var countOfItemInCart: UILabel!
     @IBOutlet weak var cartTableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var cartIcon: UIImageView!
+    @IBOutlet weak var backBtn: UIButton!
+    @IBOutlet weak var checkOutBtn: UIButton!
+    
     
     private let itemDeletedSubject = PublishSubject<IndexPath>()
     
@@ -49,6 +53,7 @@ class CartViewController: UIViewController {
                 self?.rate = rate
             }
         }
+        setUpBtnsThemes()
         currencyViewModel.getRate()
         
         let cartNibCell = UINib(nibName: "CartTableViewCell", bundle: nil)
@@ -59,6 +64,19 @@ class CartViewController: UIViewController {
         countOfItemInCart.layer.masksToBounds = true
         cartTableView.separatorStyle = .none
         cartTableView.allowsSelection = false
+    }
+    
+    private func setUpBtnsThemes(){
+        let isDarkMode = UserDefaultsHelper.shared.isDarkMode()
+        if isDarkMode{
+            backBtn.setImage(UIImage(named: "backLight"), for: .normal)
+            cartIcon.image = UIImage(named: "shopping-bag-light")
+            checkOutBtn.setImage(UIImage(named: "forward-button-Light"), for: .normal)
+        }else{
+            backBtn.setImage(UIImage(named: "back"), for: .normal)
+            cartIcon.image = UIImage(named: "shopping-bag")
+            checkOutBtn.setImage(UIImage(named: "forward-button"), for: .normal)
+        }
     }
     
     @IBAction func backBtn(_ sender: Any) {
@@ -80,7 +98,6 @@ class CartViewController: UIViewController {
     }
     
   
-    
     private func setupTableViewBinding() {
         viewModel.lineItemsList
             .bind(to: cartTableView.rx.items(cellIdentifier: "CartTableViewCell", cellType: CartTableViewCell.self)) { [weak self] index, item, cell in
@@ -192,6 +209,8 @@ class CartViewController: UIViewController {
             print("draft order is removed \(UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.getDraftOrder.rawValue)) draft order \(draftOrder )")
         }
     }
+    
+    
     
     private func handleEmptyState() {
         viewModel.lineItemsList

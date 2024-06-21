@@ -14,6 +14,7 @@ class OrdersViewController: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var ordersTableView: UITableView!
     @IBOutlet weak var appBar: CustomAppBarUIView!
+    
     var orders: [Order]?
         var ordersViewModel = OrdersViewModel(orderService: OrdersService())
         var selectedOrder: Order?

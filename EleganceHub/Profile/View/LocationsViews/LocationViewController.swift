@@ -84,7 +84,7 @@ class LocationViewController: UIViewController {
         self.selectCityBtn.isEnabled = false
         
         cancelBtn.layer.borderWidth = 2.0
-        cancelBtn.layer.borderColor = UIColor.black.cgColor
+        cancelBtn.layer.borderColor = UIColor(named: "btnColor")?.cgColor ?? UIColor.black.cgColor
         cancelBtn.layer.cornerRadius = 10
     }
     

@@ -14,6 +14,7 @@ class ShippingAddressViewController: UIViewController, UpdateLocationDelegate {
     @IBOutlet weak var appBar: CustomAppBarUIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    let isDarkMode = UserDefaultsHelper.shared.isDarkMode()
     
     var isFromCart: Bool = false
     var orderID: Int? = nil
@@ -35,12 +36,20 @@ class ShippingAddressViewController: UIViewController, UpdateLocationDelegate {
         viewModel.getAllAddresses(customerID: id)
         loadingObserverSetUp()
         orderID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.getDraftOrder.rawValue)
+        
+        appBar.setUpBtnsThemes()
+        
+        if isDarkMode{
+            appBar.trailingIcon.setImage(UIImage(named: "add"), for: .normal)
+        }else{
+            appBar.trailingIcon.setImage(UIImage(named: "add-Light"), for: .normal)
+        }
     }
     
     private func commenInit() {
         appBar.secoundTrailingIcon.isHidden = true
         appBar.lableTitle.text = "Shipping Address"
-        appBar.trailingIcon.setImage(UIImage(named: "add"), for: .normal)
+        //appBar.trailingIcon.setImage(UIImage(named: "add"), for: .normal)
         appBar.backBtn.addTarget(self, action: #selector(goBack), for: .touchUpInside)
         appBar.trailingIcon.addTarget(self, action: #selector(addNewLocation), for: .touchUpInside)
         
