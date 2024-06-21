@@ -228,7 +228,6 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
     }
 
     private func addToCartObserversFuncs(){
-        print("TTTTTTTTTTTTTTT")
         onErrorObserverSetUp()
         onResponseObserverSetUp()
     }
