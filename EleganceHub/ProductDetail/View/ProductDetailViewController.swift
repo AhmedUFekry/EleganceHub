@@ -78,6 +78,8 @@ class ProductDetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         appBarView.setUpBtnsThemes()
+        setupCurrencyViewModel()
+
     }
     
     private func setupCurrencyViewModel() {

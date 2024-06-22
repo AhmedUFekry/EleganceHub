@@ -13,6 +13,7 @@ import RxCocoa
 
 
 class SuperCategoryViewController: UIViewController {
+    @IBOutlet weak var placeHolder: UIImageView!
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var categorySearchBar: UISearchBar!
@@ -27,37 +28,39 @@ class SuperCategoryViewController: UIViewController {
     var categoryProductList: [Product]?
     var filteredList: [Product]?
     var searchList: [Product]?
+    var filterType : String = "All"
     var userCurrency:String?
     var isFiltered: Bool = false
     var isSearching: Bool = false
     private let disposeBag = DisposeBag()
-
+    
     var rate : Double!
     var draftOrder:Int?
     
     var homeViewModel = HomeViewModel()
     var cartViewModel: CartViewModelProtocol = CartViewModel()
-
+    
     var cartCountLabel:UILabel = UILabel()
     var favCountLabel:UILabel = UILabel()
-      
-       override func viewDidLoad() {
-           super.viewDidLoad()
-           
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
         activityIndicator.startAnimating()
-
+       // placeHolder.isHidden = true
         loadNib()
         categorySearchBar.delegate = self
         categoryViewModel.bindResultToViewController = { [weak self] in
             guard let self = self else { return }
             self.categoryProductList = self.categoryViewModel.categoryResult
+            self.filteredList = self.categoryViewModel.filterCategory(filterType: filterType)
             self.renderView()
         }
-           setUpUI()
+        setUpUI()
         displayFloatingButton()
         categoryViewModel.getCategoryProducts(category: .Women)
-       setupBadgeLabel(on:appBarView.secoundTrailingIcon,badgeLabel: cartCountLabel)
-       setupBadgeLabel(on:appBarView.trailingIcon,badgeLabel: favCountLabel)
+        setupBadgeLabel(on:appBarView.secoundTrailingIcon,badgeLabel: cartCountLabel)
+        setupBadgeLabel(on:appBarView.trailingIcon,badgeLabel: favCountLabel)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -79,7 +82,7 @@ class SuperCategoryViewController: UIViewController {
             cartViewModel.getDraftOrderForUser(orderID: draftOrder!)
         }
         loadFavoriteProducts()
-
+        
         showCountOnCartData()
     }
     private func setUpUI(){
@@ -152,6 +155,7 @@ class SuperCategoryViewController: UIViewController {
             self.categoryCollection.reloadData()
             self.activityIndicator.stopAnimating()
             self.activityIndicator.isHidden = true
+            
         }
     }
     
@@ -159,21 +163,25 @@ class SuperCategoryViewController: UIViewController {
         switch(segmentCategory.selectedSegmentIndex) {
         case 0:
             categoryViewModel.getCategoryProducts(category: .Women)
+            isFiltered = true
         case 1:
             categoryViewModel.getCategoryProducts(category: .Men)
+            isFiltered = true
         case 2:
             categoryViewModel.getCategoryProducts(category: .Kids)
+            isFiltered = true
         case 3:
             categoryViewModel.getCategoryProducts(category: .Sale)
+            isFiltered = true
+           
         default:
             break
         }
-        categoryCollection.reloadData()
     }
     
     @objc private func onFavouriteTapped(){
         if let favoriteViewController = storyboard?.instantiateViewController(withIdentifier: "FavoriteViewController") as? FavoriteViewController {
-                navigationController?.pushViewController(favoriteViewController, animated: true)
+            navigationController?.pushViewController(favoriteViewController, animated: true)
         } else {
             print("Failed to instantiate FavoriteViewController")
         }
@@ -217,16 +225,22 @@ class SuperCategoryViewController: UIViewController {
         actionButton.addItem(title: "Shoes", image: UIImage(named: "shoes")?.withRenderingMode(.alwaysTemplate)) { item in
             self.isFiltered = true
             self.filteredList = self.categoryViewModel.filterCategory(filterType: "SHOES")
+            self.filterType = "SHOES"
             self.renderView()
+            
         }
         actionButton.addItem(title: "T-Shirts", image: UIImage(named: "tshirt")?.withRenderingMode(.alwaysTemplate)) { item in
             self.isFiltered = true
             self.filteredList = self.categoryViewModel.filterCategory(filterType: "T-SHIRTS")
+            self.filterType = "T-SHIRTS"
+
             self.renderView()
         }
         actionButton.addItem(title: "Accessories", image: UIImage(named: "Accsesory")?.withRenderingMode(.alwaysTemplate)) { item in
             self.isFiltered = true
             self.filteredList = self.categoryViewModel.filterCategory(filterType: "ACCESSORIES")
+            self.filterType = "ACCESSORIES"
+
             self.renderView()
         }
         actionButton.display(inViewController: self)
@@ -253,10 +267,10 @@ extension SuperCategoryViewController: UICollectionViewDataSource, UICollectionV
         KF.url(URL(string: category?.image?.src ?? "https://cdn.shopify.com/s/files/1/0880/0426/4211/collections/a340ce89e0298e52c438ae79591e3284.jpg?v=1716276581"))
             .set(to: categoryCell.categoryImage)
         categoryCell.categoryType?.text = category?.productType
-       // categoryCell.categoryPrice?.text = category?.variants?[0].price
+        // categoryCell.categoryPrice?.text = category?.variants?[0].price
         
         let convertedPrice = convertPrice(price: category?.variants?[0].price ?? "2", rate: self.rate)
-                       
+        
         categoryCell.categoryPrice.text = "\(String(format: "%.2f", convertedPrice)) \(userCurrency!)"
         return categoryCell
     }
@@ -268,7 +282,7 @@ extension SuperCategoryViewController: UICollectionViewDataSource, UICollectionV
         let height = width
         return CGSize(width: width, height: height)
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
@@ -282,7 +296,7 @@ extension SuperCategoryViewController: UICollectionViewDataSource, UICollectionV
         
         navigationController?.pushViewController(productDetailVC, animated: true)
     }
-
+    
     private func getProductForIndexPath(_ indexPath: IndexPath) -> Product? {
         if isSearching {
             return searchList?[indexPath.row]
@@ -292,8 +306,8 @@ extension SuperCategoryViewController: UICollectionViewDataSource, UICollectionV
             return categoryProductList?[indexPath.row]
         }
     }
-
-
+    
+    
 }
 
 //MARK: UISearchBarDelegate

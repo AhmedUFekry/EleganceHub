@@ -33,5 +33,5 @@ class CategoryViewModel {
         let filterList = productsCopy?.filter{$0.productType == filterType}
         return filterList ?? []
     }
-
+   
 }
