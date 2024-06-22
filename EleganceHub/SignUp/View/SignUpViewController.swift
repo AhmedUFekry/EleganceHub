@@ -45,8 +45,7 @@ class SignUpViewController: UIViewController {
                 if let statusCode = self?.signViewModel?.ObservableSignUp {
                     switch statusCode {
                     case 201:
-                        self?.displayAlert(message: "User signed up successfully", seconds: 3.0)
-                        self?.navigateToHome()
+                        self?.navigateToLogin()
                     case 422:
                         self?.displayAlert(message: "Unprocessable Entity: The request was well-formed but was unable to be followed due to semanticerrors.", seconds: 3.0)
                     case 0:
@@ -129,7 +128,7 @@ class SignUpViewController: UIViewController {
                 return
             }
             self.displayAlert(message: "Verification email sent. Please check your inbox.", seconds: 5.0)
-            self.navigateToLogin()
+            //self.navigateToLogin()
         }
     }
         
@@ -145,6 +144,7 @@ class SignUpViewController: UIViewController {
         if let loginViewController = storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController {
             navigationController?.pushViewController(loginViewController, animated: true)
         }
+        self.displayAlert(message: "User signed up successfully", seconds: 1.0)
     }
         
     private func isValidPhone(_ phone: String) -> Bool {
