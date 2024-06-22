@@ -30,14 +30,14 @@ class ProfileImageUIView: UIView {
             contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
             
             self.profileImage.layer.cornerRadius = 10
-            self.profileImage.layer.shadowColor = UIColor.black.cgColor
+            self.profileImage.layer.shadowColor = UIColor.secondaryLabel.cgColor
             self.profileImage.layer.shadowOffset = CGSize(width: 0, height: 2)
             self.profileImage.layer.shadowRadius = 4
             self.profileImage.layer.shadowOpacity = 0.5
           self.profileImage.layer.masksToBounds = true
             
             self.editPicBtn.layer.cornerRadius = 10
-            self.editPicBtn.layer.shadowColor = UIColor.black.cgColor
+            self.editPicBtn.layer.shadowColor = UIColor.secondaryLabel.cgColor
             self.editPicBtn.layer.shadowOffset = CGSize(width: 0, height: 2)
             self.editPicBtn.layer.shadowRadius = 4
             self.editPicBtn.layer.shadowOpacity = 0.7
@@ -45,7 +45,6 @@ class ProfileImageUIView: UIView {
             self.layer.masksToBounds = false
         }
     }
-    
    
 }
 

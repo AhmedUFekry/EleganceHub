@@ -16,7 +16,7 @@ protocol CurrencyServiceProtocol{
 
 class CurrencyService:CurrencyServiceProtocol{
     static func fetchConversionRate(coinStr: String, completion: @escaping (Double?) -> Void) {
-        
+        "https://v6.exchangerate-api.com/v6/b49c1bd054e07dcf53e6200e/latest/USD"
         let urlStr = "https://v6.exchangerate-api.com/v6/f0c99b265f25de45353fe2bc/latest/USD"
             guard let url = URL(string: urlStr) else {
                 completion(nil)

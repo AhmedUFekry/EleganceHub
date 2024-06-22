@@ -57,6 +57,7 @@
 		03C396892C10022900FFADF7 /* AddressesViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C396872C10022900FFADF7 /* AddressesViewModelProtocol.swift */; };
 		03C3968B2C10023800FFADF7 /* AddressDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C3968A2C10023800FFADF7 /* AddressDataModel.swift */; };
 		03C3968D2C10115600FFADF7 /* UpdateLocationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C3968C2C10115600FFADF7 /* UpdateLocationDelegate.swift */; };
+		03C566CE2C26482700E87074 /* UpdateThemaDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C566CD2C26482700E87074 /* UpdateThemaDelegate.swift */; };
 		03CDC3EC2C231E930002F22F /* ProfileNetworkServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CDC3EB2C231E930002F22F /* ProfileNetworkServiceTest.swift */; };
 		03CDC3EE2C232FCE0002F22F /* SettingsNetworkServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CDC3ED2C232FCE0002F22F /* SettingsNetworkServiceTest.swift */; };
 		03CDC3F02C2334D30002F22F /* PaymentNetworkServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CDC3EF2C2334D30002F22F /* PaymentNetworkServiceTest.swift */; };
@@ -226,6 +227,7 @@
 		03C396872C10022900FFADF7 /* AddressesViewModelProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressesViewModelProtocol.swift; sourceTree = "<group>"; };
 		03C3968A2C10023800FFADF7 /* AddressDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressDataModel.swift; sourceTree = "<group>"; };
 		03C3968C2C10115600FFADF7 /* UpdateLocationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateLocationDelegate.swift; sourceTree = "<group>"; };
+		03C566CD2C26482700E87074 /* UpdateThemaDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateThemaDelegate.swift; sourceTree = "<group>"; };
 		03CDC3EB2C231E930002F22F /* ProfileNetworkServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNetworkServiceTest.swift; sourceTree = "<group>"; };
 		03CDC3ED2C232FCE0002F22F /* SettingsNetworkServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNetworkServiceTest.swift; sourceTree = "<group>"; };
 		03CDC3EF2C2334D30002F22F /* PaymentNetworkServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentNetworkServiceTest.swift; sourceTree = "<group>"; };
@@ -426,6 +428,7 @@
 			children = (
 				03C3968E2C101E5E00FFADF7 /* ProfileTableView */,
 				0383BC4A2C0BD0A900855384 /* ProfileViewController.swift */,
+				03C566CD2C26482700E87074 /* UpdateThemaDelegate.swift */,
 			);
 			path = ProfileViewController;
 			sourceTree = "<group>";
@@ -1637,6 +1640,7 @@
 				D4883C5F2C12818000EE6C78 /* ProductImageCell.swift in Sources */,
 				D4883C552C11264A00EE6C78 /* ProductDetailViewController.swift in Sources */,
 				03BAA1312C14304400A325AB /* DatabaseServiceProtocol.swift in Sources */,
+				03C566CE2C26482700E87074 /* UpdateThemaDelegate.swift in Sources */,
 				0351A1B12C15BBD4009D1FF8 /* CustomerDataProtocol.swift in Sources */,
 				D48E6A4F2C23A55100ACE5CF /* Review.swift in Sources */,
 				03C3968B2C10023800FFADF7 /* AddressDataModel.swift in Sources */,

@@ -64,12 +64,18 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
             })
             .disposed(by: disposeBag)
         
-        
     }
             
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         favoriteTableView.reloadData()
+        let  isDarkMode = UserDefaultsHelper.shared.isDarkMode()
+        if isDarkMode{
+            appBarView.backBtn.setImage(UIImage(named: "backLight"), for: .normal)
+        }else{
+            appBarView.backBtn.setImage(UIImage(named: "back"), for: .normal)
+        }
+        
     }
     
     private func setupTableView() {

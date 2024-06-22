@@ -17,8 +17,9 @@
                 <rect key="frame" x="0.0" y="0.0" width="309" height="66"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="1Dn-VW-PjQ">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo1" translatesAutoresizingMaskIntoConstraints="NO" id="1Dn-VW-PjQ">
                         <rect key="frame" x="16" y="8" width="50" height="50"/>
+                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="50" id="Qyz-hb-jKc"/>
                             <constraint firstAttribute="height" constant="50" id="Uz3-0z-ZLh"/>
@@ -52,7 +53,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="logo" width="896" height="898"/>
+        <image name="logo1" width="499" height="500"/>
         <namedColor name="theme">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>

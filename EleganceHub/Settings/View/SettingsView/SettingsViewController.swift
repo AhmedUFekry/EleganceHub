@@ -12,7 +12,6 @@ import RxCocoa
 class SettingsViewController: UIViewController {
     
     @IBOutlet weak var switchDarkToggle: UISwitch!
-    
     @IBOutlet weak var userFirstNameTF: UITextField!
     @IBOutlet weak var userEmailTF: UITextField!
     @IBOutlet weak var userLastNameTF: UITextField!
@@ -22,11 +21,12 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var logOutBtn:UIButton!
     @IBOutlet weak var uiViewStyle:UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-
+    
     var imageString: String?
     var isEditingTapped: Bool = false
     var customerID:Int?
     var customerData:Customer?
+    var updateViewDelegate: UpdateThemaDelegate?
     
     let viewModel = SettingsViewModel()
     let disposeBag = DisposeBag()
@@ -38,20 +38,21 @@ class SettingsViewController: UIViewController {
             let appDelegate = UIApplication.shared.windows.first
             if sender.isOn {
                 UserDefaultsHelper.shared.setDarkMode(true)
+                
                 appDelegate?.overrideUserInterfaceStyle = .dark
             } else {
                 UserDefaultsHelper.shared.setDarkMode(false)
                 appDelegate?.overrideUserInterfaceStyle = .light
             }
         }
+        themeUpdated()
+        updateViewDelegate?.updateView()
     }
 
     private func setupDarkModeSwitch() {
         switchDarkToggle.isOn = UserDefaultsHelper.shared.isDarkMode()
     }
-
-         
-       
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -71,67 +72,83 @@ class SettingsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         //applySavedTheme()
-
+        themeUpdated()
     }
     
-        private func uISetUp() {
-            Constants.textFieldStyle(tF: userFirstNameTF)
-            Constants.textFieldStyle(tF: userEmailTF)
-            Constants.textFieldStyle(tF: userLastNameTF)
-            Constants.textFieldStyle(tF: userPhoneTF)
-            
-            uiViewStyle.layer.borderWidth = 1
-            uiViewStyle.layer.cornerRadius = 10
-            uiViewStyle.layer.borderColor = UIColor.gray.cgColor
-            
-            appBarView.secoundTrailingIcon.isHidden = true
-            appBarView.trailingIcon.setImage(UIImage(named: "icons8-edit-35"), for: .normal)
-            
-            appBarView.backBtn.addTarget(self, action: #selector(goBack), for: .touchUpInside)
-            appBarView.trailingIcon.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
-            
-            appBarView.lableTitle.text = "Personal Details"
-            
-            profileImageView.editPicBtn.addTarget(self, action: #selector(editImageTapped), for: .touchUpInside)
-            
-            enableEditting(isEnable: isEditing)
+    func themeUpdated(){
+        let  isDarkMode = UserDefaultsHelper.shared.isDarkMode()
+        if isDarkMode{
+            appBarView.backBtn.setImage(UIImage(named: "backLight"), for: .normal)
+            logOutBtn.setImage(UIImage(named: "logout-dark"), for: .normal)
+        }else{
+            appBarView.backBtn.setImage(UIImage(named: "back"), for: .normal)
+            logOutBtn.setImage(UIImage(named: "logout"), for: .normal)
         }
+       
+    }
+    private func setUpTextFieldStyle(){
+        Constants.textFieldStyle(tF: userFirstNameTF)
+        Constants.textFieldStyle(tF: userEmailTF)
+        Constants.textFieldStyle(tF: userLastNameTF)
+        Constants.textFieldStyle(tF: userPhoneTF)
+    }
+    private func uISetUp() {
+        setUpTextFieldStyle()
+        uiViewStyle.layer.borderWidth = 1
+        uiViewStyle.layer.cornerRadius = 10
+        uiViewStyle.layer.borderColor = UIColor.gray.cgColor
         
-        @objc func editImageTapped() {
-            let imagePicker = UIImagePickerController()
-            imagePicker.sourceType = .photoLibrary
-            imagePicker.delegate = self
-            self.present(imagePicker, animated: true, completion: nil)
-        }
+        appBarView.secoundTrailingIcon.isHidden = true
+        appBarView.trailingIcon.setImage(UIImage(systemName: "square.and.pencil"), for: .normal)
         
-        @objc func goBack() {
-            self.navigationController?.popViewController(animated: true)
-        }
+        appBarView.backBtn.addTarget(self, action: #selector(goBack), for: .touchUpInside)
+        appBarView.trailingIcon.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
         
-        @objc func editButtonTapped() {
-            isEditing = !isEditing
-            isEditing ? appBarView.trailingIcon.setImage(UIImage(named: "icons8-done-35"), for: .normal) : appBarView.trailingIcon.setImage(UIImage(named: "icons8-edit-35"), for: .normal)
-            enableEditting(isEnable: isEditing)
-            if (!isEditing) {
-                print("Update Data")
-                if let newImage = profileImageView.profileImage.image {
-                    viewModel.saveImage(newImage)
-                }
-                guard let id = customerID else {return}
-                viewModel.updateData(customerID: id, firstName: userFirstNameTF.text, lastName: userLastNameTF.text, email: userEmailTF.text, phone: userPhoneTF.text)
+        appBarView.lableTitle.text = "Personal Details"
+        
+        profileImageView.editPicBtn.addTarget(self, action: #selector(editImageTapped), for: .touchUpInside)
+        
+        enableEditting(isEnable: isEditing)
+    }
+        
+    @objc func editImageTapped() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.delegate = self
+        self.present(imagePicker, animated: true, completion: nil)
+    }
+        
+    @objc func goBack() {
+        self.navigationController?.popViewController(animated: true)
+    }
+        
+    @objc func editButtonTapped() {
+        isEditing = !isEditing
+        isEditing ? appBarView.trailingIcon.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal) : appBarView.trailingIcon.setImage(UIImage(systemName: "square.and.pencil"), for: .normal)
+        enableEditting(isEnable: isEditing)
+        if (!isEditing) {
+            print("Update Data")
+            if let newImage = profileImageView.profileImage.image {
+                viewModel.saveImage(newImage)
             }
+            guard let id = customerID else {return}
+            viewModel.updateData(customerID: id, firstName: userFirstNameTF.text, lastName: userLastNameTF.text, email: userEmailTF.text, phone: userPhoneTF.text)
         }
+    }
         
-        private func enableEditting(isEnable: Bool) {
-            profileImageView.editPicBtn.isHidden = !isEnable
-            self.userFirstNameTF.isEnabled = isEnable
-            self.userEmailTF.isEnabled = isEnable
-            self.userLastNameTF.isEnabled = isEnable
-            self.userPhoneTF.isEnabled = isEnable
-            
-            profileImageView.uploadLabel.text = isEnable ? "Upload image" : ""
-        }
+    private func enableEditting(isEnable: Bool) {
+        profileImageView.editPicBtn.isHidden = !isEnable
+        self.userFirstNameTF.isEnabled = isEnable
+        self.userEmailTF.isEnabled = isEnable
+        self.userLastNameTF.isEnabled = isEnable
+        self.userPhoneTF.isEnabled = isEnable
         
+        profileImageView.uploadLabel.text = isEnable ? "Upload image" : ""
+    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        setUpTextFieldStyle()
+    }
     private func bindViewModel() {
         loadingObserverSetUp()
         onErrorObserverSetUp()

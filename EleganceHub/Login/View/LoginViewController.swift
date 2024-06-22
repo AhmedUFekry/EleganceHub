@@ -14,6 +14,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var mailTxt: UITextField!
     @IBOutlet weak var passTxt: UITextField!
     @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var backButton: UIButton!
     
     var loginViewModel: LoginViewModel?
     
@@ -28,6 +29,17 @@ class LoginViewController: UIViewController {
         }
         
         setupUI()
+      
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let  isDarkMode = UserDefaultsHelper.shared.isDarkMode()
+        if isDarkMode{
+            backButton.setImage(UIImage(named: "backLight"), for: .normal)
+        }else{
+            backButton.setImage(UIImage(named: "back"), for: .normal)
+        }
     }
     
     private func setupUI() {
@@ -126,7 +138,7 @@ extension LoginViewController {
         let signUpRange = (text as NSString).range(of: "Sign Up")
         
         attributedString.addAttribute(.font, value: UIFont.systemFont(ofSize: 14), range: NSMakeRange(0, text.count))
-        attributedString.addAttribute(.foregroundColor, value: UIColor.gray, range: signUpRange)
+        attributedString.addAttribute(.foregroundColor, value: UIColor.secondaryLabel, range: signUpRange)
         attributedString.addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: signUpRange)
         
         signUpLabel.attributedText = attributedString

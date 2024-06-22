@@ -28,13 +28,14 @@
                 </imageView>
                 <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nsa-rL-wCV">
                     <rect key="frame" x="75" y="65" width="35" height="35"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" name="theme"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="35" id="UpW-cN-TYe"/>
                         <constraint firstAttribute="width" constant="35" id="YKU-uG-QrM"/>
                     </constraints>
+                    <color key="tintColor" name="btnColor"/>
                     <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" image="icons8-edit-25-2"/>
+                    <buttonConfiguration key="configuration" style="plain" image="pencil.line" catalog="system"/>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upload image" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vXs-gp-jd0">
                     <rect key="frame" x="0.0" y="108" width="110" height="20"/>
@@ -63,8 +64,11 @@
         </view>
     </objects>
     <resources>
-        <image name="icons8-edit-25-2" width="25" height="25"/>
+        <image name="pencil.line" catalog="system" width="128" height="98"/>
         <image name="person" width="50" height="50"/>
+        <namedColor name="btnColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </namedColor>
         <namedColor name="theme">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>

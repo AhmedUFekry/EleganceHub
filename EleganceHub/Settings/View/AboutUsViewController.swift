@@ -22,6 +22,15 @@ class AboutUsViewController: UIViewController {
         appBarView.lableTitle.text = "About us"
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        let  isDarkMode = UserDefaultsHelper.shared.isDarkMode()
+        if isDarkMode{
+            appBarView.backBtn.setImage(UIImage(named: "backLight"), for: .normal)
+        }else{
+            appBarView.backBtn.setImage(UIImage(named: "back"), for: .normal)
+        }
+    }
     @objc func goBack() {
         self.navigationController?.popViewController(animated: true)
     }

@@ -33,8 +33,8 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.forward" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="cjt-EW-c67">
-                        <rect key="frame" x="279" y="16.666666666666664" width="25" height="19.333333333333336"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.forward" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="cjt-EW-c67">
+                        <rect key="frame" x="279" y="15.666666666666668" width="25" height="21.333333333333325"/>
                         <color key="tintColor" name="btnColor"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="25" id="ZrH-7d-RNf"/>
@@ -61,7 +61,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="arrow.forward" catalog="system" width="128" height="95"/>
+        <image name="chevron.forward" catalog="system" width="97" height="128"/>
         <image name="person_info" width="35" height="35"/>
         <namedColor name="btnColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

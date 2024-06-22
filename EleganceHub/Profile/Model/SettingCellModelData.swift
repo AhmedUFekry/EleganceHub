@@ -9,6 +9,5 @@ import Foundation
 
 struct SettingCellModelData{
     let lableName:String
-    let iconName: String
     let navigationId:String
 }

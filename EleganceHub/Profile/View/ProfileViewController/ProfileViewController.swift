@@ -9,10 +9,14 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class ProfileViewController: UIViewController {
-    let cellData:[SettingCellModelData] = [SettingCellModelData(lableName: "Personal Details", iconName: "person_info", navigationId: "personalDetails"),SettingCellModelData(lableName: "My Orders", iconName: "orders", navigationId: "myOrders"),SettingCellModelData(lableName: "My WishLists", iconName: "fav", navigationId: "fav"),SettingCellModelData(lableName: "Shipping Address", iconName: "shipping", navigationId: "shippingAddress"),
-        SettingCellModelData(lableName: "Currency", iconName: "currency", navigationId: "currency"),
-         SettingCellModelData(lableName: "About Us", iconName: "aboutus", navigationId: "aboutUs")]
+class ProfileViewController: UIViewController,UpdateThemaDelegate {
+    let cellData:[SettingCellModelData] = [SettingCellModelData(lableName: "Personal Details", navigationId: "personalDetails"),SettingCellModelData(lableName: "My Orders", navigationId: "myOrders"),SettingCellModelData(lableName: "My WishLists",  navigationId: "fav"),SettingCellModelData(lableName: "Shipping Address", navigationId: "shippingAddress"),
+        SettingCellModelData(lableName: "Currency", navigationId: "currency"),
+         SettingCellModelData(lableName: "About Us", navigationId: "aboutUs")]
+    
+    let iconsDark = ["person_info_Light","orders-light","fav-light","shipping-light","currency-light","aboutus-light"]
+    let iconsLights = ["person_info","orders","fav","shipping","currency","aboutus"]
+    
     
     @IBOutlet weak var customerEmailLabel: UILabel!
     @IBOutlet weak var customerNameLabel: UILabel!
@@ -27,6 +31,7 @@ class ProfileViewController: UIViewController {
     
     var viewModel:CustomerDataProtocol?
     var disposeBag = DisposeBag()
+    var isDarkMode:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +42,8 @@ class ProfileViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         checkForUser()
+        isDarkMode = UserDefaultsHelper.shared.isDarkMode()
+        
     }
     
     private func commenInit() {
@@ -98,6 +105,10 @@ class ProfileViewController: UIViewController {
             personImage.image = img
         }
     }
+    
+    func updateView() {
+        settingTableView.reloadData()
+    }
 
 }
 
@@ -108,7 +119,8 @@ extension ProfileViewController:UITableViewDataSource,UITableViewDelegate{
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileTableViewCell", for: indexPath) as! ProfileTableViewCell
-            cell.cellIcon.image = UIImage(named: cellData[indexPath.row].iconName)
+        let iconName = isDarkMode ? iconsDark[indexPath.row] : iconsLights[indexPath.row]
+        cell.cellIcon.image = UIImage(named: iconName)
             cell.cellLable.text = cellData[indexPath.row].lableName
         return cell
     }
@@ -127,12 +139,12 @@ extension ProfileViewController:UITableViewDataSource,UITableViewDelegate{
                     let action = UIAlertAction(title: currency, style: .default) { _ in
                         UserDefaultsHelper.shared.saveCurrencyToUserDefaults(coin: currency)
                     }
-                    action.setValue(UIColor.black, forKey: "titleTextColor")
+                    action.setValue(UIColor.label, forKey: "titleTextColor")
                     alertController.addAction(action)
                 }
                 
                 let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                cancelAction.setValue(UIColor.black, forKey: "titleTextColor")
+                cancelAction.setValue(UIColor.label, forKey: "titleTextColor")
 
                 alertController.addAction(cancelAction)
                 present(alertController, animated: true, completion: nil)
@@ -143,6 +155,7 @@ extension ProfileViewController:UITableViewDataSource,UITableViewDelegate{
                 if let customer = self.customerData {
                     vc.customerData = customer
                 }
+                vc.updateViewDelegate = self
                 self.navigationController?.pushViewController(vc, animated: true)
             case "shippingAddress":
                 self.navigationController?.pushViewController(ShippingAddressViewController(), animated: true)
@@ -186,6 +199,8 @@ extension ProfileViewController:UITableViewDataSource,UITableViewDelegate{
             }
         }
     }
+    
+    
 }
 
 
