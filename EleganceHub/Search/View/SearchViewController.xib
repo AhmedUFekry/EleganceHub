@@ -3,7 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -57,23 +57,22 @@
                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
                 </collectionView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vwI-mz-gvx">
+                <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vwI-mz-gvx">
                     <rect key="frame" x="349" y="62.666666666666657" width="28" height="28"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="28" id="nWU-hj-LNu"/>
                         <constraint firstAttribute="height" constant="28" id="qs9-nU-Jqv"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                    <state key="normal" image="sort-3"/>
+                    <state key="normal" image="az"/>
                     <connections>
                         <action selector="filterByLetters:" destination="-1" eventType="touchUpInside" id="Qh8-8a-PVW"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mfI-7C-cF2">
-                    <rect key="frame" x="317" y="63.666666666666671" width="28" height="26.666666666666657"/>
+                    <rect key="frame" x="317" y="62.666666666666657" width="28" height="28"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="28" id="RJt-Nk-XgT"/>
@@ -82,8 +81,8 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                    <state key="normal" backgroundImage="dollarsign.circle" catalog="system">
-                        <imageReference key="image" image="price" symbolScale="small"/>
+                    <state key="normal">
+                        <imageReference key="image" image="dollarsign" catalog="system" symbolScale="small"/>
                     </state>
                     <connections>
                         <action selector="filterByPrice:" destination="-1" eventType="touchUpInside" id="ZPQ-gP-72i"/>
@@ -129,11 +128,10 @@
         </view>
     </objects>
     <resources>
+        <image name="az" width="512" height="512"/>
         <image name="back" width="35" height="35"/>
-        <image name="dollarsign.circle" catalog="system" width="128" height="123"/>
+        <image name="dollarsign" catalog="system" width="89" height="128"/>
         <image name="no-wifi" width="512" height="512"/>
-        <image name="price" width="128" height="128"/>
-        <image name="sort-3" width="24" height="24"/>
         <namedColor name="theme">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
