@@ -163,16 +163,14 @@ class SuperCategoryViewController: UIViewController {
         switch(segmentCategory.selectedSegmentIndex) {
         case 0:
             categoryViewModel.getCategoryProducts(category: .Women)
-            isFiltered = true
         case 1:
             categoryViewModel.getCategoryProducts(category: .Men)
-            isFiltered = true
+           
         case 2:
             categoryViewModel.getCategoryProducts(category: .Kids)
-            isFiltered = true
+         
         case 3:
             categoryViewModel.getCategoryProducts(category: .Sale)
-            isFiltered = true
            
         default:
             break
@@ -220,6 +218,7 @@ class SuperCategoryViewController: UIViewController {
         
         actionButton.addItem(title: "All", image: UIImage(named: "menu")?.withRenderingMode(.alwaysTemplate)) { item in
             self.isFiltered = false
+            self.filterType = "All"
             self.renderView()
         }
         actionButton.addItem(title: "Shoes", image: UIImage(named: "shoes")?.withRenderingMode(.alwaysTemplate)) { item in
