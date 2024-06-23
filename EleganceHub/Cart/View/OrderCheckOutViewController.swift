@@ -12,24 +12,24 @@ class OrderCheckOutViewController: UIViewController {
     var selectedAddress: Address?
     var draftOrder : DraftOrder?
     var disposeBag = DisposeBag()
+    let isDarkMode = UserDefaultsHelper.shared.isDarkMode()
+    var oldDraftOrder:DraftOrder?
     
+    @IBOutlet weak var priceView: UIView!
     @IBOutlet weak var totaldraftPriceLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var countryLabel: UILabel!
-    @IBOutlet weak var countryCallingLabel: UILabel!
-    @IBOutlet weak var zipCodeLabel: UILabel!
-    @IBOutlet weak var phoneLabel: UILabel!
-    @IBOutlet weak var cityAddressLabel: UILabel!
-    @IBOutlet weak var streetAddressLabel: UILabel!
-   
     @IBOutlet weak var copunTextField: UITextField!
     @IBOutlet weak var validateBtn: UIButton!
+    @IBOutlet weak var appBar: CustomAppBarUIView!
     
+    @IBOutlet weak var totalPriceLabel: UILabel!
+    @IBOutlet weak var shippingLabel: UILabel!
+    @IBOutlet weak var subTotalLabel: UILabel!
     @IBOutlet weak var productItemTableView: UITableView!
-    @IBOutlet weak var backBtn: UIButton!
     @IBOutlet weak var promoCodeView: UIView!
-    @IBOutlet weak var adressView: UIView!
-    var viewModel:CartViewModelProtocol = CartViewModel()
+    @IBOutlet weak var productsView: UIView!
+
+    var viewModel = CartViewModel()
     
     var draftOrderID: Int?
     var currencyViewModel = CurrencyViewModel()
@@ -48,30 +48,23 @@ class OrderCheckOutViewController: UIViewController {
         super.viewDidLoad()
         
         self.activityIndicator.startAnimating()
-        
         setupUI()
-        fetchDraftOrder()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        fetchDraftOrder()
-
+        setUpStyle()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         observeOnResponse()
         loadingObserverSetUp()
         onErrorObserverSetUp()
-        
-        let isDarkMode = UserDefaultsHelper.shared.isDarkMode()
+        fetchDraftOrder()
         if isDarkMode{
-            backBtn.setImage(UIImage(named: "backLight"), for: .normal)
+            appBar.trailingIcon.setImage(UIImage(named: "add"), for: .normal)
         }else{
-            backBtn.setImage(UIImage(named: "back"), for: .normal)
+            appBar.trailingIcon.setImage(UIImage(named: "add-Light"), for: .normal)
         }
-        adressView.applyShadow()
-        promoCodeView.applyShadow()
         
     }
  
@@ -83,16 +76,37 @@ class OrderCheckOutViewController: UIViewController {
         productItemTableView.allowsSelection = false
         productItemTableView.separatorStyle = .none
         
-        backBtn.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        appBar.secoundTrailingIcon.isHidden = true
+        appBar.lableTitle.text = "Order Details"
+        appBar.trailingIcon.isHidden = true
+        appBar.backBtn.addTarget(self, action: #selector(goBack), for: .touchUpInside)
     }
-    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        setUpStyle()
+    }
+    private func setUpStyle(){
+        Utilities.setUpViewStyle(uiViewStyle: priceView)
+        Utilities.setUpViewStyle(uiViewStyle: productsView)
+        promoCodeView.applyShadow()
+    }
     private func fetchDraftOrder() {
         draftOrderID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.getDraftOrder.rawValue)
         guard let id = draftOrderID else {return}
-
+        
         if draftOrderID != 0{
             viewModel.getDraftOrderForUser(orderID: id)
         }
+    }
+    
+    @objc func goBack() {
+//        guard let draftOrderID = self.draftOrderID , let draftOrder = self.oldDraftOrder else{
+//            self.navigationController?.popViewController(animated: true)
+//            return
+//        }
+//       viewModel.updateDraftOrder(orderID: draftOrderID, draftOrder: draftOrder,qos: .background)
+//        print("print revert old order ")
+        self.navigationController?.popViewController(animated: true)
     }
     private func observeOnResponse() {
         viewModel.draftOrder
@@ -109,8 +123,8 @@ class OrderCheckOutViewController: UIViewController {
             if isValied {
                 Constants.displayAlert(viewController: self,message: "You got the discount", seconds: 1.5)
             }
-                self.validateBtn.isEnabled = !isValied
-                self.copunTextField.isEnabled = !isValied
+            self.validateBtn.isEnabled = !isValied
+            self.copunTextField.isEnabled = !isValied
         }.disposed(by: disposeBag)
     }
     
@@ -147,14 +161,20 @@ class OrderCheckOutViewController: UIViewController {
     func renderView() {
         DispatchQueue.main.async {
             self.productItemTableView.reloadData()
-            var convertedPrice = convertPrice(price: self.draftOrder?.totalPrice ?? "2", rate: self.rate)
-            self.totaldraftPriceLabel.text = "\(String(format: "%.2f", convertedPrice)) \(self.userCurrency)"
-            self.streetAddressLabel.text = self.draftOrder?.shippingAddress?.address1
-            self.cityAddressLabel.text = self.draftOrder?.shippingAddress?.city
-            self.phoneLabel.text = self.draftOrder?.shippingAddress?.phone
-            self.zipCodeLabel.text = self.draftOrder?.shippingAddress?.zip
-            self.countryCallingLabel.text = self.draftOrder?.shippingAddress?.countryCode
-            self.countryLabel.text = self.draftOrder?.shippingAddress?.country
+            let convertedTotalPrice = convertPrice(price: self.draftOrder?.totalPrice ?? "1", rate: self.rate)
+            let convertedSubTotalPrice = convertPrice(price: self.draftOrder?.subtotalPrice ?? "1", rate: self.rate)
+            let convertedTaxPrice = convertPrice(price: self.draftOrder?.totalTax ?? "1", rate: self.rate)
+            self.totaldraftPriceLabel.text = "\(String(format: "%.2f", convertedTotalPrice)) \(self.userCurrency)"
+            self.subTotalLabel.text = "\(String(format: "%.2f", convertedSubTotalPrice)) \(self.userCurrency)"
+            self.shippingLabel.text = "\(String(format: "%.2f", convertedTaxPrice)) \(self.userCurrency)"
+            if let isCopunsApplied = self.draftOrder?.appliedDiscount{
+                self.validateBtn.isEnabled = false
+                self.copunTextField.isEnabled = false
+                self.copunTextField.text = isCopunsApplied.title
+            }else{
+                self.validateBtn.isEnabled = true
+                self.copunTextField.isEnabled = true
+            }
         }
     }
     
@@ -163,8 +183,8 @@ class OrderCheckOutViewController: UIViewController {
     }
     
     @IBAction func validateCopunBtn(_ sender: UIButton) {
-        let code = self.copunTextField.text
         if let code = self.copunTextField.text {
+            oldDraftOrder = draftOrder
             viewModel.checkForCopuns(copunsString: code, draftOrder: draftOrder!)
         }else{
             Constants.displayAlert(viewController: self, message: "There is no Code", seconds: 2.0)
@@ -193,6 +213,6 @@ extension OrderCheckOutViewController: UITableViewDelegate, UITableViewDataSourc
     
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 110
+        return 120
     }
 }

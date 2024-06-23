@@ -190,9 +190,9 @@ class CartViewModel:CartViewModelProtocol{
         }
     }
     
-    func updateDraftOrder(orderID:Int, draftOrder:DraftOrder){
+    func updateDraftOrder(orderID:Int, draftOrder:DraftOrder,qos:DispatchQoS? = .userInitiated){
         networkService.updateDraftOrder(orderID: orderID, draftOrder: draftOrder)
-            .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .userInitiated))
+            .subscribe(on: ConcurrentDispatchQueueScheduler(qos: qos ?? .userInitiated))
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: {[weak self] draftResponse in
                 guard let order = draftResponse.draftOrders else {

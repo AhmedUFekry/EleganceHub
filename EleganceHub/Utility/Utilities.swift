@@ -23,6 +23,11 @@ class Utilities {
         }
     }
     
+    static func setUpViewStyle(uiViewStyle:UIView){
+        uiViewStyle.layer.borderWidth = 1
+        uiViewStyle.layer.cornerRadius = 10
+        uiViewStyle.layer.borderColor = UIColor.gray.cgColor
+    }
 }
 extension UIView {
     func applyShadow(color: UIColor = UIColor.secondaryLabel,

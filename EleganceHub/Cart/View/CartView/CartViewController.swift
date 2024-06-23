@@ -7,10 +7,8 @@ class CartViewController: UIViewController {
 
     @IBOutlet weak var totalItemPrice: UILabel!
     @IBOutlet weak var totalPriceLabel: UILabel!
-    @IBOutlet weak var countOfItemInCart: UILabel!
     @IBOutlet weak var cartTableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var cartIcon: UIImageView!
     @IBOutlet weak var backBtn: UIButton!
     @IBOutlet weak var checkOutBtn: UIButton!
     
@@ -43,9 +41,6 @@ class CartViewController: UIViewController {
         let cartNibCell = UINib(nibName: "CartTableViewCell", bundle: nil)
         cartTableView.register(cartNibCell, forCellReuseIdentifier: "CartTableViewCell")
        
-        countOfItemInCart.backgroundColor  = UIColor.red
-        countOfItemInCart.layer.cornerRadius = 8
-        countOfItemInCart.layer.masksToBounds = true
         cartTableView.separatorStyle = .none
         cartTableView.allowsSelection = false
         
@@ -63,11 +58,9 @@ class CartViewController: UIViewController {
         let isDarkMode = UserDefaultsHelper.shared.isDarkMode()
         if isDarkMode{
             backBtn.setImage(UIImage(named: "backLight"), for: .normal)
-            cartIcon.image = UIImage(named: "shopping-bag-light")
             checkOutBtn.setImage(UIImage(named: "forward-button-Light"), for: .normal)
         }else{
             backBtn.setImage(UIImage(named: "back"), for: .normal)
-            cartIcon.image = UIImage(named: "shopping-bag")
             checkOutBtn.setImage(UIImage(named: "forward-button"), for: .normal)
         }
     }
@@ -130,10 +123,6 @@ class CartViewController: UIViewController {
     }
     
     private func bindDataToView() {
-        viewModel.lineItemsList
-            .map { String($0.count) }
-            .bind(to: countOfItemInCart.rx.text)
-            .disposed(by: disposeBag)
         
         viewModel.lineItemsList
             .map { "Total(\($0.count) item):" }

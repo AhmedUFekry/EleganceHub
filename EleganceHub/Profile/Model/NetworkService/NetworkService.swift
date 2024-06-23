@@ -19,13 +19,13 @@ class NetworkService:NetworkServiceProtocol{
         ]
         AF.request(stringUrl, method: .post, parameters: parameters).responseDecodable(of: CitiesResponse.self) { response in
             switch response.result {
-                case .success(let value):
-                    print("cityResponse: \(value.data)")
-                    completionHandler(.success(value))
-                case .failure(let error):
-                    print("Error: \(error)")
-                    completionHandler(.failure(error))
-                }
+            case .success(let value):
+                //print("cityResponse: \(value.data)")
+                completionHandler(.success(value))
+            case .failure(let error):
+                print("Error: \(error)")
+                completionHandler(.failure(error))
+            }
         }
     }
     
@@ -33,8 +33,8 @@ class NetworkService:NetworkServiceProtocol{
         let urlString = "\(Constants.storeUrl)/customers/\(customerID)/addresses.json"
         
         let headers: HTTPHeaders = [
-         "X-Shopify-Access-Token": Constants.accessTokenKey,
-         "Content-Type": "application/json"
+            "X-Shopify-Access-Token": Constants.accessTokenKey,
+            "Content-Type": "application/json"
         ]
         
         let parameters: Parameters = [
@@ -52,22 +52,23 @@ class NetworkService:NetworkServiceProtocol{
                 "name": addressData.name,
                 "province_code": addressData.provinceCode,
                 "country_code": addressData.countryCode,
-                "country_name": addressData.countryName
+                "country_name": addressData.countryName,
+                "default": addressData.defaultAddress
             ]
         ]
         
         AF.request(urlString,method: .post, parameters: parameters,encoding: JSONEncoding.default, headers: headers)
             .responseDecodable(of: PostAddressResponse.self){ response in
                 switch response.result{
-                    case .success(let value):
-                        print("Response JSON: \(value)")
-                        completionHandler(.success(value))
-
-                    case .failure(let error):
-                        print("Error: \(error)")
+                case .success(let value):
+                    print("Response JSON posted addressssss: \(value)")
+                    completionHandler(.success(value))
+                    
+                case .failure(let error):
+                    print("Error: \(error)")
                     completionHandler(.failure(error))
                 }
-        }
+            }
     }
     
     static func getAllAddresses(customerID: Int) -> Observable<AddressDataModel> {
@@ -80,7 +81,7 @@ class NetworkService:NetworkServiceProtocol{
             AF.request(urlString,method: .get, encoding: JSONEncoding.default, headers: headers ).responseDecodable(of: AddressDataModel.self) { response in
                 switch response.result{
                 case .success(let value):
-                    print("Response JSON: \(value)")
+                    //print("Response JSON: \(value)")
                     observer.onNext(value)
                     observer.onCompleted()
                 case .failure(let error):
@@ -150,5 +151,34 @@ class NetworkService:NetworkServiceProtocol{
             }
         }
     }
+    static func setAddressAsDefault(customerID: Int, addressID: Int) -> Observable<Address> {
+        return Observable.create { observer in
+            
+            let urlString = "\(Constants.storeUrl)/customers/\(customerID)/addresses/\(addressID)/default.json"
+            
+            let headers: HTTPHeaders = [
+                "X-Shopify-Access-Token": Constants.accessTokenKey,
+                "Content-Type": "application/json"
+            ]
+            AF.request(urlString,method: .put,encoding: JSONEncoding.default,headers: headers).responseDecodable(of: PostAddressResponse.self){ response in
+                switch response.result {
+                case .success(let data):
+                    print("Success address as default ")
+                    guard let customerAddress = data.customerAddress else {
+                        observer.onError(AddressError.ResponseIsNil)
+                        print("AddressError.ResponseIsNil")
+                        return
+                    }
+                    observer.onNext(customerAddress)
+                case .failure(let error):
+                    observer.onError(error)
+                }
+            }
+            return Disposables.create()
+        }
+    }
+}
 
+enum AddressError:Error {
+case ResponseIsNil
 }
