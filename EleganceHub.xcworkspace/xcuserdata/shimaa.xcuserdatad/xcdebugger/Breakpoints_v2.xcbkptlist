@@ -14,10 +14,10 @@
             filePath = "EleganceHub/ProductDetail/View/ProductDetailViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "204"
-            endingLineNumber = "204"
-            landmarkName = "colorToUIColor(_:)"
-            landmarkType = "7">
+            startingLineNumber = "207"
+            endingLineNumber = "207"
+            landmarkName = "ProductDetailViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

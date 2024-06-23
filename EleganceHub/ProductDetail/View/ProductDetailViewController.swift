@@ -21,7 +21,10 @@ class ProductDetailViewController: UIViewController {
     
     @IBOutlet weak var productPrice: UILabel!
     
-    @IBOutlet weak var ProductDescription: UILabel!
+    
+    @IBOutlet weak var productDescription: UITextView!
+    
+
     @IBOutlet weak var addToCartBtn: UIButton!
     let networkManager = ProductDetailNetworkService()
     var productItem:Product?
@@ -149,7 +152,7 @@ class ProductDetailViewController: UIViewController {
         let convertedPrice = convertPrice(price: product.variants?.first?.price ?? "2", rate: self.rate)
         productPrice.text = "\(String(format: "%.2f", convertedPrice)) \(userCurrency ?? "USD")"
         
-        ProductDescription.text = product.bodyHTML ?? "No description"
+        productDescription.text = product.bodyHTML ?? "No description"
         ProductImagesCollection.reloadData()
         imageSlider.numberOfPages = product.images?.count ?? 0
         
