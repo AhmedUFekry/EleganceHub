@@ -221,6 +221,7 @@ extension ProfileViewController:UITableViewDataSource,UITableViewDelegate{
         }
         settingTableView.deselectRow(at: indexPath, animated: true)
     }
+   
 }
 
 extension ProfileViewController: ConnectivityProtocol, NetworkStatusProtocol{

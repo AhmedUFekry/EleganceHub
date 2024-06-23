@@ -15,6 +15,7 @@ class ShippingAddressViewController: UIViewController, UpdateLocationDelegate {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     let isDarkMode = UserDefaultsHelper.shared.isDarkMode()
+    private let itemDeletedSubject = PublishSubject<IndexPath>()
     
     var isFromCart: Bool = false
     var orderID: Int? = nil
@@ -27,6 +28,8 @@ class ShippingAddressViewController: UIViewController, UpdateLocationDelegate {
         super.viewDidLoad()
         commenInit()
         setupTableViewBinding()
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -93,18 +96,29 @@ class ShippingAddressViewController: UIViewController, UpdateLocationDelegate {
     
     private func setupTableViewBinding() {
         viewModel.addresses.asObserver().bind(to: tableView.rx.items(cellIdentifier: "AddressesTableViewCell", cellType: AddressesTableViewCell.self)) { index, address, cell in
+          
             cell.setCellData(address: address)
         }.disposed(by: disposeBag)
         
-        tableView.rx.itemDeleted
+        
+        itemDeletedSubject
             .withLatestFrom(viewModel.addresses) { (indexPath, addresses) in
                 return (indexPath, addresses)
-            }
-            .subscribe(onNext: { [weak self] (indexPath, addresses) in
+            }.subscribe(onNext: { [weak self] (indexPath, addresses) in
                 guard let self = self else { return }
                 let address = addresses[indexPath.row]
-                guard let id = self.customerID else { return }
-                self.viewModel.removeAddress(customerID: id, addressID: address.id!)
+                if let isDefault = address.addressDefault{
+                    if isDefault {
+                        Constants.displayAlert(viewController: self, message: "You can't delete your default address", seconds: 1.75)
+                    }
+                }
+//                if addresses.count == 1 {
+//                    Constants.displayAlert(viewController: self, message: "You should at least have one shipping address", seconds: 1.75)
+//                }
+                else{
+                    guard let id = self.customerID else { return }
+                    self.viewModel.removeAddress(customerID: id, addressID: address.id!)
+                }
             })
             .disposed(by: disposeBag)
         
@@ -173,4 +187,39 @@ extension ShippingAddressViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 220
     }
+    
+    func tableView(_ tableView: UITableView, canFocusRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "") { action, view, completionHandler in
+            self.showDeleteConfirmationAlert { confirmed in
+                if confirmed {
+                    self.deleteItem(at: indexPath)
+                }
+                completionHandler(confirmed)
+            }
+        }
+        
+        deleteAction.backgroundColor = UIColor(named: "btnColor") ?? .black
+        
+        let trashIcon = UIImage(systemName: "trash")?.withTintColor(UIColor(named: "theme") ?? .black, renderingMode: .alwaysOriginal)
+        deleteAction.image = trashIcon
+        
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        configuration.performsFirstActionWithFullSwipe = true
+        
+        return configuration
+    }
+    
+    func showDeleteConfirmationAlert(completion: @escaping (Bool) -> Void) {
+        Constants.showAlertWithAction(on: self, title: "Confirm Delete", message: "Are you sure you want to delete this address?", isTwoBtn: true, firstBtnTitle: "Cancel", actionBtnTitle: "Delete", style: .destructive) { confirmed in
+            completion(true)
+        }
+    }
+    private func deleteItem(at indexPath: IndexPath) {
+        itemDeletedSubject.onNext(indexPath)
+    }
+    
 }

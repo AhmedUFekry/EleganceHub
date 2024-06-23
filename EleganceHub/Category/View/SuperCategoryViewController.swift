@@ -64,6 +64,7 @@ class SuperCategoryViewController: UIViewController {
         }
         setUpUI()
         displayFloatingButton()
+        categoryViewModel.getCategoryProducts(category: .Women)
 
         setupBadgeLabel(on:appBarView.secoundTrailingIcon,badgeLabel: cartCountLabel)
         setupBadgeLabel(on:appBarView.trailingIcon,badgeLabel: favCountLabel)
@@ -376,8 +377,7 @@ extension SuperCategoryViewController: ConnectivityProtocol, NetworkStatusProtoc
     }
     
     private func getData(){
-        categoryViewModel.getCategoryProducts(category: .Women)
-        self.renderView()
+        //self.renderView()
         rate = UserDefaultsHelper.shared.getDataDoubleFound(key: UserDefaultsConstants.currencyRate.rawValue)
         userCurrency = UserDefaultsHelper.shared.getCurrencyFromUserDefaults().uppercased()
         

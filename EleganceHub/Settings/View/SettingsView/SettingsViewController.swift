@@ -107,7 +107,7 @@ class SettingsViewController: UIViewController {
         appBarView.lableTitle.text = "Personal Details"
         
         profileImageView.editPicBtn.addTarget(self, action: #selector(editImageTapped), for: .touchUpInside)
-        
+        self.userEmailTF.isEnabled = false
         enableEditting(isEnable: isEditing)
     }
         
@@ -123,23 +123,34 @@ class SettingsViewController: UIViewController {
     }
         
     @objc func editButtonTapped() {
-        isEditing = !isEditing
-        isEditing ? appBarView.trailingIcon.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal) : appBarView.trailingIcon.setImage(UIImage(systemName: "square.and.pencil"), for: .normal)
-        enableEditting(isEnable: isEditing)
-        if (!isEditing) {
+        if (isEditing) {
             print("Update Data")
             if let newImage = profileImageView.profileImage.image {
                 viewModel.saveImage(newImage)
             }
             guard let id = customerID else {return}
-            viewModel.updateData(customerID: id, firstName: userFirstNameTF.text, lastName: userLastNameTF.text, email: userEmailTF.text, phone: userPhoneTF.text)
+            
+            guard let firstName = userFirstNameTF.text, !firstName.isEmpty,
+                    let lastName = userLastNameTF.text, !lastName.isEmpty,
+                  let phone = userPhoneTF.text, !phone.isEmpty else{
+                      Constants.displayAlert(viewController: self, message: "Please enter a valid data", seconds: 2.0)
+                      return
+            }
+            guard isValidPhone(phone) else {
+                Constants.displayAlert(viewController: self, message: "Please enter a valid phone number", seconds: 2.0)
+                return
+            }
+            viewModel.updateData(customerID: id, firstName: firstName, lastName: lastName, email: userEmailTF.text, phone: phone)
         }
+        isEditing = !isEditing
+        isEditing ? appBarView.trailingIcon.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal) : appBarView.trailingIcon.setImage(UIImage(systemName: "square.and.pencil"), for: .normal)
+        enableEditting(isEnable: isEditing)
     }
         
     private func enableEditting(isEnable: Bool) {
         profileImageView.editPicBtn.isHidden = !isEnable
         self.userFirstNameTF.isEnabled = isEnable
-        self.userEmailTF.isEnabled = isEnable
+        //self.userEmailTF.isEnabled = isEnable
         self.userLastNameTF.isEnabled = isEnable
         self.userPhoneTF.isEnabled = isEnable
         
@@ -189,7 +200,11 @@ class SettingsViewController: UIViewController {
                 navigationController?.pushViewController(newViewController, animated: true)
             }
     }
-
+    private func isValidPhone(_ phone: String) -> Bool {
+        let phoneRegex = "^01[0-2][0-9]{8}$"
+        let phoneTest = NSPredicate(format: "SELF MATCHES %@", phoneRegex)
+        return phoneTest.evaluate(with: phone)
+    }
 }
 
 
