@@ -21,40 +21,24 @@ class CartViewController: UIViewController {
     var currencyViewModel = CurrencyViewModel()
     var disposeBag = DisposeBag()
     var customerID: Int?
-    var draftOrder: Int!
-    var rate: Double!
-    let userCurrency = UserDefaultsHelper.shared.getCurrencyFromUserDefaults().uppercased()
+    var draftOrderID: Int!
+    var rate: Double?
+    var userCurrency:String?
+    
+    var draftOrder:DraftOrder?
+    
+    var networkPresenter :NetworkManager?
+    var isConnected:Bool?
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        customerID = UserDefaultsHelper.shared.getLoggedInUserID()
-        guard customerID != nil else { return }
-        
-        //viewModel.getDraftOrderForUser(orderID: 1157765955859)
-        draftOrder = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.getDraftOrder.rawValue)
-        if draftOrder != 0 {
-            viewModel.getDraftOrderForUser(orderID: draftOrder)
-        } else {
-            handleCartEmptyState(isEmpty: true)
-        }
-        
-        setupTableViewBinding()
-        loadingObserverSetUp()
-        bindDataToView()
-        handleEmptyState()
+        networkPresenter = NetworkManager(vc: self)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        currencyViewModel.rateClosure = { [weak self] rate in
-            DispatchQueue.main.async {
-                self?.rate = rate
-            }
-        }
         setUpBtnsThemes()
-        currencyViewModel.getRate()
         
         let cartNibCell = UINib(nibName: "CartTableViewCell", bundle: nil)
         cartTableView.register(cartNibCell, forCellReuseIdentifier: "CartTableViewCell")
@@ -64,6 +48,15 @@ class CartViewController: UIViewController {
         countOfItemInCart.layer.masksToBounds = true
         cartTableView.separatorStyle = .none
         cartTableView.allowsSelection = false
+        
+        viewModel.showAlert = {[weak self] in
+            guard let self = self else {return}
+            let isIncrement = self.viewModel.showAlertQuantity
+            guard let isIncrement = isIncrement else {return}
+            if isIncrement {
+                self.showAlertError(err: "There is no more items of this product at the store")
+            }
+        }
     }
     
     private func setUpBtnsThemes(){
@@ -85,7 +78,7 @@ class CartViewController: UIViewController {
     
     @IBAction func checkoutBtn(_ sender: UIButton) {
         if customerID != nil {
-            if draftOrder != 0 {
+            if draftOrderID != 0 {
                 let locationVC = ShippingAddressViewController()
                 locationVC.isFromCart = true
                 self.navigationController?.pushViewController(locationVC, animated: true)
@@ -104,8 +97,8 @@ class CartViewController: UIViewController {
                 guard let self = self else { return }
                 cell.setCellData(order: item)
                 
-                let convertedPrice = convertPrice(price: item.price ?? "0", rate: self.rate)
-                cell.productPriceLabel.text = "\(String(format: "%.2f", convertedPrice)) \(self.userCurrency)"
+                let convertedPrice = convertPrice(price: item.price ?? "0", rate: self.rate ?? 1.0)
+                cell.productPriceLabel.text = "\(String(format: "%.2f", convertedPrice)) \(self.userCurrency ?? "USD")"
                 
                 cell.decreaseQuantityBtn.tag = index
                 cell.IncreaseQuantityBtn.tag = index
@@ -122,12 +115,12 @@ class CartViewController: UIViewController {
                 let order = orders[indexPath.row]
                 if orders.count <= 1 {
                     print("Last Item")
-                    self.viewModel.deleteDraftOrder(orderID: self.draftOrder)
+                    self.viewModel.deleteDraftOrder(orderID: self.draftOrderID)
                 } else {
                     print("Not last item")
                     if let orderID = order.id {
                         print("orderID = order.id \(orderID)")
-                        self.viewModel.deleteItemFromDraftOrder(orderID: self.draftOrder, itemID: orderID)
+                        self.viewModel.deleteItemFromDraftOrder(orderID: self.draftOrderID, itemID: orderID)
                     }
                 }
             })
@@ -155,7 +148,7 @@ class CartViewController: UIViewController {
                         return 0.0
                     }
                     price = price * Double(item.quantity ?? 1)
-                    let convertedPrice = convertPrice(price: String(price), rate: self.rate)
+                    let convertedPrice = convertPrice(price: String(price), rate: self.rate ?? 1.0)
                     print("partialResult + convertedPrice \(partialResult + convertedPrice)")
                     return partialResult + convertedPrice
                 }
@@ -164,7 +157,7 @@ class CartViewController: UIViewController {
                 guard let self = self else { return }
                 let total = String(format: "%.2f", totalPrice)
                 print("Total price is \(total)")
-                self.totalPriceLabel.text = "\(total) \(self.userCurrency)"
+                self.totalPriceLabel.text = "\(total) \(self.userCurrency ?? "USD")"
             })
             .disposed(by: disposeBag)
     }
@@ -192,25 +185,23 @@ class CartViewController: UIViewController {
     }
     
     private func showAlertError(err: String) {
-        Constants.displayAlert(viewController: self, message: err, seconds: 2)
+        Constants.displayAlert(viewController: self, message: err, seconds: 1.8)
     }
     
-    private func handleCartEmptyState(isEmpty: Bool) {
+    private func handleCartEmptyState(isEmpty: Bool,imageName:String) {
         if isEmpty {
             print("Cart is empty")
-            if let emptyImage = UIImage(named: "emptycart") {
+            if let emptyImage = UIImage(named: imageName) {
                let imageView = UIImageView(image: emptyImage)
                 imageView.contentMode = .center
                imageView.frame = self.cartTableView.bounds
                self.cartTableView.backgroundView = imageView
            }
             UserDefaultsHelper.shared.clearUserData(key: UserDefaultsConstants.getDraftOrder.rawValue)
-            draftOrder = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.getDraftOrder.rawValue)
-            print("draft order is removed \(UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.getDraftOrder.rawValue)) draft order \(draftOrder )")
+            draftOrderID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.getDraftOrder.rawValue)
+            print("draft order is removed \(UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.getDraftOrder.rawValue)) draft order \(draftOrderID )")
         }
     }
-    
-    
     
     private func handleEmptyState() {
         viewModel.lineItemsList
@@ -218,7 +209,7 @@ class CartViewController: UIViewController {
             .distinctUntilChanged()
             .subscribe(onNext: { [weak self] isEmpty in
                 if isEmpty {
-                    self?.handleCartEmptyState(isEmpty: isEmpty)
+                    self?.handleCartEmptyState(isEmpty: isEmpty,imageName: "emptycart")
                 } else {
                     self?.cartTableView.backgroundView = nil
                 }
@@ -243,13 +234,13 @@ class CartViewController: UIViewController {
         cartTableView.dataSource = nil
         cartTableView.delegate = nil
         print("viewWillDisappear")
-        self.viewModel.updateLatestListItem(orderID: draftOrder)
+        self.viewModel.updateLatestListItem(orderID: draftOrderID)
     }
 }
 
 extension CartViewController:UITableViewDelegate{
 
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canFocusRowAt indexPath: IndexPath) -> Bool {
         return true
     }
 
@@ -283,3 +274,64 @@ extension CartViewController:UITableViewDelegate{
         itemDeletedSubject.onNext(indexPath)
     }
 }
+
+
+extension CartViewController: ConnectivityProtocol, NetworkStatusProtocol{
+    
+    func networkStatusDidChange(connected: Bool) {
+        isConnected = connected
+        print("networkStatusDidChange called \(isConnected)")
+        checkForConnection()
+    }
+    
+    private func checkForConnection(){
+        guard let isConnected = isConnected else {
+            ConnectivityUtils.showConnectivityAlert(from: self)
+            print("is connect nilllllll")
+            return
+        }
+        if isConnected{
+            getData()
+        }else{
+            ConnectivityUtils.showConnectivityAlert(from: self)
+            isShowViews()
+        }
+    }
+    
+    private func getData(){
+        customerID = UserDefaultsHelper.shared.getLoggedInUserID()
+        guard customerID != nil else { return }
+        
+        //viewModel.getDraftOrderForUser(orderID: 1157765955859)
+        draftOrderID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.getDraftOrder.rawValue)
+        if draftOrderID != 0 {
+            //if let userDraftOrder = draftOrder,let linItemList = userDraftOrder.lineItems {
+                //viewModel.lineItemsList.onNext(linItemList)
+              //  print("Data Passed \(linItemList)")
+            //}else{
+                viewModel.getDraftOrderForUser(orderID: draftOrderID)
+           // }
+        } else {
+            handleCartEmptyState(isEmpty: true,imageName: "emptycart")
+        }
+        rate = UserDefaultsHelper.shared.getDataDoubleFound(key: UserDefaultsConstants.currencyRate.rawValue)
+        userCurrency = UserDefaultsHelper.shared.getCurrencyFromUserDefaults().uppercased()
+        
+        setupTableViewBinding()
+        loadingObserverSetUp()
+        bindDataToView()
+        handleEmptyState()
+        
+    }
+    private func isShowViews(){
+        guard let isConnected = isConnected else {return}
+        activityIndicator.isHidden = !isConnected
+        let  isDarkMode = UserDefaultsHelper.shared.isDarkMode()
+        if (isDarkMode && !isConnected){
+            handleCartEmptyState(isEmpty: true, imageName: "no-wifi-light")
+        }else if (!isDarkMode && !isConnected){
+            handleCartEmptyState(isEmpty: true, imageName: "no-wifi")
+        }
+    }
+}
+

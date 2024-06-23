@@ -16,10 +16,17 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var couponsCollection: UICollectionView!
     @IBOutlet weak var appBarView: CustomAppBarUIView!
     @IBOutlet weak var pageControl: UIPageControl!
+    @IBOutlet weak var noConnectionImage: UIImageView!
+    @IBOutlet weak var noConnectionLabel: UILabel!
+    @IBOutlet weak var brandLAbel: UILabel!
 
     let numberOfRows: CGFloat = 2
     let spacing: CGFloat = 8
-
+    
+    var networkPresenter :NetworkManager?
+    var isConnected:Bool?
+    var containerView: UIView?
+    
     var cartCountLabel:UILabel = UILabel()
     var favCountLabel:UILabel = UILabel()
     
@@ -37,8 +44,11 @@ class HomeViewController: UIViewController {
     var couponsImage : [String] = ["10","20","30","40","50","70","sale1"]
     var draftOrder:Int?
     
+    var userDraftOrder:DraftOrder?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setUpUI()
         
         homeViewModel.bindResultToViewController = { [weak self] in
@@ -60,37 +70,23 @@ class HomeViewController: UIViewController {
         }
        
         setupCollectionView()
-        orderDraft()
+        setDraftOrderForUserIfFound()
         
         pageControl.currentPage = currentIndex
         startAutoScrolling()
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        homeViewModel.getBrandsFromModel()
-        homeViewModel.getCouponsFromModel()
-        checkIfUserLoggedIn()
+        
         setupBadgeLabel(on:appBarView.secoundTrailingIcon,badgeLabel: cartCountLabel)
         setupBadgeLabel(on:appBarView.trailingIcon,badgeLabel: favCountLabel)
-        
-        draftOrder = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.getDraftOrder.rawValue)
-        if draftOrder != 0 {
-            cartViewModel.getDraftOrderForUser(orderID: draftOrder!)
-        }
-        loadFavoriteProducts()
-
-        showCountOnCartData()
-        applySavedTheme()
-        
+        showCountOnFavLabel()
     }
     
-    private func applySavedTheme() {
-        if #available(iOS 13.0, *) {
-            let appDelegate = UIApplication.shared.windows.first
-            let isDarkMode = UserDefaultsHelper.shared.isDarkMode()
-            appDelegate?.overrideUserInterfaceStyle = isDarkMode ? .dark : .light
-        }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loadFavoriteProducts()
+        networkPresenter = NetworkManager(vc: self)
+       
     }
+    
     private func setUpUI(){
         let searchIcon = UIImage(systemName: "magnifyingglass")?.withTintColor(UIColor(named: "btnColor") ?? .black, renderingMode: .alwaysOriginal)
         let cartIcon = UIImage(systemName: "cart.circle")?.withTintColor(UIColor(named: "btnColor") ?? .black, renderingMode: .alwaysOriginal)
@@ -102,17 +98,17 @@ class HomeViewController: UIViewController {
         
         self.appBarView.backBtn.addTarget(self, action: #selector(onSearchTapped), for: .touchUpInside)
         self.appBarView.lableTitle.text = "Home"
+        
+        noConnectionLabel.isHidden = true
+        noConnectionImage.isHidden = true
     }
     
-    private func orderDraft(){
+    private func setDraftOrderForUserIfFound(){
         print("hiiiiiiiiiii")
         homeViewModel.draftOrderID.subscribe(onNext:{ value in
-            if(value == 0){
-                print("order ID not founddd \(value) and Order ID is \(UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.getDraftOrder.rawValue))")
-            }else{
+            if(value != 0){
                 UserDefaultsHelper.shared.setIfDataFound(value, key: UserDefaultsConstants.getDraftOrder.rawValue)
                 print("order ID \(value)")
-                
             }
         }).disposed(by: disposeBag)
     }
@@ -124,17 +120,21 @@ class HomeViewController: UIViewController {
                 print("Customer id not found")
                 return
             }
+            guard let isConnected = isConnected else {return}
+            self.self.appBarView.trailingIcon.addTarget(self, action: #selector(onFavouriteTapped), for: .touchUpInside)
+            print("is Connected homeeeeee\(isConnected)")
+            
             homeViewModel.checkIfUserHasDraftOrder(customerID: customerID)
             print("Customer id found \(customerID)")
             self.self.appBarView.secoundTrailingIcon.addTarget(self, action: #selector(onCartTapped), for: .touchUpInside)
-            self.self.appBarView.trailingIcon.addTarget(self, action: #selector(onFavouriteTapped), for: .touchUpInside)
-        } else {
             
+        } else {
             self.self.appBarView.secoundTrailingIcon.addTarget(self, action: #selector(onButtonSelected), for: .touchUpInside)
             self.self.appBarView.trailingIcon.addTarget(self, action: #selector(onButtonSelected), for: .touchUpInside)
         }
-    }
         
+    }
+    
     @objc private func onButtonSelected() {
         Constants.showAlertWithAction(on: self, title: "Login Required", message: "You need to login to access this feature.", isTwoBtn: true, firstBtnTitle: "Cancel", actionBtnTitle: "Login") { [weak self] _ in
             guard let viewController = self else { return }
@@ -154,7 +154,7 @@ class HomeViewController: UIViewController {
     @objc private func onCartTapped(){
         print("cartBtn \(couponsList?.count ?? 0)")
         if let viewController = self.storyboard?.instantiateViewController(withIdentifier: "CartViewController") as? CartViewController {
-            print("cartBtn CartViewController")
+            viewController.draftOrder = self.userDraftOrder
                 self.navigationController?.pushViewController(viewController, animated: true)
             } else {
                 print("Failed to instantiate CartViewController")
@@ -210,6 +210,19 @@ class HomeViewController: UIViewController {
             brandLayout.invalidateLayout()
         }
     }
+    func showCountOnFavLabel(){
+        favoriteProducts.map{ $0.count }
+            .distinctUntilChanged()
+            .subscribe(onNext: { [weak self] count in
+                guard let self = self else { return }
+                self.favCountLabel.isHidden = count == 0
+                if count > 0 {
+                    self.favCountLabel.text = "\(count)"
+                }
+                print("Fav count \(count)")
+            })
+            .disposed(by: disposeBag)
+    }
     
     private func showCountOnCartData() {
         cartViewModel.lineItemsList
@@ -224,17 +237,10 @@ class HomeViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
-        favoriteProducts.map{ $0.count }
-            .distinctUntilChanged()
-            .subscribe(onNext: { [weak self] count in
-                guard let self = self else { return }
-                self.favCountLabel.isHidden = count == 0
-                if count > 0 {
-                    self.favCountLabel.text = "\(count)"
-                }
-                print("Fav count \(count)")
-            })
-            .disposed(by: disposeBag)
+        cartViewModel.draftOrder.subscribe { draftOrder in
+            self.userDraftOrder = draftOrder.element
+        }
+      
     }
     
     func startAutoScrolling() {
@@ -257,6 +263,8 @@ class HomeViewController: UIViewController {
     deinit {
        timer?.invalidate()
    }
+    
+   
 }
 extension HomeViewController: UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
     
@@ -281,8 +289,6 @@ extension HomeViewController: UICollectionViewDataSource,UICollectionViewDelegat
         }else {
             let couponsCell = collectionView.dequeueReusableCell(withReuseIdentifier: "couponsCell", for: indexPath) as! CouponsCollectionViewCell
             if(!couponsList!.isEmpty){
-                print("!couponsList!.isEmpty")
-                //couponsCell.couponsLabel.isHidden = true
                 couponsCell.codeLabel.text = "Coupons code: \(couponsList?[indexPath.row].discountCode.code ?? "")"
                 if(indexPath.row < couponsImage.count){
                     //var index = 0
@@ -336,12 +342,6 @@ extension HomeViewController: UICollectionViewDataSource,UICollectionViewDelegat
         couponsCollection.deselectItem(at: indexPath, animated: true)
     }
     
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        if collectionView == couponsCollection {
-//               return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height)
-//        }
-//        return CGSize(width: 180, height: 120)
-//    }
     
     func setupBadgeLabel(on button: UIButton, badgeLabel:UILabel) {
         badgeLabel.backgroundColor = .red
@@ -387,6 +387,55 @@ extension HomeViewController: UICollectionViewDataSource,UICollectionViewDelegat
         if scrollView == couponsCollection {
             let page = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
             pageControl.currentPage = page
+        }
+    }
+}
+
+extension HomeViewController:ConnectivityProtocol,NetworkStatusProtocol{
+    
+    func networkStatusDidChange(connected: Bool) {
+        isConnected = connected
+        print("networkStatusDidChange called \(isConnected)")
+        checkForConnection()
+    }
+    
+    private func checkForConnection(){
+        guard let isConnected = isConnected else {
+            ConnectivityUtils.showConnectivityAlert(from: self)
+            print("is connect nilllllll")
+            return
+        }
+        isShowViews()
+        checkIfUserLoggedIn()
+        if isConnected{
+            homeViewModel.getBrandsFromModel()
+            homeViewModel.getCouponsFromModel()
+           
+            draftOrder = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.getDraftOrder.rawValue)
+            if draftOrder != 0 {
+                cartViewModel.getDraftOrderForUser(orderID: draftOrder!)
+            }
+           
+            showCountOnCartData()
+        }else{
+            ConnectivityUtils.showConnectivityAlert(from: self)
+            
+        }
+    }
+    private func isShowViews(){
+        guard let isConnected = isConnected else {return}
+        pageControl.isHidden = !isConnected
+        brandsCollection.isHidden = !isConnected
+        couponsCollection.isHidden = !isConnected
+        brandLAbel.isHidden = !isConnected
+        noConnectionLabel.isHidden = isConnected
+        noConnectionImage.isHidden = isConnected
+        
+        let  isDarkMode = UserDefaultsHelper.shared.isDarkMode()
+        if isDarkMode{
+            noConnectionImage.image = UIImage(named: "no-wifi-light")
+        }else{
+            noConnectionImage.image = UIImage(named: "no-wifi")
         }
     }
 }

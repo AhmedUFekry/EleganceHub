@@ -21,6 +21,7 @@ target 'EleganceHub' do
   pod 'FirebaseFirestore'
   pod 'FirebaseStorage'
   pod 'JJFloatingActionButton'
+  pod 'ReachabilitySwift'
 
 
   target 'EleganceHubTests' do

@@ -14,6 +14,7 @@ class Constants {
     static let accessToken = "access_token=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"
     static let accessTokenKey = "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"
     static let customerId = "customerId"
+    static let currencyApiKey = "b49c1bd054e07dcf53e6200e"
 
     static func textFieldStyle(tF:UITextField){
         let bottomBorder = CALayer()
@@ -80,4 +81,5 @@ enum UserDefaultsConstants: String {
     case savedImage
     case hasDraftOrder
     case getDraftOrder
+    case currencyRate
 }

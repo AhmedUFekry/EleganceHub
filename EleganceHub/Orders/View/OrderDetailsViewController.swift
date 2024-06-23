@@ -19,20 +19,11 @@ class OrderDetailsViewController: UIViewController {
     @IBOutlet weak var orderId: UILabel!
     
     var currencyViewModel = CurrencyViewModel()
-        var rate: Double?
-        
-        let userCurrency = UserDefaultsHelper.shared.getCurrencyFromUserDefaults().uppercased()
-        
+    let rate:Double = UserDefaultsHelper.shared.getDataDoubleFound(key: UserDefaultsConstants.currencyRate.rawValue)
+    let userCurrency = UserDefaultsHelper.shared.getCurrencyFromUserDefaults().uppercased()
         override func viewDidLoad() {
             super.viewDidLoad()
             
-            currencyViewModel.rateClosure = { [weak self] rate in
-                DispatchQueue.main.async {
-                    self?.rate = rate
-                    self?.setupOrder()
-                }
-            }
-            currencyViewModel.getRate()
             activityIndicator.startAnimating()
             
             let productsNibCell = UINib(nibName: "ProductsTableViewCell", bundle: nil)
@@ -46,12 +37,7 @@ class OrderDetailsViewController: UIViewController {
             
             orderId.text = "\(order.id ?? 1)"
             orderDate.text = order.createdAt?.split(separator: "T").first.map(String.init)
-            
-            guard let rate = self.rate else {
-                orderPrice.text = "No Rate"
-                return
-            }
-            
+           
             let convertedPrice = convertPrice(price: order.totalPrice ?? "2", rate: rate)
             orderPrice.text = "\(String(format: "%.2f", convertedPrice)) \(userCurrency)"
             

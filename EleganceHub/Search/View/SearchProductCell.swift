@@ -15,7 +15,7 @@ class SearchProductCell: UITableViewCell {
     @IBOutlet weak var searchProductPriceTxt: UILabel!
     //@IBOutlet weak var searchProductRating: UILabel!
     var currencyViewModel = CurrencyViewModel()
-    var rate : Double?
+    let rate:Double = UserDefaultsHelper.shared.getDataDoubleFound(key: UserDefaultsConstants.currencyRate.rawValue)
     let userCurrency = UserDefaultsHelper.shared.getCurrencyFromUserDefaults().uppercased()
     var product: ProductModel!
     
@@ -24,13 +24,6 @@ class SearchProductCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-            currencyViewModel.rateClosure = {
-                [weak self] rate in
-                DispatchQueue.main.async {
-                    self?.rate = rate
-                }
-            }
-            currencyViewModel.getRate()
         
         
         setupConstraints()
@@ -51,11 +44,7 @@ class SearchProductCell: UITableViewCell {
                 }
                 
                 searchProductTxt.text = Utilities.splitName(text: product.title ?? "No Title", delimiter: " | ")
-        
-                guard let rate = self.rate else {
-                    searchProductPriceTxt.text = "550.4"
-                    return
-                }
+    
                 
                 let convertedPrice = convertPrice(price: product.variants?.first?.price ?? "2", rate: rate)
                 searchProductPriceTxt.text = "\(String(format: "%.2f", convertedPrice)) \(userCurrency)"

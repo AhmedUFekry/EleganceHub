@@ -20,17 +20,11 @@ class OrdersViewController: UIViewController {
     var selectedOrder: Order?
     var currencyViewModel = CurrencyViewModel()
     var rate: Double!
-    let userCurrency = UserDefaultsHelper.shared.getCurrencyFromUserDefaults().uppercased()
+    var userCurrency:String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        currencyViewModel.rateClosure = { [weak self] rate in
-            DispatchQueue.main.async {
-                self?.rate = rate
-            }
-        }
-        currencyViewModel.getRate()
         isFavEmpty()
         activityIndicator.startAnimating()
         appBar.lableTitle.text = "Orders"
@@ -62,6 +56,8 @@ class OrdersViewController: UIViewController {
         }else{
             appBar.backBtn.setImage(UIImage(named: "back"), for: .normal)
         }
+        rate = UserDefaultsHelper.shared.getDataDoubleFound(key: UserDefaultsConstants.currencyRate.rawValue)
+        userCurrency = UserDefaultsHelper.shared.getCurrencyFromUserDefaults().uppercased()
     }
     
     @objc func goBack() {
@@ -122,7 +118,7 @@ extension OrdersViewController: UITableViewDelegate, UITableViewDataSource {
             ordersCell.orderDateLabel?.text = currentOrder.createdAt?.split(separator: "T").first.map(String.init)
             
             let convertedPrice = convertPrice(price: currentOrder.currentTotalPrice ?? "2", rate: self.rate)
-            ordersCell.orderPriceLabel.text = "\(String(format: "%.2f", convertedPrice)) \(userCurrency)"
+            ordersCell.orderPriceLabel.text = "\(String(format: "%.2f", convertedPrice)) \(userCurrency ?? "USD")"
         }
         return ordersCell
     }
@@ -138,7 +134,7 @@ extension OrdersViewController: UITableViewDelegate, UITableViewDataSource {
         return 150
     }
     func showDeleteConfirmationAlert(completion: @escaping (Bool) -> Void) {
-        Constants.showAlertWithAction(on: self, title: "Confirm Delete", message: "Are you sure you want to delete this item?", isTwoBtn: true, firstBtnTitle: "Cancel", actionBtnTitle: "Delete", style: .destructive) { confirmed in
+        Constants.showAlertWithAction(on: self, title: "Cancel Order", message: "Are you sure you want to Cancel this order?", isTwoBtn: true, firstBtnTitle: "No", actionBtnTitle: "Yes", style: .destructive) { confirmed in
             completion(true)
         }
     }
