@@ -2251,10 +2251,10 @@
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="S5f-AA-Cit">
                                 <rect key="frame" x="16" y="363" width="361" height="455"/>
-                                <string key="text">Welcome to ElegunceHub!
+                                <mutableString key="text">Welcome to ElegunceHub!
 
 Our Story
-ElegunceHub is the creation of Aya Hany, Shima Same, Raneem Ashraf, and Ahmed Fekry as part of our graduation project at ITI. We are passionate about bringing an innovative e-commerce solution to everyone.
+ElegunceHub is the creation of Aya Hany, Shimaa Sami, Raneem Ashraf, and Ahmed Fekry as part of our graduation project at ITI. We are passionate about bringing an innovative e-commerce solution to everyone.
 
 What We Offer
 
@@ -2267,7 +2267,7 @@ For questions or support, contact us at [insert contact information].
 
 Thank you for choosing ElegunceHub. Happy shopping!
 
-</string>
+</mutableString>
                                 <fontDescription key="fontDescription" name="Palatino-Roman" family="Palatino" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
