@@ -24,4 +24,6 @@ protocol AddressesViewModelProtocol{
     
     func addAddressToOrder(orderID:Int,addressIndex:Int)
     var navigateToNextScreen:((Address)->()) {get set}
+    
+    func setAddressAsDefault(customerID: Int, addressID: Int)
 }

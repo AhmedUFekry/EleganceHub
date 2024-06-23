@@ -34,6 +34,7 @@ class ProductViewController: UIViewController, UITableViewDelegate, UITableViewD
      
         productsTableView.delegate = self
         productsTableView.dataSource = self
+        productsTableView.separatorStyle = .none
         
         let productsNibCell = UINib(nibName: "ProductsTableViewCell", bundle: nil)
         productsTableView.register(productsNibCell, forCellReuseIdentifier: "productsCell")
@@ -96,7 +97,7 @@ class ProductViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 110
+        return 120
     }
     
     // MARK: - Table view delegate

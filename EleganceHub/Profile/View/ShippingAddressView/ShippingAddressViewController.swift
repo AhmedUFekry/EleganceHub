@@ -16,6 +16,9 @@ class ShippingAddressViewController: UIViewController, UpdateLocationDelegate {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     let isDarkMode = UserDefaultsHelper.shared.isDarkMode()
     private let itemDeletedSubject = PublishSubject<IndexPath>()
+    var isDeleteItem: Bool?
+    //private let itemEditedSubject = PublishSubject<IndexPath>()
+
     
     var isFromCart: Bool = false
     var orderID: Int? = nil
@@ -74,7 +77,6 @@ class ShippingAddressViewController: UIViewController, UpdateLocationDelegate {
     }
     
     private func setupNavigation() {
-        
         tableView.rx.itemSelected.subscribe(onNext: {[weak self] indexPath in
             guard let self = self else {return}
             print("selected index is \(indexPath)")
@@ -100,27 +102,32 @@ class ShippingAddressViewController: UIViewController, UpdateLocationDelegate {
             cell.setCellData(address: address)
         }.disposed(by: disposeBag)
         
-        
         itemDeletedSubject
             .withLatestFrom(viewModel.addresses) { (indexPath, addresses) in
                 return (indexPath, addresses)
             }.subscribe(onNext: { [weak self] (indexPath, addresses) in
-                guard let self = self else { return }
+                guard let self = self , let isDeleteItem = self.isDeleteItem else { return }
                 let address = addresses[indexPath.row]
+                guard let id = self.customerID, let addresID = address.id  else {
+                    print("id = \(self.customerID), let addresID = \(address.id) , let isDeleteItem = \(self.isDeleteItem) ")
+                    return
+                }
                 if let isDefault = address.addressDefault{
-                    if isDefault {
-                        Constants.displayAlert(viewController: self, message: "You can't delete your default address", seconds: 1.75)
+                    if isDeleteItem{
+                        if isDefault && isDeleteItem {
+                            Constants.displayAlert(viewController: self, message: "You can't delete your default address", seconds: 1.75)
+                        }else{
+                            self.viewModel.removeAddress(customerID: id, addressID: addresID)
+                        }
+                    }else{
+                        if isDefault && !isDeleteItem {
+                            Constants.displayAlert(viewController: self, message: "The address is already the default address", seconds: 1.75)
+                        }else{
+                            self.viewModel.setAddressAsDefault(customerID: id, addressID: addresID)
+                        }
                     }
                 }
-//                if addresses.count == 1 {
-//                    Constants.displayAlert(viewController: self, message: "You should at least have one shipping address", seconds: 1.75)
-//                }
-                else{
-                    guard let id = self.customerID else { return }
-                    self.viewModel.removeAddress(customerID: id, addressID: address.id!)
-                }
-            })
-            .disposed(by: disposeBag)
+            }).disposed(by: disposeBag)
         
         tableView.rx.setDelegate(self).disposed(by: disposeBag)
     }
@@ -196,6 +203,7 @@ extension ShippingAddressViewController: UITableViewDelegate {
         let deleteAction = UIContextualAction(style: .destructive, title: "") { action, view, completionHandler in
             self.showDeleteConfirmationAlert { confirmed in
                 if confirmed {
+                    print("delete addressssss self.isDeleteItem \(self.isDeleteItem)")
                     self.deleteItem(at: indexPath)
                 }
                 completionHandler(confirmed)
@@ -206,20 +214,40 @@ extension ShippingAddressViewController: UITableViewDelegate {
         
         let trashIcon = UIImage(systemName: "trash")?.withTintColor(UIColor(named: "theme") ?? .black, renderingMode: .alwaysOriginal)
         deleteAction.image = trashIcon
+        let editingAction = UIContextualAction(style: .normal, title: ""){action, view, completionHandler in
+            
+            //guard let self = self else {return}
+            self.showEdditingConfirmationAlert { confirmed in
+                if confirmed {
+                    print("eddetied addressssss self.isDeleteItem \(self.isDeleteItem)")
+                    self.deleteItem(at: indexPath)
+                }
+                print("Edit addressss confirmed \(confirmed)")
+                completionHandler(confirmed)
+            }
+        }
+        let editIcon = UIImage(systemName: "square.and.pencil")?.withTintColor(UIColor(named: "theme") ?? .black, renderingMode: .alwaysOriginal)
+        editingAction.image = editIcon
         
-        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
-        configuration.performsFirstActionWithFullSwipe = true
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction,editingAction])
+        //configuration.performsFirstActionWithFullSwipe = true
         
         return configuration
     }
     
     func showDeleteConfirmationAlert(completion: @escaping (Bool) -> Void) {
         Constants.showAlertWithAction(on: self, title: "Confirm Delete", message: "Are you sure you want to delete this address?", isTwoBtn: true, firstBtnTitle: "Cancel", actionBtnTitle: "Delete", style: .destructive) { confirmed in
+            self.isDeleteItem = true
+            completion(true)
+        }
+    }
+    func showEdditingConfirmationAlert(completion: @escaping (Bool) -> Void) {
+        Constants.showAlertWithAction(on: self, title: "Confirm Address", message: "Are you sure you want to set this address as default?", isTwoBtn: true, firstBtnTitle: "No", actionBtnTitle: "Yes", style: .default) { confirmed in
+            self.isDeleteItem = false
             completion(true)
         }
     }
     private func deleteItem(at indexPath: IndexPath) {
         itemDeletedSubject.onNext(indexPath)
     }
-    
 }

@@ -94,6 +94,21 @@ class AddressesViewModel:AddressesViewModelProtocol{
             }
         }
     
+    func setAddressAsDefault(customerID: Int, addressID: Int){
+        isLoading.onNext(true)
+        NetworkService.setAddressAsDefault(customerID: customerID, addressID: addressID)
+            .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .userInitiated))
+            .observe(on: MainScheduler.instance)
+            .subscribe { [weak self] address in
+                self?.getAllAddresses(customerID: customerID)
+                //self?.isLoading.onNext(false)
+                print("address added Succesfully \(address)")
+            }onError: {[weak self] error in
+                self?.error.onNext(error)
+                self?.isLoading.onNext(false)
+            }.disposed(by: disposeBag)
+    }
+    
     func getAllAddresses(customerID: Int) {
             isLoading.onNext(true)
             NetworkService.getAllAddresses(customerID: customerID)
@@ -131,16 +146,12 @@ class AddressesViewModel:AddressesViewModelProtocol{
             guard let self = self else{return}
             switch orderResponse{
             case .success(let data):
-                print("getCustomerOrder data response draft order View model response \(data)")
                 var newOrder = PostDraftOrderResponse(draftOrders: data)
-                print("Data new Line Item  \(newOrder.draftOrders?.lineItems?.count)")
                 newOrder.draftOrders?.shippingAddress = self.addressesItem[addressIndex]
-                print("Data added addresses  \(newOrder.draftOrders?.shippingAddress?.address1)")
                 //self.updatedItemToOrder(orderID: orderID,updatedList: newOrder.draftOrders!)
                 self.networkService.addNewLineItemToDraftOrder(orderID: orderID,updatedDraftOrder: newOrder.draftOrders!)
                     .subscribe(on:ConcurrentDispatchQueueScheduler(qos: .userInitiated))
                     .subscribe(onNext: { response in
-                        print("Added address is \(response.draftOrders?.shippingAddress)")
                     },onError:{ error in
                         self.error.onNext(error)
                     }, onCompleted: {

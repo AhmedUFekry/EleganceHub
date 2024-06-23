@@ -10,6 +10,7 @@ import RxSwift
 
 class LocationViewController: UIViewController {
     
+    @IBOutlet weak var setDefaultSwitch: UISwitch!
     @IBOutlet weak var cityNameLable: UILabel!
     @IBOutlet weak var countryIconLable: UILabel!
     @IBOutlet weak var countryNameLable: UILabel!
@@ -18,6 +19,7 @@ class LocationViewController: UIViewController {
     @IBOutlet weak var streetTF: UITextField!
     @IBOutlet weak var selectCityBtn : UIButton!
     @IBOutlet weak var cancelBtn : UIButton!
+    var isDefault:Bool? = false
     
     var onSelect: ((CountryDataModel) -> Void)?
     var delegate: UpdateLocationDelegate? {
@@ -113,6 +115,13 @@ class LocationViewController: UIViewController {
         
     }
     
+    @IBAction func setDefaultAddressSwitch(_ sender: UISwitch) {
+        if sender.isOn{
+            isDefault = true
+        }else{
+            isDefault = false
+        }
+    }
     @IBAction func pickCityBtn(_ sender: UIButton) {
         
         let customAlert = CustomAlertViewController()
@@ -147,8 +156,9 @@ class LocationViewController: UIViewController {
                 Constants.displayAlert(viewController: self, message: "Enter Valid Phone", seconds: 1.75)
                 return
             }
-            var userAdress = AddressData(address1: address, address2: "", city: selectedCity, company: "", firstName: customerData?.firstName, lastName: customerData?.lastName, phone: phoneTxt, province: "", country: selectedCountry, zip: zip, name: "\(customerData?.firstName!) \(customerData?.lastName!)", provinceCode: "", countryCode: selectedCountryCode, countryName: selectedCountry)
-            print("selectedCountryCode \(selectedCountryCode) ")
+            //guard self.setDefaultSwitch
+            var userAdress = AddressData(address1: address, address2: "", city: selectedCity, company: "", firstName: customerData?.firstName, lastName: customerData?.lastName, phone: phoneTxt, province: "", country: selectedCountry, zip: zip, name: "\(customerData?.firstName!) \(customerData?.lastName!)", provinceCode: "", countryCode: selectedCountryCode, countryName: selectedCountry,defaultAddress: isDefault)
+            //print("selectedCountryCode \(selectedCountryCode) ")
             self.settingVM?.addNewAddress(customerID: customerID!, addressData: userAdress)
             self.dismiss(animated: true) {
                 self.delegate?.didAddNewAddress()

@@ -61,16 +61,12 @@ class ProfileViewController: UIViewController,UpdateThemaDelegate {
         settingTableView.delegate = self
         settingTableView.separatorStyle = .none
         
-        setUpViewStyle(uiViewStyle: tableUIView)
+        Utilities.setUpViewStyle(uiViewStyle: tableUIView)
         personUIView.applyShadow()
         self.personImage.layer.cornerRadius = 10
     }
     
-    private func setUpViewStyle(uiViewStyle:UIView){
-        uiViewStyle.layer.borderWidth = 1
-        uiViewStyle.layer.cornerRadius = 10
-        uiViewStyle.layer.borderColor = UIColor.gray.cgColor
-    }
+    
     
     private func checkForUser(){
         bindUserData()

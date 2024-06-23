@@ -17,6 +17,7 @@
                 <outlet property="countryNameLable" destination="hg6-ok-7mn" id="viZ-tt-E0x"/>
                 <outlet property="phoneTF" destination="ZPF-Dv-7vq" id="7Sy-1N-CXf"/>
                 <outlet property="selectCityBtn" destination="qUT-AO-PoE" id="Oet-zi-Huc"/>
+                <outlet property="setDefaultSwitch" destination="UKX-nP-XUK" id="T2s-Xy-LgR"/>
                 <outlet property="streetTF" destination="kAG-Ho-CSa" id="qfH-De-8IV"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="zipCodeTF" destination="LxQ-RZ-xT9" id="jTN-WR-mFf"/>
@@ -197,6 +198,22 @@
                         <action selector="cancelBtnTapped:" destination="-1" eventType="touchUpInside" id="emA-NB-x0X"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set as Default Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IjR-O7-hph">
+                    <rect key="frame" x="16" y="314" width="208.33333333333334" height="26"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="26" id="34p-ko-1fX"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Palatino-Bold" family="Palatino" pointSize="20"/>
+                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="UKX-nP-XUK">
+                    <rect key="frame" x="240.33333333333337" y="311.66666666666669" width="51" height="31"/>
+                    <color key="onTintColor" name="btnColor"/>
+                    <connections>
+                        <action selector="setDefaultAddressSwitch:" destination="-1" eventType="valueChanged" id="scZ-EI-osK"/>
+                    </connections>
+                </switch>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -205,6 +222,7 @@
                 <constraint firstItem="Qxz-Cb-WLN" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="0Dx-Az-RJW"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="LxQ-RZ-xT9" secondAttribute="trailing" constant="24" id="0z4-fq-P7K"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="dog-nJ-Xhr" secondAttribute="trailing" constant="24" id="4ET-5I-mAW"/>
+                <constraint firstItem="UKX-nP-XUK" firstAttribute="leading" secondItem="IjR-O7-hph" secondAttribute="trailing" constant="16" id="5RF-5g-t4U"/>
                 <constraint firstItem="jhZ-du-LkZ" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.5" id="6P6-jZ-erv"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="ppK-vY-7WH" secondAttribute="bottom" constant="24" id="7d8-PY-gdr"/>
                 <constraint firstItem="LxQ-RZ-xT9" firstAttribute="top" secondItem="kAG-Ho-CSa" secondAttribute="bottom" constant="14" id="9kU-pl-e7K"/>
@@ -213,8 +231,10 @@
                 <constraint firstItem="jhZ-du-LkZ" firstAttribute="top" secondItem="dog-nJ-Xhr" secondAttribute="bottom" constant="12" id="C09-iu-uJj"/>
                 <constraint firstItem="ppK-vY-7WH" firstAttribute="top" secondItem="M8d-za-0kz" secondAttribute="bottom" constant="24" id="DGz-g2-NRu"/>
                 <constraint firstItem="kAG-Ho-CSa" firstAttribute="leading" secondItem="Fwf-wi-SFW" secondAttribute="trailing" constant="35.670000000000002" id="DdL-Uw-og1"/>
+                <constraint firstItem="IjR-O7-hph" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="KDk-o7-ioP"/>
                 <constraint firstItem="dog-nJ-Xhr" firstAttribute="leading" secondItem="xAf-FI-veu" secondAttribute="trailing" constant="8" id="OIN-QA-t0F"/>
                 <constraint firstItem="ppK-vY-7WH" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="Pbp-bI-Aa4"/>
+                <constraint firstItem="IjR-O7-hph" firstAttribute="top" secondItem="Qxz-Cb-WLN" secondAttribute="bottom" constant="24" id="Q0h-Gf-aG4"/>
                 <constraint firstItem="LxQ-RZ-xT9" firstAttribute="leading" secondItem="LJ6-sc-oKy" secondAttribute="trailing" constant="9.3300000000000001" id="Ru1-f4-4v6"/>
                 <constraint firstItem="jhZ-du-LkZ" firstAttribute="leading" secondItem="tfK-Zq-ciH" secondAttribute="trailing" constant="50" id="SIU-Iy-KuV"/>
                 <constraint firstItem="ZPF-Dv-7vq" firstAttribute="top" secondItem="LxQ-RZ-xT9" secondAttribute="bottom" constant="14" id="SeC-q0-I6x"/>
@@ -227,6 +247,7 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ppK-vY-7WH" secondAttribute="trailing" constant="16" id="aZ1-Bl-Zsv"/>
                 <constraint firstItem="xAf-FI-veu" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="afI-KC-FZq"/>
                 <constraint firstItem="LJ6-sc-oKy" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="bOw-k0-OBi"/>
+                <constraint firstItem="UKX-nP-XUK" firstAttribute="centerY" secondItem="IjR-O7-hph" secondAttribute="centerY" id="eQs-pd-WPe"/>
                 <constraint firstItem="LJ6-sc-oKy" firstAttribute="top" secondItem="Fwf-wi-SFW" secondAttribute="bottom" constant="24" id="fPs-W6-gd8"/>
                 <constraint firstItem="dog-nJ-Xhr" firstAttribute="centerX" secondItem="LxQ-RZ-xT9" secondAttribute="centerX" id="fxK-l6-prL"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="kAG-Ho-CSa" secondAttribute="trailing" constant="24" id="gfA-z3-W1s"/>

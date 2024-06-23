@@ -18,6 +18,8 @@ protocol NetworkServiceProtocol{
     static func getAllAddresses(customerID: Int) -> Observable<AddressDataModel>
     
     static func removeAddress(customerID:Int, addressID:Int) -> Observable<Void>
+    static func setAddressAsDefault(customerID:Int, addressID:Int) -> Observable<Address>
+
     
     func getProducts( parameters: Alamofire.Parameters, handler: @escaping (ProductsResponse?) -> Void)
     

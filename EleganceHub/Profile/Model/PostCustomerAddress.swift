@@ -26,6 +26,7 @@ struct AddressData: Codable {
     let firstName, lastName, phone, province: String?
     let country, zip, name, provinceCode: String?
     let countryCode, countryName: String?
+    let defaultAddress: Bool?
 
     enum CodingKeys: String, CodingKey {
         case address1, address2, city, company
@@ -35,5 +36,6 @@ struct AddressData: Codable {
         case provinceCode = "province_code"
         case countryCode = "country_code"
         case countryName = "country_name"
+        case defaultAddress = "default"
     }
 }
