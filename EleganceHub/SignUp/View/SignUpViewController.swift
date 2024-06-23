@@ -47,11 +47,11 @@ class SignUpViewController: UIViewController {
                     case 201:
                         self?.navigateToLogin()
                     case 422:
-                        self?.displayAlert(message: "Unprocessable Entity: The request was well-formed but was unable to be followed due to semanticerrors.", seconds: 3.0)
+                        self?.displayAlert(title: "", message: "Your request couldn't be processed due to some errors. Please try again Later.", seconds: 3.0)
                     case 0:
-                        self?.displayAlert(message: "Error during Firebase signup process", seconds: 3.0)
+                        self?.displayAlert(title: "", message: "Something went wrong, Please check your information and try again.", seconds: 3.0)
                     default:
-                        self?.displayAlert(message: "Error signing up user: HTTP Status \(statusCode)", seconds: 3.0)
+                        self?.displayAlert(title: "Something went wrong", message: "Unable to sign up due to an error, Please try again.", seconds: 3.0)
                     }
                 }
             }
@@ -69,17 +69,20 @@ class SignUpViewController: UIViewController {
                 let email = emailTxt.text, !email.isEmpty,
                 let password = passwordTxt.text, !password.isEmpty,
                 let confirmPassword = confirmPasswordTxt.text, !confirmPassword.isEmpty else {
-            displayAlert(message: "Please fill all fields", seconds: 5.0)
+            displayAlert(title: "", message: "Please fill all fields", seconds: 2.0)
             return
         }
             
         guard isValidPhone(phone) else {
-            displayAlert(message: "Please enter a valid phone number", seconds: 5.0)
+            displayAlert(title: "", message: "Please enter a valid phone number", seconds: 2.0)
+            phoneTxt.text = ""
             return
         }
             
         guard password == confirmPassword else {
-            displayAlert(message: "Passwords do not match", seconds: 5.0)
+            displayAlert(title: "", message: "Passwords do not match", seconds: 2.0)
+            passwordTxt.text = ""
+            confirmPasswordTxt.text = ""
             return
         }
             
@@ -87,7 +90,7 @@ class SignUpViewController: UIViewController {
         
         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
             if let error = error {
-                self.displayAlert(message: "Error creating user: \(error.localizedDescription)", seconds: 5.0)
+                self.displayAlert(title: "Oops", message: "Something went wrong while creating your account , Please try again later.", seconds: 2.0)
                 return
             }
             
@@ -96,7 +99,7 @@ class SignUpViewController: UIViewController {
                 changeRequest.displayName = fullName
                 changeRequest.commitChanges { error in
                     if let error = error {
-                        self.displayAlert(message: "Error updating user profile: \(error.localizedDescription)", seconds: 5.0)
+                        self.displayAlert(title: "Oops", message: "Something went wrong while updating your account , Please try again later.", seconds: 2.0)
                     } else {
                         self.sendVerificationEmail(user: user)
                         let user = User(first_name: firstName, last_name: lastName, email: email, password: password)
@@ -111,8 +114,8 @@ class SignUpViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
         
-    private func displayAlert(message: String, seconds: Double, completion: (() -> Void)? = nil) {
-        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+    private func displayAlert(title:String, message: String, seconds: Double, completion: (() -> Void)? = nil) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         self.present(alert, animated: true)
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + seconds) {
             alert.dismiss(animated: true) {
@@ -124,10 +127,10 @@ class SignUpViewController: UIViewController {
     private func sendVerificationEmail(user: FirebaseAuth.User) {
         user.sendEmailVerification { error in
             if let error = error {
-                self.displayAlert(message: "Error sending verification email: \(error.localizedDescription)", seconds: 5.0)
+                self.displayAlert(title: "", message: "Something went wrong while sending verification email.", seconds: 2.0)
                 return
             }
-            self.displayAlert(message: "Verification email sent. Please check your inbox.", seconds: 5.0)
+            self.displayAlert(title: "Verification email sent", message: "Please check your inbox.", seconds: 2.0)
             //self.navigateToLogin()
         }
     }
@@ -144,7 +147,14 @@ class SignUpViewController: UIViewController {
         if let loginViewController = storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController {
             navigationController?.pushViewController(loginViewController, animated: true)
         }
-        self.displayAlert(message: "User signed up successfully", seconds: 1.0)
+        self.displayAlert(title: "", message: "User signed up successfully", seconds: 1.0)
+       fNameTxt.text = ""
+       lNameTxt.text = ""
+       phoneTxt.text = ""
+        emailTxt.text = ""
+        passwordTxt.text = ""
+        confirmPasswordTxt.text = ""
+        
     }
         
     private func isValidPhone(_ phone: String) -> Bool {
