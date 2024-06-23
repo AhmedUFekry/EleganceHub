@@ -48,12 +48,12 @@ class SuperCategoryViewController: UIViewController {
     
     var cartCountLabel:UILabel = UILabel()
     var favCountLabel:UILabel = UILabel()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         activityIndicator.startAnimating()
-
+        
         loadNib()
         categorySearchBar.delegate = self
         categoryViewModel.bindResultToViewController = { [weak self] in
@@ -65,7 +65,7 @@ class SuperCategoryViewController: UIViewController {
         setUpUI()
         displayFloatingButton()
         categoryViewModel.getCategoryProducts(category: .Women)
-
+        
         setupBadgeLabel(on:appBarView.secoundTrailingIcon,badgeLabel: cartCountLabel)
         setupBadgeLabel(on:appBarView.trailingIcon,badgeLabel: favCountLabel)
         
@@ -78,7 +78,20 @@ class SuperCategoryViewController: UIViewController {
         super.viewWillAppear(animated)
         loadFavoriteProducts()
         networkPresenter = NetworkManager(vc: self)
-        
+//        if let isConnected = isConnected {
+//            if isConnected {
+//                activityIndicator.startAnimating()
+//                activityIndicator.isHidden = false
+//                noConnectionImage.isHidden = true
+//                noConnectionLabel.isHidden = true
+//                segmentChanges(segmentCategory)
+//            } else {
+//                activityIndicator.stopAnimating()
+//                activityIndicator.isHidden = true
+//                noConnectionImage.isHidden = false
+//                noConnectionLabel.isHidden = false
+//            }
+//        }
     }
     private func setUpUI(){
         let cartIcon = UIImage(systemName: "cart.circle")?.withTintColor(UIColor(named: "btnColor") ?? .black, renderingMode: .alwaysOriginal)
@@ -163,13 +176,13 @@ class SuperCategoryViewController: UIViewController {
             categoryViewModel.getCategoryProducts(category: .Women)
         case 1:
             categoryViewModel.getCategoryProducts(category: .Men)
-           
+            
         case 2:
             categoryViewModel.getCategoryProducts(category: .Kids)
-         
+            
         case 3:
             categoryViewModel.getCategoryProducts(category: .Sale)
-           
+            
         default:
             break
         }
@@ -190,7 +203,7 @@ class SuperCategoryViewController: UIViewController {
                 print("Customer id not found")
                 return
             }
-            self.self.appBarView.trailingIcon.addTarget(self, action: #selector(onFavouriteTapped), for: .touchUpInside)            
+            self.self.appBarView.trailingIcon.addTarget(self, action: #selector(onFavouriteTapped), for: .touchUpInside)
             homeViewModel.checkIfUserHasDraftOrder(customerID: customerID)
             print("Customer id found \(customerID)")
             self.self.appBarView.secoundTrailingIcon.addTarget(self, action: #selector(onCartTapped), for: .touchUpInside)
@@ -201,7 +214,7 @@ class SuperCategoryViewController: UIViewController {
         }
         
     }
-   
+    
     
     @objc private func onCartTapped(){
         if let viewController = self.storyboard?.instantiateViewController(withIdentifier: "CartViewController") as? CartViewController {
@@ -219,7 +232,6 @@ class SuperCategoryViewController: UIViewController {
         
         actionButton.addItem(title: "All", image: UIImage(named: "menu")?.withRenderingMode(.alwaysTemplate)) { item in
             self.isFiltered = false
-            self.filterType = "All"
             self.renderView()
         }
         actionButton.addItem(title: "Shoes", image: UIImage(named: "shoes")?.withRenderingMode(.alwaysTemplate)) { item in
@@ -233,14 +245,14 @@ class SuperCategoryViewController: UIViewController {
             self.isFiltered = true
             self.filteredList = self.categoryViewModel.filterCategory(filterType: "T-SHIRTS")
             self.filterType = "T-SHIRTS"
-
+            
             self.renderView()
         }
         actionButton.addItem(title: "Accessories", image: UIImage(named: "Accsesory")?.withRenderingMode(.alwaysTemplate)) { item in
             self.isFiltered = true
             self.filteredList = self.categoryViewModel.filterCategory(filterType: "ACCESSORIES")
             self.filterType = "ACCESSORIES"
-
+            
             self.renderView()
         }
         actionButton.display(inViewController: self)
@@ -390,7 +402,7 @@ extension SuperCategoryViewController: ConnectivityProtocol, NetworkStatusProtoc
         categoryCollection.isHidden = !isConnected
         noConnectionLabel.isHidden = isConnected
         noConnectionImage.isHidden = isConnected
-        activityIndicator.isHidden = !isConnected
+        //activityIndicator.isHidden = !isConnected
         
         let  isDarkMode = UserDefaultsHelper.shared.isDarkMode()
         if isDarkMode{

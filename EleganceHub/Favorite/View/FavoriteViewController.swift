@@ -401,7 +401,7 @@ extension FavoriteViewController: ConnectivityProtocol, NetworkStatusProtocol{
         if isConnected{
             favoriteTableView.reloadData()
         }else{
-            ConnectivityUtils.showConnectivityAlert(from: self)
+           // ConnectivityUtils.showConnectivityAlert(from: self)
         }
     }
     

@@ -96,7 +96,7 @@ class PaymentViewController: UIViewController {
                 UserDefaultsHelper.shared.clearUserData(key: UserDefaultsConstants.getDraftOrder.rawValue)
                 print("IsComplete \(UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.getDraftOrder.rawValue))")
                 }
-                Constants.showAlertWithAction(on: self, title: "Information", message: "Payment Done Successfully!", actionBtnTitle: "OK"){ _ in
+                Constants.showAlertWithAction(on: self, title: "Confirmation", message: "Payment Done Successfully!", actionBtnTitle: "OK"){ _ in
                     self.navigateToHome()
                 }
             } else {

@@ -290,6 +290,7 @@ extension HomeViewController: UICollectionViewDataSource,UICollectionViewDelegat
             let couponsCell = collectionView.dequeueReusableCell(withReuseIdentifier: "couponsCell", for: indexPath) as! CouponsCollectionViewCell
             if(!couponsList!.isEmpty){
                 couponsCell.codeLabel.text = "Coupons code: \(couponsList?[indexPath.row].discountCode.code ?? "")"
+                couponsCell.codeLabel.isHidden = true
                 if(indexPath.row < couponsImage.count){
                     //var index = 0
                     couponsCell.couponsImage.image = UIImage(named:setBackGround(discountValue: couponsList?[indexPath.row].priceRule ?? 0) )

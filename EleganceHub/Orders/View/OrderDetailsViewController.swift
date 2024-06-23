@@ -30,6 +30,7 @@ class OrderDetailsViewController: UIViewController {
             productsOrderTableView.register(productsNibCell, forCellReuseIdentifier: "productOrderCell")
             
             orderView.applyShadow()
+            setupOrder()
         }
         
         func setupOrder() {
@@ -40,10 +41,12 @@ class OrderDetailsViewController: UIViewController {
            
             let convertedPrice = convertPrice(price: order.totalPrice ?? "2", rate: rate)
             orderPrice.text = "\(String(format: "%.2f", convertedPrice)) \(userCurrency)"
+            DispatchQueue.main.async { [self] in
+                productsOrderTableView.reloadData()
+                activityIndicator.stopAnimating()
+                activityIndicator.isHidden = true
+            }
             
-            productsOrderTableView.reloadData()
-            activityIndicator.stopAnimating()
-            activityIndicator.isHidden = true
         }
     }
 
@@ -62,7 +65,12 @@ class OrderDetailsViewController: UIViewController {
             if let product = selctedOrder?.lineItems?[indexPath.section] {
                 productsCell.ProductTitle?.text = product.title
                 productsCell.productCategory?.text = "Quantity: \(product.quantity ?? 2)"
-                productsCell.productPrice?.text = product.price
+               // productsCell.productPrice?.text = product.price
+                
+                let convertedPrice = convertPrice(price: product.price ?? "2", rate: rate)
+                productsCell.productPrice.text = "\(String(format: "%.2f", convertedPrice)) \(userCurrency)"
+                
+                
                 
                 let placeholderImage = UIImage(named: "adidas")
                 if let imageURL = product.properties?.first {

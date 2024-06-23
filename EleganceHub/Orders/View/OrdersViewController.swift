@@ -69,7 +69,6 @@ class OrdersViewController: UIViewController {
             self.ordersTableView.reloadData()
             self.activityIndicator.stopAnimating()
             self.activityIndicator.isHidden = true
-            self.isFavEmpty()
         }
     }
     
