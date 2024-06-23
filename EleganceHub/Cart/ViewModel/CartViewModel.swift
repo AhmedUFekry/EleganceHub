@@ -19,6 +19,12 @@ class CartViewModel:CartViewModelProtocol{
     var error: PublishSubject<Error> = PublishSubject<Error>()
     
     var networkService:CartNetworkServiceProtocol = CartNetworkService()
+    var showAlertQuantity:Bool? {
+        didSet{
+            showAlert()
+        }
+    }
+    var showAlert:()->Void = { }
     
     private let disposeBag = DisposeBag()
     private var items = [LineItem]()
@@ -101,9 +107,12 @@ class CartViewModel:CartViewModelProtocol{
         if q < Int(items[index].properties![1].value!) ?? 1{
             items[index].quantity = q + 1
             print("incrementQuantity at index \(index) is \(items[index].quantity )")
+            print("incrementQuantity q = \(q) and after added is \( items[index].quantity) the all quantity is \(items[index].properties![1].value!)")
+            lineItemsList.onNext(items)
+        }else{
+            
+            showAlertQuantity = true
         }
-        print("incrementQuantity q = \(q) and after added is \( items[index].quantity) the all quantity is \(items[index].properties![1].value!)")
-        lineItemsList.onNext(items)
     }
     
     func decremantQuantity(at index: Int){
@@ -112,9 +121,12 @@ class CartViewModel:CartViewModelProtocol{
         if q > 1{
             items[index].quantity = q - 1
             print("decremantQuantity at index \(index) is \(items[index].quantity )")
+            print("decremantQuantity q = \(q) and after added is \( items[index].quantity) the all quantity is \(items[index].properties![1].value!)")
+            lineItemsList.onNext(items)
+        }else{
+            showAlertQuantity = false
         }
-        print("decremantQuantity q = \(q) and after added is \( items[index].quantity) the all quantity is \(items[index].properties![1].value!)")
-        lineItemsList.onNext(items)
+       
     }
     
     func updateLatestListItem(orderID:Int) {

@@ -58,6 +58,7 @@
 		03C3968B2C10023800FFADF7 /* AddressDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C3968A2C10023800FFADF7 /* AddressDataModel.swift */; };
 		03C3968D2C10115600FFADF7 /* UpdateLocationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C3968C2C10115600FFADF7 /* UpdateLocationDelegate.swift */; };
 		03C566CE2C26482700E87074 /* UpdateThemaDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C566CD2C26482700E87074 /* UpdateThemaDelegate.swift */; };
+		03C566D12C268EBF00E87074 /* NetWorkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C566D02C268EBF00E87074 /* NetWorkManager.swift */; };
 		03CDC3EC2C231E930002F22F /* ProfileNetworkServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CDC3EB2C231E930002F22F /* ProfileNetworkServiceTest.swift */; };
 		03CDC3EE2C232FCE0002F22F /* SettingsNetworkServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CDC3ED2C232FCE0002F22F /* SettingsNetworkServiceTest.swift */; };
 		03CDC3F02C2334D30002F22F /* PaymentNetworkServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CDC3EF2C2334D30002F22F /* PaymentNetworkServiceTest.swift */; };
@@ -228,6 +229,7 @@
 		03C3968A2C10023800FFADF7 /* AddressDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressDataModel.swift; sourceTree = "<group>"; };
 		03C3968C2C10115600FFADF7 /* UpdateLocationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateLocationDelegate.swift; sourceTree = "<group>"; };
 		03C566CD2C26482700E87074 /* UpdateThemaDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateThemaDelegate.swift; sourceTree = "<group>"; };
+		03C566D02C268EBF00E87074 /* NetWorkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetWorkManager.swift; sourceTree = "<group>"; };
 		03CDC3EB2C231E930002F22F /* ProfileNetworkServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNetworkServiceTest.swift; sourceTree = "<group>"; };
 		03CDC3ED2C232FCE0002F22F /* SettingsNetworkServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNetworkServiceTest.swift; sourceTree = "<group>"; };
 		03CDC3EF2C2334D30002F22F /* PaymentNetworkServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentNetworkServiceTest.swift; sourceTree = "<group>"; };
@@ -573,6 +575,14 @@
 			path = ProfileTableView;
 			sourceTree = "<group>";
 		};
+		03C566CF2C268E9500E87074 /* NetworkManager */ = {
+			isa = PBXGroup;
+			children = (
+				03C566D02C268EBF00E87074 /* NetWorkManager.swift */,
+			);
+			path = NetworkManager;
+			sourceTree = "<group>";
+		};
 		03DE27112C08067B00E18567 /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -682,6 +692,7 @@
 				03BAA12D2C142FF700A325AB /* DatabaseService */,
 				033CEBA62C1070DC003B9DA9 /* SettingsNetworkService */,
 				033CEBA42C105F01003B9DA9 /* CustomerDataModel.swift */,
+				7F5E5A352C1D1745003E4AAD /* CurrencyResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -924,7 +935,6 @@
 		7F5E5A342C1D1729003E4AAD /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				7F5E5A352C1D1745003E4AAD /* CurrencyResponse.swift */,
 				7FA5CED12C2322D400017321 /* CurrencyService.swift */,
 			);
 			path = Model;
@@ -933,6 +943,7 @@
 		7F5E5A372C1D176E003E4AAD /* Remote */ = {
 			isa = PBXGroup;
 			children = (
+				03C566CF2C268E9500E87074 /* NetworkManager */,
 				7F5E5A392C1D177A003E4AAD /* RemoteDataSource.swift */,
 				7F5E5A382C1D1779003E4AAD /* RemoteDataSourceProtocol.swift */,
 			);
@@ -1651,6 +1662,7 @@
 				7F5E5A362C1D1745003E4AAD /* CurrencyResponse.swift in Sources */,
 				7F1BEEE22C14D74E00C5A114 /* CategoryViewModel.swift in Sources */,
 				D4F1685F2C0A72CD00551795 /* SearchViewModel.swift in Sources */,
+				03C566D12C268EBF00E87074 /* NetWorkManager.swift in Sources */,
 				D4883C702C1539C300EE6C78 /* FavoriteProduct.swift in Sources */,
 				03E84A672C1C896D00D75B5F /* PaymentViewModel.swift in Sources */,
 				7F3E46A22BFFF3160096211E /* SmartCollections.swift in Sources */,

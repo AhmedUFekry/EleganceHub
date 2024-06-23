@@ -41,53 +41,45 @@ class ProductDetailViewController: UIViewController {
     
     var currencyViewModel = CurrencyViewModel()
     var rate : Double!
-    
-    let userCurrency = UserDefaultsHelper.shared.getCurrencyFromUserDefaults().uppercased()
+    var userCurrency:String?
     
     override func viewDidLoad() {
-            super.viewDidLoad()
-            
-            setupCurrencyViewModel()
-            setupCollectionView()
-            setupViewModel()
-            
-            if let productId = productId {
-                viewModel.getProductDetails(productId: productId)
-                viewModel.getAvailableVarients(productId: productId) { [weak self] sizeColorMap, colors in
-                    guard let self = self else { return }
-                    self.sizeColorMap = sizeColorMap
-                    self.availableColors = colors
-                    self.availableSizes = Array(sizeColorMap.keys)
-                    self.sizeCollectionView.reloadData()
-                    self.setupColorSelectorView()
-                    self.checkFavoriteStatus()
-                }
-            } else {
-                print("Product ID is nil.")
+        super.viewDidLoad()
+        
+        setupCollectionView()
+        setupViewModel()
+        
+        if let productId = productId {
+            viewModel.getProductDetails(productId: productId)
+            viewModel.getAvailableVarients(productId: productId) { [weak self] sizeColorMap, colors in
+                guard let self = self else { return }
+                self.sizeColorMap = sizeColorMap
+                self.availableColors = colors
+                self.availableSizes = Array(sizeColorMap.keys)
+                self.sizeCollectionView.reloadData()
+                self.setupColorSelectorView()
+                self.checkFavoriteStatus()
             }
-            
-            if let customerID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.loggedInUserID.rawValue) {
-                self.customerID = customerID
-            }
-            
-            setUpUI()
-            addToCartObserversFuncs()
+        } else {
+            print("Product ID is nil.")
         }
+        
+        if let customerID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.loggedInUserID.rawValue) {
+            self.customerID = customerID
+        }
+        
+        setUpUI()
+        addToCartObserversFuncs()
+    }
 
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         appBarView.setUpBtnsThemes()
+        rate = UserDefaultsHelper.shared.getDataDoubleFound(key: UserDefaultsConstants.currencyRate.rawValue)
+         userCurrency = UserDefaultsHelper.shared.getCurrencyFromUserDefaults()
     }
     
-    private func setupCurrencyViewModel() {
-        currencyViewModel.rateClosure = { [weak self] rate in
-            DispatchQueue.main.async {
-                self?.rate = rate
-            }
-        }
-        currencyViewModel.getRate()
-    }
     
     private func setupCollectionView() {
         sizeCollectionView.delegate = self
@@ -154,8 +146,8 @@ class ProductDetailViewController: UIViewController {
         
         ProductName.text = product.title ?? "No title"
         
-        var convertedPrice = convertPrice(price: product.variants?.first?.price ?? "2", rate: self.rate)
-        productPrice.text = "\(String(format: "%.2f", convertedPrice)) \(userCurrency)"
+        let convertedPrice = convertPrice(price: product.variants?.first?.price ?? "2", rate: self.rate)
+        productPrice.text = "\(String(format: "%.2f", convertedPrice)) \(userCurrency ?? "USD")"
         
         ProductDescription.text = product.bodyHTML ?? "No description"
         ProductImagesCollection.reloadData()

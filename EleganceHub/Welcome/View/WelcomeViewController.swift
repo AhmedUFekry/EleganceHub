@@ -11,12 +11,18 @@ class WelcomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        applySavedTheme() 
         if UserDefaultsHelper.shared.isLoggedIn() {
             navigateToHome()
         }
     }
-    
+    private func applySavedTheme() {
+        if #available(iOS 13.0, *) {
+            let appDelegate = UIApplication.shared.windows.first
+            let isDarkMode = UserDefaultsHelper.shared.isDarkMode()
+            appDelegate?.overrideUserInterfaceStyle = isDarkMode ? .dark : .light
+        }
+    }
     @IBAction func navigateToHomeAsGuest(_ sender: Any){        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarViewController") as? UITabBarController {

@@ -44,7 +44,15 @@ class UserDefaultsHelper:DatabaseServiceProtocol {
     func setIfDataFound(_ id: Int,key: String) {
          userDefaults.set(id, forKey: key)
      }
-     
+    func setIfDataFound(doubleData: Double,key: String) {
+         userDefaults.set(doubleData, forKey: key)
+     }
+    func getDataDoubleFound(key:String) -> Double {
+        let rate = userDefaults.double(forKey: key)
+        print("\(key) \(rate)")
+        return rate != 0.0 ? rate : 1.0
+    }
+    
      func getDataFound(key:String) -> Int? {
          let id = userDefaults.integer(forKey: key)
          print("\(key) \(id)")
@@ -88,8 +96,11 @@ class UserDefaultsHelper:DatabaseServiceProtocol {
             return "USD"
         }
     }
+    
     func clearCurrency() {
-        userDefaults.set(false, forKey: "coin")
+        userDefaults.removeObject(forKey: "coin")
+        userDefaults.removeObject(forKey: UserDefaultsConstants.currencyRate.rawValue)
+        //userDefaults.set(false, forKey: "coin")
     }
     
     func setDarkMode(_ loggedIn: Bool) {

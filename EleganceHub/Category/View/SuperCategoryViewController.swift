@@ -19,6 +19,8 @@ class SuperCategoryViewController: UIViewController {
     @IBOutlet weak var segmentCategory: UISegmentedControl!
     @IBOutlet weak var categoryCollection: UICollectionView!
     @IBOutlet weak var appBarView: CustomAppBarUIView!
+    @IBOutlet weak var noConnectionImage: UIImageView!
+    @IBOutlet weak var noConnectionLabel: UILabel!
     
     var favoriteProducts: BehaviorRelay<[[String: Any]]> = BehaviorRelay(value: [])
     
@@ -35,17 +37,21 @@ class SuperCategoryViewController: UIViewController {
     var rate : Double!
     var draftOrder:Int?
     
+    var networkPresenter :NetworkManager?
+    var isConnected:Bool?
+    var containerView: UIView?
+    
     var homeViewModel = HomeViewModel()
     var cartViewModel: CartViewModelProtocol = CartViewModel()
 
     var cartCountLabel:UILabel = UILabel()
     var favCountLabel:UILabel = UILabel()
       
-       override func viewDidLoad() {
-           super.viewDidLoad()
-           
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
         activityIndicator.startAnimating()
-
+        
         loadNib()
         categorySearchBar.delegate = self
         categoryViewModel.bindResultToViewController = { [weak self] in
@@ -53,34 +59,22 @@ class SuperCategoryViewController: UIViewController {
             self.categoryProductList = self.categoryViewModel.categoryResult
             self.renderView()
         }
-           setUpUI()
+        setUpUI()
         displayFloatingButton()
-        categoryViewModel.getCategoryProducts(category: .Women)
-       setupBadgeLabel(on:appBarView.secoundTrailingIcon,badgeLabel: cartCountLabel)
-       setupBadgeLabel(on:appBarView.trailingIcon,badgeLabel: favCountLabel)
+        
+        setupBadgeLabel(on:appBarView.secoundTrailingIcon,badgeLabel: cartCountLabel)
+        setupBadgeLabel(on:appBarView.trailingIcon,badgeLabel: favCountLabel)
+        
+        showCountOnFavLabel()
+        
+        showCountOnCartData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        checkIfUserLoggedIn()
-        self.renderView()
-        userCurrency = UserDefaultsHelper.shared.getCurrencyFromUserDefaults().uppercased()
-        productsViewModel.rateClosure = {
-            [weak self] rate in
-            DispatchQueue.main.async {
-                self?.rate = rate
-            }
-        }
-        productsViewModel.getRate()
-        
-        
-        draftOrder = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.getDraftOrder.rawValue)
-        if draftOrder != 0 {
-            cartViewModel.getDraftOrderForUser(orderID: draftOrder!)
-        }
         loadFavoriteProducts()
-
-        showCountOnCartData()
+        networkPresenter = NetworkManager(vc: self)
+        
     }
     private func setUpUI(){
         let cartIcon = UIImage(systemName: "cart.circle")?.withTintColor(UIColor(named: "btnColor") ?? .black, renderingMode: .alwaysOriginal)
@@ -91,6 +85,8 @@ class SuperCategoryViewController: UIViewController {
         self.appBarView.trailingIcon.setImage(heartIcon, for: .normal)
         
         self.appBarView.lableTitle.text = "Category"
+        noConnectionLabel.isHidden = true
+        noConnectionImage.isHidden = true
     }
     
     @objc private func onButtonSelected() {
@@ -128,7 +124,8 @@ class SuperCategoryViewController: UIViewController {
                 }
             })
             .disposed(by: disposeBag)
-        
+    }
+    func showCountOnFavLabel(){
         favoriteProducts.map{ $0.count }
             .distinctUntilChanged()
             .subscribe(onNext: { [weak self] count in
@@ -186,15 +183,18 @@ class SuperCategoryViewController: UIViewController {
                 print("Customer id not found")
                 return
             }
+            self.self.appBarView.trailingIcon.addTarget(self, action: #selector(onFavouriteTapped), for: .touchUpInside)            
             homeViewModel.checkIfUserHasDraftOrder(customerID: customerID)
             print("Customer id found \(customerID)")
             self.self.appBarView.secoundTrailingIcon.addTarget(self, action: #selector(onCartTapped), for: .touchUpInside)
-            self.self.appBarView.trailingIcon.addTarget(self, action: #selector(onFavouriteTapped), for: .touchUpInside)
+            
         } else {
             self.self.appBarView.secoundTrailingIcon.addTarget(self, action: #selector(onButtonSelected), for: .touchUpInside)
             self.self.appBarView.trailingIcon.addTarget(self, action: #selector(onButtonSelected), for: .touchUpInside)
         }
+        
     }
+   
     
     @objc private func onCartTapped(){
         if let viewController = self.storyboard?.instantiateViewController(withIdentifier: "CartViewController") as? CartViewController {
@@ -338,5 +338,53 @@ extension SuperCategoryViewController: UISearchBarDelegate {
     
 }
 
-
+extension SuperCategoryViewController: ConnectivityProtocol, NetworkStatusProtocol{
+    
+    func networkStatusDidChange(connected: Bool) {
+        isConnected = connected
+        print("networkStatusDidChange called \(isConnected)")
+        checkForConnection()
+    }
+    
+    private func checkForConnection(){
+        guard let isConnected = isConnected else {
+            ConnectivityUtils.showConnectivityAlert(from: self)
+            print("is connect nilllllll")
+            return
+        }
+        isShowViews()
+        checkIfUserLoggedIn()
+        if isConnected{
+            getData()
+        }else{
+            ConnectivityUtils.showConnectivityAlert(from: self)
+        }
+    }
+    
+    private func getData(){
+        categoryViewModel.getCategoryProducts(category: .Women)
+        self.renderView()
+        rate = UserDefaultsHelper.shared.getDataDoubleFound(key: UserDefaultsConstants.currencyRate.rawValue)
+        userCurrency = UserDefaultsHelper.shared.getCurrencyFromUserDefaults().uppercased()
+        
+        draftOrder = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.getDraftOrder.rawValue)
+        if draftOrder != 0 {
+            cartViewModel.getDraftOrderForUser(orderID: draftOrder!)
+        }
+    }
+    private func isShowViews(){
+        guard let isConnected = isConnected else {return}
+        categoryCollection.isHidden = !isConnected
+        noConnectionLabel.isHidden = isConnected
+        noConnectionImage.isHidden = isConnected
+        activityIndicator.isHidden = !isConnected
+        
+        let  isDarkMode = UserDefaultsHelper.shared.isDarkMode()
+        if isDarkMode{
+            noConnectionImage.image = UIImage(named: "no-wifi-light")
+        }else{
+            noConnectionImage.image = UIImage(named: "no-wifi")
+        }
+    }
+}
 

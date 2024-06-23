@@ -17,9 +17,12 @@ class SearchViewController: UIViewController ,UICollectionViewDelegate, UICollec
     @IBOutlet weak var filterByPriceButton: UIButton!
     @IBOutlet weak var filterByLettersButton: UIButton!
     @IBOutlet weak var removeFiltersButton: UIButton!
+    @IBOutlet weak var noConnectionImage: UIImageView!
+    @IBOutlet weak var noConnectionLabel: UILabel!
+    
     var currencyViewModel = CurrencyViewModel()
     var rate : Double?
-    let userCurrency = UserDefaultsHelper.shared.getCurrencyFromUserDefaults().uppercased()
+    var userCurrency:String?
 
     var disposeBag = DisposeBag()
     var searchViewModel: SearchViewModel!
@@ -28,18 +31,12 @@ class SearchViewController: UIViewController ,UICollectionViewDelegate, UICollec
     var isPriceFiltered: Bool = false
     var isLettersFiltered:Bool = false
     
+    var networkPresenter :NetworkManager?
+    var isConnected:Bool?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        currencyViewModel.rateClosure = {
-            [weak self] rate in
-            DispatchQueue.main.async {
-                self?.rate = rate
-            }
-        }
-        currencyViewModel.getRate()
     
-    
-        searchCollectionView.reloadData()
         configureRoundedButtons()
         setupButtons()
                 
@@ -47,7 +44,6 @@ class SearchViewController: UIViewController ,UICollectionViewDelegate, UICollec
         self.searchCollectionView.delegate = self
         self.searchCollectionView.dataSource = self
         self.txtSearchBar.delegate = self
-                
         searchViewModel = SearchViewModel(networkManager: NetworkService())
         searchViewModel.bindResultToViewController = { [weak self] in
             DispatchQueue.main.async {
@@ -56,20 +52,26 @@ class SearchViewController: UIViewController ,UICollectionViewDelegate, UICollec
                 self?.searchCollectionView.reloadData()
             }
         }
-        searchViewModel.getItems()
+        noConnectionLabel.isHidden = true
+        noConnectionImage.isHidden = true
         setupSearchBar()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        networkPresenter = NetworkManager(vc: self)
+    }
+    
     func configureRoundedButtons() {
-            let buttons: [UIButton] = [filterByPriceButton, filterByLettersButton]
-            buttons.forEach { button in
-                button.layoutIfNeeded()
-                button.layer.cornerRadius = button.bounds.height / 2
-                button.clipsToBounds = true
-                button.layer.borderWidth = 1.5
-                button.layer.borderColor = UIColor.black.cgColor
-            }
+        let buttons: [UIButton] = [filterByPriceButton, filterByLettersButton]
+        buttons.forEach { button in
+            button.layoutIfNeeded()
+            button.layer.cornerRadius = button.bounds.height / 2
+            button.clipsToBounds = true
+            button.layer.borderWidth = 1.5
+            button.layer.borderColor = UIColor.black.cgColor
         }
+    }
 
     func setupButtons() {
         let buttons: [UIButton] = [filterByPriceButton, filterByLettersButton]
@@ -80,7 +82,8 @@ class SearchViewController: UIViewController ,UICollectionViewDelegate, UICollec
             button.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
         }
     }
-            
+    
+    
     @objc func buttonPressed(_ sender: UIButton) {
         let buttons: [UIButton] = [filterByPriceButton, filterByLettersButton]
         buttons.forEach { button in
@@ -180,8 +183,8 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
         print("Title: \(title)")
         cell.categoryTitle.text = title
 
-        var convertedPrice = convertPrice(price: product.variants?[0].price ?? "2", rate: self.rate ?? 3824.33)
-        cell.categoryType.text = "\(String(format: "%.2f", convertedPrice)) \(userCurrency)"
+        let convertedPrice = convertPrice(price: product.variants?[0].price ?? "2", rate: self.rate ?? 1.0)
+        cell.categoryType.text = "\(String(format: "%.2f", convertedPrice)) \(userCurrency ?? "USD")"
                 
 
         if let imageUrlString = product.image?.src, let imageUrl = URL(string: imageUrlString) {
@@ -225,4 +228,50 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
         return 16
     }
 }
+
+extension SearchViewController: ConnectivityProtocol, NetworkStatusProtocol{
+    
+    func networkStatusDidChange(connected: Bool) {
+        isConnected = connected
+        print("networkStatusDidChange called \(isConnected)")
+        checkForConnection()
+    }
+    
+    private func checkForConnection(){
+        guard let isConnected = isConnected else {
+            ConnectivityUtils.showConnectivityAlert(from: self)
+            print("is connect nilllllll")
+            return
+        }
+        if isConnected{
+            getData()
+        }else{
+            ConnectivityUtils.showConnectivityAlert(from: self)
+            isShowViews()
+        }
+    }
+    
+    private func getData(){
+        rate = UserDefaultsHelper.shared.getDataDoubleFound(key: UserDefaultsConstants.currencyRate.rawValue)
+        userCurrency = UserDefaultsHelper.shared.getCurrencyFromUserDefaults().uppercased()
+        searchCollectionView.reloadData()
+        
+        searchViewModel.getItems()
+        
+    }
+    private func isShowViews(){
+        guard let isConnected = isConnected else {return}
+        searchCollectionView.isHidden = !isConnected
+        noConnectionLabel.isHidden = isConnected
+        noConnectionImage.isHidden = isConnected
+        
+        let  isDarkMode = UserDefaultsHelper.shared.isDarkMode()
+        if isDarkMode{
+            noConnectionImage.image = UIImage(named: "no-wifi-light")
+        }else{
+            noConnectionImage.image = UIImage(named: "no-wifi")
+        }
+    }
+}
+
 

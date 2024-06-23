@@ -142,6 +142,7 @@ class PaymentViewController: UIViewController {
             paymentRequest.merchantIdentifier = "your.merchant.identifier"
             paymentRequest.supportedNetworks = [.visa, .masterCard, .amex]
             paymentRequest.merchantCapabilities = .capability3DS
+            let currency:String? = UserDefaultsHelper.shared.getCurrencyFromUserDefaults().uppercased()
             paymentRequest.countryCode = draftOrder?.shippingAddress?.countryCode ?? "EGP"
             paymentRequest.currencyCode = self.userCurrency
             
