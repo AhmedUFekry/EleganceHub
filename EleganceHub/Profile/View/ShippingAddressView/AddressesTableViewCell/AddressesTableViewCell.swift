@@ -22,8 +22,21 @@ class AddressesTableViewCell: UITableViewCell {
         viewContent.applyShadow()
     }
     
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+        
+//        if selected {
+//            // Customize the background color and make it rounded
+//            self.contentView.backgroundColor = UIColor.secondaryLabel.withAlphaComponent(0.3)
+//            self.contentView.layer.cornerRadius = 10
+//            //self.contentView.layer.borderWidth = 4.0
+//            //self.contentView.layer.borderColor = UIColor(named: "btnColor")?.cgColor ?? UIColor.black.cgColor
+//            self.contentView.layer.masksToBounds = true
+//        } else {
+//            // Reset to the default appearance
+//            self.contentView.backgroundColor = UIColor.clear
+//        }
     }
     
     func setCellData(address:Address) {

@@ -54,20 +54,18 @@ class LoginViewModel {
     }
     
     func logout() {
-            UserDefaultsHelper.shared.clearLoggedInUserID()
-            UserDefaultsHelper.shared.clearLoggedIn()
-            UserDefaultsHelper.shared.clearImageProfile()
-            UserDefaultsHelper.shared.clearCurrency()
-            UserDefaultsHelper.shared.clearDarkModey()
-
-            UserDefaultsHelper.shared.clearUserData(key: UserDefaultsConstants.getDraftOrder.rawValue)
-            
-            do {
-                try Auth.auth().signOut()
-            } catch let signOutError as NSError {
-                print("Error signing out: \(signOutError)")
-            }
+        UserDefaultsHelper.shared.clearLoggedInUserID()
+        UserDefaultsHelper.shared.clearLoggedIn()
+        UserDefaultsHelper.shared.clearImageProfile()
+        UserDefaultsHelper.shared.clearCurrency()
+        UserDefaultsHelper.shared.clearUserData(key: UserDefaultsConstants.getDraftOrder.rawValue)
+        
+        do {
+            try Auth.auth().signOut()
+        } catch let signOutError as NSError {
+            print("Error signing out: \(signOutError)")
         }
+    }
 }
 
 

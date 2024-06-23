@@ -20,30 +20,18 @@ class ProductViewController: UIViewController, UITableViewDelegate, UITableViewD
     var productsViewModel = ProductsViewModel()
     var currencyViewModel = CurrencyViewModel()
     var rate : Double!
-    
     var userCurrency :String?
+    
     override func viewWillAppear(_ animated: Bool) {
-        userCurrency = UserDefaultsHelper.shared.getCurrencyFromUserDefaults().uppercased()
-        currencyViewModel.rateClosure = {
-            [weak self] rate in
-            DispatchQueue.main.async {
-                self?.rate = rate
-            }
-        }
-        currencyViewModel.getRate()
+       rate = UserDefaultsHelper.shared.getDataDoubleFound(key: UserDefaultsConstants.currencyRate.rawValue)
+        userCurrency = UserDefaultsHelper.shared.getCurrencyFromUserDefaults()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         appBar.lableTitle.text = brandsName
         appBar.secoundTrailingIcon.isHidden = true
         appBar.backBtn.addTarget(self, action: #selector(goBack), for: .touchUpInside)
-        currencyViewModel.rateClosure = {
-            [weak self] rate in
-            DispatchQueue.main.async {
-                self?.rate = rate
-            }
-        }
-        currencyViewModel.getRate()
+     
         productsTableView.delegate = self
         productsTableView.dataSource = self
         
@@ -96,9 +84,9 @@ class ProductViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
             productsCell.productCategory?.text = product.productType
             
-            var convertedPrice = convertPrice(price: product.variants?[0].price ?? "2", rate: self.rate)
+            let convertedPrice = convertPrice(price: product.variants?[0].price ?? "2", rate: self.rate)
             
-            productsCell.productPrice.text = "\(String(format: "%.2f", convertedPrice)) \(userCurrency!)"
+            productsCell.productPrice.text = "\(String(format: "%.2f", convertedPrice)) \(userCurrency ?? "USD")"
             
             KF.url(URL(string: product.image?.src ?? "https://cdn.shopify.com/s/files/1/0880/0426/4211/collections/a340ce89e0298e52c438ae79591e3284.jpg?v=1716276581"))
                 .set(to: productsCell.productImage)

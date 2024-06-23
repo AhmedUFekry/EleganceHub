@@ -18,4 +18,7 @@ protocol CustomerDataProtocol{
     func loadImage()
     func saveImage(_ image: UIImage)
     func clearLoggedInImage()
+    
+    var rateClosure : (Double)->Void {get set}
+    func getRate(currencyType:String)
 }

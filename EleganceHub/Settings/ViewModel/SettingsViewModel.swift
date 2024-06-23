@@ -12,6 +12,7 @@ import RxRelay
 
 class SettingsViewModel:CustomerDataProtocol{
     private let disposeBag = DisposeBag()
+    var rateClosure : (Double)->Void = {_ in }
     
     private let dataBaseModel: DatabaseServiceProtocol = UserDefaultsHelper.shared
     var savedImage: UIImage?
@@ -19,7 +20,6 @@ class SettingsViewModel:CustomerDataProtocol{
     let customerResponse: PublishSubject<CustomerResponse> = PublishSubject<CustomerResponse>()
     let isLoading = BehaviorRelay<Bool>(value: false)
     let error: PublishSubject<Error> = PublishSubject()
-    
     
     func updateData(customerID:Int,firstName:String?,lastName:String?,email:String?,phone:String?){
         isLoading.accept(true)
@@ -61,5 +61,14 @@ class SettingsViewModel:CustomerDataProtocol{
         dataBaseModel.clearImageProfile()
     }
     
-    
+    func getRate(currencyType:String){
+        SettingsNetworkService.fetchConversionRate(coinStr: currencyType) { rate in
+            guard let rate = rate else {
+                self.rateClosure(1.0)
+                return
+            }
+            self.rateClosure(rate)
+            print("Rate setting viewModel \(rate)")
+        }
+    }
 }

@@ -17,7 +17,8 @@ protocol CartViewModelProtocol{
     var draftOrder: PublishSubject<DraftOrder>{get set}
     var isValiedCopoun: BehaviorRelay<Bool> {get set}
     
-    //func addToCart(customerID:Int,product: Product,selectedSize:String)
+    var showAlertQuantity:Bool? {get set}
+    var showAlert:()->Void {get set}
     
     func getDraftOrderForUser(orderID:Int)
     func deleteItemFromDraftOrder(orderID:Int, itemID:Int)

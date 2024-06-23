@@ -31,41 +31,35 @@ struct CurrencyModel: Codable {
     }
 }
 
-
- 
- 
-func getPrice( completion: @escaping (Double) -> Void) {
-
-    let userCurrency = UserDefaultsHelper.shared.getCurrencyFromUserDefaults()
-    let coin: String
- 
-    switch userCurrency {
-    case "EGP":
-        coin = "EGP"
-    case "USD":
-        coin = "USD"
-    case "EUR":
-        coin = "EUR"
-    default:
-        completion(1.0)
-        return
-    }
- 
-    CurrencyService.fetchConversionRate(coinStr: coin) {
-    rateRes in
-       guard let rate = rateRes else {
-           completion(0.0)
-    return
- 
-}
-        completion(rateRes!)
-    }
-    completion(0.0)
-}
+//func getPrice( completion: @escaping (Double) -> Void) {
+//    let userCurrency = UserDefaultsHelper.shared.getCurrencyFromUserDefaults()
+//    let coin: String
+//
+//    switch userCurrency {
+//    case "EGP":
+//        coin = "EGP"
+//    case "USD":
+//        coin = "USD"
+//    case "EUR":
+//        coin = "EUR"
+//    default:
+//        completion(1.0)
+//        return
+//    }
+//
+//    CurrencyService.fetchConversionRate(coinStr: coin) {
+//    rateRes in
+//       guard let rate = rateRes else {
+//           completion(0.0)
+//    return
+//}
+//        completion(rateRes!)
+//    }
+//    completion(0.0)
+//}
 
 func convertPrice(price: String , rate : Double) -> Double{
-    
-     guard let priceD = Double(price) else {
+    guard let priceD = Double(price) else {
          return 1.0
      }
     let convertedPrice = priceD * rate

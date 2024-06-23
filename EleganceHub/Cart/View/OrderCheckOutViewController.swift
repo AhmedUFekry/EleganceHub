@@ -33,8 +33,8 @@ class OrderCheckOutViewController: UIViewController {
     
     var draftOrderID: Int?
     var currencyViewModel = CurrencyViewModel()
-    var rate : Double!
-    let userCurrency = UserDefaultsHelper.shared.getCurrencyFromUserDefaults().uppercased()
+    var rate : Double = UserDefaultsHelper.shared.getDataDoubleFound(key: UserDefaultsConstants.currencyRate.rawValue)
+    let userCurrency:String = UserDefaultsHelper.shared.getCurrencyFromUserDefaults().uppercased()
     
     @IBAction func placeOrderButton(_ sender: UIButton) {
         let vc = (self.storyboard?.instantiateViewController(identifier: "PaymentViewController"))! as PaymentViewController
@@ -47,14 +47,6 @@ class OrderCheckOutViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        currencyViewModel.rateClosure = {
-            [weak self] rate in
-            DispatchQueue.main.async {
-                self?.rate = rate
-                self?.renderView()
-            }
-        }
-        currencyViewModel.getRate()
         self.activityIndicator.startAnimating()
         
         setupUI()

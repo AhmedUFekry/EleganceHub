@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -14,6 +13,8 @@
             <connections>
                 <outlet property="filterByLettersButton" destination="vwI-mz-gvx" id="mbW-wy-ou5"/>
                 <outlet property="filterByPriceButton" destination="mfI-7C-cF2" id="7uF-4O-K8E"/>
+                <outlet property="noConnectionImage" destination="jO7-p0-obs" id="W29-vs-p33"/>
+                <outlet property="noConnectionLabel" destination="BKA-YP-OHv" id="gJC-d1-Ts0"/>
                 <outlet property="searchCollectionView" destination="rp5-CL-EeN" id="Lp5-b8-Szt"/>
                 <outlet property="txtSearchBar" destination="Gco-FI-IHa" id="B16-fT-eEj"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -24,9 +25,8 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <searchBar contentMode="redraw" fixedFrame="YES" text="" translatesAutoresizingMaskIntoConstraints="NO" id="Gco-FI-IHa">
+                <searchBar contentMode="redraw" text="" translatesAutoresizingMaskIntoConstraints="NO" id="Gco-FI-IHa">
                     <rect key="frame" x="16" y="98" width="361" height="56"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <color key="tintColor" name="theme"/>
                     <color key="barTintColor" name="theme"/>
                     <textInputTraits key="textInputTraits"/>
@@ -34,18 +34,20 @@
                         <outlet property="delegate" destination="-1" id="oqB-0O-GlY"/>
                     </connections>
                 </searchBar>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tAl-nC-Rn0">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tAl-nC-Rn0">
                     <rect key="frame" x="16" y="59" width="35" height="35"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="35" id="PII-mJ-DFC"/>
+                        <constraint firstAttribute="width" constant="35" id="ysS-6R-I6O"/>
+                    </constraints>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="plain" image="back"/>
                     <connections>
                         <action selector="navigateBack:" destination="-1" eventType="touchUpInside" id="irE-zi-wZx"/>
                     </connections>
                 </button>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="rp5-CL-EeN">
-                    <rect key="frame" x="0.0" y="154" width="393" height="698"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="rp5-CL-EeN">
+                    <rect key="frame" x="0.0" y="158" width="393" height="694"/>
                     <color key="backgroundColor" name="theme"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="cYN-za-PuG">
                         <size key="itemSize" width="128" height="128"/>
@@ -54,10 +56,13 @@
                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
                 </collectionView>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vwI-mz-gvx">
-                    <rect key="frame" x="349" y="66" width="28" height="28"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vwI-mz-gvx">
+                    <rect key="frame" x="349" y="62.666666666666657" width="28" height="28"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="28" id="nWU-hj-LNu"/>
+                        <constraint firstAttribute="height" constant="28" id="qs9-nU-Jqv"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -68,10 +73,13 @@
                         <action selector="filterByLetters:" destination="-1" eventType="touchUpInside" id="Qh8-8a-PVW"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mfI-7C-cF2">
-                    <rect key="frame" x="316" y="66" width="28" height="28"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mfI-7C-cF2">
+                    <rect key="frame" x="317" y="62.666666666666657" width="28" height="28"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="28" id="RJt-Nk-XgT"/>
+                        <constraint firstAttribute="width" constant="28" id="kDB-0N-Z78"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -82,16 +90,49 @@
                         <action selector="filterByPrice:" destination="-1" eventType="touchUpInside" id="ZPQ-gP-72i"/>
                     </connections>
                 </button>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="no-wifi" translatesAutoresizingMaskIntoConstraints="NO" id="jO7-p0-obs">
+                    <rect key="frame" x="96.666666666666686" y="326" width="200" height="200"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="200" id="Y5d-B9-bzx"/>
+                        <constraint firstAttribute="height" constant="200" id="gve-Fe-foY"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please check for your connection." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BKA-YP-OHv">
+                    <rect key="frame" x="56.666666666666657" y="546" width="280" height="21"/>
+                    <fontDescription key="fontDescription" name="Palatino-Roman" family="Palatino" pointSize="19"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" name="theme"/>
             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="BKA-YP-OHv" firstAttribute="centerX" secondItem="jO7-p0-obs" secondAttribute="centerX" id="0wr-xD-ogY"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Gco-FI-IHa" secondAttribute="trailing" constant="16" id="1LW-8j-ny1"/>
+                <constraint firstItem="BKA-YP-OHv" firstAttribute="top" secondItem="jO7-p0-obs" secondAttribute="bottom" constant="20" id="4j5-go-GTa"/>
+                <constraint firstItem="jO7-p0-obs" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="59r-P8-Y5g"/>
+                <constraint firstItem="Gco-FI-IHa" firstAttribute="top" secondItem="tAl-nC-Rn0" secondAttribute="bottom" constant="4" id="7uz-as-C2c"/>
+                <constraint firstItem="mfI-7C-cF2" firstAttribute="centerY" secondItem="tAl-nC-Rn0" secondAttribute="centerY" id="DUg-yT-gc4"/>
+                <constraint firstItem="rp5-CL-EeN" firstAttribute="top" secondItem="Gco-FI-IHa" secondAttribute="bottom" constant="4" id="E6u-y0-xxR"/>
+                <constraint firstItem="Gco-FI-IHa" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="Swa-kF-W13"/>
+                <constraint firstItem="jO7-p0-obs" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="Wuw-Jx-HlZ"/>
+                <constraint firstItem="tAl-nC-Rn0" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="XJ7-kC-Ng0"/>
+                <constraint firstItem="vwI-mz-gvx" firstAttribute="centerY" secondItem="tAl-nC-Rn0" secondAttribute="centerY" id="baI-qq-8ez"/>
+                <constraint firstItem="vwI-mz-gvx" firstAttribute="leading" secondItem="mfI-7C-cF2" secondAttribute="trailing" constant="4" id="fti-d8-TvL"/>
+                <constraint firstAttribute="bottom" secondItem="rp5-CL-EeN" secondAttribute="bottom" id="uLh-pg-ko4"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="vwI-mz-gvx" secondAttribute="trailing" constant="16" id="vvg-Ll-w0v"/>
+                <constraint firstItem="rp5-CL-EeN" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="xbD-nr-PJE"/>
+                <constraint firstItem="rp5-CL-EeN" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="yys-Ff-16b"/>
+                <constraint firstItem="tAl-nC-Rn0" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="zYU-po-Mt3"/>
+            </constraints>
             <point key="canvasLocation" x="-782.44274809160299" y="41.549295774647888"/>
         </view>
     </objects>
     <resources>
         <image name="back" width="35" height="35"/>
         <image name="dollarsign" catalog="system" width="89" height="128"/>
+        <image name="no-wifi" width="512" height="512"/>
         <image name="textformat.abc" catalog="system" width="128" height="61"/>
         <namedColor name="theme">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

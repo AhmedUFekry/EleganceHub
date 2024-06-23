@@ -12,13 +12,7 @@ class HomeViewModel: ViewModelProtocol {
     let draftOrderID = PublishSubject<Int>()
     private let disposeBag = DisposeBag()
     private let cartNetworkService:CartNetworkServiceProtocol = CartNetworkService()
-   
-//    var couponsResult: [DiscountCodes]?{
-//        didSet{
-//            bindCouponsToViewController()
-//            print("couponsResult did called \(couponsResult?.count)")
-//        }
-//    }
+
 
     var couponsResult: [Coupon]?{
         didSet{

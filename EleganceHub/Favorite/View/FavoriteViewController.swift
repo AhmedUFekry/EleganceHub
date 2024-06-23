@@ -22,10 +22,11 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
 
     var currencyViewModel = CurrencyViewModel()
     var rate : Double?
-    
-    let userCurrency = UserDefaultsHelper.shared.getCurrencyFromUserDefaults().uppercased()
+    var userCurrency:String?
 
-   
+    var networkPresenter :NetworkManager?
+    var isConnected:Bool?
+    
     private var emptyStateImageView: UIImageView!
     private var emptyStateLabel: UILabel!
     private var emptyStateSubLabel: UILabel!
@@ -34,13 +35,6 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
             
     override func viewDidLoad() {
         super.viewDidLoad()
-        currencyViewModel.rateClosure = {
-            [weak self] rate in
-            DispatchQueue.main.async {
-                self?.rate = rate
-            }
-        }
-        currencyViewModel.getRate()
         
         viewModel = ProductDetailViewModel(networkManager: ProductDetailNetworkService())
         setupTableView()
@@ -68,14 +62,17 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
             
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        favoriteTableView.reloadData()
+        //favoriteTableView.reloadData()
+        networkPresenter = NetworkManager(vc: self)
+
         let  isDarkMode = UserDefaultsHelper.shared.isDarkMode()
         if isDarkMode{
             appBarView.backBtn.setImage(UIImage(named: "backLight"), for: .normal)
         }else{
             appBarView.backBtn.setImage(UIImage(named: "back"), for: .normal)
         }
-        
+        rate = UserDefaultsHelper.shared.getDataDoubleFound(key: UserDefaultsConstants.currencyRate.rawValue)
+        userCurrency = UserDefaultsHelper.shared.getCurrencyFromUserDefaults()
     }
     
     private func setupTableView() {
@@ -119,7 +116,12 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
         }).disposed(by: disposeBag)
         
         favoriteTableView.rx.modelSelected([String: Any].self).subscribe(onNext: { [weak self] product in
-            self?.navigateToProductDetail(product: product)
+            guard let self = self, let  isConnected = self.isConnected else {return}
+            if isConnected{
+                self.navigateToProductDetail(product: product)
+            }else{
+                ConnectivityUtils.showConnectivityAlert(from: self)
+            }
         }).disposed(by: disposeBag)
     }
 
@@ -131,8 +133,8 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
            let imageUrl = URL(string: imageUrlString) {
             cell.productNameLabel.text = title
             cell.productVarintLabel.text = productType
-            var convertedPrice = convertPrice(price: price, rate: self.rate ?? 3.3)
-            cell.productPriceLabel.text = "\(String(format: "%.2f", convertedPrice)) \(userCurrency)"
+            let convertedPrice = convertPrice(price: price, rate: self.rate ?? 1.0)
+            cell.productPriceLabel.text = "\(String(format: "%.2f", convertedPrice)) \(userCurrency ?? "USD")"
             
             cell.productImage.kf.setImage(with: imageUrl, placeholder: UIImage(named: "AppIcon"))
         }
@@ -167,39 +169,44 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
     }
     
     @objc func addToCartButtonTapped(_ sender: UIButton) {
-        let productIndex = sender.tag
-        var product = favoriteProducts.value[productIndex]
-        var productData:Product?
-        
-        if let title = product["title"] as? String,
-           let price = product["price"] as? String,
-           let imageUrlString = product["image"] as? String,
-           let productType = product["product_type"] as? String,
-           let imageUrl = URL(string: imageUrlString),
-           let productID = product["id"] as? Int
-           ,let inventoryID = product["variant_id"] as? Int,
-        let quantity = product["inventory_quantity"] as? Int{
-            productData = Product(id: productID, title: title, bodyHTML: nil, vendor: nil, productType: productType, handle: nil, status: nil, publishedScope: nil, tags: nil, variants: [Variant(id: inventoryID, productID: productID, title: nil, price: price, sku: nil, position: nil, weight: nil, inventory_quantity: quantity)], images: nil, image: ProductImage(id: nil, productID: productID, position: nil, width: nil, height: nil, src: imageUrlString))
-            print("Data \(productID) ====================")
-        }
-        
-        guard let productDetails = productData else {return}
-        // should be data type of Product
-        if(UserDefaultsHelper.shared.isDataFound(key: UserDefaultsConstants.isLoggedIn.rawValue)){
-            guard let orderID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.getDraftOrder.rawValue) else {
-                return
+        guard let isConnected = isConnected else {return}
+        if isConnected{
+            let productIndex = sender.tag
+            var product = favoriteProducts.value[productIndex]
+            var productData:Product?
+            
+            if let title = product["title"] as? String,
+               let price = product["price"] as? String,
+               let imageUrlString = product["image"] as? String,
+               let productType = product["product_type"] as? String,
+               let imageUrl = URL(string: imageUrlString),
+               let productID = product["id"] as? Int
+                ,let inventoryID = product["variant_id"] as? Int,
+               let quantity = product["inventory_quantity"] as? Int{
+                productData = Product(id: productID, title: title, bodyHTML: nil, vendor: nil, productType: productType, handle: nil, status: nil, publishedScope: nil, tags: nil, variants: [Variant(id: inventoryID, productID: productID, title: nil, price: price, sku: nil, position: nil, weight: nil, inventory_quantity: quantity)], images: nil, image: ProductImage(id: nil, productID: productID, position: nil, width: nil, height: nil, src: imageUrlString))
+                print("Data \(productID) ====================")
             }
-            customerID = UserDefaultsHelper.shared.getLoggedInUserID()
-            guard customerID != nil else { return }
-            if(orderID != 0) {
-                print("User has Draft order append items and post it \(orderID)")
-                viewModel.updateCustomerDraftOrder(orderID: orderID, customerID: customerID!, newProduct: productDetails)
+            
+            guard let productDetails = productData else {return}
+            // should be data type of Product
+            if(UserDefaultsHelper.shared.isDataFound(key: UserDefaultsConstants.isLoggedIn.rawValue)){
+                guard let orderID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.getDraftOrder.rawValue) else {
+                    return
+                }
+                customerID = UserDefaultsHelper.shared.getLoggedInUserID()
+                guard customerID != nil else { return }
+                if(orderID != 0) {
+                    print("User has Draft order append items and post it \(orderID)")
+                    viewModel.updateCustomerDraftOrder(orderID: orderID, customerID: customerID!, newProduct: productDetails)
+                }else{
+                    print("Create draft order user doesnt have one ")
+                    viewModel.createNewDraftOrderAndPostNewItem(customerID: customerID!, product: productDetails)
+                }
             }else{
-                print("Create draft order user doesnt have one ")
-                viewModel.createNewDraftOrderAndPostNewItem(customerID: customerID!, product: productDetails)
+                showAlertError(err: "You have to logged in first")
             }
         }else{
-            showAlertError(err: "You have to logged in first")
+            ConnectivityUtils.showConnectivityAlert(from: self)
         }
     }
         
@@ -305,10 +312,10 @@ extension FavoriteViewController {
         
         addToCartBtn.tag = indexPath.row
         addToCartBtn.addTarget(self, action: #selector(addToCartButtonTapped(_:)), for: .touchUpInside)
-        
+         
         return cell
     }
-
+    
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
@@ -340,14 +347,14 @@ extension FavoriteViewController {
     private func setupEmptyStateUI() {
         emptyStateImageView = UIImageView(image: UIImage(named: "emptybox"))
         emptyStateImageView.contentMode = .scaleAspectFit
-
+        
         emptyStateLabel = UILabel()
         emptyStateLabel.text = "Your Wishlist is empty!"
         emptyStateLabel.font = UIFont(name: "Palatino", size: 20)
         emptyStateLabel.textAlignment = .center
         emptyStateLabel.numberOfLines = 0
         emptyStateLabel.textColor = .black
-
+        
         emptyStateSubLabel = UILabel()
         emptyStateSubLabel.text = "Tab heart button to start saving your favorite items."
         emptyStateLabel.font = UIFont(name: "Palatino", size: 16)
@@ -362,7 +369,7 @@ extension FavoriteViewController {
         
         favoriteTableView.backgroundView = stackView
         
-
+        
         stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             stackView.centerXAnchor.constraint(equalTo: favoriteTableView.centerXAnchor),
@@ -375,5 +382,29 @@ extension FavoriteViewController {
     private func updateEmptyStateVisibility() {
         favoriteTableView.backgroundView?.isHidden = !favoriteProducts.value.isEmpty
     }
+}
+
+extension FavoriteViewController: ConnectivityProtocol, NetworkStatusProtocol{
+    
+    func networkStatusDidChange(connected: Bool) {
+        isConnected = connected
+        print("networkStatusDidChange called \(isConnected)")
+        checkForConnection()
+    }
+    
+    private func checkForConnection(){
+        guard let isConnected = isConnected else {
+            ConnectivityUtils.showConnectivityAlert(from: self)
+            print("is connect nilllllll")
+            return
+        }
+        if isConnected{
+            favoriteTableView.reloadData()
+        }else{
+            ConnectivityUtils.showConnectivityAlert(from: self)
+        }
+    }
+    
+ 
 }
 

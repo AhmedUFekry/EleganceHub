@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -18,26 +17,35 @@
                 <rect key="frame" x="0.0" y="0.0" width="252" height="212"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ODy-PV-zjb">
-                        <rect key="frame" x="13" y="13" width="223" height="94"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ODy-PV-zjb">
+                        <rect key="frame" x="8" y="8" width="236" height="106"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="SportyShoe" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="c3d-bu-W3l">
-                        <rect key="frame" x="16" y="115" width="126" height="20"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SportyShoe" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="c3d-bu-W3l">
+                        <rect key="frame" x="16" y="122" width="220" height="20"/>
+                        <fontDescription key="fontDescription" name="Palatino-Bold" family="Palatino" pointSize="18"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="SportyShoe" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="P6D-or-InY">
-                        <rect key="frame" x="13" y="146" width="106" height="20"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SportyShoe" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="P6D-or-InY">
+                        <rect key="frame" x="16" y="158" width="220" height="15.666666666666657"/>
+                        <fontDescription key="fontDescription" name="Palatino-Bold" family="Palatino" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <color key="backgroundColor" name="theme"/>
+                <constraints>
+                    <constraint firstItem="c3d-bu-W3l" firstAttribute="top" secondItem="ODy-PV-zjb" secondAttribute="bottom" constant="8" id="1A2-re-4L7"/>
+                    <constraint firstItem="ODy-PV-zjb" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="0.5" id="7FN-Li-0m2"/>
+                    <constraint firstAttribute="trailing" secondItem="c3d-bu-W3l" secondAttribute="trailing" constant="16" id="8JZ-8I-HPe"/>
+                    <constraint firstItem="ODy-PV-zjb" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="CjZ-Sp-eed"/>
+                    <constraint firstItem="ODy-PV-zjb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="HbX-FS-L2H"/>
+                    <constraint firstItem="P6D-or-InY" firstAttribute="top" secondItem="c3d-bu-W3l" secondAttribute="bottom" constant="16" id="SYq-g1-w3W"/>
+                    <constraint firstItem="P6D-or-InY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="UHz-of-kNd"/>
+                    <constraint firstAttribute="trailing" secondItem="P6D-or-InY" secondAttribute="trailing" constant="16" id="XmL-2R-n9p"/>
+                    <constraint firstAttribute="trailing" secondItem="ODy-PV-zjb" secondAttribute="trailing" constant="8" id="kMI-KJ-CQY"/>
+                    <constraint firstItem="c3d-bu-W3l" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="zVD-5d-HDL"/>
+                </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
@@ -51,7 +59,7 @@
     </objects>
     <resources>
         <namedColor name="theme">
-            <color red="0.9588462752525253" green="0.9588462752525253" blue="0.9588462752525253" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
     </resources>
 </document>

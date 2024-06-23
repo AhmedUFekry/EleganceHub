@@ -76,18 +76,18 @@ class LocationViewController: UIViewController {
     }
     
     private func setup(){
-        
-        Constants.textFieldStyle(tF: phoneTF)
-        Constants.textFieldStyle(tF: zipCodeTF)
-        Constants.textFieldStyle(tF: streetTF)
-        
+        setupTextFields()
         self.selectCityBtn.isEnabled = false
         
         cancelBtn.layer.borderWidth = 2.0
         cancelBtn.layer.borderColor = UIColor(named: "btnColor")?.cgColor ?? UIColor.black.cgColor
         cancelBtn.layer.cornerRadius = 10
     }
-    
+    private func setupTextFields(){
+        Constants.textFieldStyle(tF: phoneTF)
+        Constants.textFieldStyle(tF: zipCodeTF)
+        Constants.textFieldStyle(tF: streetTF)
+    }
     @IBAction func pickCountryBtn(_ sender: UIButton) {
         let customAlert = CustomAlertViewController()
         customAlert.alertTitle = "Choose Country"
@@ -143,6 +143,10 @@ class LocationViewController: UIViewController {
            let phoneTxt = phoneTF.text, !phoneTxt.isEmpty,
            let zip = zipCodeTF.text, !zip.isEmpty {
             print("not nill data")
+            guard isValidPhone(phoneTxt) else {
+                Constants.displayAlert(viewController: self, message: "Enter Valid Phone", seconds: 1.75)
+                return
+            }
             var userAdress = AddressData(address1: address, address2: "", city: selectedCity, company: "", firstName: customerData?.firstName, lastName: customerData?.lastName, phone: phoneTxt, province: "", country: selectedCountry, zip: zip, name: "\(customerData?.firstName!) \(customerData?.lastName!)", provinceCode: "", countryCode: selectedCountryCode, countryName: selectedCountry)
             print("selectedCountryCode \(selectedCountryCode) ")
             self.settingVM?.addNewAddress(customerID: customerID!, addressData: userAdress)
@@ -151,16 +155,22 @@ class LocationViewController: UIViewController {
             }
 
         self.dismiss(animated: true, completion: nil)
-                }else{
-                    Constants.displayAlert(viewController:self,message: "Please enter your data", seconds: 3.0)
+        }else{
+            Constants.displayAlert(viewController:self,message: "Please enter your data", seconds: 3.0)
         }
     }
     @IBAction func cancelBtnTapped(_ sender: UIButton){
         self.dismiss(animated: true)
     }
-    
-    
-    
+    private func isValidPhone(_ phone: String) -> Bool {
+        let phoneRegex = "^01[0-2][0-9]{8}$"
+        let phoneTest = NSPredicate(format: "SELF MATCHES %@", phoneRegex)
+        return phoneTest.evaluate(with: phone)
+    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        setupTextFields()
+    }
     
 }
 

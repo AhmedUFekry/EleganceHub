@@ -33,15 +33,22 @@ class ProfileViewController: UIViewController,UpdateThemaDelegate {
     var disposeBag = DisposeBag()
     var isDarkMode:Bool = false
     
+    var networkPresenter :NetworkManager?
+    var isConnected:Bool?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         commenInit()
         viewModel = SettingsViewModel()
-        
+        viewModel?.rateClosure = { coin in
+            UserDefaultsHelper.shared.setIfDataFound(doubleData: coin, key: UserDefaultsConstants.currencyRate.rawValue)
+            
+            print("Data Stored at user Defaults \(coin) in \(UserDefaultsHelper.shared.getDataDoubleFound(key: UserDefaultsConstants.currencyRate.rawValue))")
+        }
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        checkForUser()
+        networkPresenter = NetworkManager(vc: self)
         isDarkMode = UserDefaultsHelper.shared.isDarkMode()
         
     }
@@ -130,58 +137,59 @@ extension ProfileViewController:UITableViewDataSource,UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if(UserDefaultsHelper.shared.isDataFound(key: UserDefaultsConstants.isLoggedIn.rawValue)){
-            switch(cellData[indexPath.row].navigationId){
-            case "currency":
-                let alertController = UIAlertController(title: "Select Currency", message: nil, preferredStyle: .actionSheet)
-                let currencies = ["USD", "EGP", "EUR"]
-                for currency in currencies {
-                    let action = UIAlertAction(title: currency, style: .default) { _ in
-                        UserDefaultsHelper.shared.saveCurrencyToUserDefaults(coin: currency)
+        guard let isConnected = isConnected else {return}
+        if isConnected{
+            if(UserDefaultsHelper.shared.isDataFound(key: UserDefaultsConstants.isLoggedIn.rawValue)){
+                switch(cellData[indexPath.row].navigationId){
+                case "currency":
+                    let alertController = UIAlertController(title: "Select Currency", message: nil, preferredStyle: .actionSheet)
+                    let currencies = ["USD", "EGP", "EUR"]
+                    for currency in currencies {
+                        let action = UIAlertAction(title: currency, style: .default) { _ in
+                            UserDefaultsHelper.shared.saveCurrencyToUserDefaults(coin: currency.uppercased())
+                            self.viewModel?.getRate(currencyType: currency)
+                        }
+                        action.setValue(UIColor.label, forKey: "titleTextColor")
+                        alertController.addAction(action)
                     }
-                    action.setValue(UIColor.label, forKey: "titleTextColor")
-                    alertController.addAction(action)
-                }
-                
-                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                cancelAction.setValue(UIColor.label, forKey: "titleTextColor")
-
-                alertController.addAction(cancelAction)
-                present(alertController, animated: true, completion: nil)
-                
-            case "personalDetails":
-                let viewController =  self.storyboard?.instantiateViewController(withIdentifier: "SettingsViewController") as? SettingsViewController
-                guard let vc = viewController else {return}
-                if let customer = self.customerData {
-                    vc.customerData = customer
-                }
-                vc.updateViewDelegate = self
-                self.navigationController?.pushViewController(vc, animated: true)
-            case "shippingAddress":
-                self.navigationController?.pushViewController(ShippingAddressViewController(), animated: true)
-            case "myOrders":
-                
-                let OrdersViewController =  self.storyboard?.instantiateViewController(withIdentifier: "OrdersViewController") as? OrdersViewController
-                self.navigationController?.pushViewController(OrdersViewController!, animated: true)
-            case "fav":
-                if let favoriteViewController = storyboard?.instantiateViewController(withIdentifier: "FavoriteViewController") as? FavoriteViewController {
+                    
+                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                    cancelAction.setValue(UIColor.label, forKey: "titleTextColor")
+                    
+                    alertController.addAction(cancelAction)
+                    present(alertController, animated: true, completion: nil)
+                    
+                case "personalDetails":
+                    let viewController =  self.storyboard?.instantiateViewController(withIdentifier: "SettingsViewController") as? SettingsViewController
+                    guard let vc = viewController else {return}
+                    if let customer = self.customerData {
+                        vc.customerData = customer
+                    }
+                    vc.updateViewDelegate = self
+                    self.navigationController?.pushViewController(vc, animated: true)
+                case "shippingAddress":
+                    self.navigationController?.pushViewController(ShippingAddressViewController(), animated: true)
+                case "myOrders":
+                    
+                    let OrdersViewController =  self.storyboard?.instantiateViewController(withIdentifier: "OrdersViewController") as? OrdersViewController
+                    self.navigationController?.pushViewController(OrdersViewController!, animated: true)
+                case "fav":
+                    if let favoriteViewController = storyboard?.instantiateViewController(withIdentifier: "FavoriteViewController") as? FavoriteViewController {
                         navigationController?.pushViewController(favoriteViewController, animated: true)
-                } else {
-                    print("Failed to instantiate FavoriteViewController")
+                    } else {
+                        print("Failed to instantiate FavoriteViewController")
+                    }
+                case "aboutUs":
+                    guard let aboutUsViewController = self.storyboard?.instantiateViewController(withIdentifier: "AboutUsViewController")
+                    else { return
+                        print("Failed to instantiate FavoriteViewController")
+                    }
+                    navigationController?.pushViewController(aboutUsViewController, animated: true)
+                default: break
+                    
                 }
-            case "aboutUs":
-                guard let aboutUsViewController = self.storyboard?.instantiateViewController(withIdentifier: "AboutUsViewController")
-                  else { return
-                    print("Failed to instantiate FavoriteViewController")
-                }
-                navigationController?.pushViewController(aboutUsViewController, animated: true)
-            default: break
-                
-            }
-            settingTableView.deselectRow(at: indexPath, animated: true)
-        }else{
-            settingTableView.deselectRow(at: indexPath, animated: true)
-            switch(cellData[indexPath.row].navigationId){
+            }else{
+                switch(cellData[indexPath.row].navigationId){
                 case "aboutUs":
                     guard let aboutUsViewController = self.storyboard?.instantiateViewController(withIdentifier: "AboutUsViewController")
                     else { return
@@ -196,11 +204,49 @@ extension ProfileViewController:UITableViewDataSource,UITableViewDelegate{
                             viewController.navigationController?.pushViewController(newViewController, animated: true)
                         }
                     }
+                }
             }
+        }else{
+            switch(cellData[indexPath.row].navigationId){
+            case "aboutUs":
+                guard let aboutUsViewController = self.storyboard?.instantiateViewController(withIdentifier: "AboutUsViewController")
+                else { return
+                    print("Failed to instantiate FavoriteViewController")
+                }
+                navigationController?.pushViewController(aboutUsViewController, animated: true)
+            default:
+                ConnectivityUtils.showConnectivityAlert(from: self)
+            }
+
+        }
+        settingTableView.deselectRow(at: indexPath, animated: true)
+    }
+   
+}
+
+extension ProfileViewController: ConnectivityProtocol, NetworkStatusProtocol{
+    
+    func networkStatusDidChange(connected: Bool) {
+        isConnected = connected
+        print("networkStatusDidChange called \(isConnected)")
+        checkForConnection()
+    }
+    
+    private func checkForConnection(){
+        guard let isConnected = isConnected else {
+            ConnectivityUtils.showConnectivityAlert(from: self)
+            print("is connect nilllllll")
+            return
+        }
+        if isConnected{
+            getData()
+        }else{
+            ConnectivityUtils.showConnectivityAlert(from: self)
         }
     }
     
-    
+    private func getData(){
+        checkForUser()
+    }
+ 
 }
-
-
