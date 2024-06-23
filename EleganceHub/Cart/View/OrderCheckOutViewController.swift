@@ -60,12 +60,12 @@ class OrderCheckOutViewController: UIViewController {
         loadingObserverSetUp()
         onErrorObserverSetUp()
         fetchDraftOrder()
-        
         if isDarkMode{
             appBar.trailingIcon.setImage(UIImage(named: "add"), for: .normal)
         }else{
             appBar.trailingIcon.setImage(UIImage(named: "add-Light"), for: .normal)
         }
+        
     }
  
     private func setupUI() {
@@ -93,20 +93,20 @@ class OrderCheckOutViewController: UIViewController {
     private func fetchDraftOrder() {
         draftOrderID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.getDraftOrder.rawValue)
         guard let id = draftOrderID else {return}
-
+        
         if draftOrderID != 0{
             viewModel.getDraftOrderForUser(orderID: id)
         }
     }
+    
     @objc func goBack() {
-        guard let draftOrderID = self.draftOrderID , let draftOrder = self.oldDraftOrder else{
-            self.navigationController?.popViewController(animated: true)
-            return
-        }
-       viewModel.updateDraftOrder(orderID: draftOrderID, draftOrder: draftOrder,qos: .background)
-        print("print revert old order ")
+//        guard let draftOrderID = self.draftOrderID , let draftOrder = self.oldDraftOrder else{
+//            self.navigationController?.popViewController(animated: true)
+//            return
+//        }
+//       viewModel.updateDraftOrder(orderID: draftOrderID, draftOrder: draftOrder,qos: .background)
+//        print("print revert old order ")
         self.navigationController?.popViewController(animated: true)
-
     }
     private func observeOnResponse() {
         viewModel.draftOrder
@@ -167,6 +167,14 @@ class OrderCheckOutViewController: UIViewController {
             self.totaldraftPriceLabel.text = "\(String(format: "%.2f", convertedTotalPrice)) \(self.userCurrency)"
             self.subTotalLabel.text = "\(String(format: "%.2f", convertedSubTotalPrice)) \(self.userCurrency)"
             self.shippingLabel.text = "\(String(format: "%.2f", convertedTaxPrice)) \(self.userCurrency)"
+            if let isCopunsApplied = self.draftOrder?.appliedDiscount{
+                self.validateBtn.isEnabled = false
+                self.copunTextField.isEnabled = false
+                self.copunTextField.text = isCopunsApplied.title
+            }else{
+                self.validateBtn.isEnabled = true
+                self.copunTextField.isEnabled = true
+            }
         }
     }
     
@@ -175,7 +183,6 @@ class OrderCheckOutViewController: UIViewController {
     }
     
     @IBAction func validateCopunBtn(_ sender: UIButton) {
-        let code = self.copunTextField.text
         if let code = self.copunTextField.text {
             oldDraftOrder = draftOrder
             viewModel.checkForCopuns(copunsString: code, draftOrder: draftOrder!)
