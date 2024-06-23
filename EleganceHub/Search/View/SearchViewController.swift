@@ -68,8 +68,9 @@ class SearchViewController: UIViewController ,UICollectionViewDelegate, UICollec
             button.layoutIfNeeded()
             button.layer.cornerRadius = button.bounds.height / 2
             button.clipsToBounds = true
-            button.layer.borderWidth = 1.5
-            button.layer.borderColor = UIColor.black.cgColor
+            button.layer.borderWidth = 0.1
+            button.layer.borderColor = UIColor.white.cgColor
+           // button.layer.borderColor = UIColor.black.cgColor
         }
     }
 

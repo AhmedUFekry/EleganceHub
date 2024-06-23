@@ -25,7 +25,7 @@ class ReviewList :ReviewListProtocol{
         Review(image: "Nour Hamdy", text: "beautiful design", rate: 4.70, date: getRandomDate()),
         Review(image: "Youssef Ibrahem", text: "average experience", rate: 3.25, date: getRandomDate()),
         Review(image: "Lina Othman", text: "amazing product", rate: 4.90, date: getRandomDate()),
-        Review(image: "Mai Essam", text: "I really love it and reccommend it", rate: 4.0, date: getRandomDate()),
+        Review(image: "Mai Essam", text: "I do really reccommend it", rate: 4.0, date: getRandomDate()),
         Review(image: "Aya Sami", text: "fast delivery", rate: 4.20, date: getRandomDate()),
         Review(image: "Zad Hussen", text: "beautiful design", rate: 4.70, date: getRandomDate()),
         Review(image: "Serag Ali", text: "different color and size", rate: 3.25, date: getRandomDate()),
