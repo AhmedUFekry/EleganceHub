@@ -90,9 +90,14 @@ class ShippingAddressViewController: UIViewController, UpdateLocationDelegate {
     }
     
     @objc func addNewLocation() {
-        let locationVC = LocationViewController()
-        locationVC.delegate = self
-        self.present(locationVC, animated: true)
+        guard let isConnected = isConnected else {return}
+        if isConnected{
+            let locationVC = LocationViewController()
+            locationVC.delegate = self
+            self.present(locationVC, animated: true)
+        }else{
+            ConnectivityUtils.showConnectivityAlert(from: self)
+        }
     }
     
     private func setupTableViewBinding() {
@@ -283,6 +288,7 @@ extension ShippingAddressViewController: ConnectivityProtocol, NetworkStatusProt
     private func isShowViews(){
         guard let isConnected = isConnected else {return}
         activityIndicator.isHidden = true
+        viewModel.addresses.onNext([])
         let  isDarkMode = UserDefaultsHelper.shared.isDarkMode()
         if (isDarkMode && !isConnected){
             handleCartEmptyState(isEmpty: true, imageName: "no-wifi-light")

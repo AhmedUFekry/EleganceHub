@@ -52,6 +52,12 @@ class CartViewController: UIViewController {
                 self.showAlertError(err: "Sorry, this product is currently out of stock.")
             }
         }
+        
+        setupTableViewBinding()
+        loadingObserverSetUp()
+        bindDataToView()
+        handleEmptyState()
+        
     }
     
     private func setUpBtnsThemes(){
@@ -85,7 +91,7 @@ class CartViewController: UIViewController {
             }
         }else{
             ConnectivityUtils.showConnectivityAlert(from: self)
-            self.showAlertError(err: "Your cart is empty. Please add items to continue shopping.")
+            //self.showAlertError(err: "Your cart is empty. Please add items to continue shopping.")
         }
     }
     
@@ -228,10 +234,15 @@ class CartViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        cartTableView.dataSource = nil
-        cartTableView.delegate = nil
+        //cartTableView.dataSource = nil
+        //cartTableView.delegate = nil
         print("viewWillDisappear")
-        self.viewModel.updateLatestListItem(orderID: draftOrderID)
+        guard let isConnected = isConnected else{
+            return
+        }
+        if isConnected{
+            self.viewModel.updateLatestListItem(orderID: draftOrderID)
+        }
     }
 }
 
@@ -298,31 +309,21 @@ extension CartViewController: ConnectivityProtocol, NetworkStatusProtocol{
     private func getData(){
         customerID = UserDefaultsHelper.shared.getLoggedInUserID()
         guard customerID != nil else { return }
-        
         //viewModel.getDraftOrderForUser(orderID: 1157765955859)
         draftOrderID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.getDraftOrder.rawValue)
         if draftOrderID != 0 {
-            //if let userDraftOrder = draftOrder,let linItemList = userDraftOrder.lineItems {
-                //viewModel.lineItemsList.onNext(linItemList)
-              //  print("Data Passed \(linItemList)")
-            //}else{
-                viewModel.getDraftOrderForUser(orderID: draftOrderID)
-           // }
+            viewModel.getDraftOrderForUser(orderID: draftOrderID)
         } else {
             handleCartEmptyState(isEmpty: true,imageName: "emptybox")
         }
         rate = UserDefaultsHelper.shared.getDataDoubleFound(key: UserDefaultsConstants.currencyRate.rawValue)
         userCurrency = UserDefaultsHelper.shared.getCurrencyFromUserDefaults().uppercased()
-        
-        setupTableViewBinding()
-        loadingObserverSetUp()
-        bindDataToView()
-        handleEmptyState()
-        
+       
     }
     private func isShowViews(){
         guard let isConnected = isConnected else {return}
         activityIndicator.isHidden = !isConnected
+        viewModel.lineItemsList.onNext([])
         let  isDarkMode = UserDefaultsHelper.shared.isDarkMode()
         if (isDarkMode && !isConnected){
             handleCartEmptyState(isEmpty: true, imageName: "no-wifi-light")

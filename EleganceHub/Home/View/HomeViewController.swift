@@ -415,7 +415,6 @@ extension HomeViewController:ConnectivityProtocol,NetworkStatusProtocol{
             if draftOrder != 0 {
                 cartViewModel.getDraftOrderForUser(orderID: draftOrder!)
             }
-           
             showCountOnCartData()
         }else{
             ConnectivityUtils.showConnectivityAlert(from: self)

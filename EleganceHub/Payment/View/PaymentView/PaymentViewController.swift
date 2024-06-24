@@ -16,6 +16,8 @@ class PaymentViewController: UIViewController {
     @IBOutlet weak var appBarView: CustomAppBarUIView!
     let isDarkMode = UserDefaultsHelper.shared.isDarkMode()
     
+    var networkPresenter :NetworkManager?
+    var isConnected:Bool?
     
     let paymentList:[PaymentMethodModel] = [/*PaymentMethodModel(paymentMethod: "Credit Card", imageName: "CreditCard",id:PaymentMethod.creditCart),*/PaymentMethodModel(paymentMethod: "Apple Pay", imageName: "applePayDark",id:PaymentMethod.applePay),/*PaymentMethodModel(paymentMethod: "Paypal", imageName: "Paypal",id:PaymentMethod.payPal),*/PaymentMethodModel(paymentMethod: "Cash on delivery", imageName: "cashOnDelivery",id:PaymentMethod.cash)]
     
@@ -41,21 +43,25 @@ class PaymentViewController: UIViewController {
         appBarView.lableTitle.isHidden = true
         appBarView.trailingIcon.isHidden = true
         appBarView.secoundTrailingIcon.isHidden = true
+        networkPresenter = NetworkManager(vc: self)
+
         observeOnOrder()
         loadingObserverSetUp()
         appBarView.setUpBtnsThemes()
+        
     }
     @objc func backButtonTapped(){
         self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func countinueToPaymentTapped(_ sender: UIButton){
+        
         guard let selectedMethod = selectedMethod else {
             showAlert(msg: "Please choose a payment option.")
             return
         }
         self.confirmAlert(paymentWay:selectedMethod.id)
-
+        
     }
     private func showAlert(msg:String){
         Constants.displayAlert(viewController: self, message: msg, seconds: 1.75)
@@ -68,16 +74,21 @@ class PaymentViewController: UIViewController {
            return
        }
         Constants.showAlertWithAction(on: self, title: "Confirmation", message: "Are you sure you want to choose \(paymentWay) as your payment method?", isTwoBtn: true, firstBtnTitle: "No", actionBtnTitle: "Yes"){ _ in
-            switch paymentWay{
-            case PaymentMethod.cash:
-                self.CompleteOrder(id: id)
-            case PaymentMethod.payPal:
-                print("\(paymentWay)")
-            case PaymentMethod.applePay:
-                print("\(paymentWay)")
-                self.startApplePay()
-            case PaymentMethod.creditCart:
-                print("\(paymentWay)")
+            guard let isConnected = self.isConnected else {return}
+            if isConnected{
+                switch paymentWay{
+                case PaymentMethod.cash:
+                    self.CompleteOrder(id: id)
+                case PaymentMethod.payPal:
+                    print("\(paymentWay)")
+                case PaymentMethod.applePay:
+                    print("\(paymentWay)")
+                    self.startApplePay()
+                case PaymentMethod.creditCart:
+                    print("\(paymentWay)")
+                }
+            }else{
+                ConnectivityUtils.showConnectivityAlert(from: self)
             }
         }
     }
@@ -227,5 +238,15 @@ extension PaymentViewController:UITableViewDelegate{
 
         }
     }
+}
+
+extension PaymentViewController: ConnectivityProtocol, NetworkStatusProtocol{
+    
+    func networkStatusDidChange(connected: Bool) {
+        isConnected = connected
+        print("networkStatusDidChange called \(isConnected)")
+    }
+    
+   
 }
 
