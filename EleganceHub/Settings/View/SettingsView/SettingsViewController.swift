@@ -133,11 +133,11 @@ class SettingsViewController: UIViewController {
             guard let firstName = userFirstNameTF.text, !firstName.isEmpty,
                     let lastName = userLastNameTF.text, !lastName.isEmpty,
                   let phone = userPhoneTF.text, !phone.isEmpty else{
-                      Constants.displayAlert(viewController: self, message: "Please enter a valid data", seconds: 2.0)
+                      Constants.displayAlert(viewController: self, message: "Please enter a valid data.", seconds: 2.0)
                       return
             }
             guard isValidPhone(phone) else {
-                Constants.displayAlert(viewController: self, message: "Please enter a valid phone number", seconds: 2.0)
+                Constants.displayAlert(viewController: self, message: "Please enter a valid phone number.", seconds: 2.0)
                 return
             }
             viewModel.updateData(customerID: id, firstName: firstName, lastName: lastName, email: userEmailTF.text, phone: phone)
@@ -177,7 +177,7 @@ class SettingsViewController: UIViewController {
                 if let response = response.customer {
                     // self.customerData = response.customer
                     if (self.isEditing) {
-                        Constants.displayAlert(viewController: self, message: "Updated Successfully", seconds: 2.0)
+                        Constants.displayAlert(viewController: self, message: "Your changes have been updated successfully.", seconds: 2.0)
                     }
                     self.customerData = response
                     self.updateUI(with: response)

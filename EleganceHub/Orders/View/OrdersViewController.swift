@@ -133,7 +133,7 @@ extension OrdersViewController: UITableViewDelegate, UITableViewDataSource {
         return 150
     }
     func showDeleteConfirmationAlert(completion: @escaping (Bool) -> Void) {
-        Constants.showAlertWithAction(on: self, title: "Cancel Order", message: "Are you sure you want to Cancel this order?", isTwoBtn: true, firstBtnTitle: "No", actionBtnTitle: "Yes", style: .destructive) { confirmed in
+        Constants.showAlertWithAction(on: self, title: "Delete Order", message: "Are you sure you want to cancel this order?", isTwoBtn: true, firstBtnTitle: "No", actionBtnTitle: "Yes", style: .destructive) { confirmed in
             completion(true)
         }
     }

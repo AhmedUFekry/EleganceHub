@@ -153,7 +153,7 @@ class LocationViewController: UIViewController {
            let zip = zipCodeTF.text, !zip.isEmpty {
             print("not nill data")
             guard isValidPhone(phoneTxt) else {
-                Constants.displayAlert(viewController: self, message: "Enter Valid Phone", seconds: 1.75)
+                Constants.displayAlert(viewController: self, message: "Invalid Phone Number.", seconds: 1.75)
                 return
             }
             //guard self.setDefaultSwitch
@@ -166,7 +166,7 @@ class LocationViewController: UIViewController {
 
         self.dismiss(animated: true, completion: nil)
         }else{
-            Constants.displayAlert(viewController:self,message: "Please enter your data", seconds: 3.0)
+            Constants.displayAlert(viewController:self,message: "Please Enter Your Data", seconds: 3.0)
         }
     }
     @IBAction func cancelBtnTapped(_ sender: UIButton){

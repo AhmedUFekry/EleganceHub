@@ -121,7 +121,7 @@ class OrderCheckOutViewController: UIViewController {
         
         viewModel.isValiedCopoun.subscribe{ isValied in
             if isValied {
-                Constants.displayAlert(viewController: self,message: "You got the discount", seconds: 1.5)
+                Constants.displayAlert(viewController: self,message: "Congratulations! You've received a discount.", seconds: 1.5)
             }
             self.validateBtn.isEnabled = !isValied
             self.copunTextField.isEnabled = !isValied
@@ -151,7 +151,7 @@ class OrderCheckOutViewController: UIViewController {
     private func showAlertError(err:Error){
         switch err {
         case MyError.errorAtCopuns:
-            Constants.displayAlert(viewController: self,message: "not valid Copoun", seconds: 2)
+            Constants.displayAlert(viewController: self,message: "Oops! This coupon code is not valid.", seconds: 2)
             self.copunTextField.layer.borderColor = UIColor.red.cgColor
         default:
             Constants.displayAlert(viewController: self,message: err.localizedDescription, seconds: 2)
@@ -187,7 +187,7 @@ class OrderCheckOutViewController: UIViewController {
             oldDraftOrder = draftOrder
             viewModel.checkForCopuns(copunsString: code, draftOrder: draftOrder!)
         }else{
-            Constants.displayAlert(viewController: self, message: "There is no Code", seconds: 2.0)
+            Constants.displayAlert(viewController: self, message: "Oops! No code found.", seconds: 2.0)
         }
     }
 }

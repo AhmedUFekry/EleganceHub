@@ -184,7 +184,6 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
                 ,let inventoryID = product["variant_id"] as? Int,
                let quantity = product["inventory_quantity"] as? Int{
                 productData = Product(id: productID, title: title, bodyHTML: nil, vendor: nil, productType: productType, handle: nil, status: nil, publishedScope: nil, tags: nil, variants: [Variant(id: inventoryID, productID: productID, title: nil, price: price, sku: nil, position: nil, weight: nil, inventory_quantity: quantity)], images: nil, image: ProductImage(id: nil, productID: productID, position: nil, width: nil, height: nil, src: imageUrlString))
-                print("Data \(productID) ====================")
             }
             
             guard let productDetails = productData else {return}
@@ -251,7 +250,7 @@ class FavoriteViewController: UIViewController ,UITableViewDelegate, UITableView
             }
             UserDefaultsHelper.shared.setIfDataFound(id, key: UserDefaultsConstants.getDraftOrder.rawValue)
             print("Draft order created \(id)")
-            Constants.displayAlert(viewController: self, message: "Product Added To cart Successfully", seconds: 1.0)
+            Constants.displayAlert(viewController: self, message: "Product Added To Cart Successfully.", seconds: 1.0)
         }, onError: { error in
             print("Error subscribing to draft order: \(error)")
         }).disposed(by: disposeBag)
@@ -341,7 +340,6 @@ extension FavoriteViewController {
     }
     
     
-    
     // MARK: - empty case
         
     private func setupEmptyStateUI() {
@@ -395,7 +393,6 @@ extension FavoriteViewController: ConnectivityProtocol, NetworkStatusProtocol{
     private func checkForConnection(){
         guard let isConnected = isConnected else {
             ConnectivityUtils.showConnectivityAlert(from: self)
-            print("is connect nilllllll")
             return
         }
         if isConnected{

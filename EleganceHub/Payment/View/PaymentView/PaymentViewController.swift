@@ -51,7 +51,7 @@ class PaymentViewController: UIViewController {
     
     @IBAction func countinueToPaymentTapped(_ sender: UIButton){
         guard let selectedMethod = selectedMethod else {
-            showAlert(msg: "Please select payment option")
+            showAlert(msg: "Please choose a payment option.")
             return
         }
         self.confirmAlert(paymentWay:selectedMethod.id)
@@ -64,10 +64,10 @@ class PaymentViewController: UIViewController {
     private func confirmAlert(paymentWay:PaymentMethod) {
         orderID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.getDraftOrder.rawValue)
        guard let id = orderID else {
-           self.showAlert(msg: "Failed to containue to pay")
+           self.showAlert(msg: "Failed to proceed with payment.")
            return
        }
-        Constants.showAlertWithAction(on: self, title: "Confirmation", message: "Are you sure you want to choose to pay in \(paymentWay)?", isTwoBtn: true, firstBtnTitle: "No", actionBtnTitle: "Yes"){ _ in
+        Constants.showAlertWithAction(on: self, title: "Confirmation", message: "Are you sure you want to choose \(paymentWay) as your payment method?", isTwoBtn: true, firstBtnTitle: "No", actionBtnTitle: "Yes"){ _ in
             switch paymentWay{
             case PaymentMethod.cash:
                 self.CompleteOrder(id: id)
@@ -85,7 +85,7 @@ class PaymentViewController: UIViewController {
         if id != 0{
             self.viewModel.completeDraftOrder(orderID: id)
         }else{
-            Constants.displayAlert(viewController: self, message: "Error Can't complete your order", seconds: 2.0)
+            Constants.displayAlert(viewController: self, message: "Something went wrong. Unable to complete your order.", seconds: 2.0)
         }
     }
     
@@ -101,7 +101,7 @@ class PaymentViewController: UIViewController {
                 }
             } else {
                 print("Failed to complete draft order: Unknown error")
-                self.showAlert(msg: "Failed at payment please try again later")
+                self.showAlert(msg: "Payment failed. Please try again later.")
             }
         }.disposed(by: disposeBag)
     }
@@ -114,7 +114,6 @@ class PaymentViewController: UIViewController {
                 window.rootViewController = tabBarController
                 window.makeKeyAndVisible()
                 
-                // Optional: Add a transition animation
                 let options: UIView.AnimationOptions = .transitionFlipFromRight
                 UIView.transition(with: window, duration: 0.5, options: options, animations: {}, completion: nil)
             }
@@ -155,7 +154,7 @@ class PaymentViewController: UIViewController {
                 present(paymentVC, animated: true, completion: nil)
             }
         } else {
-            let alert = UIAlertController(title: "Error", message: "Apple Pay is not available on this device or no card is set up.", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Something went wrong.", message: "Apple Pay is not available on this device or no card is set up.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             present(alert, animated: true, completion: nil)
         }
