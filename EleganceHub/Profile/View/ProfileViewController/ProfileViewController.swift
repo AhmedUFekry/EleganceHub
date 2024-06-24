@@ -94,7 +94,7 @@ class ProfileViewController: UIViewController,UpdateThemaDelegate {
     }
     private func onErrorObserverSetUp(){
         viewModel?.error.subscribe{ err in
-            Constants.displayAlert(viewController: self,message: err.error?.localizedDescription as? String ?? "Failed to get data", seconds: 3)
+            Constants.displayAlert(viewController: self,message: "Failed to retrieve information. Please try again later.", seconds: 3)
         }.disposed(by: disposeBag)
     }
     private func updateUI(user: Customer){

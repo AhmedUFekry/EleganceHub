@@ -49,7 +49,7 @@ class CartViewController: UIViewController {
             let isIncrement = self.viewModel.showAlertQuantity
             guard let isIncrement = isIncrement else {return}
             if isIncrement {
-                self.showAlertError(err: "There is no more items of this product at the store")
+                self.showAlertError(err: "Sorry, this product is currently out of stock.")
             }
         }
     }
@@ -76,10 +76,10 @@ class CartViewController: UIViewController {
                 locationVC.isFromCart = true
                 self.navigationController?.pushViewController(locationVC, animated: true)
             } else {
-                self.showAlertError(err: "Your cart is Empty add new items to it to continue buying")
+                self.showAlertError(err: "Your cart is empty. Please add items to continue shopping.")
             }
         } else {
-            self.showAlertError(err: "Please Log in First")
+            self.showAlertError(err: "Please log in first to continue.")
         }
     }
     

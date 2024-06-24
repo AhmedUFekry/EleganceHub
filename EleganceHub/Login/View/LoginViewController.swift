@@ -57,7 +57,7 @@ class LoginViewController: UIViewController {
         
         Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
             if let error = error {
-                self.displayToast(message: "Error logging in: \(error.localizedDescription)", seconds: 2.0)
+                self.displayToast(message: "Something went wrong while logging in. Try again", seconds: 2.0)
                 return
             }
             
@@ -74,13 +74,12 @@ class LoginViewController: UIViewController {
                                 self.displayToast(message: "Invalid account details", seconds: 2.0)
                             }
                         } else {
-                            self.displayToast(message: "Account does not exist in the system", seconds: 2.0)
+                            self.displayToast(message: "The account you're trying to access doesn't exist.", seconds: 2.0)
                             self.mailTxt.text = ""
                             self.passTxt.text = ""
                         }
                     case .failure(let error):
                         print("Error fetching customers: \(error.localizedDescription)")
-                        self.displayToast(message: "Error fetching customer data", seconds: 2.0)
                     }
                 })
             }
