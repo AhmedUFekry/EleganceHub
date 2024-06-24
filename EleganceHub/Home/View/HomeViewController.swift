@@ -420,7 +420,6 @@ extension HomeViewController:ConnectivityProtocol,NetworkStatusProtocol{
             showCountOnCartData()
         }else{
             ConnectivityUtils.showConnectivityAlert(from: self)
-            
         }
     }
     private func isShowViews(){

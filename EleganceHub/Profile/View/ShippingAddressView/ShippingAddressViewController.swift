@@ -27,6 +27,9 @@ class ShippingAddressViewController: UIViewController, UpdateLocationDelegate {
     let viewModel = AddressesViewModel()
     let disposeBag = DisposeBag()
     
+    var networkPresenter :NetworkManager?
+    var isConnected:Bool?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         commenInit()
@@ -37,11 +40,7 @@ class ShippingAddressViewController: UIViewController, UpdateLocationDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        customerID = UserDefaultsHelper.shared.getLoggedInUserID()
-        guard let id = customerID else { return }
-        viewModel.getAllAddresses(customerID: id)
-        loadingObserverSetUp()
-        orderID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.getDraftOrder.rawValue)
+        networkPresenter = NetworkManager(vc: self)
         
         appBar.setUpBtnsThemes()
         
@@ -164,11 +163,11 @@ class ShippingAddressViewController: UIViewController, UpdateLocationDelegate {
         }
         
     }
-    private func handleCartEmptyState(isEmpty: Bool) {
+    private func handleCartEmptyState(isEmpty: Bool,imageName:String) {
         if isEmpty {
             print("Cart is empty")
             //let emptyLabel = UILabel(frame: self.cartTableView.bounds)
-            if let emptyImage = UIImage(named: "emptybox") {
+            if let emptyImage = UIImage(named: imageName) {
                let imageView = UIImageView(image: emptyImage)
                 imageView.contentMode = .center
                imageView.frame = self.tableView.bounds
@@ -183,7 +182,7 @@ class ShippingAddressViewController: UIViewController, UpdateLocationDelegate {
         viewModel.addresses
             .map { $0.isEmpty }
             .subscribe(onNext: { [weak self] isEmpty in
-              self?.handleCartEmptyState(isEmpty: isEmpty)
+              self?.handleCartEmptyState(isEmpty: isEmpty,imageName: "emptybox")
             })
             .disposed(by: disposeBag)
     }
@@ -251,3 +250,45 @@ extension ShippingAddressViewController: UITableViewDelegate {
         itemDeletedSubject.onNext(indexPath)
     }
 }
+
+extension ShippingAddressViewController: ConnectivityProtocol, NetworkStatusProtocol{
+    
+    func networkStatusDidChange(connected: Bool) {
+        isConnected = connected
+        print("networkStatusDidChange called \(isConnected)")
+        checkForConnection()
+    }
+    
+    private func checkForConnection(){
+        guard let isConnected = isConnected else {
+            ConnectivityUtils.showConnectivityAlert(from: self)
+            print("is connect nilllllll")
+            return
+        }
+        if isConnected{
+            getData()
+        }else{
+            //ConnectivityUtils.showConnectivityAlert(from: self)
+            isShowViews()
+        }
+    }
+    
+    private func getData(){
+        customerID = UserDefaultsHelper.shared.getLoggedInUserID()
+        guard let id = customerID else { return }
+        viewModel.getAllAddresses(customerID: id)
+        loadingObserverSetUp()
+        orderID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.getDraftOrder.rawValue)
+    }
+    private func isShowViews(){
+        guard let isConnected = isConnected else {return}
+        activityIndicator.isHidden = true
+        let  isDarkMode = UserDefaultsHelper.shared.isDarkMode()
+        if (isDarkMode && !isConnected){
+            handleCartEmptyState(isEmpty: true, imageName: "no-wifi-light")
+        }else if (!isDarkMode && !isConnected){
+            handleCartEmptyState(isEmpty: true, imageName: "no-wifi")
+        }
+    }
+}
+

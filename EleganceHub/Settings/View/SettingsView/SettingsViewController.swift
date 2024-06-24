@@ -246,7 +246,4 @@ extension SettingsViewController:UIImagePickerControllerDelegate,UINavigationCon
         userEmailTF.text = user.email
         userPhoneTF.text = user.phone
     }
-    
-    
-    
 }

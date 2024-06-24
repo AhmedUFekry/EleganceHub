@@ -70,16 +70,21 @@ class CartViewController: UIViewController {
     }
     
     @IBAction func checkoutBtn(_ sender: UIButton) {
-        if customerID != nil {
-            if draftOrderID != 0 {
-                let locationVC = ShippingAddressViewController()
-                locationVC.isFromCart = true
-                self.navigationController?.pushViewController(locationVC, animated: true)
+        guard let isConnected = self.isConnected else {return}
+        if isConnected {
+            if customerID != nil {
+                if draftOrderID != 0 {
+                    let locationVC = ShippingAddressViewController()
+                    locationVC.isFromCart = true
+                    self.navigationController?.pushViewController(locationVC, animated: true)
+                } else {
+                    self.showAlertError(err: "Your cart is Empty add new items to it to continue buying")
+                }
             } else {
-                self.showAlertError(err: "Your cart is Empty add new items to it to continue buying")
+                self.showAlertError(err: "Please Log in First")
             }
-        } else {
-            self.showAlertError(err: "Please Log in First")
+        }else{
+            ConnectivityUtils.showConnectivityAlert(from: self)
         }
     }
     
@@ -183,8 +188,10 @@ class CartViewController: UIViewController {
             if let emptyImage = UIImage(named: imageName) {
                let imageView = UIImageView(image: emptyImage)
                 imageView.contentMode = .center
+                imageView.contentMode = .scaleToFill
                imageView.frame = self.cartTableView.bounds
                self.cartTableView.backgroundView = imageView
+                //self.view.addSubview(imageView)
            }
             UserDefaultsHelper.shared.clearUserData(key: UserDefaultsConstants.getDraftOrder.rawValue)
             draftOrderID = UserDefaultsHelper.shared.getDataFound(key: UserDefaultsConstants.getDraftOrder.rawValue)
@@ -198,7 +205,7 @@ class CartViewController: UIViewController {
             .distinctUntilChanged()
             .subscribe(onNext: { [weak self] isEmpty in
                 if isEmpty {
-                    self?.handleCartEmptyState(isEmpty: isEmpty,imageName: "emptycart")
+                    self?.handleCartEmptyState(isEmpty: isEmpty,imageName: "emptybox")
                 } else {
                     self?.cartTableView.backgroundView = nil
                 }
@@ -282,7 +289,7 @@ extension CartViewController: ConnectivityProtocol, NetworkStatusProtocol{
         if isConnected{
             getData()
         }else{
-            ConnectivityUtils.showConnectivityAlert(from: self)
+            //ConnectivityUtils.showConnectivityAlert(from: self)
             isShowViews()
         }
     }
@@ -301,7 +308,7 @@ extension CartViewController: ConnectivityProtocol, NetworkStatusProtocol{
                 viewModel.getDraftOrderForUser(orderID: draftOrderID)
            // }
         } else {
-            handleCartEmptyState(isEmpty: true,imageName: "emptycart")
+            handleCartEmptyState(isEmpty: true,imageName: "emptybox")
         }
         rate = UserDefaultsHelper.shared.getDataDoubleFound(key: UserDefaultsConstants.currencyRate.rawValue)
         userCurrency = UserDefaultsHelper.shared.getCurrencyFromUserDefaults().uppercased()
