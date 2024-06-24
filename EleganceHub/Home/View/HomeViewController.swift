@@ -337,7 +337,7 @@ extension HomeViewController: UICollectionViewDataSource,UICollectionViewDelegat
             guard let cell = couponsCollection.cellForItem(at: indexPath) as? CouponsCollectionViewCell else {return}
             if let coppiedText = couponsList?[indexPath.row].discountCode.code {
                 UIPasteboard.general.string = coppiedText
-                Constants.displayAlert(viewController: self, message: "The content has been copied to the clipboard.", seconds: 1.0)
+                Constants.displayAlert(viewController: self, message: "The content has been copied.", seconds: 1.0)
             }
         }
         couponsCollection.deselectItem(at: indexPath, animated: true)
@@ -396,7 +396,6 @@ extension HomeViewController:ConnectivityProtocol,NetworkStatusProtocol{
     
     func networkStatusDidChange(connected: Bool) {
         isConnected = connected
-        print("networkStatusDidChange called \(isConnected)")
         checkForConnection()
     }
     

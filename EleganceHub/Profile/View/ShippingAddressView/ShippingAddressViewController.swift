@@ -114,13 +114,13 @@ class ShippingAddressViewController: UIViewController, UpdateLocationDelegate {
                 if let isDefault = address.addressDefault{
                     if isDeleteItem{
                         if isDefault && isDeleteItem {
-                            Constants.displayAlert(viewController: self, message: "You can't delete your default address", seconds: 1.75)
+                            Constants.displayAlert(viewController: self, message: "You can't delete your default address.", seconds: 1.75)
                         }else{
                             self.viewModel.removeAddress(customerID: id, addressID: addresID)
                         }
                     }else{
                         if isDefault && !isDeleteItem {
-                            Constants.displayAlert(viewController: self, message: "The address is already the default address", seconds: 1.75)
+                            Constants.displayAlert(viewController: self, message: "This address is already set as the default address.", seconds: 1.75)
                         }else{
                             self.viewModel.setAddressAsDefault(customerID: id, addressID: addresID)
                         }
@@ -155,7 +155,7 @@ class ShippingAddressViewController: UIViewController, UpdateLocationDelegate {
     }
     
     private func confirmAlert(selectedAddressIndex: Int) {
-        Constants.showAlertWithAction(on: self, title: "Confirmation", message: "Are you sure you want to ship to this address?", isTwoBtn: true, firstBtnTitle: "NO", actionBtnTitle: "Yes"){ _ in
+        Constants.showAlertWithAction(on: self, title: "Confirm Shipping", message: "Are you sure you want to ship to this address?", isTwoBtn: true, firstBtnTitle: "NO", actionBtnTitle: "Yes"){ _ in
             guard let id = self.orderID else { return }
             if id != 0 {
                 self.viewModel.addAddressToOrder(orderID: id, addressIndex: selectedAddressIndex)
@@ -241,7 +241,7 @@ extension ShippingAddressViewController: UITableViewDelegate {
         }
     }
     func showEdditingConfirmationAlert(completion: @escaping (Bool) -> Void) {
-        Constants.showAlertWithAction(on: self, title: "Confirm Address", message: "Are you sure you want to set this address as default?", isTwoBtn: true, firstBtnTitle: "No", actionBtnTitle: "Yes", style: .default) { confirmed in
+        Constants.showAlertWithAction(on: self, title: "Set Default Address", message: "Are you sure you want to set this address as default?", isTwoBtn: true, firstBtnTitle: "No", actionBtnTitle: "Yes", style: .default) { confirmed in
             self.isDeleteItem = false
             completion(true)
         }

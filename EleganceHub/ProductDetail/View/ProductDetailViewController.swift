@@ -207,10 +207,9 @@ class ProductDetailViewController: UIViewController {
 
     
     @objc private func onFavouriteTapped() {
-        print("onFavouriteTapped called!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 
         guard let customerId = UserDefaultsHelper.shared.getLoggedInUserID() else {
-            Constants.showAlertWithAction(on: self, title: "Login Required", message: "You need to login to access this feature.", isTwoBtn: true, firstBtnTitle: "Cancel", actionBtnTitle: "Login") { [weak self] _ in
+            Constants.showAlertWithAction(on: self, title: "Login Required", message: "You need to login to be able to add items access the favorite.", isTwoBtn: true, firstBtnTitle: "Cancel", actionBtnTitle: "Login") { [weak self] _ in
                 guard let viewController = self else { return }
                 if let newViewController = viewController.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") {
                     newViewController.hidesBottomBarWhenPushed = true
@@ -228,15 +227,11 @@ class ProductDetailViewController: UIViewController {
         
         let isFavorite = FavoriteCoreData.shared.isProductInFavorites(productId: productId, productName: productName)
         if isFavorite {
-            print("???????????????????????")
         
             var favProduct = FavoriteCoreData.shared.fetchFavoriteById(productId: productId)
             if let favoriteProduct = favProduct {
                 let customer_id = favoriteProduct["customer_id"] as? Int ?? 0
-                print("Customer ID from Core Data: \(customer_id)")
-                print("Comparing customerId from UserDefaults (\(customerId)) with customer_id from Core Data (\(customer_id))")
-
-            
+                
                 if customer_id == customerId {
                     removeFromFavorites(productId: productId, customerId: customerId)
                 } else {
@@ -244,10 +239,8 @@ class ProductDetailViewController: UIViewController {
                                 print("No product available to add to favorites.")
                                 return
                             }
-                    print("iiiiiiiiiiiiii product.id  = \(product.id ?? 0)...............")
-                    print("iiiiiiiiiiiiii product id in prv screen = \(product.id ?? 0)...............")
+
                     addToFavorites(product: product, customerId: customerId)
-                    print("should be add to fav.................")
                 }
             } else {
                 print("Error fetching favorite product for ID \(productId).")
@@ -337,7 +330,7 @@ class ProductDetailViewController: UIViewController {
                 viewModel.createNewDraftOrderAndPostNewItem(customerID: customerID!, product: productItem)
             }
         }else{
-            Constants.showAlertWithAction(on: self, title: "Login Required", message: "You need to login to access this feature.", isTwoBtn: true, firstBtnTitle: "Cancel", actionBtnTitle: "Login") { [weak self] _ in
+            Constants.showAlertWithAction(on: self, title: "Login Required", message: "You need to login to be able to add items access the cart.", isTwoBtn: true, firstBtnTitle: "Cancel", actionBtnTitle: "Login") { [weak self] _ in
                 guard let viewController = self else { return }
                 if let newViewController = viewController.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") {
                     newViewController.hidesBottomBarWhenPushed = true
@@ -366,7 +359,7 @@ class ProductDetailViewController: UIViewController {
             }
             UserDefaultsHelper.shared.setIfDataFound(id, key: UserDefaultsConstants.getDraftOrder.rawValue)
             print("Draft order created \(id)")
-            Constants.displayAlert(viewController: self, message: "Product Added To cart Successfully", seconds: 1.0)
+            Constants.displayAlert(viewController: self, message: "Product added to cart Successfully!", seconds: 1.0)
         }, onError: { error in
             print("Error subscribing to draft order: \(error)")
         }).disposed(by: disposeBag)

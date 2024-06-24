@@ -47,9 +47,9 @@ class SignUpViewController: UIViewController {
                     case 201:
                         self?.navigateToLogin()
                     case 422:
-                        self?.displayAlert(title: "", message: "Your request couldn't be processed due to some errors. Please try again Later.", seconds: 3.0)
+                        self?.displayAlert(title: "Your request couldn't be processed due to some errors. Please try again Later.", message: "", seconds: 3.0)
                     case 0:
-                        self?.displayAlert(title: "", message: "Something went wrong, Please check your information and try again.", seconds: 3.0)
+                        self?.displayAlert(title: "Something went wrong, Please check your information and try again.", message: "", seconds: 3.0)
                     default:
                         self?.displayAlert(title: "Something went wrong", message: "Unable to sign up due to an error, Please try again.", seconds: 3.0)
                     }
@@ -69,18 +69,17 @@ class SignUpViewController: UIViewController {
                 let email = emailTxt.text, !email.isEmpty,
                 let password = passwordTxt.text, !password.isEmpty,
                 let confirmPassword = confirmPasswordTxt.text, !confirmPassword.isEmpty else {
-            displayAlert(title: "", message: "Please fill all fields", seconds: 2.0)
+            displayAlert(title: "Please fill all fields", message: "", seconds: 2.0)
             return
         }
             
         guard isValidPhone(phone) else {
-            displayAlert(title: "", message: "Please enter a valid phone number", seconds: 2.0)
-            phoneTxt.text = ""
+            displayAlert(title: "Please enter a valid phone number", message: "", seconds: 2.0)
             return
         }
             
         guard password == confirmPassword else {
-            displayAlert(title: "", message: "Passwords do not match", seconds: 2.0)
+            displayAlert(title: "Passwords do not match", message: "", seconds: 2.0)
             passwordTxt.text = ""
             confirmPasswordTxt.text = ""
             return
@@ -125,13 +124,21 @@ class SignUpViewController: UIViewController {
     }
         
     private func sendVerificationEmail(user: FirebaseAuth.User) {
-        user.sendEmailVerification { error in
+        self.fNameTxt.text = ""
+        self.lNameTxt.text = ""
+        self.phoneTxt.text = ""
+        self.emailTxt.text = ""
+        self.passwordTxt.text = ""
+        self.confirmPasswordTxt.text = ""
+        
+        user.sendEmailVerification { [self] error in
             if let error = error {
-                self.displayAlert(title: "", message: "Something went wrong while sending verification email.", seconds: 2.0)
+                self.displayAlert(title: "Oops", message: "Something went wrong while sending verification email.", seconds: 2.0)
                 return
             }
             self.displayAlert(title: "Verification email sent", message: "Please check your inbox.", seconds: 2.0)
             //self.navigateToLogin()
+            
         }
     }
         
@@ -147,13 +154,7 @@ class SignUpViewController: UIViewController {
         if let loginViewController = storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController {
             navigationController?.pushViewController(loginViewController, animated: true)
         }
-        self.displayAlert(title: "", message: "User signed up successfully", seconds: 1.0)
-       fNameTxt.text = ""
-       lNameTxt.text = ""
-       phoneTxt.text = ""
-        emailTxt.text = ""
-        passwordTxt.text = ""
-        confirmPasswordTxt.text = ""
+        
         
     }
         
