@@ -157,3 +157,29 @@ enum MyError: Error {
     case errorAtCopuns
 }
 
+extension ProductDetailViewModelProtocol: ConnectivityProtocol, NetworkStatusProtocol{
+    
+    func networkStatusDidChange(connected: Bool) {
+        isConnected = connected
+        print("networkStatusDidChange called \(isConnected)")
+        checkForConnection()
+    }
+    
+    private func checkForConnection(){
+        guard let isConnected = isConnected else {
+            ConnectivityUtils.showConnectivityAlert(from: self)
+            print("is connect nilllllll")
+            return
+        }
+        if isConnected{
+            getData()
+        }else{
+           // ConnectivityUtils.showConnectivityAlert(from: self)
+        }
+    }
+    
+    private func getData(){
+        checkForUser()
+    }
+ 
+}

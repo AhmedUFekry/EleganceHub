@@ -137,6 +137,12 @@ extension ProfileViewController:UITableViewDataSource,UITableViewDelegate{
         if isConnected{
             if(UserDefaultsHelper.shared.isDataFound(key: UserDefaultsConstants.isLoggedIn.rawValue)){
                 switch(cellData[indexPath.row].navigationId){
+                case "fav":
+                    if let favoriteViewController = storyboard?.instantiateViewController(withIdentifier: "FavoriteViewController") as? FavoriteViewController {
+                        navigationController?.pushViewController(favoriteViewController, animated: true)
+                    } else {
+                        print("Failed to instantiate FavoriteViewController")
+                    }
                 case "currency":
                     let alertController = UIAlertController(title: "Select Currency", message: nil, preferredStyle: .actionSheet)
                     let currencies = ["USD", "EGP", "EUR"]
@@ -169,12 +175,7 @@ extension ProfileViewController:UITableViewDataSource,UITableViewDelegate{
                     
                     let OrdersViewController =  self.storyboard?.instantiateViewController(withIdentifier: "OrdersViewController") as? OrdersViewController
                     self.navigationController?.pushViewController(OrdersViewController!, animated: true)
-                case "fav":
-                    if let favoriteViewController = storyboard?.instantiateViewController(withIdentifier: "FavoriteViewController") as? FavoriteViewController {
-                        navigationController?.pushViewController(favoriteViewController, animated: true)
-                    } else {
-                        print("Failed to instantiate FavoriteViewController")
-                    }
+              
                 case "aboutUs":
                     guard let aboutUsViewController = self.storyboard?.instantiateViewController(withIdentifier: "AboutUsViewController")
                     else { return
@@ -210,6 +211,12 @@ extension ProfileViewController:UITableViewDataSource,UITableViewDelegate{
                     print("Failed to instantiate FavoriteViewController")
                 }
                 navigationController?.pushViewController(aboutUsViewController, animated: true)
+            case "fav":
+                if let favoriteViewController = storyboard?.instantiateViewController(withIdentifier: "FavoriteViewController") as? FavoriteViewController {
+                    navigationController?.pushViewController(favoriteViewController, animated: true)
+                } else {
+                    print("Failed to instantiate FavoriteViewController")
+                }
             default:
                 ConnectivityUtils.showConnectivityAlert(from: self)
             }
@@ -237,7 +244,7 @@ extension ProfileViewController: ConnectivityProtocol, NetworkStatusProtocol{
         if isConnected{
             getData()
         }else{
-            ConnectivityUtils.showConnectivityAlert(from: self)
+           // ConnectivityUtils.showConnectivityAlert(from: self)
         }
     }
     
